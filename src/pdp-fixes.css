@@ -553,6 +553,14 @@
   letter-spacing: 0.02em !important;
 }
 
+/* Global Font Unification (Avenir and Amstir only) */
+body, button, input, select, textarea, span, p, li, td, th, b, strong, dl, dt, dd {
+  font-family: Avenir, Figtree, sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6, .promise, .kicker, .comparison-v3__intro h2, .heritage h2 {
+  font-family: Amstir, Georgia, serif !important;
+}
+
 /* 2. Full-Bleed Section Container Padding Calculations (Images 1, 2, 3) */
 section.statement,
 section.comparison-v3,
@@ -586,7 +594,7 @@ section.comparison-v3 {
   background-color: #f8f3ed !important;
 }
 section.adapted-ritual {
-  background-color: #121a11 !important;
+  background-color: #faf7f2 !important; /* Image 1: Light cream background to ensure high readability */
 }
 section.adapted-reviews {
   background-color: #efe6dc !important;
@@ -604,74 +612,98 @@ section.confidence-strip {
   background-color: #39461d !important;
 }
 
-/* Standardized Content Centering Wrapper */
-.statement-inner,
-.reviews-inner,
-.faq-inner,
-.ritual-inner,
-.pack-inner,
-.heritage-inner,
-.confidence-inner {
-  width: 100% !important;
-  max-width: 1440px !important;
-  margin-inline: auto !important;
-  padding-left: clamp(20px, 4vw, 58px) !important;
-  padding-right: clamp(20px, 4vw, 58px) !important;
-  padding-inline: clamp(20px, 4vw, 58px) !important;
-  box-sizing: border-box !important;
-}
-
 /* Adjustments to default layout elements within sections */
 .faq-list {
   max-width: 1080px !important;
   margin-inline: auto !important;
 }
 
-/* Grid & Spacing configurations for Inner Wrappers */
-.statement-inner {
-  display: grid !important;
-  grid-template-columns: 1.1fr 1.9fr !important;
-  gap: clamp(24px, 4vw, 64px) !important;
-  padding-block: clamp(52px, 8vw, 110px) !important;
+/* Tabs selector style updates with corner overflow clipping */
+.story-gallery .story-selector {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  background: #faf7f2 !important;
+  border-top: 1px solid rgba(57, 70, 29, 0.12) !important;
+  border-bottom: none !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 0 16px 16px !important;
+  overflow: hidden !important; /* Clips rectangular buttons to rounded selector border corners */
 }
 
-.reviews-inner {
-  display: grid !important;
-  grid-template-columns: 1fr 1.25fr !important;
-  gap: 10vw !important;
-  padding-block: clamp(72px, 10vw, 140px) !important;
-}
-
-.faq-inner {
-  max-width: 1080px !important;
-  margin-inline: auto !important;
-  padding-block: clamp(72px, 10vw, 140px) !important;
-}
-
-.ritual-inner {
-  display: grid !important;
-  grid-template-columns: 1fr 1.3fr !important;
-  gap: 10vw !important;
-  padding-block: clamp(72px, 10vw, 140px) !important;
-}
-
-.pack-inner {
-  padding-block: clamp(50px, 6vw, 90px) !important;
-}
-
-.heritage-inner {
-  display: grid !important;
-  grid-template-columns: 1fr 2fr 1fr !important;
-  gap: 5vw !important;
-  align-items: end !important;
-  padding-block: 70px !important;
-}
-
-.confidence-inner {
-  display: flex !important;
-  justify-content: space-between !important;
+.story-gallery .story-selector button {
+  background: #faf7f2 !important;
+  border: none !important;
+  border-right: 1px solid rgba(57, 70, 29, 0.12) !important;
+  min-height: 72px !important;
+  padding: 10px 4px !important;
   align-items: center !important;
-  padding-block: 22px !important;
+  justify-content: center !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+.story-gallery .story-selector button:last-child {
+  border-right: none !important;
+}
+
+.story-gallery .story-selector button.selected {
+  background: #ffffff !important;
+}
+
+.story-gallery .story-selector button::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  background: #954721 !important;
+  transform: scaleX(0) !important;
+  transform-origin: left !important;
+  transition: transform 200ms ease !important;
+}
+
+.story-gallery .story-selector button.selected::before {
+  transform: scaleX(1) !important;
+}
+
+.story-gallery .story-selector button span {
+  color: #954721 !important; /* Orange number */
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  margin-bottom: 2px !important;
+}
+
+.story-gallery .story-selector button b {
+  color: #39461d !important; /* Dark green text */
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  font-family: Avenir, sans-serif !important;
+}
+
+/* Image 3: Remove internal spacing on left, right, top of hero image and adjust grid rows to prevent overlaps */
+.checkpoint-hero .story-gallery {
+  padding: 0 !important; /* Remove top, left, right, bottom padding */
+  grid-template-rows: 1fr auto auto !important; /* Auto-height rows prevent visual clutter/overlap */
+  max-height: none !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  background: #faf7f2 !important;
+}
+
+.checkpoint-hero .story-frame {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+  border-radius: 0 !important; /* Let parent story-gallery handle corner clipping via overflow:hidden */
+}
+
+.checkpoint-hero .story-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
 }
 
 /* 3. Formula Section Spacing Center-Alignment (Image 3 Style) */
@@ -915,6 +947,94 @@ section.formula.adapted-formula {
   transform: translateY(-2px) !important;
 }
 
+/* Image 2: Heritage Section Unique Layout Styling */
+.heritage-metrics {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  width: 100% !important;
+  margin-block: 28px !important;
+}
+
+.heritage-metrics > div {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(204, 165, 78, 0.18) !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.heritage-metrics > div:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(204, 165, 78, 0.4) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25) !important;
+}
+
+.heritage-metrics strong {
+  font-family: Avenir, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(28px, 3.2vw, 46px) !important;
+  background: linear-gradient(135deg, #f5dc96 0%, #cca54e 50%, #9e7a2b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  margin-bottom: 6px !important;
+}
+
+.heritage-metrics span {
+  color: rgba(239, 230, 220, 0.8) !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  font-family: Avenir, sans-serif !important;
+}
+
+/* Image 4: Confidence Strip Luxury Layout & High Contrast */
+section.confidence-strip {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  align-items: center !important;
+  min-height: 104px !important;
+  text-align: center !important;
+  background-color: #39461d !important;
+  padding-block: 22px !important;
+}
+
+section.confidence-strip > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+section.confidence-strip > div:last-child {
+  border-right: none !important;
+}
+
+section.confidence-strip strong {
+  color: #cca54e !important; /* Gold metrics */
+  font-family: Avenir, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 24px !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 4px !important;
+}
+
+section.confidence-strip span {
+  color: rgba(239, 230, 220, 0.8) !important;
+  font-size: 12px !important;
+  font-family: Avenir, sans-serif !important;
+}
+
 /* ==========================================================================
    DYNAMIC VISUALS & PREMIUM INTERACTIVE ANIME (Vibrant, Responsive Feel)
    ========================================================================== */
@@ -937,10 +1057,10 @@ section.formula.adapted-formula {
 }
 
 /* Confidence Strip metrics scale */
-.confidence-strip > div > div {
+section.confidence-strip > div {
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
-.confidence-strip > div > div:hover {
+section.confidence-strip > div:hover {
   transform: scale(1.05) translateY(-2px) !important;
 }
 
@@ -1067,36 +1187,31 @@ section.formula.adapted-formula {
     padding-top: 60px !important;
   }
 
-  .reviews-inner {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-    padding-block: 78px !important;
-  }
-
-  .faq-inner {
-    padding-block: 50px !important;
-  }
-
-  .ritual-inner {
-    grid-template-columns: 1fr !important;
-    gap: 35px !important;
-    padding-block: 78px !important;
-  }
-
-  .heritage-inner {
-    grid-template-columns: 1fr !important;
-    gap: 8px !important;
-    padding-block: 55px !important;
-  }
-
-  .confidence-inner {
-    flex-direction: column !important;
-    gap: 12px !important;
-    text-align: center !important;
-    padding-block: 18px !important;
-  }
-
   .comparison-v3__swipe-tip {
     display: block !important;
+  }
+
+  section.confidence-strip {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding-block: 32px !important;
+    min-height: auto !important;
+  }
+  section.confidence-strip > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding-bottom: 16px !important;
+  }
+  section.confidence-strip > div:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .heritage-metrics {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .heritage-metrics > div {
+    padding: 16px !important;
   }
 }
