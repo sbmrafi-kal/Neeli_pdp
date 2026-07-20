@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neelibhringadi Keram — Step 4 visual direction</title>
+    <link rel="stylesheet" href="/planning/mockups/step4-mockup.css" />
+  </head>
+  <body>
+    <div class="concept-label">Step 04 · Clinical editorial warmth</div>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" />
+        <button class="search-toggle" type="button" aria-label="Open search" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 4 4"/></svg>
+        </button>
+        <form class="mock-search" role="search" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 4 4"/></svg><label for="mock-search-input">Search this product page</label><input id="mock-search-input" placeholder="Search results, ingredients, how to use…"/><button class="mock-search-submit">Search</button><button class="mock-search-close" type="button" aria-label="Close search">×</button></form>
+      </header>
+
+      <nav class="product-nav" aria-label="Product sections">
+        <a class="active" href="#">Overview</a>
+        <a href="#">Results</a>
+        <a href="#">Formula</a>
+        <a href="#">How to use</a>
+        <a href="#">Reviews</a>
+      </nav>
+
+      <main>
+        <section class="hero">
+          <div class="identity">
+            <p class="overline">Complete hair recovery</p>
+            <h1>Neelibhringadi<br class="desktop-only"/> Keram</h1>
+            <p class="proposition">Helps minimise hair fall.<br/>Supports hair growth.</p>
+            <a class="rating" href="#"><strong>4.7</strong><span>★★★★★</span><u>137 reviews</u></a>
+            <div class="identity-rule"></div>
+            <p class="identity-note">200 ml · External use only</p>
+          </div>
+
+          <div class="story-stage">
+            <div class="story-media">
+              <img src="/assets/gallery/neeli-1.png" alt="Neelibhringadi Keram with Amla, Neeli, Bhringaraj and coconut" />
+              <div class="story-counter"><span>01</span><i></i><span>07</span></div>
+              <div class="story-arrows"><button aria-label="Previous frame">←</button><button aria-label="Next frame">→</button></div>
+            </div>
+            <div class="story-caption"><span>01</span><div><small>Product proposition</small><strong>One complete hair recovery oil</strong></div></div>
+            <div class="frame-rail" aria-label="Gallery frames">
+              <button class="selected"><span>01</span><b>Oil</b></button>
+              <button><span>02</span><b>Two wins</b></button>
+              <button><span>03</span><b>Ingredients</b></button>
+              <button><span>04</span><b>Three milks</b></button>
+              <button><span>05</span><b>Results</b></button>
+              <button><span>06</span><b>Ritual</b></button>
+              <button><span>07</span><b>Craft</b></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="confidence" aria-label="Product confidence">
+          <div><strong>4.7 / 5</strong><span>from 137 reviews</span></div>
+          <div><strong>40,000+</strong><span>bought this year</span></div>
+          <div><strong>Since 1945</strong><span>rooted in authentic Ayurveda</span></div>
+        </section>
+
+        <section class="next-story">
+          <p class="overline">Two complementary actions</p>
+          <h2>Reduce the fall.<br/>Support the growth.</h2>
+          <div class="win-index"><span>01</span><p>Helps minimise hair fall</p><span>02</span><p>Supports hair growth</p></div>
+        </section>
+      </main>
+
+      <aside class="purchase" aria-label="Purchase Neelibhringadi Keram">
+        <div class="purchase-name"><span>Neelibhringadi Keram · 200 ml</span><div><strong>₹338</strong><del>₹375</del><em>10% off</em></div></div>
+        <button>Add to cart</button>
+      </aside>
+    </div>
+
+    <script>
+      document.body.dataset.view = new URLSearchParams(location.search).get('view') || 'desktop';
+      const header = document.querySelector('.site-header');
+      const toggle = document.querySelector('.search-toggle');
+      const search = document.querySelector('.mock-search');
+      const input = document.querySelector('#mock-search-input');
+      const close = document.querySelector('.mock-search-close');
+      const openSearch = () => { search.hidden = false; header.classList.add('searching'); toggle.setAttribute('aria-expanded', 'true'); requestAnimationFrame(() => input.focus()); };
+      const closeSearch = () => { header.classList.remove('searching'); search.hidden = true; toggle.setAttribute('aria-expanded', 'false'); toggle.focus(); };
+      toggle.addEventListener('click', openSearch);
+      close.addEventListener('click', closeSearch);
+      search.addEventListener('submit', event => event.preventDefault());
+      addEventListener('keydown', event => { if (event.key === 'Escape' && !search.hidden) closeSearch(); });
+    </script>
+  </body>
+</html>

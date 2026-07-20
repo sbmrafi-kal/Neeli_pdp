@@ -1,0 +1,20 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './styles.css';
+import './responsive-fixes.css';
+import './checkpoint-five.css';
+import './step6-adapt.css';
+import './step7-close.css';
+import './step8-polish.css';
+import './production-imagery.css';
+import './final-polish.css';
+import './score-lift.css';
+import './v2/science-recovery-story.css';
+import './v2/recovery-comparison.css';
+import './v2/v2-integration.css';
+import './v3/comparison-v3.css';
+import './pdp-redesign-v3.css';
+import './pdp-fixes.css';
+
+createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);

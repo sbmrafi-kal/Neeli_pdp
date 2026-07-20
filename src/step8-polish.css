@@ -1,0 +1,185 @@
+/* Step 8 — one restrained interaction language, followed by final audit polish. */
+
+:root { --ka-clay-wash: #e2d4c7; }
+
+.search-submit-mobile { display: none; }
+
+.anchorbar .standard-nav-link,
+.identity-rating {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.adapted-reviews { background: var(--ka-clay-wash); }
+
+@media (max-width: 800px) and (min-height: 501px) {
+  .anchorbar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    padding: 0 4px;
+    overflow: visible;
+    overscroll-behavior-inline: auto;
+    scroll-snap-type: none;
+  }
+
+  .anchorbar .standard-nav-link {
+    min-width: 0;
+    min-height: 44px;
+    justify-content: center;
+    padding: 0 2px;
+    font-size: clamp(10px, 2.9vw, 12px);
+    letter-spacing: 0;
+    line-height: 1.05;
+    text-align: center;
+    scroll-snap-align: none;
+  }
+
+  .header-search {
+    grid-template-columns: 24px minmax(0, 1fr) 44px 40px;
+  }
+
+  .search-submit {
+    min-width: 44px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+  }
+
+  .search-submit-desktop { display: none; }
+  .search-submit-mobile { display: inline; }
+}
+
+/* Keep search operable when a mobile software keyboard reduces viewport height. */
+@media (max-width: 699px) {
+  .header-search {
+    grid-template-columns: 24px minmax(0, 1fr) 44px 40px;
+  }
+
+  .search-submit {
+    min-width: 44px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+  }
+
+  .search-submit-desktop { display: none; }
+  .search-submit-mobile { display: inline; }
+
+  .purchase {
+    min-height: 78px;
+    display: grid;
+    grid-template-columns: 102px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+  }
+
+  .purchase > .quantity {
+    grid-column: 2;
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 44px 34px 44px minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .purchase .viewbag {
+    min-width: 0;
+    min-height: 54px;
+    margin-left: 8px;
+    padding-inline: 8px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .purchase {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 8px;
+    padding-inline: 8px;
+  }
+
+  .purchase-product > div { gap: 0 4px; }
+  .purchase-product strong { font-size: 19px; }
+  .purchase-product del { font-size: 12px; }
+
+  .purchase > .quantity {
+    grid-template-columns: 44px 24px 44px minmax(0, 1fr);
+  }
+
+  .purchase .viewbag {
+    margin-left: 6px;
+    padding-inline: 6px;
+  }
+
+  .viewbag-total { display: none; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 700px) {
+  .anchorbar > .standard-nav-link { display: none; }
+}
+
+.motion-ready .motion-reveal {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+}
+
+.motion-ready .motion-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 480ms var(--ease-standard),
+    transform 480ms var(--ease-standard);
+}
+
+.anchorbar a::after {
+  transform-origin: left center;
+  animation: nav-mark-in 220ms var(--ease-standard) both;
+}
+
+.ingredient-entry.active .ingredient-copy,
+.faq-list article.open .faq-answer {
+  animation: utility-open 220ms var(--ease-standard) both;
+}
+
+.faq-list button > i {
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.faq-list article.open button > i {
+  transform: rotate(180deg);
+}
+
+@keyframes nav-mark-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes utility-open {
+  from { opacity: 0; transform: translate3d(0, -5px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ready .motion-reveal,
+  .motion-ready .motion-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .anchorbar a::after,
+  .ingredient-entry.active .ingredient-copy,
+  .faq-list article.open .faq-answer {
+    animation: none;
+  }
+
+  .faq-list button > i { transition: none; }
+}

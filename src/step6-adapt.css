@@ -1,0 +1,417 @@
+:root {
+  --section-inline: max(24px, calc((100vw - 1440px) / 2 + 58px));
+}
+
+.adapted-results,
+.adapted-formula,
+.adapted-ritual {
+  padding: clamp(88px, 9vw, 132px) var(--section-inline);
+}
+
+.adapted-results h2,
+.adapted-formula h2,
+.adapted-ritual h2 {
+  margin: 9px 0 0;
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: .98;
+}
+
+/* Results — continuous evidence sequence on wide screens. */
+.adapted-results {
+  background: var(--ka-paper-050);
+}
+
+.results-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(280px, 7fr);
+  align-items: end;
+  gap: clamp(40px, 8vw, 120px);
+}
+
+.results-intro > p {
+  max-width: 38ch;
+  margin: 0 0 5px;
+  color: var(--ka-herb-600);
+  font-size: 14px;
+}
+
+.results-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 3fr) minmax(0, 9fr);
+  gap: clamp(38px, 6vw, 86px);
+  margin-top: clamp(52px, 6vw, 82px);
+}
+
+.results-media {
+  min-width: 0;
+  margin: 0;
+}
+
+.results-media > div {
+  height: 100%;
+  min-height: 410px;
+  overflow: hidden;
+  background: var(--ka-ksheera-100);
+}
+
+.results-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transform: translateX(-42%) scale(3.4);
+  transform-origin: 0 62%;
+}
+
+.results-media figcaption,
+.formula-material figcaption,
+.formula-method figcaption,
+.ritual-media figcaption {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding-top: 11px;
+  color: var(--ka-herb-600);
+  font-size: 11px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.results-sequence {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: stretch;
+}
+
+.results-sequence article {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 46px auto;
+  align-content: start;
+  padding-right: clamp(20px, 3vw, 44px);
+}
+
+.result-marker {
+  display: flex;
+  align-items: center;
+}
+
+.result-marker b {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--ka-agni-600);
+  background: var(--ka-paper-050);
+  color: var(--ka-agni-600);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.result-marker i {
+  width: 100%;
+  height: 1px;
+  background: var(--ka-agni-600);
+  opacity: .65;
+}
+
+.results-sequence article:last-child .result-marker i { opacity: .18; }
+
+.results-sequence article > div:last-child { padding: 25px 16px 0 0; }
+.results-sequence span { color: var(--ka-agni-600); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.results-sequence h3 { max-width: 11ch; margin: 9px 0 13px; font-family: Avenir, sans-serif; font-size: clamp(22px, 2vw, 29px); line-height: 1.08; letter-spacing: -.03em; }
+.results-sequence p { max-width: 34ch; margin: 0; color: var(--ka-herb-600); font-size: 14px; line-height: 1.55; }
+
+.results-qualification {
+  margin: 24px 0 0 calc(25% + clamp(38px, 6vw, 86px));
+  color: var(--ka-herb-600);
+  font-size: 11px;
+}
+
+/* Formula — two-column material story and ingredient explorer. */
+.adapted-formula {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(54px, 8vw, 124px);
+  background: var(--ka-tulsi-700);
+  color: var(--ka-ksheera-100);
+}
+
+.formula-heading > p:last-child {
+  max-width: 50ch;
+  margin: 28px 0 0;
+  color: rgba(239, 230, 220, .76);
+  font-size: 15px;
+}
+
+.formula-editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.formula-material,
+.formula-method {
+  min-width: 0;
+  margin: 0;
+}
+
+.formula-material > div,
+.formula-method > div {
+  position: relative;
+  overflow: hidden;
+  background: var(--ka-ksheera-100);
+}
+
+.formula-material > div { aspect-ratio: 4 / 5; }
+.formula-method { margin-top: 26px; }
+.formula-method > div { aspect-ratio: 16 / 7; }
+
+.formula-material img,
+.formula-method img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.ingredients-material img { transform: scale(1.8); transform-origin: 66% 62%; }
+.milks-material img { transform: scale(1.72); transform-origin: 16% 58%; }
+.formula-method img { transform: scale(1.5); transform-origin: 10% 53%; }
+
+.adapted-formula figcaption { color: rgba(239, 230, 220, .68); }
+
+.ingredient-explorer {
+  align-self: start;
+  padding-top: 5px;
+}
+
+.ingredient-heading {
+  min-height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.ingredient-heading span { color: var(--ka-rasa-500); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.ingredient-heading p { margin: 0; color: rgba(239, 230, 220, .62); font-size: 12px; }
+
+.ingredient-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(239, 230, 220, .26);
+  border-left: 1px solid rgba(239, 230, 220, .26);
+}
+
+.ingredient-entry {
+  min-width: 0;
+  border-right: 1px solid rgba(239, 230, 220, .26);
+  border-bottom: 1px solid rgba(239, 230, 220, .26);
+}
+
+.ingredient-entry button,
+.ingredient-label {
+  width: 100%;
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: 30px 1fr 24px;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ingredient-entry button > span,
+.ingredient-label > span { color: var(--ka-rasa-500); font-size: 10px; }
+.ingredient-label { grid-template-columns: 30px 1fr; cursor: default; }
+.ingredient-entry h3 { margin: 0; font-family: Avenir, sans-serif; font-size: 19px; line-height: 1.08; letter-spacing: -.02em; }
+.ingredient-entry button > b { justify-self: end; font-size: 18px; font-weight: 400; }
+
+.ingredient-copy {
+  display: block;
+  min-height: 110px;
+  padding: 0 22px 24px 54px;
+}
+
+.ingredient-copy p { margin: 0; color: rgba(239, 230, 220, .72); font-size: 13px; line-height: 1.5; }
+
+.full-ingredients {
+  border-bottom: 1px solid rgba(239, 230, 220, .28);
+}
+
+.full-ingredients summary {
+  min-height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: Avenir, sans-serif;
+  font-size: 14px;
+}
+
+.full-ingredients summary::marker { content: ''; }
+.full-ingredients summary span { font-size: 20px; font-weight: 400; }
+.full-ingredients > p { max-width: 62ch; margin: 0 0 26px; color: rgba(239, 230, 220, .76); font-size: 13px; line-height: 1.6; }
+
+/* Ritual — image-led routine, expanded on desktop and compact on touch screens. */
+.adapted-ritual {
+  display: grid;
+  grid-template-columns: minmax(260px, 3.5fr) minmax(320px, 4.5fr) minmax(270px, 4fr);
+  align-items: start;
+  gap: clamp(38px, 5vw, 78px);
+  background: var(--ka-ksheera-100);
+}
+
+.ritual-intro > p:last-child { max-width: 39ch; margin: 28px 0 0; color: var(--ka-herb-600); font-size: 14px; }
+.ritual-media { min-width: 0; margin: 0; }
+.ritual-media > div { aspect-ratio: 3 / 4; overflow: hidden; background: var(--ka-clay-400); }
+.ritual-media img { width: 100%; height: 100%; display: block; object-fit: cover; transform: scale(2.02); transform-origin: 100% 56%; }
+
+.ritual-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-divider);
+}
+
+.ritual-steps li {
+  min-height: 130px;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.ritual-steps li > span { color: var(--ka-agni-600); font-size: 11px; font-variant-numeric: tabular-nums; }
+.ritual-steps b { font-family: Avenir, sans-serif; font-size: 23px; line-height: 1; }
+.ritual-steps p { max-width: 34ch; margin: 8px 0 0; color: var(--ka-herb-600); font-size: 13px; line-height: 1.48; }
+
+.ritual-note {
+  grid-column: 3;
+  margin: -24px 0 0;
+  padding: 15px 0;
+  border-top: 1px solid var(--ka-agni-600);
+  color: var(--ka-agni-600);
+  font-size: 12px;
+}
+
+@media (min-width: 700px) and (max-width: 1023px) {
+  :root { --section-inline: 30px; }
+  .adapted-results, .adapted-formula, .adapted-ritual { padding-block: 92px; }
+  .adapted-results h2, .adapted-formula h2, .adapted-ritual h2 { font-size: 52px; }
+
+  .results-layout { grid-template-columns: minmax(240px, .85fr) minmax(0, 1.15fr); gap: 44px; }
+  .results-sequence { grid-template-columns: 1fr; }
+  .results-sequence article { grid-template-columns: 46px 1fr; grid-template-rows: auto; padding: 0; }
+  .result-marker { height: 100%; align-items: start; flex-direction: column; }
+  .result-marker i { width: 1px; height: 100%; margin-left: 18px; }
+  .results-sequence article > div:last-child { padding: 2px 0 28px 14px; }
+  .results-sequence h3 { margin-block: 6px 8px; font-size: 23px; }
+  .results-qualification { margin-left: calc(42.5% + 44px); }
+
+  .adapted-formula { gap: 54px; }
+  .formula-editorial { margin-top: 36px; }
+  .formula-material > div { aspect-ratio: 1; }
+  .formula-method > div { aspect-ratio: 4 / 3; }
+  .ingredient-entry button, .ingredient-label { min-height: 82px; padding: 12px; }
+  .ingredient-entry h3 { font-size: 17px; }
+  .ingredient-copy { min-height: 126px; padding: 0 15px 20px 44px; }
+
+  .adapted-ritual { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+  .ritual-intro { grid-column: 1; }
+  .ritual-media { grid-column: 1; grid-row: 2; }
+  .ritual-steps { grid-column: 2; grid-row: 1 / span 2; }
+  .ritual-note { grid-column: 2; grid-row: 3; margin-top: -38px; }
+}
+
+@media (max-width: 699px) {
+  :root { --section-inline: 20px; }
+
+  .adapted-results,
+  .adapted-formula,
+  .adapted-ritual {
+    padding: 76px var(--section-inline);
+  }
+
+  .adapted-results h2,
+  .adapted-formula h2,
+  .adapted-ritual h2 {
+    font-size: clamp(39px, 11vw, 46px);
+  }
+
+  .results-intro { grid-template-columns: 1fr; gap: 18px; }
+  .results-intro > p { margin: 0; font-size: 13px; }
+  .results-layout { grid-template-columns: 1fr; gap: 38px; margin-top: 38px; }
+  .results-media > div { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
+  .results-media img { transform: translateX(-42%) scale(3.45); }
+  .results-media figcaption { min-height: 36px; }
+
+  .results-sequence { grid-template-columns: 1fr; }
+  .results-sequence article { grid-template-columns: 48px 1fr; grid-template-rows: auto; padding: 0; }
+  .result-marker { height: 100%; align-items: start; flex-direction: column; }
+  .result-marker b { width: 36px; height: 36px; flex-basis: 36px; }
+  .result-marker i { width: 1px; height: 100%; margin-left: 17px; }
+  .results-sequence article > div:last-child { padding: 1px 0 34px 12px; }
+  .results-sequence article:last-child > div:last-child { padding-bottom: 6px; }
+  .results-sequence span { font-size: 10px; }
+  .results-sequence h3 { max-width: none; margin: 6px 0 8px; font-size: 23px; }
+  .results-sequence p { font-size: 13px; line-height: 1.5; }
+  .results-qualification { margin: 26px 0 0 48px; font-size: 10px; }
+
+  .adapted-formula { grid-template-columns: 1fr; gap: 66px; }
+  .formula-heading > p:last-child { margin-top: 22px; font-size: 14px; }
+  .formula-editorial { gap: 8px; margin-top: 34px; }
+  .formula-material > div { aspect-ratio: 4 / 5; }
+  .formula-material figcaption { min-height: 48px; align-items: flex-start; padding-top: 9px; font-size: 9px; }
+  .formula-method { margin-top: 8px; }
+  .formula-method > div { aspect-ratio: 16 / 8; }
+
+  .ingredient-heading { align-items: flex-end; margin-bottom: 12px; }
+  .ingredient-heading p { max-width: 16ch; text-align: right; font-size: 10px; }
+  .ingredient-entry button { min-height: 102px; grid-template-columns: 1fr 20px; grid-template-rows: auto auto; align-content: center; gap: 7px; padding: 15px; }
+  .ingredient-entry button > span { grid-column: 1; }
+  .ingredient-entry h3 { grid-column: 1; font-size: 17px; }
+  .ingredient-entry button > b { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .ingredient-entry button > b { display: block; }
+  .ingredient-copy { display: none; }
+  .ingredient-entry.active { grid-column: 1 / -1; background: rgba(239, 230, 220, .055); }
+  .ingredient-entry.active .ingredient-copy { display: block; min-height: 0; padding: 0 52px 24px 15px; }
+  .full-ingredients summary { min-height: 70px; }
+
+  .adapted-ritual { grid-template-columns: 1fr; gap: 34px; }
+  .ritual-intro > p:last-child { margin-top: 22px; font-size: 13px; }
+  .ritual-media > div { aspect-ratio: 4 / 5; }
+  .ritual-media img { transform: scale(2.08); }
+  .ritual-media figcaption { min-height: 36px; }
+  .ritual-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 1px solid var(--color-divider); }
+  .ritual-steps li { min-height: 170px; display: block; padding: 18px 15px; border-right: 1px solid var(--color-divider); }
+  .ritual-steps li > span { display: block; margin-bottom: 24px; }
+  .ritual-steps b { font-size: 21px; }
+  .ritual-steps p { margin-top: 7px; font-size: 12px; line-height: 1.42; }
+  .ritual-note { grid-column: 1; margin: -10px 0 0; }
+}
+
+@media (max-width: 360px) {
+  .adapted-results, .adapted-formula, .adapted-ritual { padding-inline: 16px; }
+  .ingredient-entry button { padding-inline: 12px; }
+  .ritual-steps li { min-height: 182px; padding-inline: 12px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 700px) {
+  .adapted-results, .adapted-formula, .adapted-ritual { padding-block: 72px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ingredient-entry { scroll-behavior: auto; }
+}

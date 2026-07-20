@@ -1,0 +1,177 @@
+/* Approved Higgsfield imagery integration. Frame 02 was intentionally removed. */
+
+.story-selector { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+.story-image-picture,
+.results-media picture,
+.formula-material picture,
+.formula-method picture,
+.ritual-media picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.results-media > div,
+.ritual-media > div { position: relative; }
+
+.story-frame .story-image {
+  object-position: center;
+  transform: scale(1.01);
+  transition: transform 700ms var(--ease-standard);
+}
+
+.story-motion-shell {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--ka-clay-400);
+}
+
+.story-motion {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 54%;
+}
+
+.presence-motion,
+.presence-poster {
+  object-position: center 52%;
+}
+
+.presence-motion-shell {
+  background: var(--ka-ksheera-100);
+}
+
+.presence-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-motion-control {
+  position: absolute;
+  z-index: 4;
+  top: 28px;
+  left: 28px;
+  min-width: 88px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid rgba(57, 70, 29, .16);
+  background: rgba(248, 243, 237, .92);
+  color: var(--ka-tulsi-700);
+  box-shadow: 0 8px 24px rgba(57, 70, 29, .12);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 160ms var(--ease-standard), background 160ms var(--ease-standard), transform 120ms var(--ease-standard);
+}
+
+.story-motion-control span {
+  min-width: 12px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.story-motion-control:hover {
+  background: var(--ka-paper-050);
+  color: var(--ka-agni-600);
+}
+
+.story-motion-control:active { transform: scale(.98); }
+
+.story-frame.frame-product .story-image { object-position: center 58%; transform: scale(1.01); }
+.story-frame.frame-ingredients .story-image { object-position: center 55%; transform: scale(1.01); }
+.story-frame.frame-texture .story-image { object-position: center 54%; transform: scale(1.01); }
+.story-frame.frame-milks .story-image { object-position: center 50%; transform: scale(1.01); }
+.story-frame.frame-ritual .story-image { object-position: center 48%; transform: scale(1.01); }
+.story-frame.frame-results .story-image { object-position: left center; transform: scale(2.05); transform-origin: left center; }
+
+.story-counter,
+.story-arrows { z-index: 4; }
+
+.results-media picture,
+.formula-material picture,
+.formula-method picture,
+.ritual-media picture { position: absolute; }
+
+.results-media img,
+.formula-material img,
+.formula-method img,
+.ritual-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+}
+
+.results-media img { object-position: left center; transform: scale(2.05); transform-origin: left center; }
+.ingredients-material img { object-position: center 52%; transform: none; }
+.milks-material img { object-position: center; transform: none; }
+.formula-method img { object-position: center 56%; transform: none; }
+.ritual-media img { object-position: 56% center; transform: none; }
+
+.cart-thumb {
+  background: var(--ka-ksheera-100);
+}
+
+.cart-thumb img {
+  object-fit: contain;
+  object-position: center;
+  padding: 8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .story-frame:hover .story-image { transform: scale(1.025); }
+  .story-frame.frame-product:hover .story-image { transform: scale(1.025); }
+  .story-frame.frame-results:hover .story-image { transform: scale(2.08); }
+}
+
+@media (max-width: 699px) {
+  .story-frame .story-image,
+  .story-frame.frame-product .story-image,
+  .story-frame.frame-ingredients .story-image,
+  .story-frame.frame-texture .story-image,
+  .story-frame.frame-milks .story-image,
+  .story-frame.frame-ritual .story-image,
+  .story-frame.frame-results .story-image {
+    transform: scale(1.01);
+  }
+
+  .story-frame.frame-product .story-image { object-position: center 60%; }
+  .story-frame.frame-ingredients .story-image { object-position: center 51%; }
+  .story-frame.frame-texture .story-image { object-position: 58% center; }
+  .story-motion { object-position: 58% center; }
+  .presence-motion,
+  .presence-poster { object-position: center 52%; }
+  .story-motion-control { top: 14px; left: 14px; min-width: 82px; padding-inline: 12px; }
+  .story-frame.frame-milks .story-image { object-position: center; }
+  .story-frame.frame-ritual .story-image { object-position: 58% center; }
+  .story-frame.frame-results .story-image { object-position: left center; transform: scale(2.2); transform-origin: left center; }
+
+  .results-media img { object-position: left 42%; transform: scale(2.2); transform-origin: left center; }
+  .formula-method img { object-position: center; }
+  .ritual-media img { object-position: 54% center; }
+}
+
+@media (max-width: 360px) {
+  .product-identity h1 {
+    max-width: 100%;
+    font-size: 29px;
+    letter-spacing: -.045em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-frame .story-image { transition: none; }
+  .story-motion-control { transition: none; }
+}
