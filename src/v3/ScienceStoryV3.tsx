@@ -384,9 +384,6 @@ export default function ScienceStoryV3({ onSceneChange }: ScienceStoryV3Props) {
       )}
 
       <footer className="sv3-resolution">
-        <div className="sv3-ritual-header">
-          <h2 className="sv3-ritual-title">ONE COMPLETE RITUAL</h2>
-        </div>
 
         <div className="sv3-resolution-card sv3-resolution-card--path1">
           <div className="sv3-path-header">

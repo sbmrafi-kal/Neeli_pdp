@@ -12,12 +12,12 @@ const Search = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.
 const Check = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>;
 
 const slides = [
-  {src:'/assets/production/product-presence-poster.webp',mobileSrc:'/assets/production/product-presence-poster.webp',alt:'Official Neelibhringadi Keram bottle with Amla and coconut in warm natural light',label:'The complete hair recovery oil',eyebrow:'Complete hair recovery',shortLabel:'Oil',frameClass:'frame-product'},
-  {src:'/assets/production/ingredients.webp',mobileSrc:'/assets/production/ingredients-mobile.webp',alt:'Amla, Neeli, Bhringaraj and coconut used in the formula',label:'Four powerful ingredients',eyebrow:'Key ingredients',shortLabel:'Ingredients',frameClass:'frame-ingredients'},
+  {src:'/assets/production/product-presence-poster.webp',mobileSrc:'/assets/production/product-presence-poster.webp',alt:'Official Neelibhringadi Keram bottle with Amla and coconut in warm natural light',label:'The complete hair recovery oil',eyebrow:'Complete hair recovery',shortLabel:'Bottle',frameClass:'frame-product'},
   {src:'/assets/production/oil-texture.webp',mobileSrc:'/assets/production/oil-texture-mobile.webp',alt:'Deep violet-brown herbal oil flowing from a spoon',label:'The medicated oil texture',eyebrow:'The coconut oil base',shortLabel:'Texture',frameClass:'frame-texture'},
-  {src:'/assets/production/triple-milk.webp',mobileSrc:'/assets/production/triple-milk-mobile.webp',alt:'Cow milk, goat milk and coconut milk in three bowls',label:'The triple-milk formula',eyebrow:'The special base',shortLabel:'Three milks',frameClass:'frame-milks'},
-  {src:'/assets/production/ritual.webp',mobileSrc:'/assets/production/ritual-mobile.webp',alt:'Woman receiving a gentle fingertip scalp massage',label:'The massage ritual',eyebrow:'The ritual guide',shortLabel:'Ritual',frameClass:'frame-ritual'},
-  {src:'/assets/production/hair-result.webp',mobileSrc:'/assets/production/hair-result-mobile.webp',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Results',frameClass:'frame-results'},
+  {src:'/assets/production/ritual.webp',mobileSrc:'/assets/production/ritual-mobile.webp',alt:'Woman receiving a gentle fingertip scalp massage',label:'Fingertip scalp massage',eyebrow:'Ritual use',shortLabel:'Massage',frameClass:'frame-ritual'},
+  {src:'/assets/production/ingredients.webp',mobileSrc:'/assets/production/ingredients-mobile.webp',alt:'Amla, Neeli, Bhringaraj and coconut used in the formula',label:'Four powerful ingredients',eyebrow:'Key ingredients',shortLabel:'Herbs',frameClass:'frame-ingredients'},
+  {src:'/assets/production/triple-milk.webp',mobileSrc:'/assets/production/triple-milk-mobile.webp',alt:'Cow milk, goat milk and coconut milk in three bowls',label:'The triple-milk formula',eyebrow:'The special base',shortLabel:'Milks',frameClass:'frame-milks'},
+  {src:'/assets/production/hair-result.webp',mobileSrc:'/assets/production/hair-result-mobile.webp',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Video',frameClass:'frame-results'},
 ];
 
 const navItems = [['product','Overview'],['results','Results'],['formula','Formula'],['comparison','Compare'],['ritual','How to use'],['reviews','Reviews']];

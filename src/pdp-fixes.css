@@ -440,3 +440,274 @@
   .science-story-v3 .sv3-evidence-note summary { min-height: 62px; padding: 16px; }
   .science-story-v3 .sv3-evidence-note p { padding: 0 16px 18px; }
 }
+
+/* ==========================================================================
+   VISUAL REFINEMENTS & LUXURY AUDIT ADJUSTMENTS
+   ========================================================================== */
+
+/* 1. Hero Gallery Refinements (Image 1 Style) */
+.story-gallery .story-caption {
+  background: var(--ka-tulsi-700, #39461d) !important;
+  color: #efe6dc !important;
+  padding: 16px 28px !important;
+  min-height: 72px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  display: grid !important;
+  grid-template-columns: 54px 1fr !important;
+  align-items: center !important;
+}
+
+.story-gallery .story-caption > span {
+  color: #cca54e !important; /* Gold slide index */
+  font-size: 20px !important;
+  font-family: 'Avenir', sans-serif !important;
+  font-weight: 800 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.25) !important;
+  padding-right: 12px !important;
+  margin-right: 12px !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+.story-gallery .story-caption div {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+.story-gallery .story-caption small {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 2px !important;
+}
+
+.story-gallery .story-caption strong {
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-family: 'Avenir', sans-serif !important;
+  font-weight: 800 !important;
+}
+
+/* Tabs selector style updates */
+.story-gallery .story-selector {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  background: #faf7f2 !important;
+  border-top: 1px solid rgba(57, 70, 29, 0.12) !important;
+  border-bottom: none !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 0 16px 16px !important;
+}
+
+.story-gallery .story-selector button {
+  background: #faf7f2 !important;
+  border: none !important;
+  border-right: 1px solid rgba(57, 70, 29, 0.12) !important;
+  min-height: 72px !important;
+  padding: 10px 4px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+.story-gallery .story-selector button:last-child {
+  border-right: none !important;
+}
+
+.story-gallery .story-selector button.selected {
+  background: #ffffff !important;
+}
+
+.story-gallery .story-selector button::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  background: #954721 !important;
+  transform: scaleX(0) !important;
+  transform-origin: left !important;
+  transition: transform 200ms ease !important;
+}
+
+.story-gallery .story-selector button.selected::before {
+  transform: scaleX(1) !important;
+}
+
+.story-gallery .story-selector button span {
+  color: #954721 !important; /* Orange number */
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  margin-bottom: 2px !important;
+}
+
+.story-gallery .story-selector button b {
+  color: #39461d !important; /* Dark green text */
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* 2. Statement Layout - Center Rounded Card (Image 2 Style) */
+section.statement {
+  background-color: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(57, 70, 29, 0.12) !important;
+  margin-inline: clamp(20px, 4vw, 58px) !important;
+  max-width: calc(1440px - 2 * clamp(20px, 4vw, 58px)) !important;
+  margin-inline: auto !important;
+  padding: clamp(32px, 5vw, 64px) !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: 1.1fr 1.9fr !important;
+  gap: clamp(24px, 4vw, 64px) !important;
+  box-shadow: 0 8px 30px rgba(57, 70, 29, 0.03) !important;
+}
+
+/* 3. Formula Section Spacing Center-Alignment (Image 3 Style) */
+section.formula.adapted-formula {
+  padding-left: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-right: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-inline: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  box-sizing: border-box !important;
+}
+
+/* 4. Science Resolution Header (Image 4 Style) */
+.science-story-v3 .sv3-resolution::after {
+  content: 'ONE COMPLETE RITUAL' !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  right: auto !important;
+  top: 36px !important;
+  font-size: 20px !important; /* double size */
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #cca54e !important; /* gold */
+  text-align: center !important;
+  width: 100% !important;
+  z-index: 2 !important;
+  font-family: Avenir, Figtree, sans-serif !important;
+}
+
+/* 5. Category Comparison Header Simplification */
+.comparison-v3__header-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #954721 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  margin-bottom: 8px !important;
+}
+
+.comparison-v3__badge-dot {
+  background: #954721 !important;
+}
+
+.comparison-v3__intro h2 {
+  font-family: 'Amstir', Georgia, serif !important;
+  font-weight: 400 !important;
+  color: #39461d !important;
+  line-height: 1.05 !important;
+  font-size: clamp(38px, 4.5vw, 56px) !important;
+}
+
+.comparison-v3__lede {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: #293414 !important;
+  opacity: 0.85 !important;
+  max-width: 42ch !important;
+}
+
+/* 6. WhatsApp Consultation Card Redesign (Image 5 Style) */
+.comparison-v3__consult {
+  background: #1e261a !important; /* deep rich forest dark green */
+  border: 1px solid rgba(204, 165, 78, 0.18) !important; /* gold border */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18) !important;
+  border-radius: 20px !important;
+  padding: clamp(28px, 4vw, 44px) clamp(24px, 4vw, 48px) !important;
+}
+
+.comparison-v3__consult-badge {
+  background: rgba(204, 165, 78, 0.08) !important; /* gold badge */
+  border: 1px solid rgba(204, 165, 78, 0.25) !important;
+  color: #cca54e !important;
+}
+
+.comparison-v3__whatsapp-dot {
+  background: #cca54e !important;
+  box-shadow: none !important;
+}
+
+.comparison-v3__consult-eyebrow {
+  color: #cca54e !important; /* gold kicker */
+}
+
+.comparison-v3__consult-trust span {
+  color: #efe6dc !important; /* soft white/cream text */
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.comparison-v3__consult-cta a {
+  background: #cca54e !important; /* luxury gold button */
+  color: #121a11 !important; /* dark green text */
+  box-shadow: 0 8px 20px rgba(204, 165, 78, 0.15) !important;
+  border-radius: 12px !important;
+  transition: transform 200ms ease, background-color 200ms ease !important;
+}
+
+.comparison-v3__consult-cta a:hover {
+  background: #d4ae58 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Responsive updates for refinements */
+@media (max-width: 899px) {
+  .checkpoint-hero .story-caption {
+    grid-template-columns: 50px 1fr !important;
+    padding: 12px 16px !important;
+  }
+  
+  .checkpoint-hero .story-selector {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    overflow: visible !important;
+  }
+  
+  .checkpoint-hero .story-selector button {
+    min-height: 56px !important;
+    padding: 6px 2px !important;
+  }
+
+  .checkpoint-hero .story-selector button b {
+    font-size: 10px !important;
+  }
+  
+  section.statement {
+    grid-template-columns: 1fr !important;
+    margin-inline: 16px !important;
+    padding: 24px 20px !important;
+  }
+
+  .science-story-v3 .sv3-resolution::after {
+    display: block !important;
+    font-size: 16px !important;
+    top: 20px !important;
+  }
+
+  .science-story-v3 .sv3-resolution {
+    padding-top: 60px !important;
+  }
+}
