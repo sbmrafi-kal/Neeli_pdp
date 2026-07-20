@@ -682,21 +682,44 @@ section.confidence-strip {
   font-family: Avenir, sans-serif !important;
 }
 
-/* Image 3: Remove internal spacing on left, right, top of hero image and adjust grid rows to prevent overlaps */
-.checkpoint-hero .story-gallery {
-  padding: 0 !important; /* Remove top, left, right, bottom padding */
-  grid-template-rows: 1fr auto auto !important; /* Auto-height rows prevent visual clutter/overlap */
-  max-height: none !important;
-  overflow: hidden !important;
-  border-radius: 16px !important;
-  background: #faf7f2 !important;
+/* Hero Gallery Spacing, Sizing, and Responsive layout (Images 1 & 2) */
+@media (min-width: 900px) {
+  .checkpoint-hero .story-gallery {
+    grid-template-rows: 1fr auto auto !important;
+    max-width: 480px !important;
+    max-height: 520px !important;
+    height: 520px !important; /* Force explicit compact height on desktop */
+    width: 100% !important;
+    justify-self: end !important; /* Align to the right of the split layout */
+    margin-right: 24px !important;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    background: #faf7f2 !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .checkpoint-hero .story-gallery {
+    grid-template-rows: minmax(300px, 75vw) auto auto !important; /* Force explicit mobile slide height */
+    width: calc(100% - 48px) !important; /* Follow 24px left/right margins */
+    margin-inline: 24px !important;
+    margin-top: 16px !important;
+    margin-bottom: 24px !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    background: #faf7f2 !important;
+  }
 }
 
 .checkpoint-hero .story-frame {
   margin: 0 !important;
   padding: 0 !important;
   max-height: none !important;
-  border-radius: 0 !important; /* Let parent story-gallery handle corner clipping via overflow:hidden */
+  border-radius: 0 !important; /* Parent clips corners via overflow:hidden */
 }
 
 .checkpoint-hero .story-image {
