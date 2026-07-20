@@ -82,19 +82,31 @@ type PurchaseActionProps = {
   className?:string;
 };
 
-function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,className=''}:PurchaseActionProps){
-  if(cart>0)return <div className={`quantity purchase-action ${className}`}><button aria-label="Decrease quantity" onClick={onDecrease}>−</button><span aria-label={`${cart} in cart`}>{cart}</span><button aria-label="Increase quantity" onClick={onIncrease}>+</button><button className="viewbag" onClick={onViewCart}>View Cart <span className="viewbag-total">· ₹{338*cart}</span></button></div>;
-  return <button className={`add ${buyState} ${className}`} disabled={buyState!=='ready'} onClick={onAdd}>{buyState==='ready'?'Add to cart':buyState==='adding'?'Adding…':<><Check/> Product added</>}</button>;
+function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,className='',price=338}:{cart:number;buyState:'ready'|'adding'|'added';onAdd:()=>void;onDecrease:()=>void;onIncrease:()=>void;onViewCart:()=>void;className?:string;price?:number}){
+  if(cart>0)return <div className={`quantity purchase-action ${className}`}><button aria-label="Decrease quantity" onClick={onDecrease}>−</button><span aria-label={`${cart} in cart`}>{cart}</span><button aria-label="Increase quantity" onClick={onIncrease}>+</button><button className="viewbag" onClick={onViewCart}>View Bag <span className="viewbag-total">· ₹{price*cart}</span></button></div>;
+  return <button className={`add ${buyState} ${className}`} disabled={buyState!=='ready'} onClick={onAdd}>{buyState==='ready'?'ADD TO BAG':buyState==='adding'?'Adding…':<><Check/> Added to Bag</>}</button>;
 }
 
 function ProductIdentity(){
   return <div className="product-identity">
-    <p className="identity-overline">Complete hair recovery</p>
+    <p className="identity-overline">Kerala Ayurveda · Authentic Formulation</p>
     <h1>Neelibhringadi <span>Keram</span></h1>
-    <p className="identity-proposition">Helps minimize hair fall.<br/>Supports hair growth.</p>
-    <a className="identity-rating" href="#reviews" aria-label="4.7 out of 5, 137 reviews"><strong>4.7</strong><span>★★★★★</span><u>137 reviews</u></a>
-    <div className="identity-rule"/>
-    <p className="identity-note">200 ml · External use only</p>
+    <p className="identity-subtitle">Ayurvedic scalp &amp; hair oil</p>
+    
+    <div className="identity-social-proof">
+      <a className="identity-rating" href="#reviews" aria-label="4.8 out of 5, 137 reviews">
+        <strong>4.8</strong>
+        <span className="stars" aria-hidden="true">★★★★★</span>
+        <u>137 reviews</u>
+      </a>
+      <span className="proof-pill">40,000+ bought last year</span>
+    </div>
+
+    <ul className="identity-benefits-list">
+      <li><span className="check">✓</span> Reduced hair fall due to breakage</li>
+      <li><span className="check">✓</span> Nourished scalp &amp; root strength</li>
+      <li><span className="check">✓</span> Softer, healthier-looking hair</li>
+    </ul>
   </div>
 }
 
@@ -380,6 +392,10 @@ function App(){
   const [activeSection,setActiveSection]=useState('product');
   const [dockVisible,setDockVisible]=useState(false);
   const [scienceDockHidden,setScienceDockHidden]=useState(false);
+  const [selectedSize,setSelectedSize]=useState<'100ml'|'200ml'>('200ml');
+  const currentPrice=selectedSize==='200ml'?338:195;
+  const currentMrp=selectedSize==='200ml'?375:215;
+  const currentDiscount=selectedSize==='200ml'?'10% OFF':'9% OFF';
   const closeRef=useRef<HTMLButtonElement>(null);
   const drawerRef=useRef<HTMLElement>(null);
   const drawerOpenerRef=useRef<HTMLElement|null>(null);
@@ -441,7 +457,7 @@ function App(){
     };
   },[]);
   useEffect(()=>{const sections=[['comparison','comparison_section_viewed'],['consultation','consultation_route_viewed']] as const;const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const match=sections.find(([id])=>id===entry.target.id);if(match){trackOnce(`section_view:${match[0]}`,match[1],{section_id:match[0]});observer.unobserve(entry.target)}}),{threshold:.35});sections.forEach(([id])=>{const section=document.getElementById(id);if(section)observer.observe(section)});return()=>observer.disconnect()},[]);
-  const add=(source:'hero'|'dock')=>{ if(buyState!=='ready')return; track('add_to_cart_clicked',{product_id:'neelibhringadi_keram_200ml',purchase_source:source,value:338,currency:'INR',experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current});setBuyState('adding');setTimeout(()=>{setCart(c=>c+1);setBuyState('added');track('cart_product_added',{product_id:'neelibhringadi_keram_200ml',purchase_source:source,value:338,currency:'INR',experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current});setTimeout(()=>setBuyState('ready'),520)},360)};
+  const add=(source:'hero'|'dock')=>{ if(buyState!=='ready')return; track('add_to_cart_clicked',{product_id:`neelibhringadi_keram_${selectedSize}`,purchase_source:source,value:currentPrice,currency:'INR',experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current});setBuyState('adding');setTimeout(()=>{setCart(c=>c+1);setBuyState('added');track('cart_product_added',{product_id:`neelibhringadi_keram_${selectedSize}`,purchase_source:source,value:currentPrice,currency:'INR',experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current});setTimeout(()=>setBuyState('ready'),520)},360)};
   const viewCart=(source:'hero'|'dock')=>{track('view_cart_clicked',{purchase_source:source,experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current,cart_quantity:cart});openDrawer()};
   const submitSearch=(event:FormEvent)=>{event.preventDefault();const query=searchTerm.trim().toLowerCase();if(!query)return;const targets=[{terms:'overview product neelibhringadi hair oil',id:'product'},{terms:'result results hair fall hair growth expect',id:'results'},{terms:'formula ingredient ingredients amla bhringaraj neeli coconut milk',id:'formula'},{terms:'mechanism science works recovery pathway shaft scalp follicle anagen',id:'science'},{terms:'ritual how to use apply massage wash mild shampoo',id:'ritual'},{terms:'compare comparison minoxidil serum rosemary alternative',id:'comparison'},{terms:'doctor consultation whatsapp persistent sudden clinical',id:'consultation'},{terms:'review reviews rating',id:'reviews'},{terms:'faq questions pregnancy coloured greying dandruff everyday science',id:'faq'},{terms:'details size pack label zoom external taxes price',id:'details'}];const match=targets.find(item=>item.terms.includes(query)||query.split(/\s+/).some(word=>word.length>2&&item.terms.includes(word)));if(match){document.getElementById(match.id)?.scrollIntoView({behavior:'smooth'});setSearchStatus(`Showing ${match.id==='product'?'product overview':match.id}.`);setSearchOpen(false)}else setSearchStatus('No matching section in this product prototype.')};
   return <>
@@ -449,21 +465,71 @@ function App(){
     <header className={`header ${searchOpen?'searching':''}`}><a className="brand" href="#main" aria-label="Kerala Ayurveda home"><img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="130" height="130"/></a><nav className="header-primary-nav" aria-label="Primary navigation"><a href="#product">Shop</a><a href="#formula">Ayurveda</a><a href="#science">Our approach</a><a href="#reviews">Journal</a></nav>{searchOpen&&<form className="header-search" role="search" onSubmit={submitSearch}><Search/><label className="visually-hidden" htmlFor="site-search">Search this product page</label><input ref={searchRef} id="site-search" value={searchTerm} onChange={event=>setSearchTerm(event.target.value)} placeholder="Search results, ingredients, how to use…" autoComplete="off"/><button className="search-submit" type="submit"><span className="search-submit-desktop">Search</span><span className="search-submit-mobile">Go</span></button><button className="search-close" type="button" onClick={()=>setSearchOpen(false)} aria-label="Close search">×</button></form>}<div className="header-actions"><button className="search-button" onClick={()=>setSearchOpen(true)} aria-expanded={searchOpen} aria-label="Open search"><Search/></button><button className="header-bag" type="button" onClick={()=>cart?openDrawer():document.getElementById('product')?.scrollIntoView({behavior:'smooth'})} aria-label={cart?`Open bag, ${cart} item${cart>1?'s':''}`:'View product purchase options'}>Bag{cart>0&&<span>{cart}</span>}</button></div><p className="live" aria-live="polite">{searchStatus}</p></header>
     {useV3?<PdpSectionNavV3/>:<nav className="anchorbar" aria-label="Product sections">{navItems.map(([id,label])=><a key={id} href={`#${id}`} className={`standard-nav-link ${activeSection===id?'active':''}`} aria-current={activeSection===id?'location':undefined}>{label}</a>)}<button className="landscape-trigger" aria-expanded={landscapeMenu} aria-controls="landscape-sections" onClick={()=>setLandscapeMenu(open=>!open)}>Sections <span>{landscapeMenu?'−':'+'}</span></button><div id="landscape-sections" className={`landscape-menu ${landscapeMenu?'open':''}`}>{navItems.map(([id,label])=><a key={id} href={`#${id}`} className={activeSection===id?'active':''} onClick={()=>setLandscapeMenu(false)}>{label}</a>)}</div></nav>}
     <main id="main" className={scienceDockHidden?'science-is-active':undefined}>
-      <section className="hero checkpoint-hero" id="product"><ProductIdentity/><StoryGallery slide={slide} setSlide={setSlide} experiment={motionExperiment} onTextureExposure={markTextureExposure}/><section ref={heroCommerceRef} className="hero-commerce" aria-label="Purchase details"><div className="hero-price"><strong>₹338</strong><del>₹375</del><span>10% off</span></div><p>Inclusive of all taxes</p><dl><div><dt>Size</dt><dd>200 ml</dd></div><div><dt>Use</dt><dd>External use only</dd></div><div><dt>Delivery</dt><dd>Confirmed at checkout</dd></div></dl><PurchaseAction cart={cart} buyState={buyState} onAdd={()=>add('hero')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('hero')} className="hero-purchase-action"/><p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p></section></section>
+      <section className="hero checkpoint-hero" id="product">
+        <ProductIdentity/>
+        <StoryGallery slide={slide} setSlide={setSlide} experiment={motionExperiment} onTextureExposure={markTextureExposure}/>
+        <section ref={heroCommerceRef} className="hero-commerce" aria-label="Purchase details">
+          <div className="size-selector">
+            <span className="size-selector-label">SELECT SIZE:</span>
+            <div className="size-selector-options">
+              <button type="button" className={`size-option ${selectedSize==='200ml'?'selected':''}`} onClick={()=>setSelectedSize('200ml')}>
+                <span className="size-radio"/>
+                <span className="size-name">200 ml</span>
+                <span className="size-price">₹338</span>
+                <span className="size-badge">Best value • Save ₹37</span>
+              </button>
+              <button type="button" className={`size-option ${selectedSize==='100ml'?'selected':''}`} onClick={()=>setSelectedSize('100ml')}>
+                <span className="size-radio"/>
+                <span className="size-name">100 ml</span>
+                <span className="size-price">₹195</span>
+              </button>
+            </div>
+          </div>
+          <div className="hero-price-row">
+            <div className="hero-price">
+              <strong>₹{currentPrice}</strong>
+              <del>₹{currentMrp}</del>
+              <span className="discount-chip">{currentDiscount}</span>
+            </div>
+            <p className="price-note">{selectedSize==='200ml'?'₹1.69 / ml':'₹1.95 / ml'} • Inclusive of all taxes</p>
+          </div>
+          <PurchaseAction cart={cart} buyState={buyState} price={currentPrice} onAdd={()=>add('hero')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('hero')} className="hero-purchase-action"/>
+          <div className="hero-reassurance-strip">
+            <span>✓ Free shipping above ₹499</span>
+            <span>✓ COD available</span>
+            <span>✓ 100% Authentic Ayurveda</span>
+          </div>
+          <p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p>
+        </section>
+      </section>
       <ConfidenceStrip/>
 
       <section className="statement">
         <div className="statement-header">
-          <p className="kicker">What’s in it. What is not.</p>
-          <h2>Herbs from where<br/>they belong.</h2>
+          <p className="kicker">Formulation Purity &amp; Sourcing</p>
+          <h2>What’s in it.<br/>What is not in it.</h2>
+          <p className="statement-location">Herbs sourced from their natural habitats. Neeli from Kerala’s wetlands, Bhringraj from the Western Ghats, Amla from Chhattisgarh.</p>
         </div>
-        <div className="statement-content">
-          <p className="statement-location">Neeli from Kerala’s wetlands. Bhringraj from the Western Ghats. Amla from Chhattisgarh. Sourced where each herb is at its best.</p>
-          <div className="statement-free-from">
-            <span>✓ No parabens</span>
-            <span>✓ No artificial fragrance</span>
-            <span>✓ No synthetic colours</span>
-            <span>✓ No mineral oil</span>
+        <div className="statement-split">
+          <div className="statement-positive">
+            <h3>WHAT’S IN IT</h3>
+            <ul>
+              <li><b>21 Ayurvedic ingredients</b> slow-cooked in unrefined coconut oil</li>
+              <li><b>Bhringraj</b> — Traditionally used for scalp &amp; root care</li>
+              <li><b>Amla</b> — Natural Vitamin C &amp; antioxidant support</li>
+              <li><b>Neeli &amp; Karnasphota</b> — Deep scalp cooling &amp; hair fibre protection</li>
+              <li><b>Three milks</b> — Coconut, Cow &amp; Goat milk nourishment</li>
+            </ul>
+          </div>
+          <div className="statement-exclusion">
+            <h3>WHAT’S NOT IN IT</h3>
+            <div className="statement-free-from">
+              <span>✕ No mineral oil</span>
+              <span>✕ No artificial fragrance</span>
+              <span>✕ No silicones</span>
+              <span>✕ No parabens</span>
+              <span>✕ No synthetic colours</span>
+            </div>
           </div>
         </div>
       </section>
@@ -489,7 +555,17 @@ function App(){
     </main>
     <SiteFooter />
 
-    <aside className={`purchase contextual-purchase ${dockVisible&&!scienceDockHidden?'visible':''}`} aria-label="Purchase Neelibhringadi Keram" aria-hidden={!(dockVisible&&!scienceDockHidden)} inert={!(dockVisible&&!scienceDockHidden)}><div className="purchase-product"><span>Neelibhringadi Keram · 200 ml</span><div><strong>₹338</strong><del>₹375</del><em>10% off</em></div></div><PurchaseAction cart={cart} buyState={buyState} onAdd={()=>add('dock')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('dock')} className="dock-purchase-action"/><p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p></aside>
+    <aside className={`purchase contextual-purchase ${dockVisible&&!scienceDockHidden?'visible':''}`} aria-label="Purchase Neelibhringadi Keram" aria-hidden={!(dockVisible&&!scienceDockHidden)} inert={!(dockVisible&&!scienceDockHidden)}>
+      <div className="purchase-product">
+        <img src="/assets/production/official-product.webp" width="40" height="40" alt="" className="dock-thumb" />
+        <div>
+          <strong>Neelibhringadi Keram</strong>
+          <span>{selectedSize} · ₹{currentPrice}</span>
+        </div>
+      </div>
+      <PurchaseAction cart={cart} buyState={buyState} price={currentPrice} onAdd={()=>add('dock')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('dock')} className="dock-purchase-action"/>
+      <p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p>
+    </aside>
 
     <div className={`scrim ${drawer?'open':''}`} inert={!drawer} onMouseDown={e=>{if(e.target===e.currentTarget)closeDrawer()}} aria-hidden={!drawer}><section ref={drawerRef} className="drawer" role="dialog" aria-modal="true" aria-label="Your bag"><header><div><p>Your bag</p><h2>{cart?`${cart} item${cart>1?'s':''}`:'Your cart is empty'}</h2></div><button ref={closeRef} onClick={closeDrawer} aria-label="Close bag">×</button></header>{cart?<><div className="cart-item"><div className="cart-thumb"><img src="/assets/production/official-product.webp" alt="" width="609" height="1800"/></div><div><h3>Neelibhringadi Keram</h3><p>200 ml</p><strong>₹338</strong> <del>₹375</del></div><div className="quantity small"><button aria-label="Decrease quantity" onClick={()=>setCart(Math.max(0,cart-1))}>−</button><span>{cart}</span><button aria-label="Increase quantity" onClick={()=>setCart(cart+1)}>+</button></div></div><div className="subtotal"><span>Subtotal</span><strong>₹{338*cart}</strong></div><button className="checkout" onClick={()=>track('checkout_clicked',{experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current,cart_quantity:cart,value:338*cart,currency:'INR'})}>Checkout Now</button><small>Inclusive of all taxes</small></>:<p className="empty">Explore our range.</p>}</section></div>
   </>
