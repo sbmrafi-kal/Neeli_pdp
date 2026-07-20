@@ -553,20 +553,115 @@
   letter-spacing: 0.02em !important;
 }
 
-/* 2. Statement Layout - Center Rounded Card (Image 2 Style) */
+/* 2. Full-Bleed Section Container Resets (Images 1, 2, 3) */
+section.statement,
+section.comparison-v3,
+section.adapted-ritual,
+section.adapted-reviews,
+section.adapted-faq,
+section.adapted-pack,
+section.adapted-heritage,
+section.confidence-strip {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-inline: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Background Color Assignments for Full-Bleed Sections */
 section.statement {
   background-color: #ffffff !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(57, 70, 29, 0.12) !important;
-  margin-inline: clamp(20px, 4vw, 58px) !important;
-  max-width: calc(1440px - 2 * clamp(20px, 4vw, 58px)) !important;
+}
+section.comparison-v3 {
+  background-color: #f8f3ed !important;
+}
+section.adapted-ritual {
+  background-color: #121a11 !important;
+}
+section.adapted-reviews {
+  background-color: #efe6dc !important;
+}
+section.adapted-faq {
+  background-color: #ffffff !important;
+}
+section.adapted-pack {
+  background-color: #faf7f2 !important;
+}
+section.adapted-heritage {
+  background-color: #121a11 !important;
+}
+section.confidence-strip {
+  background-color: #39461d !important;
+}
+
+/* Standardized Content Centering Wrapper */
+.statement-inner,
+.reviews-inner,
+.faq-inner,
+.ritual-inner,
+.pack-inner,
+.heritage-inner,
+.confidence-inner {
+  width: 100% !important;
+  max-width: 1440px !important;
   margin-inline: auto !important;
-  padding: clamp(32px, 5vw, 64px) !important;
+  padding-left: clamp(20px, 4vw, 58px) !important;
+  padding-right: clamp(20px, 4vw, 58px) !important;
+  padding-inline: clamp(20px, 4vw, 58px) !important;
   box-sizing: border-box !important;
+}
+
+/* Grid & Spacing configurations for Inner Wrappers */
+.statement-inner {
   display: grid !important;
   grid-template-columns: 1.1fr 1.9fr !important;
   gap: clamp(24px, 4vw, 64px) !important;
-  box-shadow: 0 8px 30px rgba(57, 70, 29, 0.03) !important;
+  padding-block: clamp(52px, 8vw, 110px) !important;
+}
+
+.reviews-inner {
+  display: grid !important;
+  grid-template-columns: 1fr 1.25fr !important;
+  gap: 10vw !important;
+  padding-block: clamp(72px, 10vw, 140px) !important;
+}
+
+.faq-inner {
+  max-width: 1080px !important;
+  margin-inline: auto !important;
+  padding-block: clamp(72px, 10vw, 140px) !important;
+}
+
+.ritual-inner {
+  display: grid !important;
+  grid-template-columns: 1fr 1.3fr !important;
+  gap: 10vw !important;
+  padding-block: clamp(72px, 10vw, 140px) !important;
+}
+
+.pack-inner {
+  padding-block: clamp(50px, 6vw, 90px) !important;
+}
+
+.heritage-inner {
+  display: grid !important;
+  grid-template-columns: 1fr 2fr 1fr !important;
+  gap: 5vw !important;
+  align-items: end !important;
+  padding-block: 70px !important;
+}
+
+.confidence-inner {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-block: 22px !important;
 }
 
 /* 3. Formula Section Spacing Center-Alignment (Image 3 Style) */
@@ -595,7 +690,7 @@ section.formula.adapted-formula {
   font-family: Avenir, Figtree, sans-serif !important;
 }
 
-/* 5. Category Comparison Header Simplification */
+/* 5. Category Comparison Header Simplification & Redesign */
 .comparison-v3__header-badge {
   display: inline-flex !important;
   align-items: center !important;
@@ -629,6 +724,142 @@ section.formula.adapted-formula {
   color: #293414 !important;
   opacity: 0.85 !important;
   max-width: 42ch !important;
+}
+
+/* Comparative Matrix Table Styling */
+.comparison-v3__matrix-wrapper {
+  margin-top: clamp(40px, 5vw, 68px) !important;
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin-inline: auto !important;
+}
+
+.comparison-v3__table-container {
+  width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(57, 70, 29, 0.14) !important;
+  box-shadow: 0 12px 36px rgba(57, 70, 29, 0.03) !important;
+  background: #ffffff !important;
+}
+
+.comparison-v3__table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  text-align: left !important;
+  font-family: 'Figtree', sans-serif !important;
+  min-width: 780px !important;
+}
+
+.comparison-v3__table th,
+.comparison-v3__table td {
+  padding: 20px 24px !important;
+  border-bottom: 1px solid rgba(57, 70, 29, 0.08) !important;
+  border-right: 1px solid rgba(57, 70, 29, 0.08) !important;
+  vertical-align: top !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  color: #293414 !important;
+}
+
+.comparison-v3__table th:last-child,
+.comparison-v3__table td:last-child {
+  border-right: none !important;
+}
+
+.comparison-v3__table tr:last-child td {
+  border-bottom: none !important;
+}
+
+.comparison-v3__table th {
+  background: #faf7f2 !important;
+  font-weight: 800 !important;
+  color: #39461d !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+}
+
+.comparison-v3__table th:first-child {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: #954721 !important;
+  vertical-align: middle !important;
+}
+
+.comparison-v3__table th strong {
+  display: block !important;
+  font-size: 16px !important;
+  margin-bottom: 4px !important;
+}
+
+.comparison-v3__table th .sub {
+  display: block !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: rgba(57, 70, 29, 0.6) !important;
+}
+
+.comparison-v3__table .highlighted {
+  background: #f4f6f0 !important;
+}
+
+.comparison-v3__table th.highlighted {
+  background: #eef1e8 !important;
+}
+
+.comparison-v3__table th.highlighted .table-premium-header {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.comparison-v3__table th.highlighted .star-tag {
+  align-self: flex-start !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  background: #954721 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  margin-bottom: 8px !important;
+  box-shadow: 0 2px 6px rgba(149, 71, 33, 0.15) !important;
+}
+
+.comparison-v3__table th.highlighted strong {
+  color: #39461d !important;
+  font-size: 17px !important;
+}
+
+.comparison-v3__table th.highlighted .sub {
+  color: #954721 !important;
+}
+
+.comparison-v3__table td.highlighted {
+  font-weight: 700 !important;
+  color: #1b240f !important;
+}
+
+.comparison-v3__table tbody tr:hover td.highlighted {
+  background: #eef1e8 !important;
+}
+
+.comparison-v3__table tbody tr:hover td:not(.highlighted) {
+  background: rgba(57, 70, 29, 0.02) !important;
+}
+
+.comparison-v3__swipe-tip {
+  display: none !important;
+  text-align: center !important;
+  font-size: 11px !important;
+  color: rgba(57, 70, 29, 0.6) !important;
+  margin: 12px 0 0 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
 }
 
 /* 6. WhatsApp Consultation Card Redesign (Image 5 Style) */
@@ -674,6 +905,109 @@ section.formula.adapted-formula {
   transform: translateY(-2px) !important;
 }
 
+/* ==========================================================================
+   DYNAMIC VISUALS & PREMIUM INTERACTIVE ANIME (Vibrant, Responsive Feel)
+   ========================================================================== */
+
+/* Hero Gallery Photo Hover zoom */
+.product-photo img {
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.gallery-frame:hover .product-photo img {
+  transform: scale(1.16) !important;
+}
+
+/* Hero size select buttons interactives */
+.hero-size-selector button {
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.hero-size-selector button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(57, 70, 29, 0.08) !important;
+}
+
+/* Confidence Strip metrics scale */
+.confidence-inner > div {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.confidence-inner > div:hover {
+  transform: scale(1.05) translateY(-2px) !important;
+}
+
+/* Statement splits subtle float list elements */
+.statement-positive ul li {
+  transition: transform 0.2s ease !important;
+}
+.statement-positive ul li:hover {
+  transform: translateX(4px) !important;
+}
+
+.statement-free-from span {
+  transition: transform 0.2s ease, background-color 0.2s ease !important;
+}
+.statement-free-from span:hover {
+  transform: scale(1.04) !important;
+  background-color: rgba(149, 71, 33, 0.05) !important;
+}
+
+/* Results section (honest sequence) cards hover micro-lift */
+.results-layout article {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease !important;
+}
+.results-layout article:hover {
+  transform: translateY(-6px) scale(1.015) !important;
+  box-shadow: 0 16px 36px rgba(57, 70, 29, 0.06) !important;
+}
+
+/* Formula section details ingredient explore lists hover zoom */
+.ingredient-list article {
+  transition: transform 0.3s ease, background-color 0.3s ease, padding-inline 0.3s ease !important;
+}
+.ingredient-list article:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  padding-inline: 12px !important;
+  transform: translateX(6px) !important;
+}
+
+/* Ritual step card metrics and dosage hover elements */
+.ritual-steps li {
+  transition: transform 0.3s ease !important;
+}
+.ritual-steps li:hover {
+  transform: translateX(4px) !important;
+}
+
+.ritual-reassurance-card,
+.ritual-temperature-card {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease !important;
+}
+.ritual-reassurance-card:hover,
+.ritual-temperature-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Single review quote card translate */
+.reviews blockquote {
+  transition: transform 0.3s ease !important;
+}
+.reviews blockquote:hover {
+  transform: translateY(-3px) !important;
+}
+
+/* Heritage Section stats zoom */
+.heritage-metrics > div {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.heritage-metrics > div:hover {
+  transform: scale(1.06) translateY(-4px) !important;
+}
+
+/* Sticky cart checkout CTA button micro-pulse hover */
+.purchase button.add:hover {
+  transform: scale(1.02) !important;
+}
+
 /* Responsive updates for refinements */
 @media (max-width: 899px) {
   .checkpoint-hero .story-caption {
@@ -695,12 +1029,6 @@ section.formula.adapted-formula {
     font-size: 10px !important;
   }
   
-  section.statement {
-    grid-template-columns: 1fr !important;
-    margin-inline: 16px !important;
-    padding: 24px 20px !important;
-  }
-
   .science-story-v3 .sv3-resolution::after {
     display: block !important;
     font-size: 16px !important;
@@ -709,5 +1037,38 @@ section.formula.adapted-formula {
 
   .science-story-v3 .sv3-resolution {
     padding-top: 60px !important;
+  }
+
+  .reviews-inner {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding-block: 78px !important;
+  }
+
+  .faq-inner {
+    padding-block: 50px !important;
+  }
+
+  .ritual-inner {
+    grid-template-columns: 1fr !important;
+    gap: 35px !important;
+    padding-block: 78px !important;
+  }
+
+  .heritage-inner {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding-block: 55px !important;
+  }
+
+  .confidence-inner {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center !important;
+    padding-block: 18px !important;
+  }
+
+  .comparison-v3__swipe-tip {
+    display: block !important;
   }
 }

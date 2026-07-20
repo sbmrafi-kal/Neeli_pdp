@@ -91,39 +91,64 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
         </p>
       </article>
 
-      <div className="comparison-v3__versus" aria-label="Compare Neelibhringadi Keram with other approaches">
+      <div className="comparison-v3__matrix-wrapper" aria-label="Compare Neelibhringadi Keram with other approaches">
         <div className="comparison-v3__versus-title">
           <h3>Neelibhringadi Alongside Alternative Approaches</h3>
           <p>Understanding the difference in formula, routine, and scientific boundaries.</p>
         </div>
-        {alternatives.map((alternative) => (
-          <article className="comparison-v3__matchup" key={alternative.name}>
-            <header>
-              <div>
-                <p className="comparison-v3__matchup-sub">Neeli alongside</p>
-                <h3>{alternative.name}</h3>
-              </div>
-              <span className="comparison-v3__matchup-badge">{alternative.descriptor}</span>
-            </header>
-            <dl>
-              <div>
-                <dt>Approach</dt>
-                <dd><b>Neeli</b><span>Fibre + scalp support; preclinical anagen-linked signals.</span></dd>
-                <dd><b>{alternative.name}</b><span>{alternative.path}</span></dd>
-              </div>
-              <div>
-                <dt>Formula / coverage</dt>
-                <dd><b>Neeli</b><span>{neeli.formula}</span></dd>
-                <dd><b>{alternative.name}</b><span>{alternative.coverage}</span></dd>
-              </div>
-              <div>
-                <dt>Routine</dt>
-                <dd><b>Neeli</b><span>{neeli.routine}</span></dd>
-                <dd><b>{alternative.name}</b><span>{alternative.routine}</span></dd>
-              </div>
-            </dl>
-          </article>
-        ))}
+        
+        <div className="comparison-v3__table-container">
+          <table className="comparison-v3__table">
+            <thead>
+              <tr>
+                <th>Comparison Parameter</th>
+                <th className="highlighted">
+                  <div className="table-premium-header">
+                    <span className="star-tag">★ Canonical Choice</span>
+                    <strong>Neelibhringadi Keram</strong>
+                    <span className="sub">AUTHENTIC AYURVEDIC OIL</span>
+                  </div>
+                </th>
+                <th>
+                  <strong>Minoxidil</strong>
+                  <span className="sub">Conventional Medicine</span>
+                </th>
+                <th>
+                  <strong>Rosemary Oils</strong>
+                  <span className="sub">Single-Botanical Route</span>
+                </th>
+                <th>
+                  <strong>Hair Serums</strong>
+                  <span className="sub">Cosmetic Formula</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Formula Base</strong></td>
+                <td className="highlighted">Multi-herb oil · coconut + three milks (21 Ayurvedic ingredients)</td>
+                <td>A drug treatment intended to stimulate follicles; suitability and response need medical guidance.</td>
+                <td>Rosemary-led blends are commonly positioned around scalp and growth support.</td>
+                <td>Benefits depend on the active ingredients and the individual formula.</td>
+              </tr>
+              <tr>
+                <td><strong>Target Zone</strong></td>
+                <td className="highlighted">Dual: protects hair shaft (reduces protein loss) + supports scalp environment</td>
+                <td>A targeted medicine—not a botanical oil or a like-for-like routine.</td>
+                <td>Usually a pre-wash oil routine, rather than a multi-herb formula.</td>
+                <td>Coverage and claims vary by formula; check the current product directions.</td>
+              </tr>
+              <tr>
+                <td><strong>Routine</strong></td>
+                <td className="highlighted">2× weekly · 30–60 min · pre-wash wash-out</td>
+                <td>Typically daily · leave on</td>
+                <td>Commonly 2× weekly · wash out</td>
+                <td>Usually daily · leave in</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="comparison-v3__swipe-tip" aria-hidden="true">← Swipe horizontally to compare parameters →</p>
       </div>
 
       <footer className="comparison-v3__consult">

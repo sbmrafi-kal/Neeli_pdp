@@ -230,7 +230,13 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
 }
 
 function ConfidenceStrip(){
-  return <section className="confidence-strip" aria-label="Product confidence"><div><strong>4.7 / 5</strong><span>from 137 reviews</span></div><div><strong>40,000+</strong><span>bought this year</span></div><div><strong>Since 1945</strong><span>rooted in authentic Ayurveda</span></div></section>
+  return <section className="confidence-strip" aria-label="Product confidence">
+    <div className="confidence-inner">
+      <div><strong>4.7 / 5</strong><span>from 137 reviews</span></div>
+      <div><strong>40,000+</strong><span>bought this year</span></div>
+      <div><strong>Since 1945</strong><span>rooted in authentic Ayurveda</span></div>
+    </div>
+  </section>
 }
 
 function ResultsSection(){
@@ -300,34 +306,36 @@ function FormulaSection({v3=false}:{v3?:boolean}){
 
 function RitualSection(){
   return <section className="ritual section adapted-ritual" id="ritual">
-    <div className="ritual-intro"><p className="kicker">The ritual guide</p><h2>Warm. Apply.<br/>Massage. Wash.</h2><p>Use 2× weekly. Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p></div>
-    <figure className="ritual-media"><div><ResponsiveImage src="/assets/production/ritual.webp" mobileSrc="/assets/production/ritual-mobile.webp" alt="Gentle fingertip scalp massage" width={1600} height={1200}/></div><figcaption>2× weekly · 30–60 minutes · wash out</figcaption></figure>
-    <ol className="ritual-steps">{ritualSteps.map(([index,title,copy])=><li key={index}><span>{index}</span><div><b>{title}</b><p>{copy}</p></div></li>)}</ol>
-    <div className="ritual-guidance-grid">
-      <aside className="ritual-reassurance-card" aria-label="What to expect from the ritual">
-        <div className="ritual-card-badge">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-          <span>Dosage & Application</span>
-        </div>
-        <strong>Rich by design. Easier with the right amount.</strong>
-        <p>This is a pre-wash oil, so it will feel richer than a leave-in serum. Start small and adjust for your hair density. Consistency matters more than vigorous rubbing or leaving it on overnight.</p>
-        <div className="ritual-card-chips">
-          <span>Start with 5–10 ml</span>
-          <span>Focus on scalp roots</span>
-          <span>Consistency over intensity</span>
-        </div>
-      </aside>
-      <div className="ritual-temperature-card" aria-label="Seasonal care advice">
-        <div className="ritual-card-badge">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          <span>Seasonal Care</span>
-        </div>
-        <strong>In cooler weather, the coconut oil base may solidify.</strong>
-        <p>Because Neelibhringadi Keram uses pure, unrefined coconut oil as its base, it naturally solidifies below 24°C. Warm the bottle gently in a bowl of warm water before use to restore its smooth fluid flow.</p>
-        <div className="ritual-card-chips">
-          <span>100% Pure Coconut Base</span>
-          <span>Warm gently in water</span>
-          <span>Preserves herbal potency</span>
+    <div className="ritual-inner">
+      <div className="ritual-intro"><p className="kicker">The ritual guide</p><h2>Warm. Apply.<br/>Massage. Wash.</h2><p>Use 2× weekly. Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p></div>
+      <figure className="ritual-media"><div><ResponsiveImage src="/assets/production/ritual.webp" mobileSrc="/assets/production/ritual-mobile.webp" alt="Gentle fingertip scalp massage" width={1600} height={1200}/></div><figcaption>2× weekly · 30–60 minutes · wash out</figcaption></figure>
+      <ol className="ritual-steps">{ritualSteps.map(([index,title,copy])=><li key={index}><span>{index}</span><div><b>{title}</b><p>{copy}</p></div></li>)}</ol>
+      <div className="ritual-guidance-grid">
+        <aside className="ritual-reassurance-card" aria-label="What to expect from the ritual">
+          <div className="ritual-card-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <span>Dosage & Application</span>
+          </div>
+          <strong>Rich by design. Easier with the right amount.</strong>
+          <p>This is a pre-wash oil, so it will feel richer than a leave-in serum. Start small and adjust for your hair density. Consistency matters more than vigorous rubbing or leaving it on overnight.</p>
+          <div className="ritual-card-chips">
+            <span>Start with 5–10 ml</span>
+            <span>Focus on scalp roots</span>
+            <span>Consistency over intensity</span>
+          </div>
+        </aside>
+        <div className="ritual-temperature-card" aria-label="Seasonal care advice">
+          <div className="ritual-card-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <span>Seasonal Care</span>
+          </div>
+          <strong>In cooler weather, the coconut oil base may solidify.</strong>
+          <p>Because Neelibhringadi Keram uses pure, unrefined coconut oil as its base, it naturally solidifies below 24°C. Warm the bottle gently in a bowl of warm water before use to restore its smooth fluid flow.</p>
+          <div className="ritual-card-chips">
+            <span>100% Pure Coconut Base</span>
+            <span>Warm gently in water</span>
+            <span>Preserves herbal potency</span>
+          </div>
         </div>
       </div>
     </div>
@@ -485,26 +493,41 @@ function TestimonialsSlider() {
 
 function ReviewsSection(){
   return <section className="reviews section adapted-reviews verified-reviews" id="reviews">
-    <div className="review-score"><p className="kicker">Customer reviews</p><div><strong>4.7</strong><span>/ 5.0</span></div><p className="review-stars" aria-label="4.7 out of 5">★★★★★</p><p>137 reviews</p></div>
-    <blockquote><span className="quote-mark" aria-hidden="true">“</span><p>This oil exceeded my expectation. I used it 2/3 times a week for a month, my hair fall has reduced drastically.</p><footer><div><strong>Lipika</strong><span><Check/> Verified purchase</span></div><small>Review shortened</small></footer></blockquote>
-    <div className="review-proof"><strong>40,000+</strong><span>Bought this year</span></div>
+    <div className="reviews-inner">
+      <div className="review-score"><p className="kicker">Customer reviews</p><div><strong>4.7</strong><span>/ 5.0</span></div><p className="review-stars" aria-label="4.7 out of 5">★★★★★</p><p>137 reviews</p></div>
+      <blockquote><span className="quote-mark" aria-hidden="true">“</span><p>This oil exceeded my expectation. I used it 2/3 times a week for a month, my hair fall has reduced drastically.</p><footer><div><strong>Lipika</strong><span><Check/> Verified purchase</span></div><small>Review shortened</small></footer></blockquote>
+      <div className="review-proof"><strong>40,000+</strong><span>Bought this year</span></div>
+    </div>
   </section>
 }
 
 function FaqSection(){
   const [openItem,setOpenItem]=useState<number|null>(0);
-  return <section className="faq section adapted-faq" id="faq"><header><p className="kicker">Product questions</p><h2>FAQs</h2><p>{String(faqItems.length).padStart(2,'0')} questions</p></header><div className="faq-list">{faqItems.map(([question,answer],index)=>{const open=openItem===index;return <article className={open?'open':''} key={question}><h3><button aria-expanded={open} aria-controls={`faq-answer-${index}`} onClick={()=>setOpenItem(open?null:index)}><span>{String(index+1).padStart(2,'0')}</span><b>{question}</b><i aria-hidden="true">{open?'−':'+'}</i></button></h3><div id={`faq-answer-${index}`} className="faq-answer" role="region" aria-label={question} hidden={!open}><p>{answer}</p></div></article>})}</div></section>
+  return <section className="faq section adapted-faq" id="faq">
+    <div className="faq-inner">
+      <header><p className="kicker">Product questions</p><h2>FAQs</h2><p>{String(faqItems.length).padStart(2,'0')} questions</p></header>
+      <div className="faq-list">{faqItems.map(([question,answer],index)=>{const open=openItem===index;return <article className={open?'open':''} key={question}><h3><button aria-expanded={open} aria-controls={`faq-answer-${index}`} onClick={()=>setOpenItem(open?null:index)}><span>{String(index+1).padStart(2,'0')}</span><b>{question}</b><i aria-hidden="true">{open?'−':'+'}</i></button></h3><div id={`faq-answer-${index}`} className="faq-answer" role="region" aria-label={question} hidden={!open}><p>{answer}</p></div></article>})}</div>
+    </div>
+  </section>
 }
 
 function ProductDetailsSection(){
   const dialogRef=useRef<HTMLDialogElement>(null);
   const openerRef=useRef<HTMLButtonElement>(null);
   const closeZoom=()=>dialogRef.current?.close();
-  return <section className="pack-facts adapted-pack" id="details"><div className="pack-heading"><p className="kicker">Product details</p><h2>200 ml</h2><p>Neelibhringadi Keram</p></div><dl className="pack-list"><div><dt>Size</dt><dd>200 ml</dd></div><div><dt>Administration</dt><dd>External use only</dd></div><div><dt>In cooler weather</dt><dd>The coconut oil base may solidify.</dd></div><div><dt>Price</dt><dd><del>₹375</del> ₹338 · Inclusive of all taxes</dd></div></dl><figure className="pack-image"><button ref={openerRef} type="button" className="pack-zoom-trigger" onClick={()=>dialogRef.current?.showModal()} aria-haspopup="dialog"><img src="/assets/gallery/neeli-back.webp" alt="Back of the Neelibhringadi Keram carton showing product information" width="1080" height="1080" loading="lazy"/><span><b aria-hidden="true">＋</b> Zoom pack label</span></button><figcaption>Pack information · Select to enlarge</figcaption></figure><dialog ref={dialogRef} className="pack-zoom-dialog" aria-labelledby="pack-zoom-title" onClick={event=>{if(event.target===event.currentTarget)closeZoom()}} onClose={()=>openerRef.current?.focus()}><div className="pack-zoom-panel"><header><div><p className="kicker">Pack information</p><h2 id="pack-zoom-title">Back-label detail</h2></div><button type="button" onClick={closeZoom} aria-label="Close enlarged pack label">×</button></header><div className="pack-zoom-image" tabIndex={0} aria-label="Scrollable enlarged pack label"><img src="/assets/gallery/neeli-back.webp" alt="Enlarged back of the Neelibhringadi Keram carton" width="1080" height="1080"/></div><p>Scroll to inspect the label. Use the current physical pack as the final authority for ingredients, directions and cautions.</p></div></dialog></section>
+  return <section className="pack-facts adapted-pack" id="details">
+    <div className="pack-inner">
+      <div className="pack-heading"><p className="kicker">Product details</p><h2>200 ml</h2><p>Neelibhringadi Keram</p></div><dl className="pack-list"><div><dt>Size</dt><dd>200 ml</dd></div><div><dt>Administration</dt><dd>External use only</dd></div><div><dt>In cooler weather</dt><dd>The coconut oil base may solidify.</dd></div><div><dt>Price</dt><dd><del>₹375</del> ₹338 · Inclusive of all taxes</dd></div></dl><figure className="pack-image"><button ref={openerRef} type="button" className="pack-zoom-trigger" onClick={()=>dialogRef.current?.showModal()} aria-haspopup="dialog"><img src="/assets/gallery/neeli-back.webp" alt="Back of the Neelibhringadi Keram carton showing product information" width="1080" height="1080" loading="lazy"/><span><b aria-hidden="true">＋</b> Zoom pack label</span></button><figcaption>Pack information · Select to enlarge</figcaption></figure><dialog ref={dialogRef} className="pack-zoom-dialog" aria-labelledby="pack-zoom-title" onClick={event=>{if(event.target===event.currentTarget)closeZoom()}} onClose={()=>openerRef.current?.focus()}><div className="pack-zoom-panel"><header><div><p className="kicker">Pack information</p><h2 id="pack-zoom-title">Back-label detail</h2></div><button type="button" onClick={closeZoom} aria-label="Close enlarged pack label">×</button></header><div className="pack-zoom-image" tabIndex={0} aria-label="Scrollable enlarged pack label"><img src="/assets/gallery/neeli-back.webp" alt="Enlarged back of the Neelibhringadi Keram carton" width="1080" height="1080"/></div><p>Scroll to inspect the label. Use the current physical pack as the final authority for ingredients, directions and cautions.</p></div></dialog>
+    </div>
+  </section>
 }
 
 function HeritageSection(){
-  return <section className="heritage adapted-heritage"><div className="heritage-title"><p className="kicker">Kerala Ayurveda</p><h2>Rooted in Authentic Ayurveda.</h2></div><div className="heritage-metrics"><div><strong>1945</strong><span>Established</span></div><div><strong>350+</strong><span>Products</span></div><div><strong>Expert led</strong><span>Clinics &amp; Academy</span></div></div><div className="heritage-spectrum"><p>Full Spectrum</p><span>Classical and Proprietary Ayurvedic Products (350+ Products) · Therapies and Ayurvedic Retreats · Academy and Education Initiatives · Pioneering Ayurvedic R&amp;D</span></div><div className="heritage-patents"><p>Globally Recognized</p><h3>Patented formulations</h3><span>Patented products in the United States, Japan and Korea.</span></div></section>
+  return <section className="heritage adapted-heritage">
+    <div className="heritage-inner">
+      <div className="heritage-title"><p className="kicker">Kerala Ayurveda</p><h2>Rooted in Authentic Ayurveda.</h2></div><div className="heritage-metrics"><div><strong>1945</strong><span>Established</span></div><div><strong>350+</strong><span>Products</span></div><div><strong>Expert led</strong><span>Clinics &amp; Academy</span></div></div><div className="heritage-spectrum"><p>Full Spectrum</p><span>Classical and Proprietary Ayurvedic Products (350+ Products) · Therapies and Ayurvedic Retreats · Academy and Education Initiatives · Pioneering Ayurvedic R&amp;D</span></div><div className="heritage-patents"><p>Globally Recognized</p><h3>Patented formulations</h3><span>Patented products in the United States, Japan and Korea.</span></div>
+    </div>
+  </section>
 }
 
 function SiteFooter(){
@@ -654,30 +677,32 @@ function App(){
       <ConfidenceStrip/>
 
       <section className="statement">
-        <div className="statement-header">
-          <p className="kicker">Formulation Purity &amp; Sourcing</p>
-          <h2>What’s in it.<br/>What is not in it.</h2>
-          <p className="statement-location">Herbs sourced from their natural habitats. Neeli from Kerala’s wetlands, Bhringraj from the Western Ghats, Amla from Chhattisgarh.</p>
-        </div>
-        <div className="statement-split">
-          <div className="statement-positive">
-            <h3>WHAT’S IN IT</h3>
-            <ul>
-              <li><b>21 Ayurvedic ingredients</b> slow-cooked in unrefined coconut oil</li>
-              <li><b>Bhringraj</b> — Traditionally used for scalp &amp; root care</li>
-              <li><b>Amla</b> — Natural Vitamin C &amp; antioxidant support</li>
-              <li><b>Neeli &amp; Karnasphota</b> — Deep scalp cooling &amp; hair fibre protection</li>
-              <li><b>Three milks</b> — Coconut, Cow &amp; Goat milk nourishment</li>
-            </ul>
+        <div className="statement-inner">
+          <div className="statement-header">
+            <p className="kicker">Formulation Purity &amp; Sourcing</p>
+            <h2>What’s in it.<br/>What is not in it.</h2>
+            <p className="statement-location">Herbs sourced from their natural habitats. Neeli from Kerala’s wetlands, Bhringraj from the Western Ghats, Amla from Chhattisgarh.</p>
           </div>
-          <div className="statement-exclusion">
-            <h3>WHAT’S NOT IN IT</h3>
-            <div className="statement-free-from">
-              <span>✕ No mineral oil</span>
-              <span>✕ No artificial fragrance</span>
-              <span>✕ No silicones</span>
-              <span>✕ No parabens</span>
-              <span>✕ No synthetic colours</span>
+          <div className="statement-split">
+            <div className="statement-positive">
+              <h3>WHAT’S IN IT</h3>
+              <ul>
+                <li><b>21 Ayurvedic ingredients</b> slow-cooked in unrefined coconut oil</li>
+                <li><b>Bhringraj</b> — Traditionally used for scalp &amp; root care</li>
+                <li><b>Amla</b> — Natural Vitamin C &amp; antioxidant support</li>
+                <li><b>Neeli &amp; Karnasphota</b> — Deep scalp cooling &amp; hair fibre protection</li>
+                <li><b>Three milks</b> — Coconut, Cow &amp; Goat milk nourishment</li>
+              </ul>
+            </div>
+            <div className="statement-exclusion">
+              <h3>WHAT’S NOT IN IT</h3>
+              <div className="statement-free-from">
+                <span>✕ No mineral oil</span>
+                <span>✕ No artificial fragrance</span>
+                <span>✕ No silicones</span>
+                <span>✕ No parabens</span>
+                <span>✕ No synthetic colours</span>
+              </div>
             </div>
           </div>
         </div>
