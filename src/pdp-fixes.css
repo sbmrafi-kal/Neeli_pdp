@@ -553,7 +553,7 @@
   letter-spacing: 0.02em !important;
 }
 
-/* 2. Full-Bleed Section Container Resets (Images 1, 2, 3) */
+/* 2. Full-Bleed Section Container Padding Calculations (Images 1, 2, 3) */
 section.statement,
 section.comparison-v3,
 section.adapted-ritual,
@@ -565,18 +565,22 @@ section.confidence-strip {
   width: 100% !important;
   max-width: none !important;
   margin-inline: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-inline: 0 !important;
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
   box-sizing: border-box !important;
+  
+  /* Centering padding calculations to enforce standard page width margins */
+  padding-left: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-right: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-inline: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
 }
 
 /* Background Color Assignments for Full-Bleed Sections */
 section.statement {
   background-color: #ffffff !important;
+  padding-top: clamp(42px, 6vw, 82px) !important;
+  padding-bottom: clamp(42px, 6vw, 82px) !important;
 }
 section.comparison-v3 {
   background-color: #f8f3ed !important;
@@ -615,6 +619,12 @@ section.confidence-strip {
   padding-right: clamp(20px, 4vw, 58px) !important;
   padding-inline: clamp(20px, 4vw, 58px) !important;
   box-sizing: border-box !important;
+}
+
+/* Adjustments to default layout elements within sections */
+.faq-list {
+  max-width: 1080px !important;
+  margin-inline: auto !important;
 }
 
 /* Grid & Spacing configurations for Inner Wrappers */
@@ -927,10 +937,10 @@ section.formula.adapted-formula {
 }
 
 /* Confidence Strip metrics scale */
-.confidence-inner > div {
+.confidence-strip > div > div {
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
-.confidence-inner > div:hover {
+.confidence-strip > div > div:hover {
   transform: scale(1.05) translateY(-2px) !important;
 }
 
@@ -1010,6 +1020,24 @@ section.formula.adapted-formula {
 
 /* Responsive updates for refinements */
 @media (max-width: 899px) {
+  /* 24px Gutter configuration for all screens */
+  :root {
+    --gutter-hero: 24px !important;
+  }
+
+  section.statement,
+  section.comparison-v3,
+  section.adapted-ritual,
+  section.adapted-reviews,
+  section.adapted-faq,
+  section.adapted-pack,
+  section.adapted-heritage,
+  section.confidence-strip {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    padding-inline: 24px !important;
+  }
+
   .checkpoint-hero .story-caption {
     grid-template-columns: 50px 1fr !important;
     padding: 12px 16px !important;
