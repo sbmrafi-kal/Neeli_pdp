@@ -553,12 +553,81 @@
   letter-spacing: 0.02em !important;
 }
 
-/* Global Font Unification (Avenir and Amstir only) */
-body, button, input, select, textarea, span, p, li, td, th, b, strong, dl, dt, dd {
-  font-family: Avenir, Figtree, sans-serif !important;
+/* Unification: Force strictly only Avenir and Amstir (No fallback fonts) */
+*, body, button, input, select, textarea, span, p, li, td, th, b, strong, dl, dt, dd, a, div, footer, header, nav {
+  font-family: Avenir !important;
 }
-h1, h2, h3, h4, h5, h6, .promise, .kicker, .comparison-v3__intro h2, .heritage h2 {
-  font-family: Amstir, Georgia, serif !important;
+h1, h2, h3, h4, h5, h6, .promise, .kicker, .comparison-v3__intro h2, .heritage h2, .statement h2, .adapted-reviews blockquote p {
+  font-family: Amstir !important;
+}
+
+/* Premium Header Navigation bar Design */
+.header {
+  height: 64px !important;
+  background: rgba(248, 243, 237, 0.96) !important; /* luxury light cream */
+  border-bottom: 1px solid rgba(57, 70, 29, 0.12) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 4px 20px rgba(57, 70, 29, 0.02) !important;
+  padding: 0 clamp(24px, 4vw, 58px) !important;
+}
+
+.header-primary-nav a {
+  font-family: Avenir !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #39461d !important;
+}
+
+.header-primary-nav a:hover {
+  color: #954721 !important;
+}
+
+.header-bag {
+  font-family: Avenir !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.header-bag span {
+  background: #954721 !important;
+  color: #ffffff !important;
+  font-family: Avenir !important;
+  font-weight: 800 !important;
+}
+
+/* Breadcrumb premium navigation bar styling */
+.pdp-breadcrumb {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 24px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-family: Avenir !important;
+}
+
+.pdp-breadcrumb a {
+  color: rgba(57, 70, 29, 0.6) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+.pdp-breadcrumb a:hover {
+  color: #954721 !important;
+}
+
+.pdp-breadcrumb .separator {
+  color: rgba(57, 70, 29, 0.3) !important;
+}
+
+.pdp-breadcrumb .current {
+  color: #954721 !important;
+  font-weight: 700 !important;
 }
 
 /* 2. Full-Bleed Section Container Padding Calculations (Images 1, 2, 3) */
@@ -587,9 +656,13 @@ section.confidence-strip {
 /* Background Color Assignments for Full-Bleed Sections */
 section.statement {
   background-color: #ffffff !important;
-  padding-top: clamp(42px, 6vw, 82px) !important;
-  padding-bottom: clamp(42px, 6vw, 82px) !important;
+  padding-top: clamp(80px, 10vw, 140px) !important;
+  padding-bottom: clamp(80px, 10vw, 140px) !important;
+  display: grid !important;
+  grid-template-columns: 1.1fr 1.9fr !important;
+  gap: clamp(48px, 6vw, 96px) !important;
 }
+
 section.comparison-v3 {
   background-color: #f8f3ed !important;
 }
@@ -607,9 +680,131 @@ section.adapted-pack {
 }
 section.adapted-heritage {
   background-color: #121a11 !important;
+  padding-top: clamp(80px, 12vw, 160px) !important; /* Increased top/bottom padding */
+  padding-bottom: clamp(80px, 12vw, 160px) !important;
 }
 section.confidence-strip {
   background-color: #39461d !important;
+}
+
+/* Formulation Purity & Sourcing: Luxury Card Split Layout */
+.statement-split {
+  display: grid !important;
+  grid-template-columns: 1.15fr 0.85fr !important;
+  gap: 32px !important;
+  align-items: start !important;
+}
+
+.statement-positive {
+  background: #f4f6f0 !important; /* Soft botanical green */
+  border: 1px solid rgba(57, 70, 29, 0.12) !important;
+  border-radius: 16px !important;
+  padding: clamp(24px, 4vw, 40px) !important;
+  box-shadow: 0 8px 30px rgba(57, 70, 29, 0.02) !important;
+}
+
+.statement-positive h3 {
+  font-family: Avenir !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  color: #39461d !important;
+  margin-bottom: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.statement-positive h3::before {
+  content: '✦' !important;
+  color: #cca54e !important;
+}
+
+.statement-positive ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.statement-positive ul li {
+  position: relative !important;
+  padding-left: 28px !important;
+  margin-bottom: 18px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #293414 !important;
+  border: none !important;
+}
+
+.statement-positive ul li:last-child {
+  margin-bottom: 0 !important;
+}
+
+.statement-positive ul li::before {
+  content: '✓' !important;
+  position: absolute !important;
+  left: 0 !important;
+  color: #954721 !important;
+  font-weight: 800 !important;
+}
+
+.statement-positive ul li b {
+  color: #954721 !important;
+  font-family: Avenir !important;
+  font-weight: 800 !important;
+}
+
+.statement-exclusion {
+  background: #fdfbf7 !important; /* Soft terracotta white */
+  border: 1px solid rgba(149, 71, 33, 0.14) !important;
+  border-radius: 16px !important;
+  padding: clamp(24px, 4vw, 40px) !important;
+  box-shadow: 0 8px 30px rgba(149, 71, 33, 0.02) !important;
+}
+
+.statement-exclusion h3 {
+  font-family: Avenir !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  color: #954721 !important;
+  margin-bottom: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.statement-exclusion h3::before {
+  content: '✕' !important;
+  color: #954721 !important;
+  font-weight: 800 !important;
+}
+
+.statement-free-from {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.statement-free-from span {
+  display: flex !important;
+  align-items: center !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(149, 71, 33, 0.18) !important;
+  color: #954721 !important;
+  padding: 10px 16px !important;
+  border-radius: 30px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+  transition: all 0.2s ease !important;
+}
+
+.statement-free-from span:hover {
+  transform: scale(1.03) !important;
+  border-color: #954721 !important;
+  background-color: #faf7f2 !important;
+  box-shadow: 0 4px 12px rgba(149, 71, 33, 0.06) !important;
 }
 
 /* Adjustments to default layout elements within sections */
@@ -679,16 +874,14 @@ section.confidence-strip {
   font-size: 12px !important;
   font-weight: 800 !important;
   letter-spacing: 0.02em !important;
-  font-family: Avenir, sans-serif !important;
+  font-family: Avenir !important;
 }
 
-/* Hero Gallery Spacing, Sizing, and Responsive layout (Images 1 & 2) */
+/* Hero Gallery Spacing, Sizing, and Responsive layout (Images 1 & 3) */
 @media (min-width: 900px) {
   .checkpoint-hero .story-gallery {
-    grid-template-rows: 1fr auto auto !important;
+    grid-template-rows: 340px auto auto !important; /* Sized to exactly match content and prevent cutoffs */
     max-width: 480px !important;
-    max-height: 520px !important;
-    height: 520px !important; /* Force explicit compact height on desktop */
     width: 100% !important;
     justify-self: end !important; /* Align to the right of the split layout */
     margin-right: 24px !important;
@@ -702,10 +895,16 @@ section.confidence-strip {
 }
 
 @media (max-width: 899px) {
+  .checkpoint-hero {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    padding-inline: 24px !important;
+  }
   .checkpoint-hero .story-gallery {
-    grid-template-rows: minmax(300px, 75vw) auto auto !important; /* Force explicit mobile slide height */
-    width: calc(100% - 48px) !important; /* Follow 24px left/right margins */
-    margin-inline: 24px !important;
+    grid-template-rows: minmax(280px, 72vw) auto auto !important; /* Force explicit mobile slide height */
+    width: 100% !important; /* Takes full available width inside the 24px margins */
+    max-width: none !important;
+    margin-inline: 0 !important;
     margin-top: 16px !important;
     margin-bottom: 24px !important;
     border-radius: 16px !important;
@@ -753,6 +952,24 @@ section.formula.adapted-formula {
   width: 100% !important;
   z-index: 2 !important;
   font-family: Avenir, Figtree, sans-serif !important;
+}
+
+/* Science Intro: Remove massive empty vertical heights (Image 2) */
+.science-story-v3 .sv3-intro {
+  min-height: auto !important;
+  height: auto !important;
+  position: relative !important;
+  padding-top: clamp(48px, 6vw, 88px) !important;
+  padding-bottom: clamp(24px, 3vw, 48px) !important;
+}
+
+@media (max-width: 899px) {
+  .science-story-v3 .sv3-intro {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 36px !important;
+    padding-bottom: 20px !important;
+  }
 }
 
 /* 5. Category Comparison Header Simplification & Redesign */
@@ -970,6 +1187,41 @@ section.formula.adapted-formula {
   transform: translateY(-2px) !important;
 }
 
+/* Consultation Card Doctor Image Layout */
+.comparison-v3__consult-grid {
+  display: grid !important;
+  grid-template-columns: 180px 1fr auto !important;
+  gap: 32px !important;
+  align-items: center !important;
+}
+
+.comparison-v3__consult-image-wrap {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 2px solid rgba(204, 165, 78, 0.3) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.comparison-v3__consult-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+@media (max-width: 899px) {
+  .comparison-v3__consult-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .comparison-v3__consult-image-wrap {
+    width: 120px !important;
+    height: 120px !important;
+    margin-inline: auto !important;
+  }
+}
+
 /* Image 2: Heritage Section Unique Layout Styling */
 .heritage-metrics {
   display: grid !important;
@@ -1014,7 +1266,7 @@ section.formula.adapted-formula {
   font-size: 11px !important;
   text-transform: uppercase !important;
   letter-spacing: 0.12em !important;
-  font-family: Avenir, sans-serif !important;
+  font-family: Avenir !important;
 }
 
 /* Image 4: Confidence Strip Luxury Layout & High Contrast */
@@ -1055,7 +1307,7 @@ section.confidence-strip strong {
 section.confidence-strip span {
   color: rgba(239, 230, 220, 0.8) !important;
   font-size: 12px !important;
-  font-family: Avenir, sans-serif !important;
+  font-family: Avenir !important;
 }
 
 /* ==========================================================================
@@ -1215,19 +1467,29 @@ section.confidence-strip > div:hover {
   }
 
   section.confidence-strip {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-    padding-block: 32px !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* side-by-side on mobile! */
+    gap: 12px !important;
+    padding-block: 20px !important;
+    padding-inline: 16px !important;
     min-height: auto !important;
   }
   section.confidence-strip > div {
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-    padding-bottom: 16px !important;
+    border-bottom: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding-bottom: 0 !important;
   }
   section.confidence-strip > div:last-child {
-    border-bottom: none !important;
+    border-right: none !important;
     padding-bottom: 0 !important;
+  }
+
+  section.confidence-strip strong {
+    font-size: 16px !important;
+  }
+  section.confidence-strip span {
+    font-size: 9px !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
   }
   
   .heritage-metrics {
@@ -1236,5 +1498,16 @@ section.confidence-strip > div:hover {
   }
   .heritage-metrics > div {
     padding: 16px !important;
+  }
+
+  section.statement {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+  .statement-split {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
   }
 }

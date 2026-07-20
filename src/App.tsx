@@ -89,7 +89,15 @@ function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,cl
 
 function ProductIdentity(){
   return <div className="product-identity">
-    <p className="identity-overline">Kerala Ayurveda · Authentic Formulation</p>
+    <nav className="pdp-breadcrumb" aria-label="Breadcrumb">
+      <a href="#shop">Shop</a>
+      <span className="separator">/</span>
+      <a href="#hair-care">Hair Care</a>
+      <span className="separator">/</span>
+      <a href="#hair-oils">Hair Oils</a>
+      <span className="separator">/</span>
+      <span className="current">Neelibhringadi Keram</span>
+    </nav>
     <h1>Neelibhringadi <span>Keram</span></h1>
     <p className="identity-subtitle">Ayurvedic scalp &amp; hair oil</p>
     

@@ -157,6 +157,9 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
           <span>1-ON-1 AYURVEDA DOCTOR CONSULTATION</span>
         </div>
         <div className="comparison-v3__consult-grid">
+          <div className="comparison-v3__consult-image-wrap">
+            <img src="/assets/ayurveda-doctor-consultation.png" alt="Ayurveda Doctor Consultation" className="comparison-v3__consult-img" />
+          </div>
           <div className="comparison-v3__consult-text">
             <p className="comparison-v3__consult-eyebrow">Need a more personal route?</p>
             <h3>Bring your hair-fall concern to an Ayurveda doctor.</h3>
