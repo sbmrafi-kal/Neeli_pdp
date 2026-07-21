@@ -83,8 +83,8 @@ type PurchaseActionProps = {
 };
 
 function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,className='',price=338}:{cart:number;buyState:'ready'|'adding'|'added';onAdd:()=>void;onDecrease:()=>void;onIncrease:()=>void;onViewCart:()=>void;className?:string;price?:number}){
-  if(cart>0)return <div className={`quantity purchase-action ${className}`}><button aria-label="Decrease quantity" onClick={onDecrease}>−</button><span aria-label={`${cart} in cart`}>{cart}</span><button aria-label="Increase quantity" onClick={onIncrease}>+</button><button className="viewbag" onClick={onViewCart}>View Bag <span className="viewbag-total">· ₹{price*cart}</span></button></div>;
-  return <button className={`add ${buyState} ${className}`} disabled={buyState!=='ready'} onClick={onAdd}>{buyState==='ready'?'ADD TO BAG':buyState==='adding'?'Adding…':<><Check/> Added to Bag</>}</button>;
+  if(cart>0)return <div className={`quantity purchase-action ${className}`}><button aria-label="Decrease quantity" onClick={onDecrease}>−</button><span aria-label={`${cart} in cart`}>{cart}</span><button aria-label="Increase quantity" onClick={onIncrease}>+</button><button className="viewbag" onClick={onViewCart}>View Cart <span className="viewbag-total">· ₹{price*cart}</span></button></div>;
+  return <button className={`add ${buyState} ${className}`} disabled={buyState!=='ready'} onClick={onAdd}>{buyState==='ready'?'ADD TO CART':buyState==='adding'?'Adding…':<><Check/> Added to Cart</>}</button>;
 }
 
 function ProductIdentity(){
@@ -93,14 +93,18 @@ function ProductIdentity(){
       <a href="#shop">Shop</a>
       <span className="separator">/</span>
       <a href="#hair-care">Hair Care</a>
-      <span className="separator">/</span>
-      <a href="#hair-oils">Hair Oils</a>
-      <span className="separator">/</span>
-      <span className="current">Neelibhringadi Keram</span>
+      <span className="separator hide-mobile">/</span>
+      <a href="#hair-oils" className="hide-mobile">Hair Oils</a>
+      <span className="separator hide-mobile">/</span>
+      <span className="current hide-mobile">Neelibhringadi Keram</span>
     </nav>
     <h1>Neelibhringadi <span>Keram</span></h1>
     <p className="identity-subtitle">Ayurvedic scalp &amp; hair oil</p>
-    
+  </div>
+}
+
+function ProductProof(){
+  return <div className="product-proof">
     <div className="identity-social-proof">
       <a className="identity-rating" href="#reviews" aria-label="4.8 out of 5, 137 reviews">
         <strong>4.8</strong>
@@ -277,7 +281,41 @@ function ConfidenceStrip(){
 }
 
 function ResultsSection(){
-  return <section className="results section adapted-results" id="results">
+  const sectionRef=useRef<HTMLElement>(null);
+  const reducedMotion=useMediaQuery('(prefers-reduced-motion: reduce)');
+  const [activeStage,setActiveStage]=useState(0);
+  const [isVisible,setIsVisible]=useState(false);
+  const [isPlaying,setIsPlaying]=useState(true);
+  const [cycleToken,setCycleToken]=useState(0);
+
+  useEffect(()=>{
+    const section=sectionRef.current;
+    if(!section)return;
+    const observer=new IntersectionObserver(([entry])=>setIsVisible(entry.isIntersecting&&entry.intersectionRatio>=.28),{threshold:[0,.28,.7]});
+    observer.observe(section);
+    return()=>observer.disconnect();
+  },[]);
+
+  useEffect(()=>{
+    if(reducedMotion||!isVisible||!isPlaying)return;
+    const timeout=window.setTimeout(()=>setActiveStage(stage=>(stage+1)%resultStages.length),4600);
+    return()=>window.clearTimeout(timeout);
+  },[activeStage,cycleToken,isPlaying,isVisible,reducedMotion]);
+
+  const pauseSequence=()=>setIsPlaying(false);
+  const resumeSequence=()=>{setCycleToken(token=>token+1);setIsPlaying(true)};
+  const chooseStage=(index:number)=>{setActiveStage(index);setCycleToken(token=>token+1)};
+
+  return <section
+    ref={sectionRef}
+    className={`results section adapted-results results-motion-rail${isVisible&&isPlaying&&!reducedMotion?' is-running':''}`}
+    id="results"
+    data-active-stage={activeStage+1}
+    onMouseEnter={pauseSequence}
+    onMouseLeave={resumeSequence}
+    onFocusCapture={pauseSequence}
+    onBlurCapture={resumeSequence}
+  >
     <header className="results-intro">
       <div>
         <p className="kicker">What to expect</p>
@@ -303,16 +341,22 @@ function ResultsSection(){
         <figcaption>Consistent use, as directed</figcaption>
       </figure>
       <div className="results-sequence">
-        {resultStages.map(([index,time,title,copy])=>(
-          <article key={index} className="results-sequence-card">
-            <div className="result-marker">
+        {resultStages.map(([index,time,title,copy],stageIndex)=>(
+          <article
+            key={index}
+            className={`results-sequence-card${activeStage===stageIndex?' is-active':' is-muted'}${activeStage>stageIndex?' is-complete':''}`}
+            aria-current={activeStage===stageIndex?'step':undefined}
+            onMouseEnter={()=>chooseStage(stageIndex)}
+          >
+            <button type="button" className="result-marker" aria-label={`Show stage ${index}: ${title}`} onClick={()=>chooseStage(stageIndex)}>
               <b>{index}</b>
-            </div>
+            </button>
             <div className="results-sequence-content">
               <span className="results-stage-time">{time}</span>
               <h3>{title}</h3>
               <p>{copy}</p>
             </div>
+            <span className="result-stage-progress" aria-hidden="true"><i key={`${activeStage}-${cycleToken}-${stageIndex}`}/></span>
           </article>
         ))}
       </div>
@@ -330,9 +374,9 @@ function FormulaSection({v3=false}:{v3?:boolean}){
   const ingredientSource=v3?ingredientsV3:ingredients;
   return <section className="formula section adapted-formula" id="formula">
     <div className="formula-story">
-      <div className="formula-heading"><p className="kicker">Key ingredients</p><h2>Three milks. One complete formula.</h2><p>{v3?'Five hero ingredients lead the formula. Cow, goat and coconut milks form its classical extraction platform, helping process water- and lipid-soluble herbal constituents into the coconut-oil base.':'Four hero ingredients lead the formula. Cow, goat and coconut milks form its classical extraction platform, helping process water- and lipid-soluble herbal constituents into the coconut-oil base.'}</p></div>
+      <div className="formula-heading"><p className="kicker">Key ingredients</p><h2>Three milks. One complete formula.</h2></div>
       <div className="formula-editorial" aria-label="Formula imagery">
-        <figure className="formula-material ingredients-material"><div><ResponsiveImage src="/assets/production/ingredients.webp" mobileSrc="/assets/production/ingredients-mobile.webp" alt="Amla, Bhringaraj, Neeli and coconut oil"/></div><figcaption>{v3?'Four pictured ingredients · Karnasphota detailed in the index':'Four powerful ingredients'}</figcaption></figure>
+        <figure className="formula-material ingredients-material"><div><ResponsiveImage src="/assets/production/ingredients.webp" mobileSrc="/assets/production/ingredients-mobile.webp" alt="Amla, Bhringaraj, Neeli and coconut oil"/></div><figcaption>Four powerful ingredients</figcaption></figure>
         <figure className="formula-material milks-material"><div><ResponsiveImage src="/assets/production/triple-milk.webp" mobileSrc="/assets/production/triple-milk-mobile.webp" alt="Cow milk, goat milk and coconut milk"/></div><figcaption>The triple-milk base</figcaption></figure>
       </div>
       <figure className="formula-method"><div><ResponsiveImage src="/assets/production/slow-cooking.webp" mobileSrc="/assets/production/slow-cooking-mobile.webp" alt="Herbal oil prepared over low heat using Thaila Paaka Vidhi" width={1600} height={1067}/></div><figcaption>Slow-heat extraction through Thaila Paaka Vidhi</figcaption></figure>
@@ -343,7 +387,7 @@ function FormulaSection({v3=false}:{v3?:boolean}){
 
 function RitualSection(){
   return <section className="ritual section adapted-ritual" id="ritual">
-    <div className="ritual-intro"><p className="kicker">The ritual guide</p><h2>Warm. Apply.<br/>Massage. Wash.</h2><p>Use 2× weekly. Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p></div>
+    <div className="ritual-intro"><p className="kicker">The ritual guide</p><h2>Warm, Apply, Massage, Wash</h2><p>Use 2× weekly. Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p></div>
     <figure className="ritual-media"><div><ResponsiveImage src="/assets/production/ritual.webp" mobileSrc="/assets/production/ritual-mobile.webp" alt="Gentle fingertip scalp massage" width={1600} height={1200}/></div><figcaption>2× weekly · 30–60 minutes · wash out</figcaption></figure>
     <ol className="ritual-steps">{ritualSteps.map(([index,title,copy])=><li key={index}><span>{index}</span><div><b>{title}</b><p>{copy}</p></div></li>)}</ol>
     <div className="ritual-guidance-grid">
@@ -405,6 +449,10 @@ function KeralaAyurvedaDifference() {
 
   return (
     <section className="difference-section" id="difference" data-section="approved-testimonial">
+      <header className="difference-header">
+        <span className="diff-eyebrow">OUR HERITAGE</span>
+        <h2>The Kerala Ayurveda Difference</h2>
+      </header>
       <div className="difference-grid">
         <div className="difference-visual">
           <img src="/assets/production/slow-cooking.webp" alt="Herbs boiling on low fire in oil" className="diff-image" />
@@ -414,8 +462,6 @@ function KeralaAyurvedaDifference() {
           </div>
         </div>
         <div className="difference-content">
-          <span className="diff-eyebrow">OUR HERITAGE</span>
-          <h2>The Kerala Ayurveda Difference</h2>
           <p className="diff-lede">Why this traditional formula is difficult to replicate with modern assembly lines.</p>
           <div className="diff-accordion">
             {diffItems.map((item, idx) => {
@@ -527,16 +573,96 @@ function TestimonialsSlider() {
 }
 
 function ReviewsSection(){
-  return <section className="reviews section adapted-reviews verified-reviews" id="reviews">
-    <div className="review-score"><p className="kicker">Customer reviews</p><div><strong>4.7</strong><span>/ 5.0</span></div><p className="review-stars" aria-label="4.7 out of 5">★★★★★</p><p>137 reviews</p></div>
-    <blockquote><span className="quote-mark" aria-hidden="true">“</span><p>This oil exceeded my expectation. I used it 2/3 times a week for a month, my hair fall has reduced drastically.</p><footer><div><strong>Lipika</strong><span><Check/> Verified purchase</span></div><small>Review shortened</small></footer></blockquote>
-    <div className="review-proof"><strong>40,000+</strong><span>Bought this year</span></div>
-  </section>
+  const sectionRef=useRef<HTMLElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isVisible,setIsVisible]=useState(false);
+  const [cycleToken,setCycleToken]=useState(0);
+  const reducedMotion=useMediaQuery('(prefers-reduced-motion: reduce)');
+  const reviewDuration=5200;
+  const reviews = [
+    {
+      quote: "My hair felt softer after washing, and the oil was easier to remove than I expected.",
+      author: "Ananya R.",
+      variant: "200 ml",
+      duration: "Used for 6 weeks",
+      rating: "★★★★★"
+    },
+    {
+      quote: "This oil exceeded my expectation. I used it 2/3 times a week for a month, my hair fall has reduced drastically.",
+      author: "Lipika S.",
+      variant: "200 ml",
+      duration: "Used for 4 weeks",
+      rating: "★★★★★"
+    },
+    {
+      quote: "Scalp feels soothed immediately after application. A natural, fresh botanical scent that washes out clean.",
+      author: "Rahul M.",
+      variant: "100 ml",
+      duration: "Used for 8 weeks",
+      rating: "★★★★★"
+    }
+  ];
+
+  useEffect(() => {
+    const section=sectionRef.current;
+    if(!section)return;
+    const observer=new IntersectionObserver(([entry])=>setIsVisible(entry.isIntersecting&&entry.intersectionRatio>=.3),{threshold:[0,.3,.75]});
+    observer.observe(section);
+    return()=>observer.disconnect();
+  },[]);
+
+  useEffect(() => {
+    if (!isPlaying||reducedMotion) return;
+    const timeout = window.setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % reviews.length);
+    }, reviewDuration);
+    return () => window.clearTimeout(timeout);
+  }, [currentSlide,cycleToken,isPlaying,reducedMotion,reviews.length]);
+
+  const pauseReviews=()=>setIsPlaying(false);
+  const resumeReviews=()=>{setCycleToken(token=>token+1);setIsPlaying(true)};
+  const chooseReview=(index:number)=>{setCurrentSlide(index);setCycleToken(token=>token+1)};
+
+  return <section 
+    ref={sectionRef}
+    className={`reviews section adapted-reviews verified-reviews combined-reviews-section review-carousel${isPlaying&&!reducedMotion?' is-running':''}`}
+    id="reviews"
+    data-review-index={currentSlide+1}
+    onMouseEnter={pauseReviews}
+    onMouseLeave={resumeReviews}
+    onFocusCapture={pauseReviews}
+    onBlurCapture={resumeReviews}
+    aria-label="Customer Reviews"
+  >
+    <div className="testimonials-inner review-carousel__stage" key={currentSlide}>
+      <p className="review-carousel__eyebrow">Customer stories</p>
+      <div className="testimonials-stars" aria-label="5 out of 5 stars">{reviews[currentSlide].rating}</div>
+      <blockquote>
+        <p>“{reviews[currentSlide].quote}”</p>
+      </blockquote>
+      <div className="testimonials-author">
+        <strong>{reviews[currentSlide].author}</strong>
+        <span>Verified Buyer • {reviews[currentSlide].variant} • {reviews[currentSlide].duration}</span>
+      </div>
+    </div>
+    <div className="review-progress-controls" role="tablist" aria-label="Choose a customer review">
+      {reviews.map((review,index)=><button
+        type="button"
+        role="tab"
+        key={review.author}
+        aria-label={`Show review ${index+1} from ${review.author}`}
+        aria-selected={currentSlide===index}
+        onClick={()=>chooseReview(index)}
+      ><span aria-hidden="true"><i key={`${currentSlide}-${cycleToken}-${index}`} style={{animationDuration:`${reviewDuration}ms`}}/></span></button>)}
+    </div>
+    <p className="visually-hidden" aria-live="polite">Showing review {currentSlide+1} of {reviews.length}, by {reviews[currentSlide].author}.</p>
+  </section>;
 }
 
 function FaqSection(){
   const [openItem,setOpenItem]=useState<number|null>(0);
-  return <section className="faq section adapted-faq" id="faq"><header><p className="kicker">Product questions</p><h2>FAQs</h2><p>{String(faqItems.length).padStart(2,'0')} questions</p></header><div className="faq-list">{faqItems.map(([question,answer],index)=>{const open=openItem===index;return <article className={open?'open':''} key={question}><h3><button aria-expanded={open} aria-controls={`faq-answer-${index}`} onClick={()=>setOpenItem(open?null:index)}><span>{String(index+1).padStart(2,'0')}</span><b>{question}</b><i aria-hidden="true">{open?'−':'+'}</i></button></h3><div id={`faq-answer-${index}`} className="faq-answer" role="region" aria-label={question} hidden={!open}><p>{answer}</p></div></article>})}</div></section>
+  return <section className="faq section adapted-faq" id="faq"><header><h2>FAQs</h2></header><div className="faq-list">{faqItems.map(([question,answer],index)=>{const open=openItem===index;return <article className={open?'open':''} key={question}><h3><button aria-expanded={open} aria-controls={`faq-answer-${index}`} onClick={()=>setOpenItem(open?null:index)}><b>{question}</b><i aria-hidden="true">{open?'−':'+'}</i></button></h3><div id={`faq-answer-${index}`} className="faq-answer" role="region" aria-label={question} hidden={!open}><p>{answer}</p></div></article>})}</div></section>
 }
 
 function ProductDetailsSection(){
@@ -563,7 +689,20 @@ function SiteFooter(){
         {groups.map(group => <div className="theme-footer__column" key={group.title}><h2>{group.title}</h2><ul>{group.links.map(([label, href]) => <li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}
       </div>
       <div className="theme-footer__social"><strong>Follow Us</strong><div><a href="https://www.instagram.com/keralaayurvedaltd/?hl=en" aria-label="Instagram">◎</a><a href="https://www.youtube.com/@KeralaAyurvedalimited" aria-label="YouTube">▶</a><a href="https://www.facebook.com/keralaayurvedaltd/" aria-label="Facebook">f</a><a href="https://in.linkedin.com/company/kerala-ayurveda" aria-label="LinkedIn">in</a></div></div>
-      <p className="theme-footer__tagline">Rooted in authentic Ayurveda.</p>
+      <div className="theme-footer__tagline-wrap">
+        <p className="theme-footer__tagline">Rooted in authentic Ayurveda.</p>
+      </div>
+    </div>
+    <div className="footer-waves-container" aria-hidden="true">
+      <svg className="footer-wave-svg wave-1" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1300,60 1400,60 L1400,120 L0,120 Z" />
+      </svg>
+      <svg className="footer-wave-svg wave-2" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,60 C180,20 320,100 500,60 C680,20 820,100 1000,60 C1180,20 1320,60 1400,60 L1400,120 L0,120 Z" />
+      </svg>
+      <svg className="footer-wave-svg wave-3" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,60 C120,80 280,40 500,60 C720,80 880,40 1000,60 C1120,80 1280,60 1400,60 L1400,120 L0,120 Z" />
+      </svg>
     </div>
     <div className="theme-footer__decoration" aria-hidden="true" />
   </footer>
@@ -654,11 +793,14 @@ function App(){
   const submitSearch=(event:FormEvent)=>{event.preventDefault();const query=searchTerm.trim().toLowerCase();if(!query)return;const targets=[{terms:'overview product neelibhringadi hair oil',id:'product'},{terms:'result results hair fall hair growth expect',id:'results'},{terms:'formula ingredient ingredients amla bhringaraj neeli coconut milk',id:'formula'},{terms:'mechanism science works recovery pathway shaft scalp follicle anagen',id:'science'},{terms:'ritual how to use apply massage wash mild shampoo',id:'ritual'},{terms:'compare comparison minoxidil serum rosemary alternative',id:'comparison'},{terms:'doctor consultation whatsapp persistent sudden clinical',id:'consultation'},{terms:'review reviews rating',id:'reviews'},{terms:'faq questions pregnancy coloured greying dandruff everyday science',id:'faq'},{terms:'details size pack label zoom external taxes price',id:'details'}];const match=targets.find(item=>item.terms.includes(query)||query.split(/\s+/).some(word=>word.length>2&&item.terms.includes(word)));if(match){document.getElementById(match.id)?.scrollIntoView({behavior:'smooth'});setSearchStatus(`Showing ${match.id==='product'?'product overview':match.id}.`);setSearchOpen(false)}else setSearchStatus('No matching section in this product prototype.')};
   return <>
     <a className="skip" href="#main">Skip to product</a>
-    <header className={`header ${searchOpen?'searching':''}`}><a className="brand" href="#main" aria-label="Kerala Ayurveda home"><img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="130" height="130"/></a><nav className="header-primary-nav" aria-label="Primary navigation"><a href="#product">Shop</a><a href="#formula">Ayurveda</a><a href="#science">Our approach</a><a href="#reviews">Journal</a></nav>{searchOpen&&<form className="header-search" role="search" onSubmit={submitSearch}><Search/><label className="visually-hidden" htmlFor="site-search">Search this product page</label><input ref={searchRef} id="site-search" value={searchTerm} onChange={event=>setSearchTerm(event.target.value)} placeholder="Search results, ingredients, how to use…" autoComplete="off"/><button className="search-submit" type="submit"><span className="search-submit-desktop">Search</span><span className="search-submit-mobile">Go</span></button><button className="search-close" type="button" onClick={()=>setSearchOpen(false)} aria-label="Close search">×</button></form>}<div className="header-actions"><button className="search-button" onClick={()=>setSearchOpen(true)} aria-expanded={searchOpen} aria-label="Open search"><Search/></button><button className="header-bag" type="button" onClick={()=>cart?openDrawer():document.getElementById('product')?.scrollIntoView({behavior:'smooth'})} aria-label={cart?`Open bag, ${cart} item${cart>1?'s':''}`:'View product purchase options'}>Bag{cart>0&&<span>{cart}</span>}</button></div><p className="live" aria-live="polite">{searchStatus}</p></header>
+    <header className={`header ${searchOpen?'searching':''}`}><a className="brand" href="#main" aria-label="Kerala Ayurveda home"><img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="130" height="130"/></a><nav className="header-primary-nav" aria-label="Primary navigation"><a href="#product">Shop</a><a href="#formula">Ayurveda</a><a href="#science">Our approach</a><a href="#reviews">Journal</a></nav>{searchOpen&&<form className="header-search" role="search" onSubmit={submitSearch}><Search/><label className="visually-hidden" htmlFor="site-search">Search this product page</label><input ref={searchRef} id="site-search" value={searchTerm} onChange={event=>setSearchTerm(event.target.value)} placeholder="Search results, ingredients, how to use…" autoComplete="off"/><button className="search-submit" type="submit"><span className="search-submit-desktop">Search</span><span className="search-submit-mobile">Go</span></button><button className="search-close" type="button" onClick={()=>setSearchOpen(false)} aria-label="Close search">×</button></form>}<div className="header-actions"><button className="search-button" onClick={()=>setSearchOpen(true)} aria-expanded={searchOpen} aria-label="Open search"><Search/></button><button className="header-bag" type="button" onClick={()=>cart?openDrawer():document.getElementById('product')?.scrollIntoView({behavior:'smooth'})} aria-label={cart?`Open cart, ${cart} item${cart>1?'s':''}`:'View product purchase options'}>Cart{cart>0&&<span>{cart}</span>}</button></div><p className="live" aria-live="polite">{searchStatus}</p></header>
     {useV3?<PdpSectionNavV3/>:<nav className="anchorbar" aria-label="Product sections">{navItems.map(([id,label])=><a key={id} href={`#${id}`} className={`standard-nav-link ${activeSection===id?'active':''}`} aria-current={activeSection===id?'location':undefined}>{label}</a>)}<button className="landscape-trigger" aria-expanded={landscapeMenu} aria-controls="landscape-sections" onClick={()=>setLandscapeMenu(open=>!open)}>Sections <span>{landscapeMenu?'−':'+'}</span></button><div id="landscape-sections" className={`landscape-menu ${landscapeMenu?'open':''}`}>{navItems.map(([id,label])=><a key={id} href={`#${id}`} className={activeSection===id?'active':''} onClick={()=>setLandscapeMenu(false)}>{label}</a>)}</div></nav>}
     <main id="main" className={scienceDockHidden?'science-is-active':undefined}>
       <section className="hero checkpoint-hero" id="product">
-        <ProductIdentity/>
+        <div className="hero-overview">
+          <ProductIdentity/>
+          <ProductProof/>
+        </div>
         <StoryGallery slide={slide} setSlide={setSlide} experiment={motionExperiment} onTextureExposure={markTextureExposure}/>
         <section ref={heroCommerceRef} className="hero-commerce" aria-label="Purchase details">
           <div className="size-selector">
@@ -739,8 +881,6 @@ function App(){
       <RitualSection/>
 
       <KeralaAyurvedaDifference />
-      <TestimonialsSlider />
-
       <ReviewsSection/>
 
       <FaqSection/>
@@ -762,7 +902,7 @@ function App(){
       <p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p>
     </aside>
 
-    <div className={`scrim ${drawer?'open':''}`} inert={!drawer} onMouseDown={e=>{if(e.target===e.currentTarget)closeDrawer()}} aria-hidden={!drawer}><section ref={drawerRef} className="drawer" role="dialog" aria-modal="true" aria-label="Your bag"><header><div><p>Your bag</p><h2>{cart?`${cart} item${cart>1?'s':''}`:'Your cart is empty'}</h2></div><button ref={closeRef} onClick={closeDrawer} aria-label="Close bag">×</button></header>{cart?<><div className="cart-item"><div className="cart-thumb"><img src="/assets/production/official-product.webp" alt="" width="609" height="1800"/></div><div><h3>Neelibhringadi Keram</h3><p>200 ml</p><strong>₹338</strong> <del>₹375</del></div><div className="quantity small"><button aria-label="Decrease quantity" onClick={()=>setCart(Math.max(0,cart-1))}>−</button><span>{cart}</span><button aria-label="Increase quantity" onClick={()=>setCart(cart+1)}>+</button></div></div><div className="subtotal"><span>Subtotal</span><strong>₹{338*cart}</strong></div><button className="checkout" onClick={()=>track('checkout_clicked',{experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current,cart_quantity:cart,value:338*cart,currency:'INR'})}>Checkout Now</button><small>Inclusive of all taxes</small></>:<p className="empty">Explore our range.</p>}</section></div>
+    <div className={`scrim ${drawer?'open':''}`} inert={!drawer} onMouseDown={e=>{if(e.target===e.currentTarget)closeDrawer()}} aria-hidden={!drawer}><section ref={drawerRef} className="drawer" role="dialog" aria-modal="true" aria-label="Your cart"><header><div><p>Your cart</p><h2>{cart?`${cart} item${cart>1?'s':''}`:'Your cart is empty'}</h2></div><button ref={closeRef} onClick={closeDrawer} aria-label="Close cart">×</button></header>{cart?<><div className="cart-item"><div className="cart-thumb"><img src="/assets/production/official-product.webp" alt="" width="609" height="1800"/></div><div><h3>Neelibhringadi Keram</h3><p>{selectedSize === '200ml' ? '200 ml' : '100 ml'}</p><strong>₹{currentPrice}</strong> <del>₹{currentMrp}</del></div><div className="quantity small"><button aria-label="Decrease quantity" onClick={()=>setCart(Math.max(0,cart-1))}>−</button><span>{cart}</span><button aria-label="Increase quantity" onClick={()=>setCart(cart+1)}>+</button></div></div><div className="subtotal"><span>Subtotal</span><strong>₹{currentPrice*cart}</strong></div><button className="checkout" onClick={()=>track('checkout_clicked',{experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current,cart_quantity:cart,value:currentPrice*cart,currency:'INR'})}>Checkout Now</button><small>Inclusive of all taxes</small></>:<p className="empty">Explore our range.</p>}</section></div>
   </>
 }
 

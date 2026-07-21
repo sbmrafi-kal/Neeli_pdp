@@ -1,0 +1,1698 @@
+/*
+ * Canonical v3 visual authority.
+ *
+ * The prototype accumulated several overlapping polish layers. This file is
+ * intentionally imported last so typography, palette, spacing and responsive
+ * behavior resolve to one predictable system.
+ */
+
+:root {
+  --brand-bhoomi: #3d5b43;
+  --brand-wild-sage: #b1ba93;
+  --brand-cotton: #fdfbf7;
+  --brand-deep-river: #2d3669;
+  --brand-chandan: #97634b;
+  --brand-burnt-nectar: #82351d;
+  --brand-tulsi: #39461d;
+  --brand-herb: #5f6c3d;
+  --brand-ksheera: #efe6dc;
+  --brand-agni: #954721;
+  --brand-clay: #b5967b;
+  --brand-rasa: #cca54e;
+  --brand-tulsi-leaf: #2c3e24;
+  --brand-manjal: #936c32;
+  --brand-sage-beige: #c7c2a1;
+  --brand-neela: #516080;
+  --brand-anjanam: #303226;
+
+  --font-display: Amstir, Georgia, serif;
+  --font-label: Avenir, Figtree, sans-serif;
+  --font-body: Figtree, Arial, sans-serif;
+  --content-inline: clamp(20px, 5vw, 72px);
+  --content-max: 1324px;
+
+  --ka-paper-050: var(--brand-cotton) !important;
+  --ka-ksheera-100: var(--brand-ksheera) !important;
+  --ka-tulsi-700: var(--brand-tulsi) !important;
+  --ka-herb-600: var(--brand-herb) !important;
+  --ka-agni-600: var(--brand-agni) !important;
+  --ka-clay-400: var(--brand-clay) !important;
+  --ka-rasa-500: var(--brand-rasa) !important;
+}
+
+html,
+body {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-body) !important;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+}
+
+body p,
+body li,
+body dd,
+body dt,
+body td,
+body th {
+  font-family: var(--font-body) !important;
+  font-weight: 400;
+}
+
+::selection {
+  background: var(--brand-rasa);
+  color: var(--brand-anjanam);
+}
+
+:focus-visible {
+  outline-color: var(--brand-rasa) !important;
+}
+
+/* Remove the artificial white bands created by section margins. */
+main > section,
+section.checkpoint-hero,
+section.statement,
+section.results,
+section.formula,
+section.science-story-v3,
+section.comparison-v3,
+section.adapted-ritual,
+section.difference-section,
+section.combined-reviews-section,
+section.adapted-faq,
+section.adapted-pack,
+section.adapted-heritage,
+section.confidence-strip {
+  margin-block: 0 !important;
+}
+
+#product,
+#results,
+#formula,
+#science,
+#comparison,
+#ritual,
+#difference,
+#reviews,
+#faq,
+#details {
+  scroll-margin-top: 126px;
+}
+
+/* Three type roles: display, utility, and body. */
+.product-identity h1,
+.statement-header h2,
+.results-intro h2,
+.formula-heading h2,
+.comparison-v3__intro h2,
+.ritual-intro h2,
+.difference-header h2,
+.adapted-faq > header h2,
+.pack-heading h2,
+.heritage-title h2,
+.sv3-intro h2 {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.04 !important;
+  text-wrap: balance;
+}
+
+.statement-header h2,
+.results-intro h2,
+.formula-heading h2,
+.comparison-v3__intro h2,
+.difference-header h2,
+.adapted-faq > header h2,
+.pack-heading h2,
+.heritage-title h2 {
+  font-size: clamp(42px, 4.4vw, 64px) !important;
+}
+
+.product-identity h1 {
+  font-size: clamp(52px, 5vw, 72px) !important;
+  line-height: 0.98 !important;
+}
+
+.ritual-intro h2 {
+  max-width: 13ch;
+  margin: 10px 0 16px !important;
+  font-size: clamp(42px, 4vw, 58px) !important;
+  line-height: 1.02 !important;
+  white-space: normal !important;
+  overflow-wrap: normal;
+}
+
+.results-sequence-content h3,
+.ingredient-entry h3,
+.comparison-v3__anchor h3,
+.comparison-v3__versus-title h3,
+.comparison-v3__consult-content h3,
+.diff-acc-header h3,
+.sv3-copy h3,
+.sv3-resolution-card h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.015em !important;
+}
+
+.results-sequence-content h3,
+.ingredient-entry h3,
+.diff-acc-header h3 {
+  font-size: clamp(22px, 2vw, 30px) !important;
+  line-height: 1.12 !important;
+}
+
+.kicker,
+.diff-eyebrow,
+.size-selector-label,
+.ingredient-heading > span,
+.comparison-v3__header-badge,
+.comparison-v3__path-tag,
+.comparison-v3__consult-eyebrow,
+.results-stage-time,
+.ritual-card-badge,
+.sv3-copy__eyebrow,
+.sv3-evidence > span {
+  font-family: var(--font-label) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.35 !important;
+  text-transform: uppercase !important;
+}
+
+.add,
+.checkout,
+.viewbag,
+.search-submit,
+.comparison-v3__consult-cta a {
+  min-height: 52px;
+  font-family: var(--font-label) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Header and section navigation */
+.header {
+  background: var(--brand-cotton) !important;
+  border-color: var(--brand-sage-beige) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.header-primary-nav a,
+.header-actions button,
+.brand {
+  min-height: 44px;
+  align-items: center;
+}
+
+.header-primary-nav a {
+  display: inline-flex;
+  font-family: var(--font-label) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase;
+}
+
+.pdp-section-nav-v3 {
+  background: var(--brand-tulsi) !important;
+  border-color: var(--brand-herb) !important;
+  color: var(--brand-cotton) !important;
+}
+
+.pdp-section-nav-v3__link {
+  min-height: 46px !important;
+  color: inherit !important;
+  font-family: var(--font-label) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.035em !important;
+}
+
+.pdp-section-nav-v3__link[aria-current='location'] {
+  color: var(--brand-rasa) !important;
+}
+
+/* Hero */
+.checkpoint-hero {
+  background: var(--brand-ksheera) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.identity-subtitle,
+.identity-benefits-list,
+.price-note,
+.hero-reassurance-strip {
+  color: var(--brand-herb) !important;
+}
+
+.identity-rating,
+.pdp-breadcrumb,
+.pdp-breadcrumb a {
+  color: var(--brand-tulsi) !important;
+}
+
+.identity-rating .stars,
+.hero-price,
+.size-price {
+  color: var(--brand-agni) !important;
+}
+
+.identity-rating .stars,
+.size-price {
+  background: transparent !important;
+}
+
+.proof-pill,
+.discount-chip,
+.size-badge {
+  background: var(--brand-rasa) !important;
+  color: var(--brand-anjanam) !important;
+}
+
+.identity-benefits-list .check {
+  background: var(--brand-wild-sage) !important;
+  color: var(--brand-tulsi-leaf) !important;
+}
+
+.checkpoint-hero .story-gallery,
+.story-gallery .story-selector,
+.story-gallery .story-selector button,
+.story-counter,
+.story-arrows button,
+.size-option {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.story-gallery .story-selector button.selected,
+.size-option.selected {
+  background: var(--brand-ksheera) !important;
+  border-color: var(--brand-tulsi) !important;
+}
+
+.story-gallery .story-selector button {
+  min-width: 0 !important;
+  min-height: 64px !important;
+  padding-inline: 3px !important;
+}
+
+.story-gallery .story-selector button span {
+  color: var(--brand-agni) !important;
+}
+
+.story-gallery .story-selector button b {
+  color: var(--brand-tulsi) !important;
+  font-family: var(--font-label) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+}
+
+.add,
+.checkout,
+.viewbag,
+.hero-purchase-action,
+.dock-purchase-action {
+  background: var(--brand-agni) !important;
+  border-color: var(--brand-agni) !important;
+  color: var(--brand-cotton) !important;
+}
+
+.add:hover,
+.checkout:hover,
+.viewbag:hover,
+.hero-purchase-action:hover,
+.dock-purchase-action:hover {
+  background: var(--brand-burnt-nectar) !important;
+}
+
+/* Trust and purity */
+.confidence-strip {
+  padding-block: 32px !important;
+  background: var(--brand-anjanam) !important;
+  color: var(--brand-ksheera) !important;
+}
+
+.confidence-strip strong {
+  color: var(--brand-rasa) !important;
+}
+
+.confidence-strip span {
+  color: var(--brand-ksheera) !important;
+}
+
+.statement {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.statement-positive,
+.statement-exclusion {
+  background: var(--brand-ksheera) !important;
+  color: var(--brand-tulsi) !important;
+  border-color: var(--brand-sage-beige) !important;
+  box-shadow: none !important;
+}
+
+.statement-positive h3,
+.statement-exclusion h3 {
+  margin: 0 0 22px !important;
+  color: var(--brand-agni) !important;
+  font-family: var(--font-label) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.13em !important;
+  line-height: 1.35 !important;
+}
+
+.statement-positive li,
+.statement-positive li b {
+  color: var(--brand-tulsi) !important;
+}
+
+.statement-free-from span {
+  min-height: 40px;
+  background: var(--brand-cotton) !important;
+  border-color: var(--brand-clay) !important;
+  color: var(--brand-agni) !important;
+}
+
+/* Results */
+.adapted-results {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-ksheera) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.results-sequence-card,
+.results-qualification-card,
+.results-media-overlay-chip {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+  border-color: var(--brand-sage-beige) !important;
+  box-shadow: none !important;
+}
+
+.result-marker,
+.results-trust-tag span {
+  background: var(--brand-rasa) !important;
+  color: var(--brand-anjanam) !important;
+}
+
+.results-sequence-content p,
+.results-intro-desc p,
+.results-qualification-card p {
+  color: var(--brand-herb) !important;
+}
+
+/* Formula */
+.adapted-formula {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-tulsi-leaf) !important;
+  color: var(--brand-cotton) !important;
+}
+
+.formula-heading p,
+.ingredient-copy p,
+.full-ingredients p,
+.formula-material figcaption,
+.formula-method figcaption,
+.ingredient-heading p {
+  color: var(--brand-ksheera) !important;
+}
+
+.formula-heading .kicker,
+.ingredient-heading > span,
+.ingredient-entry > button > span,
+.ingredient-label > span {
+  color: var(--brand-rasa) !important;
+}
+
+.ingredient-entry,
+.ingredient-entry button,
+.ingredient-label,
+.full-ingredients,
+.full-ingredients summary {
+  background: var(--brand-tulsi-leaf) !important;
+  color: var(--brand-cotton) !important;
+  border-color: var(--brand-herb) !important;
+}
+
+.ingredient-entry.active,
+.ingredient-entry.active button {
+  background: var(--brand-tulsi) !important;
+}
+
+.ingredient-copy p {
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+}
+
+.full-ingredients summary {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+/* Science story: only supplied palette values, with readable narrative type. */
+section.science-story-v3 {
+  --sv3-ink: var(--brand-anjanam) !important;
+  --sv3-cocoa: var(--brand-tulsi-leaf) !important;
+  --sv3-olive: var(--brand-tulsi-leaf) !important;
+  --sv3-herb: var(--brand-herb) !important;
+  --sv3-cream: var(--brand-ksheera) !important;
+  --sv3-paper: var(--brand-cotton) !important;
+  --sv3-rust: var(--brand-agni) !important;
+  --sv3-gold: var(--brand-rasa) !important;
+  --sv3-amla: var(--brand-wild-sage) !important;
+  --sv3-neeli: var(--brand-neela) !important;
+  --sv3-karnasphota: var(--brand-chandan) !important;
+  --sv3-lauric: var(--brand-sage-beige) !important;
+  padding: 0 !important;
+  background: var(--brand-anjanam) !important;
+  color: var(--brand-ksheera) !important;
+}
+
+.sv3-intro {
+  background: var(--brand-tulsi-leaf) !important;
+}
+
+.sv3-intro h2 {
+  font-size: clamp(52px, 5.5vw, 78px) !important;
+  color: var(--brand-cotton) !important;
+}
+
+.sv3-intro > div p,
+.sv3-copy__body,
+.sv3-qualifier {
+  color: var(--brand-ksheera) !important;
+  font-family: var(--font-body) !important;
+}
+
+.sv3-copy h3 {
+  color: var(--brand-cotton) !important;
+  font-size: clamp(38px, 3.25vw, 50px) !important;
+  line-height: 1.02 !important;
+}
+
+.sv3-copy__body {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+.sv3-scroll,
+.sv3-stage,
+.sv3-copy-stack,
+.sv3-static-sequence,
+.sv3-static-scene,
+.sv3-static-scene .sv3-copy {
+  background-color: var(--brand-anjanam) !important;
+}
+
+.sv3-scene,
+.sv3-resolution {
+  background-color: var(--brand-tulsi-leaf) !important;
+}
+
+.sv3-evidence li {
+  background: var(--brand-anjanam) !important;
+  color: var(--brand-ksheera) !important;
+}
+
+.sv3-resolution {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+}
+
+.sv3-resolution-title,
+.sv3-resolution-card h3 {
+  color: var(--brand-cotton) !important;
+  font-family: var(--font-display) !important;
+}
+
+.sv3-resolution-card--path1 {
+  background: var(--brand-agni) !important;
+}
+
+.sv3-resolution-card--path2 {
+  background: var(--brand-tulsi) !important;
+}
+
+.sv3-evidence-note {
+  background: var(--brand-tulsi-leaf) !important;
+  color: var(--brand-rasa) !important;
+}
+
+.sv3-evidence-note summary {
+  min-height: 52px;
+}
+
+/* Comparison */
+section.comparison-v3 {
+  --comparison-ink: var(--brand-tulsi) !important;
+  --comparison-muted: var(--brand-herb) !important;
+  --comparison-paper: var(--brand-cotton) !important;
+  --comparison-milk: var(--brand-ksheera) !important;
+  --comparison-rust: var(--brand-agni) !important;
+  --comparison-gold: var(--brand-rasa) !important;
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.comparison-v3__anchor {
+  background: var(--brand-tulsi-leaf) !important;
+  color: var(--brand-cotton) !important;
+  border-color: var(--brand-rasa) !important;
+}
+
+.comparison-v3__anchor h3,
+.comparison-v3__paths strong,
+.comparison-v3__ritual {
+  color: var(--brand-cotton) !important;
+}
+
+.comparison-v3__formula,
+.comparison-v3__paths p {
+  color: var(--brand-ksheera) !important;
+}
+
+.comparison-v3__table th,
+.comparison-v3__table td {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.comparison-v3__table .highlighted {
+  background: var(--brand-ksheera) !important;
+}
+
+.comparison-v3__consult {
+  background: var(--brand-burnt-nectar) !important;
+  color: var(--brand-cotton) !important;
+}
+
+.comparison-v3__consult h3,
+.comparison-v3__consult-subtext,
+.comparison-v3__consult-eyebrow {
+  color: var(--brand-cotton) !important;
+}
+
+.comparison-v3__consult-cta a {
+  background: var(--brand-cotton) !important;
+  border-color: var(--brand-cotton) !important;
+  color: var(--brand-burnt-nectar) !important;
+}
+
+.comparison-v3__consult-cta a:hover {
+  background: var(--brand-rasa) !important;
+  color: var(--brand-anjanam) !important;
+}
+
+/* Ritual and heritage story */
+.adapted-ritual {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-ksheera) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.ritual-intro > p:last-child,
+.ritual-steps li p,
+.ritual-temperature-card p,
+.ritual-reassurance-card p {
+  color: var(--brand-herb) !important;
+}
+
+.ritual-steps,
+.ritual-steps li {
+  background: var(--brand-agni) !important;
+  color: var(--brand-cotton) !important;
+}
+
+.ritual-steps li b,
+.ritual-steps li p,
+.ritual-steps li span {
+  color: var(--brand-cotton) !important;
+}
+
+.ritual-reassurance-card,
+.ritual-temperature-card {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+  border-color: var(--brand-sage-beige) !important;
+}
+
+.ritual-card-chips span {
+  background: var(--brand-wild-sage) !important;
+  color: var(--brand-tulsi-leaf) !important;
+}
+
+.difference-section {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.diff-acc-item {
+  background: var(--brand-cotton) !important;
+  border-color: var(--brand-sage-beige) !important;
+}
+
+.diff-acc-item.active {
+  background: var(--brand-ksheera) !important;
+}
+
+.diff-acc-header {
+  min-height: 56px;
+  color: var(--brand-tulsi) !important;
+}
+
+.diff-lede,
+.diff-acc-body p {
+  color: var(--brand-herb) !important;
+}
+
+.diff-visual-overlay {
+  background: var(--brand-tulsi-leaf) !important;
+  color: var(--brand-cotton) !important;
+}
+
+/* Reviews */
+.combined-reviews-section {
+  padding: clamp(64px, 6vw, 88px) var(--content-inline) !important;
+  background: var(--brand-anjanam) !important;
+  color: var(--brand-ksheera) !important;
+}
+
+.combined-reviews-section .review-score,
+.combined-reviews-section .testimonials-inner {
+  background: var(--brand-anjanam) !important;
+  color: var(--brand-ksheera) !important;
+}
+
+.combined-reviews-section .score-number-wrap strong,
+.combined-reviews-section blockquote p {
+  color: var(--brand-cotton) !important;
+}
+
+.combined-reviews-section blockquote p {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  line-height: 1.22 !important;
+}
+
+.combined-reviews-section .kicker,
+.combined-reviews-section .review-stars,
+.combined-reviews-section .testimonials-stars,
+.combined-reviews-section .testimonials-author strong {
+  color: var(--brand-rasa) !important;
+}
+
+.combined-reviews-section .review-stars,
+.combined-reviews-section .testimonials-stars,
+.combined-reviews-section .testimonials-author strong {
+  background: transparent !important;
+}
+
+.combined-reviews-section .review-count,
+.combined-reviews-section .testimonials-author span {
+  color: var(--brand-ksheera) !important;
+}
+
+.combined-reviews-section .testimonials-controls button {
+  width: 44px !important;
+  height: 44px !important;
+  background: var(--brand-tulsi-leaf) !important;
+  border-color: var(--brand-herb) !important;
+  color: var(--brand-cotton) !important;
+}
+
+/* FAQ and product details */
+.adapted-faq {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.faq-list article,
+.faq-list button,
+.faq-answer {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+  border-color: var(--brand-sage-beige) !important;
+}
+
+.faq-list button {
+  min-height: 64px;
+}
+
+.faq-list button > b {
+  color: var(--brand-tulsi) !important;
+  font-family: var(--font-label) !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+}
+
+.faq-list article h3,
+.faq-list article h3 button span {
+  font-family: var(--font-label) !important;
+}
+
+.faq-list article h3 button span {
+  background: var(--brand-rasa) !important;
+  color: var(--brand-anjanam) !important;
+}
+
+.faq-answer p {
+  color: var(--brand-herb) !important;
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.65 !important;
+}
+
+section.adapted-pack {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-ksheera) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+.pack-list > div,
+.pack-image,
+.pack-zoom-dialog,
+.pack-zoom-panel {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+  border-color: var(--brand-sage-beige) !important;
+}
+
+.pack-zoom-trigger > span {
+  background: var(--brand-tulsi-leaf) !important;
+  color: var(--brand-cotton) !important;
+}
+
+/* Brand heritage and footer */
+section.adapted-heritage {
+  padding: clamp(72px, 7vw, 104px) var(--content-inline) !important;
+  background: var(--brand-rasa) !important;
+  color: var(--brand-anjanam) !important;
+}
+
+.adapted-heritage .kicker,
+.adapted-heritage .heritage-metrics strong,
+.adapted-heritage .heritage-spectrum p,
+.adapted-heritage .heritage-patents p {
+  color: var(--brand-burnt-nectar) !important;
+}
+
+.adapted-heritage h2,
+.adapted-heritage h3,
+.adapted-heritage span {
+  color: var(--brand-anjanam) !important;
+}
+
+.theme-footer {
+  background: var(--brand-anjanam) !important;
+  color: var(--brand-ksheera) !important;
+}
+
+.theme-footer h2,
+.theme-footer a,
+.theme-footer strong,
+.theme-footer span,
+.theme-footer__tagline {
+  color: var(--brand-ksheera) !important;
+}
+
+.theme-footer a:hover,
+.theme-footer a:focus-visible {
+  color: var(--brand-rasa) !important;
+}
+
+.theme-footer__column h2 {
+  font-family: var(--font-label) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+
+/* Cart and sticky purchase surface */
+.purchase,
+.contextual-purchase {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+  border-color: var(--brand-sage-beige) !important;
+}
+
+.scrim {
+  background: rgba(48, 50, 38, 0.72) !important;
+}
+
+.drawer {
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+}
+
+@media (max-width: 899px) {
+  :root {
+    --content-inline: 20px;
+    --v3-section-nav-height: 48px;
+  }
+
+  body {
+    font-size: 15px;
+  }
+
+  .header {
+    min-height: 64px;
+  }
+
+  .brand,
+  .header-actions button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .pdp-section-nav-v3,
+  .pdp-section-nav-v3__scroller {
+    block-size: 48px !important;
+  }
+
+  .pdp-section-nav-v3__link {
+    min-height: 48px !important;
+    padding-inline: 3px !important;
+    font-size: 11.5px !important;
+    letter-spacing: 0 !important;
+  }
+
+  section.hero.checkpoint-hero {
+    padding: 0 !important;
+  }
+
+  .product-identity {
+    padding: 22px 20px 20px !important;
+  }
+
+  .product-identity h1 {
+    max-width: 9ch;
+    font-size: clamp(38px, 9vw, 44px) !important;
+    line-height: 0.98 !important;
+  }
+
+  .identity-subtitle {
+    margin: 5px 0 10px !important;
+    font-size: 15px !important;
+  }
+
+  .identity-benefits-list li {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+
+  .identity-social-proof {
+    gap: 8px !important;
+  }
+
+  .identity-benefits-list {
+    gap: 7px !important;
+    margin: 10px 0 12px !important;
+  }
+
+  .identity-benefits-list .check {
+    width: 20px !important;
+    height: 20px !important;
+    flex-basis: 20px !important;
+  }
+
+  .checkpoint-hero .story-gallery {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    grid-template-rows: 300px 54px !important;
+    max-height: none !important;
+    height: 354px !important;
+  }
+
+  .checkpoint-hero .story-frame {
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 0 !important;
+    max-height: 300px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .checkpoint-hero .story-caption {
+    display: none !important;
+  }
+
+  .story-gallery .story-selector {
+    display: grid !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    overflow: hidden !important;
+  }
+
+  .story-gallery .story-selector button {
+    width: auto !important;
+    inline-size: auto !important;
+    min-width: 0 !important;
+    min-inline-size: 0 !important;
+    min-height: 54px !important;
+  }
+
+  .story-gallery .story-selector button b {
+    font-size: 10px !important;
+  }
+
+  .hero-commerce {
+    padding: 20px 20px 24px !important;
+    background: var(--brand-ksheera) !important;
+  }
+
+  .size-option {
+    min-height: 90px !important;
+    padding: 12px 9px !important;
+    font-size: 14px !important;
+  }
+
+  .size-selector,
+  .hero-price-row {
+    margin-bottom: 14px !important;
+  }
+
+  .hero-reassurance-strip {
+    gap: 8px !important;
+    margin-top: 12px !important;
+    padding-top: 12px !important;
+  }
+
+  .story-motion-control {
+    top: 12px !important;
+    right: 12px !important;
+    left: auto !important;
+    min-height: 40px !important;
+    padding-inline: 10px !important;
+  }
+
+  .statement,
+  .adapted-results,
+  .adapted-formula,
+  .comparison-v3,
+  .adapted-ritual,
+  .difference-section,
+  .combined-reviews-section,
+  .adapted-faq,
+  .adapted-pack,
+  .adapted-heritage {
+    padding: 52px 20px !important;
+  }
+
+  .statement-header h2,
+  .results-intro h2,
+  .formula-heading h2,
+  .comparison-v3__intro h2,
+  .ritual-intro h2,
+  .difference-header h2,
+  .adapted-faq > header h2,
+  .pack-heading h2,
+  .heritage-title h2 {
+    font-size: clamp(32px, 7.5vw, 38px) !important;
+    line-height: 1.06 !important;
+  }
+
+  .statement-split {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .statement-positive,
+  .statement-exclusion {
+    padding: 24px !important;
+    border-radius: 12px !important;
+  }
+
+  .results-sequence-card {
+    border-radius: 12px !important;
+  }
+
+  .formula-heading > p:last-child,
+  .results-intro-desc p,
+  .ritual-intro > p:last-child,
+  .comparison-v3__lede,
+  .diff-lede {
+    font-size: 14.5px !important;
+    line-height: 1.55 !important;
+  }
+
+  .ingredient-copy p {
+    font-size: 14px !important;
+  }
+
+  .sv3-intro {
+    min-height: 0 !important;
+    padding: 52px 20px !important;
+  }
+
+  .sv3-intro h2 {
+    width: 100% !important;
+    max-width: none !important;
+    font-size: clamp(34px, 8vw, 40px) !important;
+    line-height: 1.04 !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  .sv3-intro h2 span {
+    white-space: normal !important;
+  }
+
+  .sv3-intro > div p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .sv3-copy h3 {
+    font-size: clamp(25px, 6vw, 30px) !important;
+    line-height: 1.04 !important;
+  }
+
+  .sv3-copy__body {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  .sv3-resolution {
+    padding: 52px 20px !important;
+  }
+
+  .sv3-resolution-card {
+    min-height: 0 !important;
+    padding: 28px 20px !important;
+  }
+
+  .sv3-static-scene {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  .sv3-static-scene .sv3-scene {
+    width: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: 4 / 3 !important;
+  }
+
+  .sv3-static-scene .sv3-copy {
+    min-height: 0 !important;
+    padding: 30px 20px 42px !important;
+    background: var(--brand-anjanam) !important;
+  }
+
+  .sv3-static-scene .sv3-copy__body {
+    display: block !important;
+    overflow: visible !important;
+    -webkit-line-clamp: initial !important;
+  }
+
+  .comparison-v3__table-container {
+    border-color: var(--brand-sage-beige) !important;
+  }
+
+  .ritual-intro h2 {
+    max-width: 12ch;
+    white-space: normal !important;
+  }
+
+  .ritual-steps {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .ritual-steps li {
+    min-height: 152px;
+  }
+
+  .combined-reviews-section blockquote p {
+    font-size: clamp(24px, 6vw, 30px) !important;
+  }
+
+  .faq-list button {
+    min-height: 68px;
+    padding-block: 16px !important;
+  }
+
+  .faq-list button > b {
+    font-size: 15px !important;
+  }
+
+  .pack-image {
+    padding: 24px !important;
+  }
+
+  .pack-image img {
+    width: min(220px, 70vw) !important;
+    max-height: none !important;
+    height: auto !important;
+    margin-inline: auto;
+    object-fit: contain !important;
+  }
+
+  .adapted-heritage .heritage-title h2 {
+    max-width: 11ch;
+  }
+
+  .theme-footer__wrap {
+    padding-inline: 20px !important;
+  }
+
+  .pdp-breadcrumb a,
+  .theme-footer a,
+  .theme-footer__social a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 699px) {
+  main p,
+  main li,
+  main dd,
+  main dt {
+    font-size: 14px !important;
+  }
+
+  .product-identity {
+    padding-top: 18px !important;
+    padding-bottom: 16px !important;
+  }
+
+  .product-identity h1 {
+    font-size: clamp(36px, 10vw, 40px) !important;
+  }
+
+  .pdp-breadcrumb {
+    margin-bottom: 10px !important;
+  }
+
+  .proof-pill {
+    font-size: 10px !important;
+    padding: 7px 9px !important;
+  }
+
+  .statement,
+  .adapted-results,
+  .adapted-formula,
+  section.comparison-v3,
+  .adapted-ritual,
+  .difference-section,
+  .combined-reviews-section,
+  .adapted-faq,
+  section.adapted-pack,
+  section.adapted-heritage {
+    padding: 44px 20px !important;
+  }
+
+  .kicker,
+  .diff-eyebrow,
+  .size-selector-label,
+  .ingredient-heading > span,
+  .comparison-v3__header-badge,
+  .comparison-v3__path-tag,
+  .comparison-v3__consult-eyebrow,
+  .results-stage-time,
+  .ritual-card-badge,
+  .sv3-copy__eyebrow,
+  .sv3-evidence > span {
+    font-size: 10.5px !important;
+  }
+
+  .add,
+  .checkout,
+  .viewbag,
+  .search-submit,
+  .comparison-v3__consult-cta a {
+    min-height: 48px !important;
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .pdp-section-nav-v3,
+  .pdp-section-nav-v3__scroller {
+    block-size: 46px !important;
+  }
+
+  .statement,
+  .adapted-results,
+  .adapted-formula,
+  .comparison-v3,
+  .adapted-ritual,
+  .difference-section,
+  .combined-reviews-section,
+  .adapted-faq,
+  .adapted-pack,
+  .adapted-heritage {
+    padding-inline: max(var(--content-inline), calc((100vw - var(--content-max)) / 2)) !important;
+  }
+
+  .comparison-v3__consult-grid {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    height: 360px !important;
+    min-height: 0 !important;
+    grid-template-columns: 1.05fr 0.95fr !important;
+  }
+
+  .comparison-v3__consult-content {
+    padding: 34px 48px !important;
+  }
+
+  .comparison-v3__consult-content h3 {
+    max-width: 19ch !important;
+    margin-bottom: 12px !important;
+    font-size: 30px !important;
+    line-height: 1.14 !important;
+  }
+
+  .comparison-v3__consult-eyebrow {
+    margin-bottom: 10px !important;
+    font-size: 10px !important;
+  }
+
+  .comparison-v3__consult-subtext {
+    margin-bottom: 18px !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  .comparison-v3__consult-image-wrap {
+    height: 360px !important;
+  }
+
+  .comparison-v3__consult-cta a {
+    min-height: 48px !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+  }
+}
+
+/*
+ * The legacy reveal index is based on a section's DOM position. Later chapters
+ * therefore accumulated delays long enough to look missing, especially after
+ * anchor navigation on mobile. Keep the science's own motion, but make the
+ * generic page chapters reliably present at every viewport and scroll entry.
+ */
+.page-motion-ready .page-scroll-reveal,
+.page-motion-ready .page-scroll-reveal.is-revealed {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .size-option,
+  .story-gallery .story-selector button,
+  .add,
+  .checkout,
+  .viewbag {
+    transition: none !important;
+  }
+}
+
+/* Requested interaction pass: hero order, progressive storytelling and reviews. */
+.hero-overview {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+}
+
+.hero-overview .product-identity {
+  grid-column: auto;
+  grid-row: auto;
+  align-self: auto;
+  padding: clamp(18px, 2.5vw, 32px) 0 16px !important;
+}
+
+.product-proof {
+  padding: 0 0 24px;
+  color: var(--brand-herb);
+}
+
+/* The supplied highlight must never sit behind the FAQ numerals. */
+.faq-list article h3 button > span,
+.faq-list article h3 button > span::before,
+.faq-list article h3 button > span::after {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.faq-list article h3 button > span {
+  color: var(--brand-agni) !important;
+}
+
+/* Results use the reference's focused-step / softened-neighbour rhythm. */
+.results-motion-rail .results-sequence-card {
+  position: relative;
+  overflow: hidden;
+  transition: opacity 440ms cubic-bezier(.22, 1, .36, 1),
+              filter 440ms cubic-bezier(.22, 1, .36, 1),
+              transform 440ms cubic-bezier(.22, 1, .36, 1),
+              border-color 440ms cubic-bezier(.22, 1, .36, 1) !important;
+}
+
+.results-motion-rail .results-sequence-card.is-active {
+  z-index: 1;
+  opacity: 1;
+  filter: none;
+  transform: translateX(0) scale(1);
+  border-color: var(--brand-rasa) !important;
+}
+
+.results-motion-rail .results-sequence-card.is-muted {
+  opacity: .58;
+  filter: blur(.65px);
+  transform: translateX(5px) scale(.988);
+}
+
+.results-motion-rail .result-marker {
+  appearance: none;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--brand-sage-beige) !important;
+  border-radius: 50%;
+  background: var(--brand-cotton) !important;
+  color: var(--brand-tulsi) !important;
+  cursor: pointer;
+  transition: background-color 260ms ease, border-color 260ms ease, color 260ms ease !important;
+}
+
+.results-motion-rail .is-active .result-marker,
+.results-motion-rail .is-complete .result-marker {
+  border-color: var(--brand-rasa) !important;
+  background: var(--brand-rasa) !important;
+  color: var(--brand-anjanam) !important;
+}
+
+.results-motion-rail .result-stage-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  overflow: hidden;
+  background: var(--brand-sage-beige);
+}
+
+.results-motion-rail .result-stage-progress i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--brand-rasa);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.results-motion-rail .is-complete .result-stage-progress i {
+  transform: scaleX(1);
+}
+
+.results-motion-rail.is-running .is-active .result-stage-progress i {
+  animation: result-stage-fill 4600ms linear forwards;
+}
+
+@keyframes result-stage-fill {
+  to { transform: scaleX(1); }
+}
+
+/* Reviews now use a single editorial testimonial and timed loading bars. */
+section.review-carousel {
+  min-height: 520px;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  place-items: center;
+  align-content: center;
+  gap: 36px;
+  padding: clamp(76px, 8vw, 112px) var(--content-inline) !important;
+  background: var(--brand-cotton) !important;
+  color: var(--brand-deep-river) !important;
+  text-align: center;
+}
+
+section.review-carousel .testimonials-inner.review-carousel__stage {
+  width: min(100%, 1020px);
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  padding: 0 !important;
+  background: transparent !important;
+  color: var(--brand-deep-river) !important;
+  border: 0 !important;
+  animation: review-stage-enter 520ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.review-carousel__eyebrow {
+  margin: 0 0 18px;
+  color: var(--brand-herb) !important;
+  font-family: var(--font-label) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+section.review-carousel .testimonials-stars {
+  margin: 0 0 24px;
+  color: var(--brand-rasa) !important;
+  font-size: 19px !important;
+  letter-spacing: 5px;
+}
+
+section.review-carousel blockquote {
+  max-width: 960px;
+  margin: 0;
+}
+
+section.review-carousel blockquote p {
+  margin: 0;
+  color: var(--brand-deep-river) !important;
+  font-family: var(--font-display) !important;
+  font-size: clamp(36px, 4.2vw, 58px) !important;
+  font-weight: 400 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+section.review-carousel .testimonials-author {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  margin-top: 30px;
+}
+
+section.review-carousel .testimonials-author strong {
+  color: var(--brand-deep-river) !important;
+  font-family: var(--font-label) !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+}
+
+section.review-carousel .testimonials-author span {
+  color: var(--brand-neela) !important;
+  font-size: 12px !important;
+}
+
+.review-progress-controls {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--brand-ksheera);
+}
+
+.review-progress-controls button {
+  width: 28px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: width 300ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.review-progress-controls button[aria-selected='true'] {
+  width: 76px;
+}
+
+.review-progress-controls button > span {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  display: block;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--brand-sage-beige);
+  transition: width 300ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.review-progress-controls button[aria-selected='true'] > span {
+  width: 64px;
+}
+
+.review-progress-controls button i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  background: var(--brand-rasa);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.review-carousel.is-running .review-progress-controls button[aria-selected='true'] i {
+  animation-name: review-progress-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes review-progress-fill {
+  to { transform: scaleX(1); }
+}
+
+@keyframes review-stage-enter {
+  from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@media (max-width: 899px) {
+  section.hero.checkpoint-hero {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-overview {
+    display: contents;
+  }
+
+  .hero-overview .product-identity {
+    order: 1;
+    padding: 18px 20px 12px !important;
+    background: var(--brand-ksheera) !important;
+  }
+
+  .hero-overview .identity-subtitle {
+    margin-bottom: 0 !important;
+  }
+
+  .checkpoint-hero .story-gallery {
+    order: 2;
+  }
+
+  .product-proof {
+    order: 3;
+    padding: 16px 20px 18px;
+    background: var(--brand-ksheera);
+  }
+
+  .hero-commerce {
+    order: 4;
+  }
+
+  /* A true image/copy split keeps the animated science frame unobstructed. */
+  .science-story-v3 .sv3-scenes {
+    inset: 0 0 auto !important;
+    width: 100% !important;
+    height: 45% !important;
+  }
+
+  .science-story-v3 .sv3-scene::after {
+    background: linear-gradient(180deg, transparent, rgba(48, 50, 38, .12)) !important;
+  }
+
+  .science-story-v3 .sv3-copy-stack {
+    inset: 45% 0 0 !important;
+    width: 100% !important;
+    height: 55% !important;
+    background: var(--brand-anjanam) !important;
+  }
+
+  .science-story-v3 .sv3-copy {
+    justify-content: center !important;
+    padding: 24px 20px 30px !important;
+  }
+
+  .science-story-v3 .sv3-progress {
+    top: 14px !important;
+  }
+
+  .results-motion-rail .results-sequence-card.is-muted {
+    opacity: .7;
+    filter: none;
+    transform: scale(.992);
+  }
+
+  section.review-carousel {
+    min-height: 430px;
+    gap: 26px;
+    padding: 60px 20px !important;
+  }
+
+  section.review-carousel blockquote p {
+    font-size: clamp(28px, 7.6vw, 36px) !important;
+    line-height: 1.12 !important;
+  }
+
+  section.review-carousel .testimonials-stars {
+    margin-bottom: 18px;
+    font-size: 16px !important;
+  }
+
+  section.review-carousel .testimonials-author {
+    margin-top: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-motion-rail .results-sequence-card,
+  section.review-carousel .review-carousel__stage,
+  .review-progress-controls button,
+  .review-progress-controls button > span {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .results-motion-rail .results-sequence-card.is-muted {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .review-progress-controls button[aria-selected='true'] i {
+    transform: scaleX(1);
+  }
+}

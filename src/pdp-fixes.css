@@ -1511,3 +1511,1583 @@ section.confidence-strip > div:hover {
     gap: 24px !important;
   }
 }
+
+/* Refined specificities and visual interactive improvements */
+
+/* Heading child elements inherit Amstir font (Image 1 Font Fix) */
+h1, h2, h3, h4, h5, h6,
+h1 *, h2 *, h3 *, h4 *, h5 *, h6 * {
+  font-family: Amstir !important;
+}
+
+/* Spacing and height tweaks for desktop carousel */
+@media (min-width: 900px) {
+  .checkpoint-hero .story-gallery {
+    grid-template-rows: 420px auto auto !important; /* Height increased by 80px */
+    margin-top: -64px !important; /* Spacing above reduced by 80px */
+  }
+}
+
+/* Heritage Section Rotating Sacred Geometry Background Rings */
+section.adapted-heritage {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+section.adapted-heritage::before,
+section.adapted-heritage::after {
+  content: '' !important;
+  position: absolute !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+section.adapted-heritage::before {
+  width: 700px !important;
+  height: 700px !important;
+  border: 1px dashed rgba(204, 165, 78, 0.12) !important;
+  right: -10% !important;
+  top: -30% !important;
+  animation: spinCycle 140s linear infinite !important;
+}
+
+section.adapted-heritage::after {
+  width: 480px !important;
+  height: 480px !important;
+  border: 1px solid rgba(204, 165, 78, 0.06) !important;
+  right: -5% !important;
+  top: -15% !important;
+  animation: spinCycleReverse 90s linear infinite !important;
+}
+
+section.adapted-heritage > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+@keyframes spinCycle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCycleReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Live Footer Wave Motion Animation */
+.theme-footer__tagline-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-top: 24px !important;
+  position: relative !important;
+}
+
+.footer-wave {
+  width: 220px !important;
+  height: 12px !important;
+  margin-top: 8px !important;
+  opacity: 0.8 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 C 30 1, 30 11, 60 6 C 90 1, 90 11, 120 6 L 120 12 L 0 12 Z' fill='%23cca54e'/%3E%3C/svg%3E") !important; /* Gold wave */
+  background-repeat: repeat-x !important;
+  background-size: 40px 12px !important;
+  animation: footerWaveMotion 4s linear infinite !important;
+}
+
+@keyframes footerWaveMotion {
+  from { background-position-x: 0; }
+  to { background-position-x: 40px; }
+}
+
+/* Confidence Strip Luxury Gold Badges */
+section.confidence-strip {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: clamp(24px, 6vw, 96px) !important;
+  min-height: 180px !important;
+  background-color: #121a11 !important; /* Deep forest dark green */
+  border-top: 1px solid rgba(204, 165, 78, 0.15) !important;
+  border-bottom: 1px solid rgba(204, 165, 78, 0.15) !important;
+  padding-block: 40px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+section.confidence-strip > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(204, 165, 78, 0.22) !important;
+  border-radius: 50% !important; /* Circular badge design */
+  width: 144px !important;
+  height: 144px !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12), inset 0 0 16px rgba(204, 165, 78, 0.06) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-align: center !important;
+  border-right: 1px solid rgba(204, 165, 78, 0.22) !important; /* Overwrite standard border-right */
+}
+
+section.confidence-strip > div:hover {
+  transform: scale(1.06) translateY(-4px) !important;
+  border-color: #cca54e !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22), inset 0 0 20px rgba(204, 165, 78, 0.15) !important;
+}
+
+section.confidence-strip strong {
+  color: #cca54e !important; /* Luxury Gold color */
+  font-family: Avenir, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 19px !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 4px !important;
+}
+
+section.confidence-strip span {
+  color: rgba(239, 230, 220, 0.85) !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  max-width: 14ch !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-family: Avenir !important;
+}
+
+@media (max-width: 899px) {
+  section.confidence-strip {
+    flex-direction: row !important; /* Remain row layout on mobile! */
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    padding-block: 28px !important;
+    padding-inline: 16px !important;
+    min-height: auto !important;
+  }
+  section.confidence-strip > div {
+    width: 100px !important;
+    height: 100px !important;
+    padding: 8px !important;
+    border-right: 1px solid rgba(204, 165, 78, 0.22) !important;
+  }
+  section.confidence-strip strong {
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+  }
+  section.confidence-strip span {
+    font-size: 7.5px !important;
+    line-height: 1.2 !important;
+    max-width: 12ch !important;
+  }
+}
+
+/* Results timeline card refinements */
+.results-sequence::before {
+  left: 42px !important;
+}
+
+.results-sequence-card {
+  box-shadow: 0 12px 32px rgba(57, 70, 29, 0.03) !important;
+  border: 1px solid rgba(204, 165, 78, 0.15) !important;
+}
+
+.result-marker {
+  border: 2px solid #cca54e !important;
+  background: #121a11 !important;
+  color: #cca54e !important;
+  box-shadow: 0 0 10px rgba(204, 165, 78, 0.15) !important;
+}
+
+.results-sequence-card:hover .result-marker {
+  background: #cca54e !important;
+  color: #121a11 !important;
+  box-shadow: 0 0 16px rgba(204, 165, 78, 0.4) !important;
+}
+
+/* Ingredients Explorer Accordion Animations & Interactive styling */
+.ingredient-entry {
+  position: relative !important;
+  border-top: 1px solid rgba(239, 230, 220, 0.12) !important;
+  border-bottom: 1px solid rgba(239, 230, 220, 0.12) !important;
+  margin-bottom: -1px !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.ingredient-entry:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  padding-left: 12px !important;
+}
+
+.ingredient-entry::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 3px !important;
+  background: #cca54e !important;
+  transform: scaleY(0) !important;
+  transform-origin: center !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.ingredient-entry.active::before {
+  transform: scaleY(1) !important;
+}
+
+.ingredient-label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 24px 0 !important;
+}
+
+.ingredient-entry span {
+  font-family: Avenir !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: rgba(239, 230, 220, 0.4) !important;
+  transition: color 0.3s ease !important;
+}
+
+.ingredient-entry.active span {
+  color: #cca54e !important;
+}
+
+.ingredient-entry h3 {
+  font-family: Amstir !important;
+  font-size: 22px !important;
+  color: #efe6dc !important;
+  margin: 0 !important;
+  transition: color 0.3s ease !important;
+}
+
+.ingredient-entry.active h3 {
+  color: #cca54e !important;
+}
+
+.ingredient-copy {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease !important;
+  padding-bottom: 0 !important;
+}
+
+.ingredient-entry.active .ingredient-copy {
+  max-height: 140px !important;
+  opacity: 1 !important;
+  padding-bottom: 24px !important;
+}
+
+.ingredient-copy p {
+  font-family: Avenir !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: rgba(239, 230, 220, 0.8) !important;
+  margin: 0 !important;
+}
+
+/* Unbox science story v3 container (Image 2) */
+section.science-story-v3 {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  background-color: #131911 !important;
+  padding-left: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-right: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-inline: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+}
+
+/* Remove heading max-width to let text flow naturally (Image 3) */
+.sv3-copy h3 {
+  max-width: none !important;
+}
+
+/* Resolution Title (ONE COMPLETE RITUAL) */
+.sv3-resolution-title-wrapper {
+  text-align: center !important;
+  margin-bottom: clamp(32px, 5vw, 64px) !important;
+  width: 100% !important;
+}
+
+.sv3-resolution-title {
+  font-family: Avenir !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #cca54e !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.sv3-resolution-title-divider {
+  width: 80px !important;
+  height: 2px !important;
+  background: #cca54e !important;
+  margin: 0 auto !important;
+  transition: width 0.3s ease !important;
+}
+
+.sv3-resolution:hover .sv3-resolution-title-divider {
+  width: 140px !important;
+}
+
+/* Resolution Card hover transitions */
+.sv3-resolution-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+.sv3-resolution-card:hover {
+  transform: translateY(-8px) scale(1.015) !important;
+  border-color: #cca54e !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Table Section Width Fix (Image 5) */
+.comparison-v3__matrix-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+}
+
+/* Hide duplicate CSS counter step numbers in V3 ritual */
+.ritual-steps li::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Sticky Add-To-Cart purchase product wrap styling */
+.purchase-product {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-align: left !important;
+}
+
+.purchase-product > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+}
+
+.purchase-product strong {
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+  color: #39461d !important;
+  display: block !important;
+}
+
+.purchase-product span {
+  display: block !important; /* Force visible on mobile too */
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  color: #954721 !important;
+  font-weight: 700 !important;
+}
+
+.dock-thumb {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 8px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+  border: 1px solid rgba(57, 70, 29, 0.12) !important;
+}
+
+@media (max-width: 899px) {
+  .purchase-product span {
+    display: block !important;
+  }
+}
+
+/* Mobile view logo center alignment & hidden trailing breadcrumbs */
+@media (max-width: 899px) {
+  .header {
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 16px !important;
+  }
+  .header::before {
+    content: '' !important;
+    grid-column: 1 !important;
+    width: 44px !important;
+  }
+  .header .brand {
+    grid-column: 2 !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .header-actions {
+    grid-column: 3 !important;
+    justify-self: end !important;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Image 2 overlay counter resizing fix */
+.story-gallery .story-counter {
+  position: absolute !important;
+  top: 16px !important;
+  left: 16px !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  height: 32px !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(57, 70, 29, 0.15) !important;
+  border-radius: 20px !important;
+  padding: 4px 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 5 !important;
+}
+
+.story-gallery .story-counter span {
+  color: #39461d !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  font-family: Avenir !important;
+}
+
+.story-gallery .story-counter i {
+  width: 12px !important;
+  height: 1px !important;
+  background: rgba(57, 70, 29, 0.4) !important;
+  display: inline-block !important;
+}
+
+/* Image 3 size option buttons as side-by-side rectangles */
+.size-selector-options {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 16px !important;
+  margin-top: 12px !important;
+}
+
+.size-option {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 16px !important;
+  height: auto !important;
+  min-height: 88px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(57, 70, 29, 0.18) !important;
+  background: #ffffff !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.2s ease !important;
+}
+
+.size-option.selected {
+  border: 2px solid #39461d !important;
+  background: #faf7f2 !important;
+  box-shadow: 0 4px 12px rgba(57, 70, 29, 0.06) !important;
+}
+
+.size-radio {
+  display: none !important; /* Hide radio dot */
+}
+
+.size-name {
+  font-family: Avenir !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #39461d !important;
+  margin-bottom: 4px !important;
+}
+
+.size-price {
+  font-family: Avenir !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #954721 !important;
+  margin-bottom: 4px !important;
+}
+
+.size-badge {
+  font-family: Avenir !important;
+  font-size: 9px !important;
+  background: #cca54e !important;
+  color: #121a11 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Remove circular background from squares in "The honest sequence" section */
+.result-marker {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 4px !important; /* SQUARE */
+  border: 1px solid #cca54e !important;
+  background: rgba(204, 165, 78, 0.08) !important;
+  color: #cca54e !important;
+  display: grid !important;
+  place-items: center !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  flex-shrink: 0 !important;
+  margin-top: 4px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: none !important;
+}
+
+.results-sequence-card:hover .result-marker {
+  background: #cca54e !important;
+  color: #121a11 !important;
+  transform: scale(1.05) !important;
+  box-shadow: none !important;
+}
+
+/* Centering title block in resolution grid and removing card styling box (Image 4) */
+.sv3-resolution-title-wrapper {
+  grid-column: 1 / -1 !important; /* Span both columns */
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-bottom: 40px !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.sv3-resolution {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 32px !important;
+  background: #121a11 !important;
+}
+
+@media (max-width: 899px) {
+  .sv3-resolution {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Overhaul footer waves to be end-to-end layered SVGs with crystal clear animation (Image 5) */
+.footer-waves-container {
+  position: relative !important;
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important; /* Stretch end-to-end of screen */
+  height: 60px !important;
+  overflow: hidden !important;
+  margin-top: 16px !important;
+}
+
+.footer-wave-svg {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 200% !important; /* 2x screen width for loop seamless scroll */
+  height: 48px !important;
+  display: block !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+.footer-wave-svg.wave-1 {
+  fill: #cca54e !important;
+  opacity: 0.25 !important;
+  animation: footerWaveLeft 8s linear infinite !important;
+  z-index: 1 !important;
+}
+
+.footer-wave-svg.wave-2 {
+  fill: #954721 !important;
+  opacity: 0.45 !important;
+  animation: footerWaveRight 12s linear infinite !important;
+  z-index: 2 !important;
+  height: 52px !important;
+}
+
+.footer-wave-svg.wave-3 {
+  fill: #cca54e !important;
+  opacity: 0.75 !important;
+  animation: footerWaveLeft 16s linear infinite !important;
+  z-index: 3 !important;
+  height: 44px !important;
+}
+
+@keyframes footerWaveLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes footerWaveRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Redesigned Consultation Card (Image 1 Split Layout) */
+.comparison-v3__consult {
+  background-color: #8c3a32 !important; /* crimson-brown terracotta background */
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15) !important;
+  margin-top: 40px !important;
+}
+
+.comparison-v3__consult-grid {
+  display: grid !important;
+  grid-template-columns: 1.2fr 0.8fr !important;
+  align-items: stretch !important;
+  min-height: 380px !important;
+  gap: 0 !important;
+}
+
+.comparison-v3__consult-content {
+  padding: clamp(40px, 5vw, 68px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  color: #ffffff !important;
+  text-align: left !important;
+}
+
+.comparison-v3__consult-eyebrow {
+  font-family: Avenir !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-transform: uppercase !important;
+  margin-bottom: 16px !important;
+}
+
+.comparison-v3__consult-content h3 {
+  font-family: Amstir !important;
+  font-size: clamp(28px, 3.2vw, 44px) !important;
+  line-height: 1.15 !important;
+  color: #ffffff !important;
+  margin: 0 0 18px 0 !important;
+}
+
+.comparison-v3__consult-subtext {
+  font-family: Avenir !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  max-width: 44ch !important;
+  margin: 0 0 32px 0 !important;
+}
+
+.comparison-v3__consult-cta a {
+  display: inline-block !important;
+  padding: 12px 32px !important;
+  border: 1px solid #ffffff !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: Avenir !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  border-radius: 0 !important; /* rectangular outline button */
+}
+
+.comparison-v3__consult-cta a:hover {
+  background: #ffffff !important;
+  color: #8c3a32 !important;
+  transform: none !important;
+}
+
+.comparison-v3__consult-image-wrap {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.comparison-v3__consult-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 25% !important;
+}
+
+@media (max-width: 899px) {
+  .comparison-v3__consult-grid {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .comparison-v3__consult-content {
+    padding: 36px 24px !important;
+  }
+  .comparison-v3__consult-image-wrap {
+    height: 260px !important;
+  }
+}
+
+/* Live Footer SVG Waves (Crystal Clear end-to-end bottom layer) */
+.footer-waves-container {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 48px !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.theme-footer {
+  position: relative !important;
+  overflow: hidden !important;
+  padding-bottom: 64px !important; /* Make clear space for waves at the very bottom */
+}
+
+/* Combined Reviews Section (Score on Left, Quote Slider on Right) */
+section.combined-reviews-section {
+  background-color: #121a11 !important; /* 1st review card background */
+  color: #efe6dc !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1.6fr !important;
+  gap: clamp(32px, 5vw, 88px) !important;
+  align-items: center !important;
+}
+
+.combined-reviews-section .review-score {
+  border-right: 1px solid rgba(239, 230, 220, 0.15) !important;
+  padding-right: 48px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.combined-reviews-section .review-score .kicker {
+  color: #cca54e !important;
+  margin-bottom: 4px !important;
+}
+
+.combined-reviews-section .score-number-wrap {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  margin-block: 12px 6px !important;
+}
+
+.combined-reviews-section .score-number-wrap strong {
+  font-family: Avenir, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(48px, 6vw, 82px) !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+}
+
+.combined-reviews-section .score-number-wrap span {
+  font-size: 16px !important;
+  color: rgba(239, 230, 220, 0.6) !important;
+}
+
+.combined-reviews-section .review-stars {
+  font-size: 20px !important;
+  color: #cca54e !important;
+  margin: 0 0 12px 0 !important;
+  letter-spacing: 2px !important;
+}
+
+.combined-reviews-section .review-count {
+  font-size: 14px !important;
+  color: rgba(239, 230, 220, 0.8) !important;
+  margin: 0 0 24px 0 !important;
+}
+
+.combined-reviews-section .review-proof {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(204, 165, 78, 0.2) !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+}
+
+.combined-reviews-section .review-proof strong {
+  font-size: 16px !important;
+  color: #cca54e !important;
+}
+
+.combined-reviews-section .review-proof span {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: rgba(239, 230, 220, 0.7) !important;
+}
+
+/* Testimonial Quote Slider block on the Right */
+.combined-reviews-section .testimonials-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  text-align: left !important;
+}
+
+.combined-reviews-section .testimonials-stars {
+  font-size: 18px !important;
+  color: #cca54e !important;
+  margin-bottom: 12px !important;
+  letter-spacing: 2px !important;
+}
+
+.combined-reviews-section blockquote {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 0 20px 0 !important;
+}
+
+.combined-reviews-section blockquote p {
+  font-family: Amstir !important;
+  font-size: clamp(20px, 2.5vw, 32px) !important;
+  line-height: 1.35 !important;
+  color: #ffffff !important;
+  font-style: italic !important;
+  margin: 0 !important;
+}
+
+.combined-reviews-section .testimonials-author {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  margin-bottom: 24px !important;
+}
+
+.combined-reviews-section .testimonials-author strong {
+  font-family: Avenir !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #cca54e !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+.combined-reviews-section .testimonials-author span {
+  font-size: 12px !important;
+  color: rgba(239, 230, 220, 0.7) !important;
+}
+
+.combined-reviews-section .testimonials-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.combined-reviews-section .testimonials-controls button {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(239, 230, 220, 0.3) !important;
+  background: transparent !important;
+  color: #efe6dc !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.combined-reviews-section .testimonials-controls button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #cca54e !important;
+  color: #cca54e !important;
+}
+
+.combined-reviews-section .testimonials-controls span {
+  font-size: 12px !important;
+  color: rgba(239, 230, 220, 0.6) !important;
+}
+
+@media (max-width: 899px) {
+  section.combined-reviews-section {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+    padding-block: 56px !important;
+  }
+  .combined-reviews-section .review-score {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(239, 230, 220, 0.15) !important;
+    padding-right: 0 !important;
+    padding-bottom: 28px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .combined-reviews-section .testimonials-inner {
+    text-align: center !important;
+  }
+  .combined-reviews-section blockquote p {
+    text-align: center !important;
+  }
+  .combined-reviews-section .testimonials-author {
+    align-items: center !important;
+  }
+  .combined-reviews-section .testimonials-controls {
+    justify-content: center !important;
+  }
+}
+
+/* FAQ Section Numbering Font Size Increase */
+.faq-list article h3 button span {
+  font-size: 26px !important; /* increased size */
+  font-weight: 800 !important;
+  color: #cca54e !important; /* Gold */
+  margin-right: 18px !important;
+  font-family: Avenir, sans-serif !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+/* Formulation Sourcing: Single-manifesto card layout on mobile */
+@media (max-width: 899px) {
+  .statement-split {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    background: #fdfbf7 !important; /* Single container card style */
+    border: 1px solid rgba(204, 165, 78, 0.22) !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    padding: 24px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02) !important;
+  }
+  .statement-positive {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 32px !important;
+    border-bottom: 1px dashed rgba(57, 70, 29, 0.15) !important;
+    padding-bottom: 24px !important;
+  }
+  .statement-exclusion {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .statement-free-from {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .statement-free-from span {
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+    flex-grow: 1 !important;
+    justify-content: center !important;
+  }
+}
+
+/* 1. Remove duplicate resolution pseudo-element & fix margin */
+.science-story-v3 .sv3-resolution::after,
+.sv3-resolution::after {
+  display: none !important;
+  content: none !important;
+}
+
+.sv3-resolution-title-wrapper {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* 2. Path 01 and Path 02 tags font color */
+.comparison-v3__path-tag {
+  color: #954721 !important; /* Terracotta/Rust */
+  font-weight: 800 !important;
+}
+
+/* 3. Ritual label beside RITUAL alignment */
+.comparison-v3__ritual {
+  display: block !important;
+  margin: 21px 0 0 !important;
+  color: #efe6dc !important;
+  font-family: Avenir, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+}
+
+.comparison-v3__ritual span {
+  color: #cca54e !important;
+  font-weight: 800 !important;
+  margin-right: 6px !important;
+  display: inline-block !important;
+}
+
+/* 4. Desktop view ingredients explorer copy expand */
+@media (min-width: 700px) {
+  .ingredient-copy {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    padding-bottom: 16px !important;
+    display: block !important;
+  }
+}
+
+/* 5. Left padding for ingredient index numbers */
+.ingredient-entry span {
+  padding-left: 12px !important;
+}
+
+/* 6. Lock the static science story scene aspect ratio to 4/3 */
+.sv3-static-scene .sv3-scene {
+  aspect-ratio: 4 / 3 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  position: relative !important;
+}
+
+.sv3-static-scene {
+  grid-template-columns: 1.15fr 0.85fr !important;
+  min-height: 0 !important;
+  align-items: center !important;
+}
+
+@media (max-width: 899px) {
+  .sv3-static-scene .sv3-scene {
+    aspect-ratio: 4 / 3 !important;
+    width: 100% !important;
+    min-height: 0 !important;
+  }
+}
+
+/* 7. Add internal top/bottom padding to OUR HERITAGE section */
+section.difference-section {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+/* 8. FAQ answer bold unbolding */
+.faq-answer p {
+  font-weight: 400 !important;
+}
+
+/* 9. Yellow ball / rotating rings background visible only on mobile */
+@media (min-width: 900px) {
+  section.adapted-heritage::before,
+  section.adapted-heritage::after {
+    display: none !important;
+  }
+}
+@media (max-width: 899px) {
+  section.adapted-heritage::before,
+  section.adapted-heritage::after {
+    display: block !important;
+  }
+}
+
+/* 10. Price variant selection cards design enhancement */
+.size-option {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px 20px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(57, 70, 29, 0.15) !important;
+  background: #ffffff !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  min-height: 100px !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+}
+
+.size-option.selected {
+  border: 2px solid #39461d !important;
+  background: #fdfbf7 !important;
+  box-shadow: 0 8px 20px rgba(57, 70, 29, 0.08) !important;
+}
+
+.size-option:hover {
+  border-color: #39461d !important;
+  transform: translateY(-2px) !important;
+}
+
+.size-name {
+  font-family: Avenir, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #39461d !important;
+  margin-bottom: 6px !important;
+  text-align: center !important;
+}
+
+.size-price {
+  font-family: Avenir, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #954721 !important;
+  margin-bottom: 8px !important;
+  text-align: center !important;
+}
+
+.size-badge {
+  font-family: Avenir, sans-serif !important;
+  font-size: 9px !important;
+  background: #cca54e !important;
+  color: #121a11 !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+}
+
+/* 1. Ritual title sizing and single-line layout & step number padding */
+.ritual-intro h2 {
+  font-size: clamp(26px, 3.8vw, 42px) !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 12px !important;
+}
+
+.ritual-steps li span {
+  padding-left: 12px !important;
+}
+
+/* 2. OUR HERITAGE section grid split restructuring */
+.difference-header {
+  text-align: center !important;
+  margin-bottom: clamp(32px, 5vw, 64px) !important;
+  width: 100% !important;
+}
+
+.difference-header .diff-eyebrow {
+  display: block !important;
+  text-align: center !important;
+  margin-bottom: 8px !important;
+  font-family: Avenir, sans-serif !important;
+  font-size: 12px !important;
+  letter-spacing: 0.14em !important;
+  font-weight: 800 !important;
+  color: #954721 !important; /* Rust red */
+}
+
+.difference-header h2 {
+  text-align: center !important;
+  font-family: Amstir, sans-serif !important;
+  font-size: clamp(32px, 4vw, 56px) !important;
+  color: #39461d !important;
+  margin: 0 !important;
+  line-height: 1.15 !important;
+}
+
+.difference-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1.1fr !important;
+  gap: 48px !important;
+  align-items: center !important;
+}
+
+@media (max-width: 899px) {
+  .difference-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 3. Remove/reduce internal padding for Combined Reviews & FAQs */
+section.combined-reviews-section {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-block: 0 !important;
+}
+
+section.adapted-faq {
+  padding-top: 32px !important;
+  padding-bottom: 32px !important;
+  padding-block: 32px !important;
+}
+
+/* 4. Mobile: remove internal left/right padding for hero section container */
+@media (max-width: 899px) {
+  section.hero.checkpoint-hero {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* 5. Mobile: product video display sizing full visibility */
+@media (max-width: 899px) {
+  .story-frame.frame-product video,
+  .story-frame.frame-product img {
+    object-fit: contain !important;
+    background-color: var(--ka-ksheera-100) !important;
+  }
+}
+
+/* 6. Remove resolution gap above ONE COMPLETE RITUAL */
+.sv3-resolution {
+  padding-top: 24px !important;
+}
+
+.sv3-resolution-title-wrapper {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ==========================================================================
+   DESIGN SYSTEM AUDIT: SPACING & TYPOGRAPHY STANDARDS
+   ========================================================================== */
+
+/* Spacing Standards matching Image 1 spec */
+section.checkpoint-hero,
+section.results,
+section.formula,
+section.science-story-v3,
+section.comparison-v3,
+section.adapted-ritual,
+section.combined-reviews-section,
+section.adapted-faq,
+section.adapted-pack,
+section.difference-section,
+section.confidence-strip {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+}
+
+/* 0 - 839px (Mobile & Medium Viewports) */
+@media (max-width: 839px) {
+  section.checkpoint-hero,
+  section.results,
+  section.formula,
+  section.science-story-v3,
+  section.comparison-v3,
+  section.adapted-ritual,
+  section.combined-reviews-section,
+  section.adapted-faq,
+  section.adapted-pack,
+  section.difference-section,
+  section.confidence-strip {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    margin-bottom: 64px !important; /* Space between sections */
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+}
+
+/* 840 - 1199px (Expanded Viewports) */
+@media (min-width: 840px) and (max-width: 1199px) {
+  section.checkpoint-hero,
+  section.results,
+  section.formula,
+  section.science-story-v3,
+  section.comparison-v3,
+  section.adapted-ritual,
+  section.combined-reviews-section,
+  section.adapted-faq,
+  section.adapted-pack,
+  section.difference-section,
+  section.confidence-strip {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    margin-bottom: 80px !important; /* Space between sections */
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+}
+
+/* 1200px+ (Desktop Viewports) */
+@media (min-width: 1200px) {
+  section.checkpoint-hero,
+  section.results,
+  section.formula,
+  section.science-story-v3,
+  section.comparison-v3,
+  section.adapted-ritual,
+  section.combined-reviews-section,
+  section.adapted-faq,
+  section.adapted-pack,
+  section.difference-section,
+  section.confidence-strip {
+    padding-left: 150px !important;
+    padding-right: 150px !important;
+    margin-bottom: 80px !important; /* Space between sections */
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+
+/* Typography Standards matching Image 2 spec */
+
+/* 1. Title (72px, 120%, Regular, 0%) */
+.product-identity h1,
+.statement-header h2,
+.difference-header h2 {
+  font-family: Amstir, sans-serif !important;
+  font-size: clamp(44px, 6vw, 72px) !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 2. Heading 1 - H1 (54px, 120%, Regular, 0%) */
+h1,
+.hero-title {
+  font-family: Amstir, sans-serif !important;
+  font-size: clamp(38px, 4.5vw, 54px) !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 3. Heading 2 - H2 (48px, 120%, Regular, 0%) */
+h2,
+.results h2,
+.formula h2,
+.comparison-v3 h2,
+.ritual h2,
+.reviews h2,
+.faq h2 {
+  font-family: Amstir, sans-serif !important;
+  font-size: clamp(30px, 4vw, 48px) !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 4. Heading 3 - H3 (32px, 130%, Regular, 0%) */
+h3,
+.comparison-v3__versus-title h3,
+.sv3-resolution-title,
+.statement-positive h3,
+.statement-exclusion h3,
+.comparison-v3__consult-content h3 {
+  font-family: Amstir, sans-serif !important;
+  font-size: clamp(22px, 2.8vw, 32px) !important;
+  line-height: 1.3 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 5. Body Large (24px, 130%, Book, 0%) */
+.promise,
+.diff-lede,
+.live-footer__tagline {
+  font-family: Avenir, Figtree, sans-serif !important;
+  font-size: clamp(18px, 2.2vw, 24px) !important;
+  line-height: 1.3 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 6. Body Default (16px, 150%, Book, 0%) */
+body,
+p,
+td,
+th,
+.comparison-v3__formula,
+.results-sequence-content p,
+.ritual-steps li p,
+.faq-answer p {
+  font-family: Figtree, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 7. Body Small (14px, 150%, Book, 0%) */
+figcaption,
+.review-count,
+small,
+.size-name,
+.tax {
+  font-family: Figtree, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 8. Label / Overline (14px, 130%, Heavy, 20%) */
+.kicker,
+.diff-eyebrow,
+.comparison-v3__path-tag,
+.size-selector-label,
+.sv3-resolution-title-wrapper span,
+.comparison-v3__consult-eyebrow {
+  font-family: Avenir, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.3 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+}
+
+/* 9. Button Text (16px, 130%, Medium, 0%) */
+button,
+.add,
+.checkout,
+.viewbag,
+.size-option,
+.comparison-v3__consult-cta a {
+  font-family: Avenir, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+/* ==========================================================================
+   STRICT PALETTE SYSTEM OVERRIDES (No other colors allowed)
+   ========================================================================== */
+
+:root {
+  /* KAL BASE PALETTE 2 */
+  --color-bhoomi-green: #3d5b43;
+  --color-wild-sage: #b1ba93;
+  --color-cotton-bloom: #fdfbf7;
+  --color-deep-river: #2d3669;
+  --color-chandan-soil: #97634b;
+  --color-burnt-nectar: #82351d;
+
+  /* RU PALETTE */
+  --color-tulsi-green: #39461d;
+  --color-herb-paste: #5f6c3d;
+  --color-ksheera-white: #efe6dc;
+  --color-agni-red: #954721;
+  --color-mridula-clay: #b5967b;
+  --color-rasa-shastra: #cca54e;
+
+  /* AYURVEDAGRAM PALETTE */
+  --color-tulsi-leaf: #2c3e24;
+  --color-manjal-clay: #936c32;
+  --color-soft-sage-beige: #c7c2a1;
+  --color-neela-jal: #516080;
+  --color-anjanam-black: #303226;
+}
+
+/* Map existing CSS variables strictly to allowed palettes */
+:root {
+  --ka-paper-050: var(--color-cotton-bloom) !important;
+  --ka-ksheera-100: var(--color-ksheera-white) !important;
+  --ka-tulsi-700: var(--color-tulsi-green) !important;
+  --ka-herb-600: var(--color-herb-paste) !important;
+  --ka-agni-600: var(--color-agni-red) !important;
+  --ka-clay-400: var(--color-mridula-clay) !important;
+  --ka-rasa-500: var(--color-rasa-shastra) !important;
+}
+
+/* Force colors on specific elements to prevent leaks */
+body,
+html,
+.scrim,
+.drawer,
+section.statement,
+section.adapted-faq,
+section.adapted-pack,
+.size-option,
+.story-counter,
+.pin input,
+.faq-row button {
+  background-color: var(--color-cotton-bloom) !important;
+  color: var(--color-tulsi-green) !important;
+}
+
+section.adapted-reviews,
+section.adapted-ritual,
+.ticks button[aria-current=true],
+.add.adding,
+.presence-motion-shell,
+.ritual li::before,
+.path article b {
+  background-color: var(--color-ksheera-white) !important;
+  color: var(--color-tulsi-green) !important;
+}
+
+section.combined-reviews-section,
+section.confidence-strip,
+.combined-reviews-section .review-score,
+.sv3-static-sequence,
+.sv3-static-scene,
+.theme-footer {
+  background-color: var(--color-anjanam-black) !important;
+  color: var(--color-ksheera-white) !important;
+}
+
+.sv3-resolution {
+  background-color: var(--color-anjanam-black) !important;
+}
+
+.add,
+.checkout,
+.viewbag,
+.quantity button,
+.size-price,
+.rating span,
+.stars,
+.path:before,
+.ritual li {
+  background-color: var(--color-agni-red) !important;
+  border-color: var(--color-agni-red) !important;
+  color: var(--color-cotton-bloom) !important;
+}
+
+.ticks button[aria-current=true],
+.result-marker,
+.faq-list article h3 button span,
+.combined-reviews-section .testimonials-stars,
+.combined-reviews-section .testimonials-author strong,
+.size-badge,
+.price-line span {
+  background-color: var(--color-rasa-shastra) !important;
+  color: var(--color-anjanam-black) !important;
+}
+
+.sv3-resolution-card,
+.statement-split {
+  border-color: var(--color-soft-sage-beige) !important;
+}
+
+.comparison-v3__consult {
+  background-color: var(--color-burnt-nectar) !important;
+  color: var(--color-cotton-bloom) !important;
+}
+
+.comparison-v3__consult-cta a {
+  border-color: var(--color-cotton-bloom) !important;
+  color: var(--color-cotton-bloom) !important;
+}
+
+.comparison-v3__consult-cta a:hover {
+  background-color: var(--color-cotton-bloom) !important;
+  color: var(--color-burnt-nectar) !important;
+}
+

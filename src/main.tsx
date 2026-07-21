@@ -16,5 +16,7 @@ import './v2/v2-integration.css';
 import './v3/comparison-v3.css';
 import './pdp-redesign-v3.css';
 import './pdp-fixes.css';
+import './brand-consistency.css';
+import './calm-pdp.css';
 
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);

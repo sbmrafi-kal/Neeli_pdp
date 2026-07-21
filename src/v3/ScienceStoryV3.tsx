@@ -174,10 +174,12 @@ export default function ScienceStoryV3({ onSceneChange }: ScienceStoryV3Props) {
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     const shouldBeStatic = reducedMotionQuery.matches || !isMotionEligible()
     setStaticMode(shouldBeStatic)
-    const syncReducedMotion = () => setStaticMode(reducedMotionQuery.matches || !isMotionEligible())
-    reducedMotionQuery.addEventListener('change', syncReducedMotion)
+    const syncLayoutMode = () => setStaticMode(reducedMotionQuery.matches || !isMotionEligible())
+    reducedMotionQuery.addEventListener('change', syncLayoutMode)
     if (shouldBeStatic || !rootRef.current || !trackRef.current) {
-      return () => reducedMotionQuery.removeEventListener('change', syncReducedMotion)
+      return () => {
+        reducedMotionQuery.removeEventListener('change', syncLayoutMode)
+      }
     }
 
     const root = rootRef.current
@@ -304,7 +306,7 @@ export default function ScienceStoryV3({ onSceneChange }: ScienceStoryV3Props) {
     return () => {
       media.revert()
       context.revert()
-      reducedMotionQuery.removeEventListener('change', syncReducedMotion)
+      reducedMotionQuery.removeEventListener('change', syncLayoutMode)
     }
   }, [onSceneChange])
 
@@ -384,6 +386,10 @@ export default function ScienceStoryV3({ onSceneChange }: ScienceStoryV3Props) {
       )}
 
       <footer className="sv3-resolution">
+        <div className="sv3-resolution-title-wrapper">
+          <h2 className="sv3-resolution-title">ONE COMPLETE RITUAL</h2>
+          <div className="sv3-resolution-title-divider" />
+        </div>
 
         <div className="sv3-resolution-card sv3-resolution-card--path1">
           <div className="sv3-path-header">

@@ -130,7 +130,7 @@
   width: 100%;
   min-height: 82px;
   display: grid;
-  grid-template-columns: 44px 1fr 44px;
+  grid-template-columns: 1fr 44px;
   align-items: center;
   gap: 12px;
   padding: 12px 0;
@@ -145,7 +145,7 @@
 .faq-list button > i { justify-self: end; font-style: normal; font-size: 22px; font-weight: 400; }
 
 .faq-answer {
-  padding: 0 52px 28px 56px;
+  padding: 0 44px 28px 0;
 }
 
 .faq-answer[hidden] { display: none; }
@@ -313,9 +313,9 @@
   .adapted-faq { grid-template-columns: 1fr; gap: 48px; padding-block: 76px; }
   .adapted-faq > header { position: static; }
   .adapted-faq h2 { font-size: 62px; }
-  .faq-list button { min-height: 74px; grid-template-columns: 28px 1fr 32px; gap: 8px; }
+  .faq-list button { min-height: 74px; grid-template-columns: 1fr 32px; gap: 8px; }
   .faq-list button > b { font-size: 17px; }
-  .faq-answer { padding: 0 32px 24px 36px; }
+  .faq-answer { padding: 0 32px 24px 0; }
   .faq-answer p { font-size: 13px; line-height: 1.6; }
 
   .adapted-pack { grid-template-columns: 1fr; gap: 44px; padding-block: 76px; }
@@ -337,6 +337,6 @@
 
 @media (max-width: 360px) {
   .adapted-reviews, .adapted-faq, .adapted-pack, .adapted-heritage { padding-inline: 16px; }
-  .faq-answer { padding-left: 32px; }
+  .faq-answer { padding-left: 0; }
   .pack-list > div { grid-template-columns: 100px 1fr; }
 }
