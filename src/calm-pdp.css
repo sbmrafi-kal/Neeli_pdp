@@ -2232,202 +2232,203 @@ section.adapted-heritage .heritage-metrics strong {
   }
 }
 
-/* --- CUSTOM OVERRIDES --- */
+/* ================================================================
+   DESIGN SYSTEM OVERRIDES
+   Single authoritative source for layout, spacing, typography
+   and responsive behavior. Sits at the end of the cascade.
+   ================================================================ */
 
-/* --- STRICT DESIGN SYSTEM BREAKPOINTS --- */
+/* ----------------------------------------------------------------
+   PHASE 1 — GLOBAL LAYOUT FOUNDATION
+   ---------------------------------------------------------------- */
+
+/* 1.1 Design tokens */
 :root {
-  /* Default Mobile & Medium & Expanded: Screen Width 0 - 1199px */
-  --site-padding-inline: 24px !important;
-  --site-section-margin-bottom: 64px !important;
+  /* Container */
+  --page-max: 1320px !important;
+  --page-gutter: 20px !important;
+  --section-gap: 72px !important;
 
-  --calm-gutter: var(--site-padding-inline) !important;
-  --content-inline: var(--site-padding-inline) !important;
-  --section-inline: var(--site-padding-inline) !important;
-  --comparison-inline: var(--site-padding-inline) !important;
-  --gutter-hero: var(--site-padding-inline) !important;
-  --section-inline-v3: var(--site-padding-inline) !important;
-  --container-padding: var(--site-padding-inline) !important;
+  /* Colors (audit palette) */
+  --ink: #1D241F;
+  --forest: #1E4B3C;
+  --forest-soft: #456A5C;
+  --cream: #F7F4EC;
+  --paper: #FCFBF7;
+  --sage: #DCE7DE;
+  --sage-light: #EEF3EC;
+  --sand: #E8DDC7;
+  --turmeric-muted: #C8953F;
+  --terracotta-muted: #A96048;
+  --line: #D8D8CF;
+
+  /* Typography scale */
+  --body-sm: 14px;
+  --body: 16px;
+  --body-lg: clamp(18px, 2.2vw, 24px);
+  --h3: clamp(22px, 2.8vw, 32px);
+  --h2: clamp(30px, 4vw, 48px);
+  --h1: clamp(38px, 4.5vw, 54px);
+  --title: clamp(44px, 6vw, 72px);
+
+  /* Surfaces */
+  --radius: 12px;
+  --btn-height: 52px;
+
+  /* Wire legacy variables to new tokens */
+  --calm-gutter: var(--page-gutter) !important;
+  --content-inline: var(--page-gutter) !important;
+  --section-inline: var(--page-gutter) !important;
+  --comparison-inline: var(--page-gutter) !important;
+  --gutter-hero: var(--page-gutter) !important;
+  --section-inline-v3: var(--page-gutter) !important;
+  --container-padding: var(--page-gutter) !important;
+  --site-padding-inline: var(--page-gutter) !important;
 }
 
-@media (min-width: 840px) {
+@media (min-width: 768px) {
   :root {
-    /* Expanded and Desktop get 80px space between sections */
-    --site-section-margin-bottom: 80px !important;
+    --page-gutter: 32px !important;
+    --section-gap: 96px !important;
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   :root {
-    /* Desktop: Screen Width 1200 - 1599 gets 150px margin left/right */
-    --site-padding-inline: 150px !important;
+    --page-gutter: 48px !important;
+    --section-gap: 120px !important;
   }
 }
 
-/* 1. Reset outer section paddings to 0 to prevent double-padding & allow full-width background color */
-body section.results,
-body section.science-story-v3,
-body section.comparison-v3,
-body section.adapted-ritual,
-body section.review-carousel,
-body section.adapted-faq,
-body section.difference-section {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-inline: 0 !important;
-  margin-bottom: var(--site-section-margin-bottom) !important;
-  margin-top: 0 !important;
+@media (min-width: 1280px) {
+  :root {
+    --page-gutter: 64px !important;
+    --section-gap: 160px !important;
+  }
 }
 
-/* 2. Apply exact spec padding to all content wrappers & headers */
-body .header,
-body .anchorbar,
-body .pdp-nav-v3,
-body section.checkpoint-hero,
-body section.statement,
-body .results-intro,
-body .results-layout,
-body .sv3-intro,
-body .sv3-resolution,
-body .comparison-v3__intro,
-body .comparison-v3__anchor,
-body .comparison-v3__versus,
-body .comparison-v3__consult,
-body .ritual-container,
-body .adapted-ritual > div,
-body .review-carousel > div,
-body .faq-container,
-body .adapted-faq > div,
-body section.adapted-pack,
-body section.adapted-heritage,
+/* 1.2 Global section reset — every outer section gets edge-to-edge bg, consistent padding */
+body main > section,
 body section.confidence-strip,
-body .theme-footer__wrap {
-  padding-left: var(--site-padding-inline) !important;
-  padding-right: var(--site-padding-inline) !important;
-  padding-inline: var(--site-padding-inline) !important;
+body section.difference-section,
+body section.testimonials-section {
+  width: 100% !important;
+  max-width: none !important;
+  padding-left: var(--page-gutter) !important;
+  padding-right: var(--page-gutter) !important;
+  padding-inline: var(--page-gutter) !important;
+  margin-bottom: var(--section-gap) !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   box-sizing: border-box !important;
 }
 
-/* 3. Outer margins for non-nested outer elements */
-body section.checkpoint-hero,
-body section.statement,
-body section.adapted-pack,
-body section.adapted-heritage,
-body section.confidence-strip {
-  margin-bottom: var(--site-section-margin-bottom) !important;
-  margin-top: 0 !important;
+/* Sections with full-width backgrounds: reset outer padding to 0,
+   let inner wrappers carry the gutter */
+body section.science-story-v3 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-inline: 0 !important;
 }
 
-/* 4. Internal container adjustments */
+/* 1.3 Inner content wrappers — max-width + auto centering */
+body .results-intro,
+body .results-layout,
+body .results-qualification-card,
+body .formula-story,
+body .ingredient-explorer,
+body .ritual-intro,
+body .ritual-steps,
+body .ritual-media,
+body .ritual-guidance-grid,
+body .difference-header,
+body .difference-grid,
+body .testimonials-inner,
+body .review-carousel__stage,
+body .faq-list,
+body section.adapted-faq > header,
+body .pack-heading,
+body .pack-list,
+body .pack-image,
+body .heritage-title,
+body .heritage-metrics,
+body .heritage-spectrum,
+body .heritage-patents {
+  max-width: var(--page-max) !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+
+/* Science story inner elements get explicit padding since outer is 0 */
+body .sv3-intro,
+body .sv3-copy-stack,
+body .sv3-resolution,
+body .sv3-evidence-note summary,
+body .sv3-evidence-note p {
+  padding-left: var(--page-gutter) !important;
+  padding-right: var(--page-gutter) !important;
+}
+
 body .sv3-resolution {
   width: 100% !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
 
-body .sv3-intro,
-body .sv3-copy-stack,
-body .sv3-resolution,
-body .sv3-evidence-note summary,
-body .sv3-evidence-note p {
-  padding-left: var(--site-padding-inline) !important;
-  padding-right: var(--site-padding-inline) !important;
+body .sv3-resolution > div {
+  max-width: var(--page-max) !important;
+  margin-inline: auto !important;
 }
 
-body .sv3-resolution-card {
-  padding-left: 24px !important;
-  padding-right: 24px !important;
+/* 1.4 Header alignment */
+body .header {
+  height: 72px !important;
+  padding-inline: var(--page-gutter) !important;
+  background: rgba(252, 251, 247, 0.97) !important;
+  border-bottom: 1px solid var(--line) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: none !important;
 }
 
-/* 1. Reviews Section: Increase font size to 32px on desktop, reduce padding by 3/4th, set min-height: auto */
-section.review-carousel {
-  min-height: auto !important;
-  padding-top: calc(var(--calm-section) / 4) !important;
-  padding-bottom: calc(var(--calm-section) / 4) !important;
-}
-
-@media (min-width: 900px) {
-  section.review-carousel blockquote p {
-    font-size: 32px !important;
-    line-height: 1.35 !important;
+@media (max-width: 767px) {
+  body .header {
+    height: 60px !important;
   }
 }
 
-/* 2. FAQ opened vs closed alignment & consistency */
-.faq-list article {
-  padding-inline: 24px !important;
-  transition: background-color 220ms ease !important;
-}
-.faq-list button {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-.faq-answer {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 24px !important;
+/* Section nav alignment */
+body .pdp-nav-v3,
+body .anchorbar {
+  padding-inline: var(--page-gutter) !important;
 }
 
-/* 3. Remove image carousel selector boxes */
-.story-selector {
-  display: none !important;
+/* ----------------------------------------------------------------
+   PHASE 2 — RESPONSIVE SECTIONS FIX
+   ---------------------------------------------------------------- */
+
+/* 2.1 Hero section */
+body section.hero.checkpoint-hero {
+  min-height: clamp(680px, 90svh, 920px) !important;
+  padding: clamp(20px, 2.2vw, 34px) var(--page-gutter) clamp(34px, 4vw, 60px) !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.14fr) minmax(340px, .86fr) !important;
+  grid-template-rows: auto 1fr !important;
+  grid-template-areas:
+    'gallery overview'
+    'gallery commerce' !important;
+  column-gap: clamp(38px, 5.4vw, 84px) !important;
+  row-gap: 0 !important;
 }
 
-/* 4. Fix full ingredients padding and border structure (Image 5) */
-.full-ingredients {
-  border-radius: 0 !important;
-  border: 1px solid var(--calm-rule) !important;
-  margin-top: 24px !important;
-  background: var(--calm-paper) !important;
-}
-
-.full-ingredients summary {
-  padding: 18px 24px !important;
-  min-height: 56px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  cursor: pointer !important;
-  user-select: none !important;
-}
-
-.full-ingredients[open] summary {
-  border-bottom: 1px solid var(--calm-rule) !important;
-}
-
-.full-ingredients > p {
-  padding: 20px 24px !important;
-  margin: 0 !important;
-}
-
-/* 5. Resolution Section: Remove ONE COMPLETE RITUAL top gap */
-.sv3-resolution {
-  padding-top: 24px !important;
-}
-.sv3-resolution-title-wrapper {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* 6. Title font-size adjustment (Keep Neelibhringadi Keram on a single line) */
-.product-identity h1 {
+body .product-identity h1 {
   font-size: clamp(28px, 3.2vw, 42px) !important;
   white-space: nowrap !important;
+  line-height: 0.94 !important;
 }
 
-@media (max-width: 899px) {
-  .product-identity h1 {
-    font-size: clamp(22px, 6.2vw, 29px) !important;
-  }
-}
-
-/* 7. Mobile Hero grid layout adjustment: Move proof block under story-gallery image */
-@media (max-width: 899px) {
-  .hero-overview {
-    display: contents !important;
-  }
-  
-  section.hero.checkpoint-hero {
+@media (max-width: 767px) {
+  body section.hero.checkpoint-hero {
     min-height: 0 !important;
     padding: 0 !important;
     display: grid !important;
@@ -2440,37 +2441,270 @@ section.review-carousel {
       'commerce' !important;
     gap: 0 !important;
   }
-  
-  .product-identity {
+
+  body .hero-overview {
+    display: contents !important;
+  }
+
+  body .product-identity {
     grid-area: identity !important;
-    background: var(--calm-cream) !important;
-    padding: 30px var(--site-padding-inline) 12px !important;
+    padding: 30px var(--page-gutter) 12px !important;
   }
-  
-  .product-proof {
+
+  body .product-proof {
     grid-area: proof !important;
-    background: var(--calm-cream) !important;
-    padding: 12px var(--site-padding-inline) 12px !important;
+    padding: 12px var(--page-gutter) 12px !important;
   }
-  
-  .checkpoint-hero .story-gallery {
+
+  body .checkpoint-hero .story-gallery {
     grid-area: gallery !important;
   }
-  
-  .hero-commerce {
+
+  body .hero-commerce {
     grid-area: commerce !important;
-    padding-inline: var(--site-padding-inline) !important;
+    padding-inline: var(--page-gutter) !important;
+  }
+
+  body .product-identity h1 {
+    font-size: clamp(22px, 6.2vw, 29px) !important;
   }
 }
 
-/* 8. Increase Formulation Purity title header max-width so 'it' wraps to 2nd line */
-.statement-header h2 {
+/* 2.2 Results / Timeline section */
+body section.results {
+  height: auto !important;
+  min-height: unset !important;
+}
+
+/* 2.3 Formulation ("What's in it / What's not in it") */
+body .statement-header h2 {
   max-width: 20ch !important;
 }
 
-/* 9. Comparison table select dropdown min-width fix to avoid truncating options */
-section.comparison-v3 .comparison-v3__other-header select {
+/* 2.4 Comparison table select dropdown */
+body section.comparison-v3 .comparison-v3__other-header select {
   width: auto !important;
   min-width: 170px !important;
   margin-inline: auto !important;
+}
+
+/* 2.5 Reviews: constrain quote width, proper padding */
+body section.review-carousel {
+  min-height: auto !important;
+  padding-top: clamp(48px, 6vw, 96px) !important;
+  padding-bottom: clamp(48px, 6vw, 96px) !important;
+}
+
+body section.review-carousel blockquote p {
+  max-width: 70ch !important;
+  margin-inline: auto !important;
+}
+
+@media (min-width: 768px) {
+  body section.review-carousel blockquote p {
+    font-size: 32px !important;
+    line-height: 1.35 !important;
+  }
+}
+
+/* 2.6 FAQs: constrained text width, consistent alignment */
+body section.adapted-faq > header,
+body .faq-list {
+  max-width: 850px !important;
+  margin-inline: auto !important;
+}
+
+body .faq-list article {
+  padding-inline: 24px !important;
+  transition: background-color 220ms ease !important;
+}
+
+body .faq-list button {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  min-height: 48px !important;
+}
+
+body .faq-answer {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 24px !important;
+}
+
+/* Remove image carousel selector boxes */
+body .story-selector {
+  display: none !important;
+}
+
+/* Full ingredients accordion */
+body .full-ingredients {
+  border-radius: 0 !important;
+  border: 1px solid var(--line) !important;
+  margin-top: 24px !important;
+}
+
+body .full-ingredients summary {
+  padding: 18px 24px !important;
+  min-height: 56px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+body .full-ingredients[open] summary {
+  border-bottom: 1px solid var(--line) !important;
+}
+
+body .full-ingredients > p {
+  padding: 20px 24px !important;
+  margin: 0 !important;
+}
+
+/* Resolution section ("ONE COMPLETE RITUAL") — remove top gap */
+body .sv3-resolution {
+  padding-top: 24px !important;
+}
+
+body .sv3-resolution-title-wrapper {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body .sv3-resolution-card {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+/* ----------------------------------------------------------------
+   PHASE 3 — ANIMATION CONTAINMENT
+   ---------------------------------------------------------------- */
+
+/* Contain animated sections */
+body section.science-story-v3,
+body section.results,
+body .testimonials-section {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+/* Prevent animated overflow — but only where it doesn't break scroll scenes */
+body section.results {
+  overflow: clip !important;
+}
+
+/* Decorative overlays should not intercept clicks */
+body .results-media-overlay-chip,
+body .ritual-card-badge,
+body .diff-visual-overlay {
+  pointer-events: none !important;
+}
+
+/* Reduced motion fallbacks */
+@media (prefers-reduced-motion: reduce) {
+  body .results-motion-rail .results-sequence-card,
+  body .review-carousel,
+  body .results-sequence-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   PHASE 4 — MEDIA & SURFACE CLEANUP
+   ---------------------------------------------------------------- */
+
+/* 4.1 Stable media aspect ratios */
+body .formula-material > div,
+body .formula-method > div,
+body .ritual-media > div,
+body .results-media > div {
+  aspect-ratio: 4 / 5 !important;
+  overflow: hidden !important;
+}
+
+body .difference-visual {
+  aspect-ratio: 16 / 10 !important;
+  overflow: hidden !important;
+}
+
+body .formula-material img,
+body .formula-method img,
+body .ritual-media img,
+body .results-media img,
+body .difference-visual img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* 4.2 Surface cleanup — remove grain, textures, heavy shadows */
+body main section,
+body main article,
+body .ritual-reassurance-card,
+body .ritual-temperature-card,
+body .results-qualification-card,
+body .ingredient-entry {
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* 4.3 Consistent card radius */
+body .results-sequence-card,
+body .ritual-reassurance-card,
+body .ritual-temperature-card,
+body .ingredient-entry,
+body .diff-acc-item,
+body .results-qualification-card {
+  border-radius: var(--radius) !important;
+}
+
+/* ----------------------------------------------------------------
+   PHASE 5 — TYPOGRAPHY ALIGNMENT
+   ---------------------------------------------------------------- */
+
+/* 5.1 Body copy max-width for readability */
+body .faq-answer p,
+body .diff-acc-body p,
+body .results-sequence-content p,
+body .ritual-reassurance-card p,
+body .ritual-temperature-card p {
+  max-width: 70ch !important;
+}
+
+/* 5.2 Minimum body text — do not go below 16px */
+body p,
+body li,
+body dd,
+body td,
+body th {
+  font-size: max(var(--body), 1em) !important;
+}
+
+/* 5.3 Button height consistency */
+body button.add,
+body .checkout,
+body .size-option {
+  min-height: var(--btn-height) !important;
+}
+
+/* 5.4 Mobile tap targets */
+@media (max-width: 767px) {
+  body .faq-list button,
+  body .diff-acc-header,
+  body .ingredient-entry button,
+  body .story-arrows button {
+    min-height: 48px !important;
+  }
+}
+
+/* 5.5 No horizontal overflow — safety net */
+html {
+  overflow-x: hidden !important;
+}
+
+body main {
+  overflow-x: clip !important;
 }
