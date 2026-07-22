@@ -85,7 +85,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
           onClick={handlePrev}
           disabled={currentIndex === 0}
           aria-label="Previous ingredients slide"
-          className={`absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 backdrop-blur-md border border-[#39461d]/20 text-[#39461d] shadow-lg flex items-center justify-center transition-all duration-200 ${
+          className={`absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 backdrop-blur-md border border-[#39461d]/20 text-[#39461d] shadow-lg flex items-center justify-center transition-all duration-300 ${
             currentIndex === 0
               ? 'opacity-20 cursor-not-allowed pointer-events-none'
               : 'hover:bg-white hover:scale-110 active:scale-95 cursor-pointer'
@@ -100,7 +100,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
           onClick={handleNext}
           disabled={currentIndex >= ingredients.length - 1}
           aria-label="Next ingredients slide"
-          className={`absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 backdrop-blur-md border border-[#39461d]/20 text-[#39461d] shadow-lg flex items-center justify-center transition-all duration-200 ${
+          className={`absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 backdrop-blur-md border border-[#39461d]/20 text-[#39461d] shadow-lg flex items-center justify-center transition-all duration-300 ${
             currentIndex >= ingredients.length - 1
               ? 'opacity-20 cursor-not-allowed pointer-events-none'
               : 'hover:bg-white hover:scale-110 active:scale-95 cursor-pointer'
@@ -109,23 +109,24 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
           <ChevronRight className="w-6 h-6 stroke-[2.2]" />
         </button>
 
-        {/* Smooth Hardware-Accelerated Glitch-Free Carousel Track */}
+        {/* 3D Depth Perspective Track Wrapper (Unclipped for Scaled Active Cards) */}
         <div
           ref={scrollTrackRef}
-          className="potent-carousel-track flex gap-4 sm:gap-6 overflow-x-auto py-4 rounded-[28px] scroll-smooth snap-x snap-mandatory scrollbar-none"
+          className="potent-carousel-track flex gap-4 sm:gap-6 overflow-x-auto py-8 sm:py-10 px-2 rounded-[28px] scroll-smooth snap-x snap-mandatory scrollbar-none"
           style={{
             WebkitOverflowScrolling: 'touch',
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
+            perspective: '1000px',
           }}
         >
           {ingredients.map((item, index) => (
             <div
               key={item.id}
-              className="snap-start shrink-0 w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] transition-transform duration-300 transform-gpu"
+              className="snap-start shrink-0 w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) transform-gpu"
               style={{
                 scrollSnapAlign: 'start',
-                willChange: 'transform',
+                willChange: 'transform, opacity',
               }}
             >
               <IngredientCard
@@ -139,7 +140,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
       </div>
 
       {/* Segmented Progress Bar Indicator (Bottom Center) */}
-      <div className="mt-8 flex flex-col items-center justify-center gap-3">
+      <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-3">
         <div
           className="flex items-center gap-2 max-w-xs sm:max-w-md w-full justify-center px-4"
           role="tablist"
