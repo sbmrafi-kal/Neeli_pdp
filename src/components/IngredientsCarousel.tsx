@@ -139,8 +139,8 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
         </div>
       </div>
 
-      {/* Segmented Progress Bar Indicator (Bottom Center) */}
-      <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-3">
+      {/* Segmented Progress Bar Indicator (Only Horizontal Indicator Bars) */}
+      <div className="mt-6 sm:mt-8 flex justify-center">
         <div
           className="flex items-center gap-2 max-w-xs sm:max-w-md w-full justify-center px-4"
           role="tablist"
@@ -169,11 +169,6 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
             );
           })}
         </div>
-
-        {/* Slide Counter */}
-        <p className="text-xs font-mono uppercase tracking-widest text-[#39461d]/80 font-semibold">
-          {currentIndex + 1} of {ingredients.length}
-        </p>
       </div>
     </div>
   );
