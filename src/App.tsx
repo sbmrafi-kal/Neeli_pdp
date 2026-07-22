@@ -99,26 +99,17 @@ function ProductIdentity(){
       <span className="current hide-mobile">Neelibhringadi Keram</span>
     </nav>
     <h1>Neelibhringadi <span>Keram</span></h1>
-    <p className="identity-subtitle">Ayurvedic scalp &amp; hair oil</p>
+    <p className="identity-subtitle">
+      Traditional 48-hour slow-cooked Ayurvedic hair oil infused with Bhringraj, Neeli, and triple milks—formulated to strengthen roots, reduce hair fall, and nourish the scalp.
+    </p>
   </div>
 }
 
 function ProductProof(){
   return <div className="product-proof">
     <div className="identity-social-proof">
-      <a className="identity-rating" href="#reviews" aria-label="4.8 out of 5, 137 reviews">
-        <strong>4.8</strong>
-        <span className="stars" aria-hidden="true">★★★★★</span>
-        <u>137 reviews</u>
-      </a>
       <span className="proof-pill">40,000+ bought last year</span>
     </div>
-
-    <ul className="identity-benefits-list">
-      <li><span className="check">✓</span> Reduced hair fall due to breakage</li>
-      <li><span className="check">✓</span> Nourished scalp &amp; root strength</li>
-      <li><span className="check">✓</span> Softer, healthier-looking hair</li>
-    </ul>
   </div>
 }
 
@@ -271,7 +262,6 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
 
   return <div className="story-gallery" role="region" aria-roledescription="carousel" aria-label="Six-frame product story" tabIndex={0} onKeyDown={event=>{if(event.key==='ArrowLeft')previous();if(event.key==='ArrowRight')next()}} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} style={{ touchAction: 'pan-y' }}>
     <div className={`story-frame story-${direction} ${slides[slide].frameClass}`} key={slide}>{slides[slide].frameClass==='frame-product'?<ProductPresenceMotion/>:slides[slide].frameClass==='frame-texture'?<ProductTextureMotion autoPlayOnce={!textureHasPlayed.current} onAutoPlay={()=>{textureHasPlayed.current=true}} experiment={experiment}/>:<ResponsiveImage className="story-image" src={slides[slide].src} mobileSrc={slides[slide].mobileSrc} alt={slides[slide].alt} priority={slide===0}/>}<div className="story-counter" aria-hidden="true"><span>{String(slide+1).padStart(2,'0')}</span><i/><span>{String(slides.length).padStart(2,'0')}</span></div><div className="story-arrows"><button onClick={previous} aria-label="Previous gallery frame"><Arrow left/></button><button onClick={next} aria-label="Next gallery frame"><Arrow/></button></div></div>
-    <div className="story-caption" aria-live="polite"><span>{String(slide+1).padStart(2,'0')}</span><div><small>{slides[slide].eyebrow}</small><strong>{slides[slide].label}</strong></div></div>
     <div className="story-selector" aria-label="Choose a gallery frame">{slides.map((frame,index)=><button key={frame.src} className={index===slide?'selected':''} aria-label={`${index+1}: ${frame.label}`} aria-current={index===slide?'true':undefined} onClick={()=>{setDirection(index<slide?'previous':'next');track('gallery_navigated',{interaction:'selector',from_frame:slide+1,to_frame:index+1,experiment_id:experiment.id,experiment_variant:experiment.variant});setSlide(index)}}><span>{String(index+1).padStart(2,'0')}</span><b>{frame.shortLabel}</b></button>)}</div>
   </div>
 }
@@ -380,12 +370,24 @@ function FormulaSection({v3=false}:{v3?:boolean}){
   const ingredientSource=v3?ingredientsV3:ingredients;
   return <section className="formula section adapted-formula" id="formula">
     <div className="formula-story">
-      <div className="formula-heading"><p className="kicker">Key ingredients</p><h2>Three milks. One complete formula.</h2></div>
-      <div className="formula-editorial" aria-label="Formula imagery">
-        <figure className="formula-material ingredients-material"><div><ResponsiveImage src="/assets/production/ingredients.webp" mobileSrc="/assets/production/ingredients-mobile.webp" alt="Amla, Bhringaraj, Neeli and coconut oil"/></div><figcaption>Four powerful ingredients</figcaption></figure>
-        <figure className="formula-material milks-material"><div><ResponsiveImage src="/assets/production/triple-milk.webp" mobileSrc="/assets/production/triple-milk-mobile.webp" alt="Cow milk, goat milk and coconut milk"/></div><figcaption>The triple-milk base</figcaption></figure>
+      <div className="formula-heading">
+        <p className="kicker">Key ingredients</p>
+        <h2>Three milks. One complete formula.</h2>
       </div>
-      <figure className="formula-method"><div><ResponsiveImage src="/assets/production/slow-cooking.webp" mobileSrc="/assets/production/slow-cooking-mobile.webp" alt="Herbal oil prepared over low heat using Thaila Paaka Vidhi" width={1600} height={1067}/></div><figcaption>Slow-heat extraction through Thaila Paaka Vidhi</figcaption></figure>
+      <div className="formula-materials-grid" aria-label="Formula imagery">
+        <figure className="formula-material">
+          <div><ResponsiveImage src="/assets/production/ingredients.webp" mobileSrc="/assets/production/ingredients-mobile.webp" alt="Amla, Bhringaraj, Neeli and coconut oil"/></div>
+          <figcaption>Four powerful herbal ingredients</figcaption>
+        </figure>
+        <figure className="formula-material">
+          <div><ResponsiveImage src="/assets/production/triple-milk.webp" mobileSrc="/assets/production/triple-milk-mobile.webp" alt="Cow milk, goat milk and coconut milk"/></div>
+          <figcaption>The nourishing triple-milk base</figcaption>
+        </figure>
+        <figure className="formula-material">
+          <div><ResponsiveImage src="/assets/production/slow-cooking.webp" mobileSrc="/assets/production/slow-cooking-mobile.webp" alt="Herbal oil prepared over low heat using Thaila Paaka Vidhi"/></div>
+          <figcaption>Slow-heat Thaila Paaka Vidhi extraction</figcaption>
+        </figure>
+      </div>
     </div>
     <div className="ingredient-explorer"><div className="ingredient-heading"><span>Ingredient index</span>{compactIngredients&&<p>Tap an ingredient to read its role.</p>}</div><div className="ingredient-grid">{ingredientSource.map(([name,copy],i)=>{const label=<><span>0{i+1}</span><h3>{name}</h3>{compactIngredients&&<b aria-hidden="true">{activeIngredient===i?'−':'+'}</b>}</>;return <article key={name} className={`ingredient-entry ${activeIngredient===i?'active':''}`}>{compactIngredients?<button aria-expanded={activeIngredient===i} aria-controls={`ingredient-${i}`} onClick={()=>setActiveIngredient(activeIngredient===i?-1:i)}>{label}</button>:<div className="ingredient-label">{label}</div>}<div className="ingredient-copy" id={`ingredient-${i}`}><p>{copy}</p></div></article>})}</div><details className="full-ingredients"><summary>See the full ingredients list <span>+</span></summary><p><b>Oil base:</b> Coconut oil (Cocos nucifera). <b>Primary ingredients:</b> Amla (Emblica officinalis), Bhringaraj (Eclipta alba), Neeli (Indigofera tinctoria), Karnasphota (Cardiospermum halicacabum). <b>Triple-milk base:</b> Cow milk (Dhenukshira), Goat milk (Ajakshira), and Coconut milk (Nalikerakshira). <b>Supporting herbs:</b> Yashtimadhu (Glycyrrhiza glabra), Dhatriphala (Phyllanthus emblica), Gunjamoola (Abrus precatorius), and Anjana.</p></details></div>
   </section>
@@ -403,13 +405,13 @@ function RitualSection() {
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      if (rect.top <= windowHeight && rect.bottom >= 0) {
-        setIsVisible(true);
-        const totalScrollable = rect.height - windowHeight;
-        if (totalScrollable > 0) {
-          const current = -rect.top;
-          const progress = Math.min(Math.max(current / totalScrollable, 0), 1);
-          setScrollProgress(progress);
+      const totalScrollable = rect.height - windowHeight;
+      if (totalScrollable > 0) {
+        const current = -rect.top;
+        const progress = Math.min(Math.max(current / totalScrollable, 0), 1);
+        setScrollProgress(progress);
+        if (rect.top <= windowHeight && rect.bottom >= 0) {
+          setIsVisible(true);
         }
       }
     };
@@ -422,60 +424,62 @@ function RitualSection() {
   const stepThresholds = [0, 0.20, 0.48, 0.72];
 
   return (
-    <section 
-      ref={sectionRef} 
-      className={`ritual section adapted-ritual ${isVisible ? 'is-visible' : ''}`} 
-      id="ritual"
-    >
-      <div className="ritual-sticky-container">
-        <div className="ritual-intro">
-          <div className="ritual-header-badge">
-            <span className="ritual-kicker">THE RITUAL GUIDE</span>
-            <span className="ritual-pill">2× Weekly</span>
-            <span className="ritual-pill">30–60 Min Wash-Out</span>
-          </div>
-          <h2>Warm, Apply, Massage, Wash</h2>
-          <p className="ritual-intro-sub">Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p>
-        </div>
-
-        <div className="ritual-track-wrapper">
-          <div className="ritual-continuous-track">
-            <div 
-              className="ritual-continuous-fill" 
-              style={{ transform: `scaleX(${Math.min(1, Math.max(0, scrollProgress))})` }} 
-            />
+    <>
+      <section 
+        ref={sectionRef} 
+        className={`ritual section adapted-ritual ${isVisible ? 'is-visible' : ''}`} 
+        id="ritual"
+      >
+        <div className="ritual-sticky-container">
+          <div className="ritual-intro">
+            <div className="ritual-header-badge">
+              <span className="ritual-kicker">THE RITUAL GUIDE</span>
+              <span className="ritual-pill">2× Weekly</span>
+              <span className="ritual-pill">30–60 Min Wash-Out</span>
+            </div>
+            <h2>The Ritual Guide</h2>
+            <p className="ritual-intro-sub">Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p>
           </div>
 
-          <ol className="ritual-steps">
-            {ritualSteps.map(([index, title, copy], idx) => {
-              const isActive = !isVisible || scrollProgress >= stepThresholds[idx];
+          <div className="ritual-track-wrapper">
+            <ol className="ritual-steps">
+              {ritualSteps.map(([index, title, copy], idx) => {
+                const isActive = !isVisible || scrollProgress >= stepThresholds[idx];
 
-              return (
-                <li 
-                  key={index} 
-                  className={`ritual-step-item ${isActive ? 'step-active' : ''}`}
-                >
-                  <div className="ritual-step-image-wrapper">
-                    <img 
-                      src={`/assets/production/ritual-step-${idx + 1}.webp`} 
-                      alt={title} 
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="ritual-step-badge-wrapper">
-                    <span className="ritual-step-badge">{index}</span>
-                  </div>
-                  <div className="ritual-step-content">
-                    <b>{title}</b>
-                    <p>{copy}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+                return (
+                  <li 
+                    key={index} 
+                    className={`ritual-step-item ${isActive ? 'step-active' : ''}`}
+                  >
+                    <div className={`ritual-step-title-above ${isActive ? 'title-visible' : ''}`}>{title}</div>
+                    <div className="ritual-step-image-wrapper">
+                      <img 
+                        src={`/assets/production/ritual-step-${idx + 1}.webp`} 
+                        alt={title} 
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="ritual-step-bar-row">
+                      <span className="ritual-step-badge">{index}</span>
+                    </div>
+                    <div className="ritual-step-content">
+                      <p>{copy}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="ritual-single-live-track">
+              <div 
+                className="ritual-single-live-fill" 
+                style={{ width: `${Math.min(1, Math.max(0, scrollProgress)) * 100}%` }} 
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
+      <section className="ritual-guidance-section" aria-label="Ritual guidance & seasonal care">
         <div className="ritual-guidance-grid">
           <aside className="ritual-reassurance-card" aria-label="What to expect from the ritual">
             <div className="ritual-card-badge">
@@ -505,8 +509,9 @@ function RitualSection() {
           </div>
         </div>
       </section>
-    );
-  }
+    </>
+  );
+}
 
 /**
  * APPROVED AND LOCKED PDP SECTION
@@ -547,12 +552,10 @@ function KeralaAyurvedaDifference() {
             loop 
             muted 
             playsInline 
+            src="/assets/production/slow-cooking.mp4"
             poster="/assets/production/slow-cooking.webp"
             className="diff-image diff-video"
-          >
-            <source src="/assets/production/slow-cooking.mp4" type="video/mp4" />
-            <img src="/assets/production/slow-cooking.webp" alt="Herbs boiling on low fire in oil" className="diff-image" />
-          </video>
+          />
           <div className="diff-visual-overlay">
             <strong>Authentic Thaila Paaka Vidhi</strong>
             <span>48-hour traditional cooking process</span>
@@ -568,7 +571,7 @@ function KeralaAyurvedaDifference() {
                   <button
                     type="button"
                     aria-expanded={isOpen}
-                    onClick={() => setOpenIndex(isOpen ? -1 : idx)}
+                    onClick={() => setOpenIndex(idx)}
                     className="diff-acc-header"
                   >
                     <span>0{idx + 1}</span>
@@ -845,89 +848,211 @@ function ProductDetailsSection(){
   const dialogRef=useRef<HTMLDialogElement>(null);
   const openerRef=useRef<HTMLButtonElement>(null);
   const closeZoom=()=>dialogRef.current?.close();
-  return <section className="pack-facts adapted-pack" id="details"><div className="pack-heading"><p className="kicker">Product details</p><h2>200 ml</h2><p>Neelibhringadi Keram</p></div><dl className="pack-list"><div><dt>Size</dt><dd>200 ml</dd></div><div><dt>Administration</dt><dd>External use only</dd></div><div><dt>In cooler weather</dt><dd>The coconut oil base may solidify.</dd></div><div><dt>Price</dt><dd><del>₹375</del> ₹338 · Inclusive of all taxes</dd></div></dl><figure className="pack-image"><button ref={openerRef} type="button" className="pack-zoom-trigger" onClick={()=>dialogRef.current?.showModal()} aria-haspopup="dialog"><img src="/assets/gallery/neeli-back.webp" alt="Back of the Neelibhringadi Keram carton showing product information" width="1080" height="1080" loading="lazy"/><span><b aria-hidden="true">＋</b> Zoom pack label</span></button><figcaption>Pack information · Select to enlarge</figcaption></figure><dialog ref={dialogRef} className="pack-zoom-dialog" aria-labelledby="pack-zoom-title" onClick={event=>{if(event.target===event.currentTarget)closeZoom()}} onClose={()=>openerRef.current?.focus()}><div className="pack-zoom-panel"><header><div><p className="kicker">Pack information</p><h2 id="pack-zoom-title">Back-label detail</h2></div><button type="button" onClick={closeZoom} aria-label="Close enlarged pack label">×</button></header><div className="pack-zoom-image" tabIndex={0} aria-label="Scrollable enlarged pack label"><img src="/assets/gallery/neeli-back.webp" alt="Enlarged back of the Neelibhringadi Keram carton" width="1080" height="1080"/></div><p>Scroll to inspect the label. Use the current physical pack as the final authority for ingredients, directions and cautions.</p></div></dialog></section>
-}
+  return <section className="pack-facts adapted-pack" id="details">
+    <div className="pack-heading">
+      <p className="kicker">Product details</p>
+      <h2>Neelibhringadi Keram</h2>
+      <p>Official formulation &amp; packaging information</p>
+    </div>
+    
+    <div className="pack-details-grid">
+      <div className="pack-detail-card">
+        <h3>Product Specifications</h3>
+        <dl className="pack-list">
+          <div><dt>Available Sizes</dt><dd>200 ml &amp; 100 ml bottles</dd></div>
+          <div><dt>Administration</dt><dd>External scalp &amp; hair application</dd></div>
+          <div><dt>Formula Lineage</dt><dd>Sahasrayogam classical Ayurvedic reference</dd></div>
+        </dl>
+      </div>
 
-function HeritageSection(){
-  return <section className="heritage adapted-heritage" id="heritage">
-    <div className="heritage-title">
-      <p className="kicker">SINCE 1945 • 80 YEARS OF EXCELLENCE</p>
-      <h2>Rooted in Authentic Ayurveda.</h2>
-      <p className="heritage-subtitle">Over eight decades of classical formulation, organic herbal cultivation, and global patented research.</p>
-    </div>
-    <div className="heritage-metrics">
-      <div className="metric-card">
-        <strong>1945</strong>
-        <span>Est. Lineage</span>
-        <small>80-year Vaidya tradition</small>
+      <div className="pack-detail-card">
+        <h3>Pricing &amp; Value</h3>
+        <dl className="pack-list">
+          <div><dt>200 ml Price</dt><dd>₹338 <del>₹375</del> (Save ₹37)</dd></div>
+          <div><dt>100 ml Price</dt><dd>₹195</dd></div>
+          <div><dt>Taxes &amp; Shipping</dt><dd>Inclusive of taxes • Free shipping over ₹299</dd></div>
+        </dl>
       </div>
-      <div className="metric-card">
-        <strong>350+</strong>
-        <span>Classical Formulas</span>
-        <small>Purity-tested preparations</small>
-      </div>
-      <div className="metric-card">
-        <strong>100%</strong>
-        <span>Organic Sourcing</span>
-        <small>Herbs from natural habitats</small>
-      </div>
-      <div className="metric-card">
-        <strong>Global</strong>
-        <span>Patented Research</span>
-        <small>US, Japan & Korea patents</small>
+
+      <div className="pack-detail-card">
+        <h3>Usage &amp; Care Cautions</h3>
+        <dl className="pack-list">
+          <div><dt>Recommended Ritual</dt><dd>2× weekly, 30–60 min before wash-out</dd></div>
+          <div><dt>Cool Weather Care</dt><dd>Coconut oil base solidifies below 24°C. Warm bottle in warm water before use.</dd></div>
+          <div><dt>Precautions</dt><dd>External application only. Avoid direct eye contact.</dd></div>
+        </dl>
       </div>
     </div>
-    <div className="heritage-pillars">
-      <div className="heritage-pillar">
-        <span className="pillar-badge">SEED-TO-SHELF PURITY</span>
-        <h3>Own Herbal Gardens in Kerala</h3>
-        <p>We manage our own organic herbal farms, wellness clinics, research centers, and academy to guarantee complete authenticity with zero artificial adulteration.</p>
+
+    <figure className="pack-image">
+      <button ref={openerRef} type="button" className="pack-zoom-trigger" onClick={()=>dialogRef.current?.showModal()} aria-haspopup="dialog">
+        <img src="/assets/gallery/neeli-back.webp" alt="Back of the Neelibhringadi Keram carton showing product information" width="1080" height="1080" loading="lazy"/>
+        <span><b aria-hidden="true">＋</b> Zoom pack label</span>
+      </button>
+      <figcaption>Pack information · Select to enlarge</figcaption>
+    </figure>
+    <dialog ref={dialogRef} className="pack-zoom-dialog" aria-labelledby="pack-zoom-title" onClick={event=>{if(event.target===event.currentTarget)closeZoom()}} onClose={()=>openerRef.current?.focus()}>
+      <div className="pack-zoom-panel">
+        <header>
+          <div><p className="kicker">Pack information</p><h2 id="pack-zoom-title">Back-label detail</h2></div>
+          <button type="button" onClick={closeZoom} aria-label="Close enlarged pack label">×</button>
+        </header>
+        <div className="pack-zoom-image" tabIndex={0} aria-label="Scrollable enlarged pack label">
+          <img src="/assets/gallery/neeli-back.webp" alt="Enlarged back of the Neelibhringadi Keram carton" width="1080" height="1080"/>
+        </div>
+        <p>Scroll to inspect the label. Use the current physical pack as the final authority for ingredients, directions and cautions.</p>
       </div>
-      <div className="heritage-pillar">
-        <span className="pillar-badge">SCIENTIFIC VALIDATION</span>
-        <h3>Global Formulations & Patents</h3>
-        <p>Backed by US, Japan, and Korea patents, combining ancient Vaidya wisdom with modern safety testing and strict GMP manufacturing standards.</p>
-      </div>
-    </div>
+    </dialog>
   </section>
 }
 
-function SiteFooter(){
-  const groups = [
-    { title: 'Quick Links', links: [['Shop', '#product'], ['Results', '#results'], ['Formula', '#formula'], ['How to use', '#ritual']] },
-    { title: 'Policies', links: [['Shipping & returns', '#faq'], ['Privacy policy', '#faq'], ['Terms of service', '#faq']] },
-    { title: 'Our Network', links: [['Kerala Ayurveda', 'https://keralaayurveda.com'], ['Journal', '#science'], ['Consult an expert', '#consultation']] },
-  ] as const;
-  return <footer className="theme-footer">
-    <div className="theme-footer__wrap">
-      <div className="theme-footer__grid">
-        <div className="theme-footer__brand"><img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="130" height="130"/><span>Kerala Ayurveda</span></div>
-        {groups.map(group => <div className="theme-footer__column" key={group.title}><h2>{group.title}</h2><ul>{group.links.map(([label, href]) => <li key={label}><a href={href}>{label}</a></li>)}</ul></div>)}
+function HeritageSection() {
+  return (
+    <section className="authentic-ayurveda-banner-section" id="heritage">
+      <div className="authentic-banner-container">
+        {/* Column 1: Visual Image (Seals baked into asset) */}
+        <div className="authentic-col-visual">
+          <img 
+            src="/assets/production/Rooted in Authentic Ayurveda.webp" 
+            alt="Hand holding Bhringraj plant" 
+            className="authentic-bg-img"
+          />
+        </div>
+
+        {/* Column 2: Content (Full Spectrum & Patented Formulations) */}
+        <div className="authentic-col-content">
+          <div className="authentic-block">
+            <h2 className="authentic-heading-serif">FULL SPECTRUM</h2>
+            <p className="authentic-desc">
+              Classical and Proprietary Ayurvedic Products (350+ Products) | Therapies and Ayurvedic Retreats | Academy and Education Initiatives | Pioneering Ayurvedic R&amp;D
+            </p>
+          </div>
+
+          <div className="authentic-divider-line" />
+
+          <div className="authentic-block">
+            <span className="authentic-gold-eyebrow">Globally Recognized</span>
+            <h2 className="authentic-heading-serif">PATENTED FORMULATIONS</h2>
+            <p className="authentic-desc">
+              Patented products in the United States, Japan and Korea.
+            </p>
+          </div>
+        </div>
+
+        {/* Column 3: Brand Emblem & Tagline */}
+        <div className="authentic-col-brand">
+          <div className="authentic-brand-emblem">
+            <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="90" height="90" className="authentic-gold-logo" />
+          </div>
+          <p className="authentic-brand-tagline">Rooted in Authentic Ayurveda.</p>
+        </div>
       </div>
-      <div className="theme-footer__social"><strong>Follow Us</strong><div><a href="https://www.instagram.com/keralaayurvedaltd/?hl=en" aria-label="Instagram">◎</a><a href="https://www.youtube.com/@KeralaAyurvedalimited" aria-label="YouTube">▶</a><a href="https://www.facebook.com/keralaayurvedaltd/" aria-label="Facebook">f</a><a href="https://in.linkedin.com/company/kerala-ayurveda" aria-label="LinkedIn">in</a></div></div>
-      <div className="theme-footer__tagline-wrap">
-        <p className="theme-footer__tagline">Rooted in authentic Ayurveda.</p>
+    </section>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="official-site-footer">
+      <div className="official-footer-inner">
+        <div className="official-footer-brand-col">
+          <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="140" height="54" className="official-footer-logo" />
+          <p className="official-footer-tagline">Rooted in Authentic Ayurveda.</p>
+          <p className="official-footer-copy">© 2026, Kerala Ayurveda India.</p>
+        </div>
+
+        <div className="official-footer-nav-grid">
+          <div className="official-footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="https://keralaayurveda.com/pages/about-us-1" target="_blank" rel="noopener noreferrer">About Kerala Ayurveda</a></li>
+              <li><a href="https://keralaayurveda.com/pages/clinics" target="_blank" rel="noopener noreferrer">Clinics</a></li>
+              <li><a href="https://keralaayurveda.com/pages/academy" target="_blank" rel="noopener noreferrer">Ayurveda Academy</a></li>
+              <li><a href="https://keralaayurveda.com/pages/investors" target="_blank" rel="noopener noreferrer">Investors</a></li>
+              <li><a href="https://keralaayurveda.com/pages/research-and-development" target="_blank" rel="noopener noreferrer">Research &amp; Development</a></li>
+              <li><a href="https://keralaayurveda.com/pages/careers" target="_blank" rel="noopener noreferrer">Careers</a></li>
+              <li><a href="https://keralaayurveda.com/blogs/news" target="_blank" rel="noopener noreferrer">Blogs</a></li>
+              <li><a href="https://keralaayurveda.com/pages/our-editorial-team" target="_blank" rel="noopener noreferrer">Our Editorial Team</a></li>
+              <li><a href="https://keralaayurveda.com/pages/contact" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div className="official-footer-col">
+            <h4>Policies</h4>
+            <ul>
+              <li><a href="https://keralaayurveda.com/pages/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of use</a></li>
+              <li><a href="https://keralaayurveda.com/pages/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><a href="https://keralaayurveda.com/pages/shipping-and-delivery-policy" target="_blank" rel="noopener noreferrer">Shipping and Delivery Policy</a></li>
+              <li><a href="https://keralaayurveda.com/pages/return-cancellation-policy" target="_blank" rel="noopener noreferrer">Return/Cancellation Policy</a></li>
+              <li><a href="https://keralaayurveda.com/pages/faq" target="_blank" rel="noopener noreferrer">FAQs</a></li>
+            </ul>
+          </div>
+
+          <div className="official-footer-col">
+            <h4>Our Network</h4>
+            <ul>
+              <li><a href="https://www.ayurvedagram.com/" target="_blank" rel="noopener noreferrer">Ayurvedagram Bengaluru</a></li>
+              <li><a href="https://www.ayurvedagrambali.com/" target="_blank" rel="noopener noreferrer">Ayurvedagram Bali</a></li>
+              <li><a href="https://www.thehealthvillage.biz/" target="_blank" rel="noopener noreferrer">The Health Village</a></li>
+              <li><a href="https://keralaayurvedaacademy.in/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda India - Academy</a></li>
+              <li><a href="https://keralaayurveda.store/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda USA - Store</a></li>
+              <li><a href="https://www.keralaayurveda.us/wellnesscenter/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda USA - Wellness</a></li>
+              <li><a href="https://www.keralaayurveda.us/courses/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda USA - Academy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="official-footer-bottom-bar">
+        <span>© 2026, Kerala Ayurveda India.</span>
+        <div className="official-footer-social">
+          <a href="https://www.instagram.com/keralaayurvedaltd/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+          <a href="https://www.youtube.com/@KeralaAyurvedalimited" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
+          <a href="https://www.facebook.com/keralaayurvedaltd/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+          <a href="https://in.linkedin.com/company/kerala-ayurveda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function ChatGPTRightNav({ activeSection }: { activeSection: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div 
+      className={`chatgpt-expanding-nav ${isOpen ? 'is-open' : ''}`}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+      role="navigation"
+      aria-label="Section navigation menu"
+    >
+      <div className="expanding-nav-list">
+        {navItems.map(([id, label]) => {
+          const isActive = activeSection === id;
+
+          if (!isOpen && !isActive) return null;
+
+          return (
+            <button
+              key={id}
+              type="button"
+              className={`expanding-nav-item ${isActive ? 'active' : 'inactive'}`}
+              onClick={() => {
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                setIsOpen(false);
+              }}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
     </div>
-    <div className="footer-waves-container" aria-hidden="true">
-      <svg className="footer-wave-svg wave-1" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1300,60 1400,60 L1400,120 L0,120 Z" />
-      </svg>
-      <svg className="footer-wave-svg wave-2" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M0,60 C180,20 320,100 500,60 C680,20 820,100 1000,60 C1180,20 1320,60 1400,60 L1400,120 L0,120 Z" />
-      </svg>
-      <svg className="footer-wave-svg wave-3" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M0,60 C120,80 280,40 500,60 C720,80 880,40 1000,60 C1120,80 1280,60 1400,60 L1400,120 L0,120 Z" />
-      </svg>
-    </div>
-    <div className="theme-footer__decoration" aria-hidden="true" />
-  </footer>
+  );
 }
 
 function App(){
-  // V3 is the canonical PDP. Keep the earlier composition available only for
-  // deliberate regression checks via ?version=v2, so the root URL cannot
-  // silently render a different product experience.
   const useV3=typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('version')!=='v2';
   const [slide,setSlide]=useState(0), [cart,setCart]=useState(0), [buyState,setBuyState]=useState<'ready'|'adding'|'added'>('ready');
   const [motionExperiment]=useState(getMotionExperiment);
@@ -1009,8 +1134,46 @@ function App(){
   const submitSearch=(event:FormEvent)=>{event.preventDefault();const query=searchTerm.trim().toLowerCase();if(!query)return;const targets=[{terms:'overview product neelibhringadi hair oil',id:'product'},{terms:'result results hair fall hair growth expect',id:'results'},{terms:'formula ingredient ingredients amla bhringaraj neeli coconut milk',id:'formula'},{terms:'mechanism science works recovery pathway shaft scalp follicle anagen',id:'science'},{terms:'ritual how to use apply massage wash mild shampoo',id:'ritual'},{terms:'compare comparison minoxidil serum rosemary alternative',id:'comparison'},{terms:'doctor consultation whatsapp persistent sudden clinical',id:'consultation'},{terms:'review reviews rating',id:'reviews'},{terms:'faq questions pregnancy coloured greying dandruff everyday science',id:'faq'},{terms:'details size pack label zoom external taxes price',id:'details'}];const match=targets.find(item=>item.terms.includes(query)||query.split(/\s+/).some(word=>word.length>2&&item.terms.includes(word)));if(match){document.getElementById(match.id)?.scrollIntoView({behavior:'smooth'});setSearchStatus(`Showing ${match.id==='product'?'product overview':match.id}.`);setSearchOpen(false)}else setSearchStatus('No matching section in this product prototype.')};
   return <>
     <a className="skip" href="#main">Skip to product</a>
-    <header className={`header ${searchOpen?'searching':''}`}><a className="brand" href="#main" aria-label="Kerala Ayurveda home"><img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="130" height="130"/></a><nav className="header-primary-nav" aria-label="Primary navigation"><a href="#product">Shop</a><a href="#formula">Ayurveda</a><a href="#science">Our approach</a><a href="#reviews">Journal</a></nav>{searchOpen&&<form className="header-search" role="search" onSubmit={submitSearch}><Search/><label className="visually-hidden" htmlFor="site-search">Search this product page</label><input ref={searchRef} id="site-search" value={searchTerm} onChange={event=>setSearchTerm(event.target.value)} placeholder="Search results, ingredients, how to use…" autoComplete="off"/><button className="search-submit" type="submit"><span className="search-submit-desktop">Search</span><span className="search-submit-mobile">Go</span></button><button className="search-close" type="button" onClick={()=>setSearchOpen(false)} aria-label="Close search">×</button></form>}<div className="header-actions"><button className="search-button" onClick={()=>setSearchOpen(true)} aria-expanded={searchOpen} aria-label="Open search"><Search/></button><button className="header-bag" type="button" onClick={()=>cart?openDrawer():document.getElementById('product')?.scrollIntoView({behavior:'smooth'})} aria-label={cart?`Open cart, ${cart} item${cart>1?'s':''}`:'View product purchase options'}>Cart{cart>0&&<span>{cart}</span>}</button></div><p className="live" aria-live="polite">{searchStatus}</p></header>
-    {useV3?<PdpSectionNavV3/>:<nav className="anchorbar" aria-label="Product sections">{navItems.map(([id,label])=><a key={id} href={`#${id}`} className={`standard-nav-link ${activeSection===id?'active':''}`} aria-current={activeSection===id?'location':undefined}>{label}</a>)}<button className="landscape-trigger" aria-expanded={landscapeMenu} aria-controls="landscape-sections" onClick={()=>setLandscapeMenu(open=>!open)}>Sections <span>{landscapeMenu?'−':'+'}</span></button><div id="landscape-sections" className={`landscape-menu ${landscapeMenu?'open':''}`}>{navItems.map(([id,label])=><a key={id} href={`#${id}`} className={activeSection===id?'active':''} onClick={()=>setLandscapeMenu(false)}>{label}</a>)}</div></nav>}
+    <header className="official-site-header">
+      <div className="official-main-header">
+        <div className="header-col-left">
+          <form className="header-search-pill" role="search" onSubmit={submitSearch}>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input 
+              ref={searchRef} 
+              id="site-search" 
+              value={searchTerm} 
+              onChange={event => setSearchTerm(event.target.value)} 
+              placeholder="Search..." 
+              autoComplete="off"
+            />
+          </form>
+        </div>
+        <div className="header-col-center">
+          <a className="brand" href="#main" aria-label="Kerala Ayurveda home">
+            <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="140" height="54"/>
+          </a>
+        </div>
+        <div className="header-col-right">
+          <a href="https://keralaayurveda.com/pages/clinics" target="_blank" rel="noopener noreferrer">Clinics</a>
+          <span className="nav-pipe">|</span>
+          <a href="https://keralaayurveda.com/pages/resorts" target="_blank" rel="noopener noreferrer">Resorts</a>
+          <span className="nav-pipe">|</span>
+          <a href="https://keralaayurveda.com/pages/hospitals" target="_blank" rel="noopener noreferrer">Hospitals</a>
+          <span className="nav-pipe">|</span>
+          <a href="https://keralaayurveda.com/pages/academy" target="_blank" rel="noopener noreferrer">Academy</a>
+          <span className="nav-pipe">|</span>
+          <button type="button" className="header-icon-btn" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </button>
+          <button type="button" className="header-icon-btn cart-icon-btn" onClick={() => cart ? openDrawer() : document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })} aria-label="Cart">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            {cart > 0 && <span className="cart-badge-pill">{cart}</span>}
+          </button>
+        </div>
+      </div>
+    </header>
+    <ChatGPTRightNav activeSection={activeSection} />
     <main id="main" className={scienceDockHidden?'science-is-active':undefined}>
       <section className="hero checkpoint-hero" id="product">
         <div className="hero-overview">
@@ -1041,7 +1204,7 @@ function App(){
               <del>₹{currentMrp}</del>
               <span className="discount-chip">{currentDiscount}</span>
             </div>
-            <p className="price-note">{selectedSize==='200ml'?'₹1.69 / ml':'₹1.95 / ml'} • Inclusive of all taxes</p>
+            <p className="price-note">Inclusive of all taxes • Free delivery above ₹299</p>
           </div>
           <PurchaseAction cart={cart} buyState={buyState} price={currentPrice} onAdd={()=>add('hero')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('hero')} className="hero-purchase-action"/>
           <div className="hero-reassurance-strip">

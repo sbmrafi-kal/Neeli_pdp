@@ -21,7 +21,7 @@ const alternatives: Alternative[] = [
     name: 'Minoxidil',
     descriptor: 'Medicine',
     formula: 'A drug treatment intended to stimulate follicles; suitability and response need medical guidance.',
-    targetZone: 'A targeted medicine-not a botanical oil or a like-for-like routine.',
+    targetZone: 'A targeted medicine — not a botanical oil or a like-for-like routine.',
     routine: 'Typically daily · leave on',
   },
   {

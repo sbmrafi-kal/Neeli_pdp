@@ -1,10 +1,169 @@
-/*
- * Calm PDP art direction
- *
- * A final, deliberately flat presentation layer inspired by the clarity of
- * Seed and Ritual, Aesop's editorial restraint, and Superpower's structured
- * science storytelling. Existing product behaviour and content remain intact.
- */
+:root {
+  --calm-bg: #EFE6DC !important;
+  --calm-bg-alt: #EFE6DC !important;
+  --calm-sage: #EFE6DC !important;
+  --calm-paper: #EFE6DC !important;
+  --calm-rule: #B5967B !important;
+  --calm-gold: #CCA54E !important;
+  --calm-clay: #954721 !important;
+  --calm-ink: #39461D !important;
+}
+
+body, main, section {
+  background-color: #EFE6DC !important;
+}
+
+.kicker,
+.authentic-kicker,
+.ritual-kicker,
+.diff-eyebrow {
+  color: #954721 !important;
+}
+
+button.hero-purchase-action,
+.hero-purchase-action button,
+.dock-purchase-action button,
+.checkout,
+button.checkout {
+  background-color: #39461D !important;
+  color: #ffffff !important;
+}
+
+/* Official KeralaAyurveda.com Header Replica */
+.official-site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  width: 100% !important;
+  background: #f4f3ef !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+}
+
+.official-ticker-bar {
+  background: #194837 !important;
+  color: #ffffff !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.ticker-track {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  white-space: nowrap !important;
+}
+
+.ticker-bullet {
+  opacity: 0.5 !important;
+}
+
+.official-main-header {
+  display: grid !important;
+  grid-template-columns: 280px 1fr 280px !important;
+  align-items: center !important;
+  max-width: 1440px !important;
+  margin-inline: auto !important;
+  padding: 10px 24px !important;
+  box-sizing: border-box !important;
+}
+
+.header-search-pill {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #194837 !important;
+  border-radius: 999px !important;
+  padding: 6px 14px !important;
+  width: 220px !important;
+  box-sizing: border-box !important;
+}
+
+.header-search-pill svg {
+  color: #194837 !important;
+  flex: 0 0 auto !important;
+}
+
+.header-search-pill input {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  font-size: 13px !important;
+  color: #314225 !important;
+  width: 100% !important;
+}
+
+.header-col-center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.header-col-center .brand img {
+  height: 48px !important;
+  width: auto !important;
+  display: block !important;
+}
+
+.header-col-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #314225 !important;
+}
+
+.header-col-right a {
+  color: #314225 !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+}
+
+.header-col-right a:hover {
+  color: #194837 !important;
+}
+
+.nav-pipe {
+  color: rgba(0, 0, 0, 0.25) !important;
+  font-size: 12px !important;
+}
+
+.header-icon-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #194837 !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cart-badge-pill {
+  position: absolute !important;
+  top: -2px !important;
+  right: -6px !important;
+  background: #954721 !important;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
 
 :root {
   --calm-ink: #314225;
@@ -1489,8 +1648,15 @@ body .review-progress-controls {
 }
 
 /* FAQ and pack details */
-section.adapted-faq {
-  padding: var(--calm-section) var(--calm-gutter) !important;
+body section.adapted-faq,
+section.adapted-faq,
+body .adapted-faq {
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-inline: 24px !important;
+  box-sizing: border-box !important;
   background: var(--calm-paper) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
   color: var(--calm-ink) !important;
@@ -1665,7 +1831,9 @@ body section.adapted-heritage,
 section.adapted-heritage {
   display: block !important;
   width: 100% !important;
-  padding: clamp(64px, 8vw, 96px) 24px !important;
+  padding-top: clamp(64px, 8vw, 96px) !important;
+  padding-bottom: 140px !important;
+  padding-inline: 24px !important;
   background: var(--calm-sage, #e3e8db) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
   box-sizing: border-box !important;
@@ -2366,25 +2534,26 @@ section.comparison-v3 .comparison-v3__matrix-wrapper {
   }
 
   /* Center the flex layout headers */
-  section.comparison-v3 .table-premium-header {
+  section.comparison-v3 .table-premium-header,
+  section.comparison-v3 .comparison-v3__other-header,
+  body .comparison-v3__other-header {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 16px 20px !important;
   }
 
-  section.comparison-v3 .comparison-v3__other-header {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
-
-  section.comparison-v3 .comparison-v3__other-header select {
-    max-width: 240px !important;
-    margin-inline: auto !important;
+  section.comparison-v3 .comparison-v3__other-header select,
+  body .comparison-v3__other-header select {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   /* Ensure canonical tag is centered */
@@ -2548,49 +2717,59 @@ section.comparison-v3 .comparison-v3__matrix-wrapper {
 }
 
 /* Specificity guards for legacy polish rules that used element-qualified selectors. */
+body section.confidence-strip,
 section.confidence-strip {
-  min-height: 118px !important;
-  padding: 0 var(--calm-gutter) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: var(--calm-sage, #e3e8db) !important;
+  border-block: 1px solid var(--calm-rule) !important;
+  box-sizing: border-box !important;
+}
+
+.confidence-strip-inner,
+body .confidence-strip-inner {
+  width: 100% !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-inline: 24px !important;
+  padding-block: 28px !important;
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
-  gap: 0 !important;
-  background: var(--calm-sage) !important;
-  border: 0 !important;
-  border-bottom: 1px solid var(--calm-rule) !important;
-  overflow: visible !important;
+  gap: 24px !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
 }
 
+.confidence-strip-inner > div,
+body .confidence-strip-inner > div,
 section.confidence-strip > div {
-  width: auto !important;
-  height: auto !important;
-  min-height: 118px !important;
-  padding: 25px clamp(18px, 3vw, 44px) !important;
   display: flex !important;
   flex-direction: column !important;
-  align-items: flex-start !important;
+  align-items: center !important;
+  text-align: center !important;
   justify-content: center !important;
-  gap: 3px !important;
-  background: transparent !important;
-  border: 0 !important;
-  border-left: 1px solid var(--calm-rule) !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  text-align: left !important;
-  transform: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
-section.confidence-strip > div:last-child {
-  border-right: 1px solid var(--calm-rule) !important;
-}
-
+.confidence-strip-inner strong,
+body .confidence-strip-inner strong,
 section.confidence-strip strong {
-  max-width: none !important;
-  margin: 0 !important;
-  color: var(--calm-ink) !important;
-  font-family: var(--font-display) !important;
+  color: #39461d !important;
   font-size: clamp(25px, 2.5vw, 36px) !important;
-  font-weight: 400 !important;
-  letter-spacing: -.02em !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+}
+
+.confidence-strip-inner span,
+body .confidence-strip-inner span,
+section.confidence-strip span {
+  color: var(--calm-ink-soft) !important;
+  font-size: 13px !important;
+  text-align: center !important;
 }
 
 section.confidence-strip span {
@@ -3615,37 +3794,36 @@ body .ritual-steps li {
   gap: 0 !important;
 }
 
-/* Ritual Guide Refined Header & Pills */
+body .ritual-intro,
+.ritual-intro {
+  text-align: left !important;
+  align-items: flex-start !important;
+  margin-left: 0 !important;
+}
+
+body .ritual-header-badge,
 .ritual-header-badge {
   display: flex !important;
   align-items: center !important;
+  justify-content: flex-start !important;
   gap: 10px !important;
   flex-wrap: wrap !important;
   margin-bottom: 12px !important;
 }
 
-.ritual-kicker {
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  color: var(--calm-clay) !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
+body .ritual-intro h2,
+.ritual-intro h2 {
+  text-align: left !important;
+  margin-left: 0 !important;
 }
 
-.ritual-pill {
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  color: #39461d !important;
-  background: var(--calm-sage, #e3e8db) !important;
-  border: 1px solid var(--calm-rule) !important;
-  border-radius: 999px !important;
-  padding: 4px 12px !important;
-}
-
+body .ritual-intro-sub,
 .ritual-intro-sub {
   font-size: 16px !important;
   color: var(--calm-ink-soft) !important;
   margin-top: 8px !important;
+  text-align: left !important;
+  margin-left: 0 !important;
 }
 
 /* Single Continuous Live Moving Track */
@@ -3656,22 +3834,101 @@ body .ritual-steps li {
   margin-inline: auto !important;
 }
 
-.ritual-continuous-track {
-  position: absolute !important;
-  top: 250px !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 2px !important;
-  background: rgba(57, 70, 29, 0.15) !important;
-  z-index: 1 !important;
+.ritual-step-title-above {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #314225 !important;
+  margin-bottom: 12px !important;
+  font-family: Avenir, Figtree, sans-serif !important;
+  letter-spacing: -0.01em !important;
+  text-align: center !important;
+  width: 100% !important;
+  opacity: 0 !important;
+  transform: translateY(-8px) !important;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.ritual-continuous-fill {
+.ritual-step-title-above.title-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.ritual-step-bar-row {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 100% !important;
+  margin-top: 14px !important;
+  margin-bottom: 10px !important;
+  height: 24px !important;
+}
+
+.ritual-step-badge {
+  position: relative !important;
+  z-index: 2 !important;
+  background: var(--calm-sage, #e2e9d9) !important;
+  color: #39461d !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 0 !important;
+  width: 26px !important;
+  height: 22px !important;
+  box-sizing: border-box !important;
+  line-height: 22px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--calm-rule) !important;
+  margin: 0 auto !important;
+}
+
+.ritual-single-live-track {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 44px !important;
+  height: 2px !important;
+  background: rgba(57, 70, 29, 0.18) !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+}
+
+.ritual-single-live-fill {
   height: 100% !important;
   background: #954721 !important;
-  transform-origin: left !important;
-  transition: transform 0.08s linear !important;
+  transition: width 0.05s linear !important;
+  will-change: width !important;
+}
+
+.ritual-guidance-section {
+  display: block !important;
+  width: 100% !important;
+  background: var(--calm-cream, #f3eee5) !important;
+  padding: 64px 0 80px !important;
+  border-bottom: 1px solid var(--calm-rule) !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.ritual-guidance-section .ritual-guidance-grid {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body .ritual-guidance-grid,
+.ritual-guidance-grid {
+  position: relative !important;
+  z-index: 10 !important;
+  margin-top: 100px !important;
+  background: var(--calm-cream, #f8f6f0) !important;
+  padding-top: 40px !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-inline: 24px !important;
+  box-sizing: border-box !important;
 }
 
 body .ritual-step-item .ritual-step-image-wrapper {
@@ -3944,4 +4201,1310 @@ body .story-gallery video,
 body .story-gallery img {
   object-fit: cover !important;
   background-color: transparent !important;
+}
+
+/* ULTRA-HIGH SPECIFICITY OVERRIDES FOR FAQ ANSWER PADDING & HERITAGE BOTTOM CLEARANCE */
+html body main section.adapted-faq,
+html body section.adapted-faq,
+html body .adapted-faq {
+  width: 100% !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-inline: 24px !important;
+  box-sizing: border-box !important;
+}
+
+html body main section.adapted-faq .faq-list article .faq-answer,
+html body .faq-list article .faq-answer,
+html body .faq-answer {
+  padding-top: 0 !important;
+  padding-left: 36px !important;
+  padding-right: 36px !important;
+  padding-bottom: 28px !important;
+  box-sizing: border-box !important;
+}
+
+html body main section.adapted-faq .faq-list article .faq-answer p,
+html body .faq-answer p {
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+html body main section.adapted-heritage,
+html body section.adapted-heritage,
+html body section.heritage,
+html body .adapted-heritage {
+  width: 100% !important;
+  display: block !important;
+  padding-top: 64px !important;
+  padding-bottom: 180px !important;
+  padding-inline: 24px !important;
+  background: var(--calm-sage, #e3e8db) !important;
+  border-bottom: 1px solid var(--calm-rule) !important;
+  box-sizing: border-box !important;
+}
+
+/* Minimalist Borderless Right-Margin Section Navigation List */
+.chatgpt-expanding-nav {
+  position: fixed !important;
+  right: 24px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 999 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.chatgpt-expanding-nav.is-open {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.expanding-nav-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  align-items: flex-end !important;
+}
+
+.expanding-nav-item {
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  text-align: right !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 4px 0 !important;
+  border-radius: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.expanding-nav-item.active {
+  color: #954721 !important;
+  opacity: 1 !important;
+  font-weight: 850 !important;
+  background: transparent !important;
+}
+
+.expanding-nav-item.inactive {
+  color: #314225 !important;
+  opacity: 0.4 !important;
+  background: transparent !important;
+}
+
+.expanding-nav-item.inactive:hover {
+  opacity: 1 !important;
+  color: #954721 !important;
+  background: transparent !important;
+}
+
+/* Hide horizontal anchor bar */
+.pdp-v3-nav,
+.anchorbar {
+  display: none !important;
+}
+
+/* Doubled Sticky Add-to-Cart Dock Font Sizes */
+aside.purchase.contextual-purchase,
+body .purchase.contextual-purchase {
+  min-height: 84px !important;
+  padding: 16px 28px !important;
+}
+
+aside.purchase .purchase-product,
+body .purchase-product {
+  gap: 16px !important;
+}
+
+aside.purchase .purchase-product img.dock-thumb,
+body .purchase-product img.dock-thumb {
+  width: 56px !important;
+  height: 56px !important;
+}
+
+aside.purchase .purchase-product strong,
+body .purchase-product strong {
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  color: var(--calm-ink, #314225) !important;
+}
+
+aside.purchase .purchase-product span,
+body .purchase-product span {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: #954721 !important;
+}
+
+aside.purchase .dock-purchase-action button,
+body .dock-purchase-action button {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  padding: 14px 32px !important;
+  min-height: 52px !important;
+}
+
+/* FAQ Answer Equal Top & Bottom Internal Padding */
+html body main section.adapted-faq .faq-list article .faq-answer,
+html body .faq-list article .faq-answer,
+html body .faq-answer {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+  padding-left: 36px !important;
+  padding-right: 36px !important;
+  padding-block: 24px !important;
+  padding-inline: 36px !important;
+  box-sizing: border-box !important;
+}
+
+/* Reduced Image Height in "The honest sequence." Section */
+html body .results-media img,
+html body figure.results-media img,
+.results-media img {
+  max-height: 420px !important;
+  object-fit: cover !important;
+  border-radius: 16px !important;
+}
+
+/* Hero Carousel Round Circular Arrow Buttons on Left & Right Sides */
+html body .story-arrows,
+.story-arrows {
+  position: absolute !important;
+  top: 50% !important;
+  left: 16px !important;
+  right: 16px !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  pointer-events: none !important;
+  z-index: 25 !important;
+  margin: 0 !important;
+  width: auto !important;
+}
+
+html body .story-arrows button,
+.story-arrows button {
+  pointer-events: auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1.5px solid rgba(49, 66, 37, 0.18) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, background-color 0.2s ease !important;
+  padding: 0 !important;
+}
+
+html body .story-arrows button:hover,
+.story-arrows button:hover {
+  transform: scale(1.08) !important;
+  background: #ffffff !important;
+}
+
+.story-caption {
+  display: none !important;
+}
+
+/* Authentic Ayurveda Banner Section (Matching Images 1 & 2) */
+.authentic-ayurveda-banner-section {
+  width: 100% !important;
+  display: block !important;
+  padding: 60px 24px 180px 24px !important;
+  background: #EFE6DC !important;
+  box-sizing: border-box !important;
+}
+
+.authentic-banner-container {
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  background: #173e30 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-columns: 320px 1fr 240px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Col 1: Visual Image + Seals */
+.authentic-col-visual {
+  position: relative !important;
+  min-height: 280px !important;
+  overflow: hidden !important;
+}
+
+.authentic-bg-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.authentic-seals-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+  padding: 20px 0 !important;
+  z-index: 2 !important;
+}
+
+.seal-badge {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+}
+
+/* Col 2: Content (Full Spectrum & Patented) */
+.authentic-col-content {
+  padding: 40px 36px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.authentic-heading-serif {
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: 28px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  margin-bottom: 12px !important;
+  line-height: 1.2 !important;
+}
+
+.authentic-desc {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  margin: 0 !important;
+}
+
+.authentic-divider-line {
+  height: 1px !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  margin: 24px 0 !important;
+  width: 100% !important;
+}
+
+.authentic-gold-eyebrow {
+  display: block !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #CCA54E !important;
+  margin-bottom: 6px !important;
+}
+
+/* Col 3: Brand Emblem & Tagline */
+.authentic-col-brand {
+  padding: 40px 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  color: #ffffff !important;
+}
+
+.authentic-gold-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(204,165,78,0.4)) !important;
+  margin-bottom: 16px !important;
+}
+
+.authentic-brand-tagline {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 0 !important;
+}
+
+/* Mobile Layout (Image 2) */
+@media (max-width: 900px) {
+  .authentic-banner-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .authentic-col-visual {
+    height: 220px !important;
+    min-height: 220px !important;
+  }
+
+  .authentic-seals-overlay {
+    flex-direction: row !important;
+    right: 20px !important;
+    left: auto !important;
+    bottom: 16px !important;
+    top: auto !important;
+    gap: 16px !important;
+    padding: 0 !important;
+  }
+
+  .authentic-col-content {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+    padding: 32px 24px !important;
+    text-align: center !important;
+  }
+
+  .authentic-heading-serif {
+    font-size: 24px !important;
+  }
+
+  .authentic-col-brand {
+    padding: 32px 24px !important;
+  }
+}
+
+.authentic-pillars-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 24px !important;
+}
+
+@media (max-width: 900px) {
+  .authentic-pillars-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .authentic-ayurveda-banner {
+    padding: 36px 24px !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .authentic-pillars-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.authentic-pillar-card {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  padding: 24px 20px !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.pillar-num {
+  font-size: 28px !important;
+  font-weight: 850 !important;
+  color: #d4a373 !important;
+  display: block !important;
+  margin-bottom: 8px !important;
+}
+
+.authentic-pillar-card h3 {
+  font-size: 16px !important;
+  font-weight: 750 !important;
+  color: #ffffff !important;
+  margin-bottom: 8px !important;
+}
+
+.authentic-pillar-card p {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin: 0 !important;
+}
+
+/* Official Site Footer Replica */
+.official-site-footer {
+  background: #123327 !important;
+  color: #ffffff !important;
+  padding: 64px 24px 32px 24px !important;
+  box-sizing: border-box !important;
+}
+
+.official-footer-inner {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  gap: 48px !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  margin-bottom: 48px !important;
+}
+
+.official-footer-brand-col {
+  max-width: 260px !important;
+}
+
+.official-footer-logo {
+  height: auto !important;
+  margin-bottom: 16px !important;
+  filter: brightness(0) invert(1) !important;
+}
+
+.official-footer-tagline {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  margin-bottom: 8px !important;
+}
+
+.official-footer-copy {
+  font-size: 13px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.official-footer-nav-grid {
+  display: flex !important;
+  gap: 48px !important;
+  flex-wrap: wrap !important;
+  flex: 1 !important;
+  justify-content: space-around !important;
+}
+
+.official-footer-col h4 {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #d4a373 !important;
+  margin-bottom: 18px !important;
+}
+
+.official-footer-col ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.official-footer-col a {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+}
+
+.official-footer-col a:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+.official-footer-bottom-bar {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding-top: 24px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 12px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+}
+
+.official-footer-social {
+  display: flex !important;
+  gap: 18px !important;
+}
+
+.official-footer-social a {
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-decoration: none !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  transition: color 0.15s ease !important;
+}
+
+.official-footer-social a:hover {
+  color: #ffffff !important;
+}
+
+/* Hero equal column height & layout alignment */
+html body .checkpoint-hero,
+.checkpoint-hero {
+  display: grid !important;
+  align-items: stretch !important;
+}
+
+/* Full-width Authentic Ayurveda Banner (Image 1) */
+.authentic-ayurveda-banner-section {
+  width: 100% !important;
+  display: block !important;
+  padding: 60px 0 180px 0 !important;
+  background: #EFE6DC !important;
+  box-sizing: border-box !important;
+}
+
+.authentic-banner-container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: #173e30 !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-columns: 360px 1fr 240px !important;
+  box-shadow: none !important;
+}
+
+/* Size selector padding & divider */
+.size-selector {
+  margin-bottom: 24px !important;
+}
+
+.size-selector-label {
+  display: block !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  color: #954721 !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px dashed rgba(181, 150, 123, 0.4) !important;
+}
+
+.size-option {
+  padding: 16px 20px !important;
+  border-radius: 12px !important;
+  border: 1.5px solid rgba(181, 150, 123, 0.4) !important;
+  transition: all 0.2s ease !important;
+}
+
+.size-option.selected {
+  border: 2px solid #39461D !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(57, 70, 29, 0.12) !important;
+}
+
+/* Results qualification card caution/note styling */
+.results-qualification-card {
+  border-left: 4px solid #954721 !important;
+  background: rgba(149, 71, 33, 0.06) !important;
+  border-radius: 8px !important;
+  padding: 18px 24px !important;
+  margin-top: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.results-qualification-card svg {
+  stroke: #954721 !important;
+  flex-shrink: 0 !important;
+}
+
+.caution-badge {
+  display: inline-block !important;
+  background: #954721 !important;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* Formula section image and caption grouping */
+.formula-material figcaption,
+.formula-method figcaption {
+  margin-top: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #39461D !important;
+  text-align: center !important;
+}
+
+.formula-editorial {
+  gap: 16px !important;
+}
+
+/* Restructured Product Details Pack-Facts Grid */
+.pack-details-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  margin: 32px 0 !important;
+}
+
+@media (max-width: 850px) {
+  .pack-details-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.pack-detail-card {
+  background: #ffffff !important;
+  border: 1px solid #B5967B !important;
+  border-radius: 12px !important;
+  padding: 24px 20px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+.pack-detail-card h3 {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #39461D !important;
+  margin-bottom: 16px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid rgba(181, 150, 123, 0.3) !important;
+}
+
+.pack-detail-card .pack-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.pack-detail-card .pack-list div {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.pack-detail-card dt {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: #954721 !important;
+}
+
+.pack-detail-card dd {
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  color: #222222 !important;
+  margin: 0 !important;
+}
+
+/* 1. Product Details Container & Margins (Image 2) */
+html body .pack-facts,
+.pack-facts {
+  max-width: 1200px !important;
+  margin: 60px auto !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+}
+
+/* 2. Confidence Strip Layout (Image 5) */
+html body .confidence-strip,
+.confidence-strip {
+  width: 100% !important;
+  background: transparent !important;
+  padding: 40px 24px !important;
+  box-sizing: border-box !important;
+}
+
+html body .confidence-strip-inner,
+.confidence-strip-inner {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  padding: 32px 24px !important;
+  border-top: 1px solid #B5967B !important;
+  border-bottom: 1px solid #B5967B !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body .confidence-strip-inner > div,
+.confidence-strip-inner > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 6px !important;
+}
+
+/* 3. Ritual Badge Track & Dead-Center Numbers (Image 3) */
+html body .ritual-single-live-track,
+.ritual-single-live-track {
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  background: rgba(149, 71, 33, 0.2) !important;
+  transform: translateY(-50%) !important;
+  z-index: 1 !important;
+}
+
+html body .ritual-step-badge,
+.ritual-step-badge {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 1 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  position: relative !important;
+  z-index: 5 !important;
+  background: var(--calm-sage, #EFE6DC) !important;
+  border: 1px solid #B5967B !important;
+  border-radius: 4px !important;
+}
+
+html body .ritual-step-badge span,
+html body .ritual-step-badge b,
+.ritual-step-badge span,
+.ritual-step-badge b {
+  display: block !important;
+  text-align: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 36px !important;
+}
+
+/* 4. Comparison Table Dropdown Cell Full Fill (Image 4) */
+html body .comparison-v3__header--compare,
+.comparison-v3__header--compare,
+.comparison-v3 th:nth-child(2),
+.comparison-select-wrap {
+  background: #EFE6DC !important;
+  padding: 16px !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.comparison-v3__header--compare select,
+.comparison-v3__header--compare .custom-select,
+.comparison-v3 th select,
+.comparison-select-wrap select {
+  width: 100% !important;
+  background: #ffffff !important;
+  border: 1.5px solid #B5967B !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  font-weight: 700 !important;
+  color: #39461D !important;
+  margin: 8px auto 0 auto !important;
+  display: block !important;
+}
+
+/* 1. Hide ticker bar completely */
+.official-ticker-bar {
+  display: none !important;
+}
+
+/* 2. Open FAQ card background color matching section bg (#EFE6DC) */
+html body .faq-list article.open,
+html body .faq-list article.open .faq-answer,
+.faq-list article.open,
+.faq-list article.open .faq-answer {
+  background: #EFE6DC !important;
+  border-color: #B5967B !important;
+}
+
+/* 3. Remove extra empty space below hero image carousel */
+html body .story-gallery,
+.story-gallery {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+html body .story-frame,
+.story-frame {
+  height: auto !important;
+  max-height: 520px !important;
+  padding-bottom: 0 !important;
+}
+
+html body .story-frame img,
+.story-frame img {
+  max-height: 520px !important;
+  object-fit: cover !important;
+}
+
+/* 4. Remove excessive horizontal border lines */
+section, main, .statement, .adapted-results, .adapted-formula, .adapted-ritual, .adapted-reviews, .adapted-faq, .adapted-pack {
+  border-top: none !important;
+}
+
+html body .confidence-strip-inner,
+.confidence-strip-inner {
+  border-top: 1.5px solid #B5967B !important;
+  border-bottom: 1.5px solid #B5967B !important;
+  box-shadow: none !important;
+}
+
+/* 5. Fix Results Section photo empty box & card congestion */
+html body .results-media,
+.results-media {
+  height: auto !important;
+  max-height: 480px !important;
+  padding-bottom: 0 !important;
+  background: transparent !important;
+}
+
+html body .results-media img,
+.results-media img {
+  height: 100% !important;
+  max-height: 480px !important;
+  object-fit: cover !important;
+}
+
+html body .results-sequence,
+.results-sequence {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+html body .results-sequence-card,
+.results-sequence-card {
+  position: relative !important;
+  margin-bottom: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid #B5967B !important;
+  border-radius: 12px !important;
+  padding: 20px 24px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* 6. Redesign "Three milks. One complete formula." 3-column grid */
+.formula-materials-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  margin: 36px 0 !important;
+}
+
+@media (max-width: 850px) {
+  .formula-materials-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.formula-materials-grid figure {
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.formula-materials-grid figure img {
+  width: 100% !important;
+  height: 240px !important;
+  object-fit: cover !important;
+  border-radius: 14px !important;
+}
+
+.formula-materials-grid figcaption {
+  margin-top: 12px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #39461D !important;
+  text-align: center !important;
+}
+
+/* 7. Mobile Header alignment & prevent text link collision */
+@media (max-width: 768px) {
+  .official-main-header {
+    grid-template-columns: 1fr auto !important;
+    padding: 10px 16px !important;
+    gap: 12px !important;
+  }
+
+  .header-col-right a,
+  .header-col-right .nav-pipe {
+    display: none !important;
+  }
+
+  .header-col-center {
+    order: -1 !important;
+  }
+
+  .header-col-left {
+    grid-column: span 2 !important;
+  }
+}
+
+/* 1. Results Section Refinements (Image 2) */
+html body .results-sequence-card,
+.results-sequence-card {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+  padding: 24px !important;
+}
+
+html body .results-sequence-card h3,
+.results-sequence-card h3 {
+  line-height: 1.35 !important;
+  padding-bottom: 4px !important;
+  margin-bottom: 8px !important;
+}
+
+html body .results-sequence-card p,
+.results-sequence-card p {
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Hide floating vertical RESULTS text on the far right */
+.results-rail-label,
+[data-section-label="RESULTS"],
+.results::after,
+.adapted-results::after {
+  display: none !important;
+}
+
+/* Remove inner beige box around left product image */
+html body .results-media div,
+.results-media div {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+html body .results-media img,
+.results-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 16px !important;
+}
+
+/* Sticky Purchase Dock Backdrop Blur */
+html body .contextual-purchase,
+.contextual-purchase,
+aside.purchase {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  z-index: 9999 !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 2. Comparison Table Container & Grid Alignment (Image 3) */
+.comparison-v3__table-container {
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  border: 1px solid #B5967B !important;
+  background: #ffffff !important;
+}
+
+.comparison-v3__table {
+  width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+}
+
+.comparison-v3__table th.col-param {
+  width: 25% !important;
+}
+
+.comparison-v3__table th.col-ours,
+.comparison-v3__table td.col-ours {
+  width: 37.5% !important;
+}
+
+.comparison-v3__table th.col-other,
+.comparison-v3__table td.col-other {
+  width: 37.5% !important;
+}
+
+.comparison-v3__table th,
+.comparison-v3__table td {
+  padding: 20px !important;
+  vertical-align: middle !important;
+  box-sizing: border-box !important;
+}
+
+.comparison-v3__table th.col-param {
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 12px !important;
+  color: #39461D !important;
+  vertical-align: middle !important;
+}
+
+/* 3. Ritual Line Bar on Exact Badge Row (Image 4) */
+.ritual-track-wrapper {
+  position: relative !important;
+}
+
+.ritual-single-live-track {
+  position: absolute !important;
+  top: 50% !important;
+  left: 40px !important;
+  right: 40px !important;
+  height: 2px !important;
+  background: rgba(149, 71, 33, 0.25) !important;
+  transform: translateY(-50%) !important;
+  z-index: 0 !important;
+}
+
+.ritual-single-live-fill {
+  background: #954721 !important;
+  height: 100% !important;
+}
+
+.ritual-step-bar-row {
+  position: relative !important;
+  z-index: 5 !important;
+  margin: 16px 0 !important;
+}
+
+.ritual-step-badge {
+  position: relative !important;
+  z-index: 10 !important;
+  background: #EFE6DC !important;
+  border: 1px solid #954721 !important;
+  color: #39461D !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+}
+
+/* 4. Key Ingredients Card Title Contrast Fix (Image 5) */
+.ingredient-entry h3,
+.ingredient-label h3,
+.ingredient-entry span {
+  color: #39461D !important;
+  font-weight: 800 !important;
+}
+
+details.full-ingredients {
+  margin-top: 32px !important;
+  padding: 16px 24px !important;
+  background: rgba(181, 150, 123, 0.1) !important;
+  border-radius: 12px !important;
+  border: 1px solid #B5967B !important;
+}
+
+/* --- 1. Results Sequence Card Overlap & Layout Fix (Image 1) --- */
+html body .results-sequence,
+.results-sequence {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  margin-top: 20px !important;
+  width: 100% !important;
+}
+
+html body .results-sequence-card,
+.results-sequence-card {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: auto 1fr 1.4fr !important;
+  align-items: start !important;
+  gap: 20px !important;
+  padding: 24px !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  background: rgba(253, 251, 247, 0.8) !important;
+  border: 1px solid #B5967B !important;
+  border-radius: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  html body .results-sequence-card,
+  .results-sequence-card {
+    grid-template-columns: auto 1fr !important;
+    gap: 14px !important;
+    padding: 16px !important;
+  }
+}
+
+html body .results-sequence-content,
+.results-sequence-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+}
+
+html body .results-sequence-card h3,
+.results-sequence-card h3 {
+  font-family: var(--calm-font-serif, serif) !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+  font-weight: 700 !important;
+  color: #39461D !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  word-break: normal !important;
+  white-space: normal !important;
+}
+
+html body .results-sequence-card p,
+.results-sequence-card p {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: #444444 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide floating vertical RESULTS text label */
+.results-rail-label,
+[data-section-label="RESULTS"],
+.results::after,
+.adapted-results::after {
+  display: none !important;
+}
+
+/* --- 2. Comparison Matrix Dropdown & Table Fix (Image 2) --- */
+.comparison-v3__table-container {
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  border: 1.5px solid #B5967B !important;
+  background: #ffffff !important;
+  margin: 24px 0 !important;
+}
+
+.comparison-v3__table {
+  width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+}
+
+.comparison-v3__table th.col-param {
+  width: 25% !important;
+}
+
+.comparison-v3__table th.col-ours,
+.comparison-v3__table td.col-ours {
+  width: 37.5% !important;
+  background: #EFE6DC !important;
+}
+
+.comparison-v3__table th.col-other,
+.comparison-v3__table td.col-other {
+  width: 37.5% !important;
+}
+
+.comparison-v3__table th,
+.comparison-v3__table td {
+  padding: 20px !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid rgba(181, 150, 123, 0.3) !important;
+  border-right: 1px solid rgba(181, 150, 123, 0.3) !important;
+  box-sizing: border-box !important;
+}
+
+.comparison-v3__other-header {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 20px !important;
+}
+
+.comparison-v3__other-header label {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #954721 !important;
+  margin: 0 !important;
+}
+
+.comparison-v3__other-header select {
+  width: 100% !important;
+  background: #ffffff !important;
+  border: 1.5px solid #B5967B !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  font-weight: 700 !important;
+  color: #39461D !important;
+  margin: 0 !important;
+}
+
+.comparison-v3__other-header .sub {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #666666 !important;
+  margin: 0 !important;
+}
+
+/* --- 3. Fix Extra Spacing After Authentic Ayurveda Section (Image 3) --- */
+html body .authentic-ayurveda-banner-section,
+.authentic-ayurveda-banner-section,
+#heritage {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+html body .authentic-banner-container,
+.authentic-banner-container {
+  margin-bottom: 0 !important;
+  padding-bottom: 30px !important;
+}
+
+/* --- 4. Remove Extra Container Box Under Hero Image (Desktop & Mobile - Images 4 & 5) --- */
+html body .story-gallery,
+html body .story-frame,
+html body .story-media,
+html body .story-slide,
+.story-gallery,
+.story-frame,
+.story-media,
+.story-slide {
+  height: auto !important;
+  min-height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+
+html body .story-frame img,
+html body .story-gallery img,
+.story-frame img,
+.story-gallery img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 520px !important;
+  object-fit: cover !important;
+  border-radius: 16px !important;
+  display: block !important;
 }

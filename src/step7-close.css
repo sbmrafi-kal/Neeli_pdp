@@ -145,7 +145,8 @@
 .faq-list button > i { justify-self: end; font-style: normal; font-size: 22px; font-weight: 400; }
 
 .faq-answer {
-  padding: 0 44px 28px 0;
+  padding: 0 36px 28px 36px !important;
+  box-sizing: border-box !important;
 }
 
 .faq-answer[hidden] { display: none; }
