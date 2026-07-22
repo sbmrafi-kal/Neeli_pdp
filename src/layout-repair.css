@@ -1,0 +1,148 @@
+/* Final responsive layout repair. This file intentionally wins over legacy PDP passes. */
+
+:root { --dock-safe-space: 104px; }
+
+/* Images should define the media box; pictures must not contribute an inline baseline
+   or retain stale wrapper sizing from previous iterations. */
+.formula-material picture,
+.formula-material img,
+.results-media picture,
+.results-media img,
+.pack-image img,
+.comparison-v3__consult-image-wrap,
+.comparison-v3__consult-img {
+  display: block;
+  max-width: 100%;
+}
+
+.formula-material > div,
+.results-media > div,
+.pack-image {
+  overflow: hidden;
+}
+
+.formula-material > div {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+}
+.formula-material > div picture,
+.formula-material > div img,
+.results-media > div picture,
+.results-media > div img {
+  width: 100%;
+  height: 100%;
+}
+.formula-material > div img,
+.results-media > div img { object-fit: cover; }
+
+/* Keep the accessibility link out of the composition unless keyboard-focused. */
+.skip:not(:focus) { transform: translateY(-160%) !important; }
+
+/* A section should not scroll underneath the two sticky navigation rows. */
+#results, #formula, #science, #comparison, #ritual, #reviews, #faq, #details {
+  scroll-margin-top: 140px;
+}
+
+/* The comparison matrix must retain all columns. On compact screens it becomes an
+   intentional horizontal data surface rather than clipping at the viewport edge. */
+.comparison-v3__table-container {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+.comparison-v3__table { min-width: 680px; }
+.comparison-v3__table th,
+.comparison-v3__table td { overflow-wrap: anywhere; }
+
+/* Pack artwork is an information label, never a cropped decorative image. */
+.pack-image img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+}
+
+@media (min-width: 900px) {
+  .formula-materials-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .formula-material > div { min-height: 0 !important; }
+
+  .comparison-v3__matrix-wrapper { max-width: 1180px; margin-inline: auto; }
+  .comparison-v3__table { min-width: 0; }
+  .comparison-v3__table th,
+  .comparison-v3__table td { padding: 22px !important; }
+
+  .pack-details-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .pack-image { max-width: 620px; margin: 34px auto 0; }
+}
+
+@media (max-width: 899px) {
+  body { padding-bottom: var(--dock-safe-space); }
+
+  .section, .formula, .pack-facts { padding-inline: 20px !important; }
+  .formula { padding-block: 52px !important; }
+  .formula-story, .ingredient-explorer { min-width: 0; }
+  .formula-materials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+    margin: 28px 0 42px !important;
+  }
+  .formula-material > div { aspect-ratio: 4 / 3; }
+  .formula-material figcaption { text-align: left !important; }
+
+  .results-layout { grid-template-columns: 1fr !important; gap: 26px !important; }
+  .results-media > div { min-height: 0 !important; aspect-ratio: 4 / 3 !important; }
+  .results-media img { transform: none !important; object-position: center !important; }
+  .results-sequence-card { grid-template-columns: 42px minmax(0, 1fr) !important; }
+  .results-sequence-content { min-width: 0; }
+  .result-stage-progress { display: none; }
+
+  .ingredient-grid { grid-template-columns: 1fr !important; }
+  .ingredient-entry { min-width: 0; }
+  .ingredient-entry button { min-height: 58px; }
+  .ingredient-copy p { overflow-wrap: anywhere; }
+
+  .comparison-v3 { padding-inline: 16px !important; }
+  .comparison-v3__intro { display: block !important; }
+  .comparison-v3__intro h2 { font-size: clamp(38px, 11vw, 52px) !important; }
+  .comparison-v3__lede { margin-top: 18px !important; padding-left: 14px !important; }
+  .comparison-v3__anchor { padding: 24px 20px !important; }
+  .comparison-v3__paths { grid-template-columns: 1fr !important; margin-top: 22px !important; }
+  .comparison-v3__path-box { min-width: 0; }
+  .comparison-v3__path-box p { max-width: none !important; }
+  .comparison-v3__table { min-width: 650px; }
+  .comparison-v3__table th, .comparison-v3__table td { padding: 16px !important; font-size: 13px !important; }
+  .comparison-v3__table th.col-param { width: 28% !important; }
+  .comparison-v3__table th.col-ours, .comparison-v3__table td.col-ours,
+  .comparison-v3__table th.col-other, .comparison-v3__table td.col-other { width: 36% !important; }
+  .comparison-v3__consult { padding: 0 !important; }
+  .comparison-v3__consult-grid { display: grid !important; grid-template-columns: 1fr !important; }
+  .comparison-v3__consult-content { padding: 28px 22px 0 !important; }
+  .comparison-v3__consult-image-wrap { min-height: 280px; }
+  .comparison-v3__consult-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+  .pack-facts { margin: 48px auto !important; }
+  .pack-heading { margin-bottom: 28px; }
+  .pack-details-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+  .pack-detail-card { min-width: 0; }
+  .pack-list > div { grid-template-columns: minmax(94px, .8fr) minmax(0, 1.2fr) !important; }
+  .pack-image { margin-top: 28px !important; padding: 16px !important; }
+
+  aside.purchase.contextual-purchase,
+  body .purchase.contextual-purchase {
+    min-height: 76px !important;
+    padding: 8px 12px !important;
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 1.25fr) !important;
+    gap: 10px !important;
+  }
+  aside.purchase .purchase-product,
+  body .purchase-product { min-width: 0; gap: 8px !important; }
+  aside.purchase .purchase-product img.dock-thumb,
+  body .purchase-product img.dock-thumb { width: 42px !important; height: 42px !important; }
+  aside.purchase .purchase-product strong,
+  body .purchase-product strong { font-size: 13px !important; line-height: 1.12 !important; }
+  aside.purchase .purchase-product span,
+  body .purchase-product span { font-size: 11px !important; }
+  .dock-purchase-action { min-height: 50px !important; width: 100%; }
+}

@@ -432,11 +432,6 @@ function RitualSection() {
       >
         <div className="ritual-sticky-container">
           <div className="ritual-intro">
-            <div className="ritual-header-badge">
-              <span className="ritual-kicker">THE RITUAL GUIDE</span>
-              <span className="ritual-pill">2× Weekly</span>
-              <span className="ritual-pill">30–60 Min Wash-Out</span>
-            </div>
             <h2>The Ritual Guide</h2>
             <p className="ritual-intro-sub">Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p>
           </div>
@@ -1136,7 +1131,7 @@ function App(){
     <a className="skip" href="#main">Skip to product</a>
     <header className="official-site-header">
       <div className="official-main-header">
-        <div className="header-col-left">
+        <div className={`header-col-left ${searchOpen ? 'search-is-active' : ''}`}>
           <form className="header-search-pill" role="search" onSubmit={submitSearch}>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
             <input 
@@ -1163,6 +1158,9 @@ function App(){
           <span className="nav-pipe">|</span>
           <a href="https://keralaayurveda.com/pages/academy" target="_blank" rel="noopener noreferrer">Academy</a>
           <span className="nav-pipe">|</span>
+          <button type="button" className="header-icon-btn mobile-search-trigger" onClick={() => setSearchOpen(prev => !prev)} aria-label="Toggle search">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </button>
           <button type="button" className="header-icon-btn" aria-label="Account">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>

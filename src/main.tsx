@@ -18,5 +18,6 @@ import './pdp-redesign-v3.css';
 import './pdp-fixes.css';
 import './brand-consistency.css';
 import './calm-pdp.css';
+import './layout-repair.css';
 
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);

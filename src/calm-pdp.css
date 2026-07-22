@@ -5508,3 +5508,378 @@ html body .story-gallery img,
   border-radius: 16px !important;
   display: block !important;
 }
+
+/* ==========================================================================
+   MOBILE VIEW FIXES & POLISH (< 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* 1. Standard 20-24px Marginal Side Padding */
+  html body section,
+  html body .section,
+  html body main,
+  html body .confidence-strip,
+  html body .pack-facts,
+  html body .authentic-ayurveda-banner-section,
+  html body .comparison-v3,
+  html body .ritual,
+  html body .formula,
+  html body .results,
+  html body .difference-section,
+  section,
+  .section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 2. Heritage / Difference Section Mobile UI (Image 1) */
+  html body .difference-grid,
+  .difference-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  html body .difference-visual,
+  .difference-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 240px !important;
+  }
+
+  html body .difference-visual video,
+  html body .difference-visual img,
+  .difference-visual video,
+  .difference-visual img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 16px !important;
+  }
+
+  html body .difference-content,
+  .difference-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  html body .diff-lede,
+  .diff-lede {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: #39461D !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 3. Sticky Mobile Scroll for Ritual Steps (Image 2) */
+  html body .ritual-sticky-container,
+  .ritual-sticky-container {
+    position: relative !important;
+  }
+
+  html body .ritual-steps,
+  .ritual-steps {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 16px !important;
+    padding-bottom: 16px !important;
+    width: 100% !important;
+  }
+
+  html body .ritual-step-item,
+  .ritual-step-item {
+    flex: 0 0 85% !important;
+    scroll-snap-align: center !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* 4. Comparison Title Cell & Mobile Table Overflow (Image 3) */
+  html body .comparison-v3__table-container,
+  .comparison-v3__table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+    margin: 16px 0 !important;
+  }
+
+  html body .comparison-v3__table,
+  .comparison-v3__table {
+    min-width: 580px !important;
+    width: 100% !important;
+  }
+
+  html body .table-premium-header,
+  .table-premium-header {
+    padding: 10px 8px !important;
+  }
+
+  html body .table-premium-header strong,
+  .table-premium-header strong {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 5. Mobile Header Clean 2-Row Layout (Image 4) */
+  .official-main-header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 10px 16px !important;
+    gap: 8px !important;
+    background: #EFE6DC !important;
+  }
+
+  .header-col-center {
+    order: 1 !important;
+    margin: 0 auto !important;
+  }
+
+  .header-col-center img {
+    width: 110px !important;
+    height: auto !important;
+  }
+
+  .header-col-right {
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .header-col-right a,
+  .header-col-right .nav-pipe {
+    display: none !important;
+  }
+
+  .header-col-left {
+    order: 3 !important;
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    margin-top: 4px !important;
+  }
+
+  .header-search-pill {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Mobile Search Trigger Button */
+.mobile-search-trigger {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-search-trigger {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .header-col-left {
+    display: none !important;
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    margin-top: 8px !important;
+  }
+
+  .header-col-left.search-is-active {
+    display: block !important;
+  }
+
+  /* Three Milks Section V2 Mobile Layout */
+  html body .formula-materials-grid,
+  .formula-materials-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 16px !important;
+    margin: 20px 0 !important;
+    padding-bottom: 12px !important;
+    width: 100% !important;
+  }
+
+  html body .formula-materials-grid figure,
+  .formula-materials-grid figure {
+    flex: 0 0 82% !important;
+    scroll-snap-align: start !important;
+    margin: 0 !important;
+  }
+
+  html body .formula-materials-grid figure img,
+  .formula-materials-grid figure img {
+    width: 100% !important;
+    height: 180px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+  }
+
+  html body .ingredient-grid,
+  .ingredient-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  html body .ingredient-entry,
+  .ingredient-entry {
+    background: rgba(253, 251, 247, 0.8) !important;
+    border: 1px solid #B5967B !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hero Image Height Reduction & Edge-to-Edge Background */
+  html body .story-gallery,
+  html body .story-frame,
+  html body .story-media,
+  html body .story-slide,
+  .story-gallery,
+  .story-frame,
+  .story-media,
+  .story-slide {
+    height: 360px !important;
+    min-height: 360px !important;
+    max-height: 360px !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+
+  html body .story-frame img,
+  html body .story-gallery img,
+  .story-frame img,
+  .story-gallery img {
+    width: 100% !important;
+    height: 360px !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+  }
+
+  html body .checkpoint-hero,
+  html body .hero,
+  .checkpoint-hero,
+  .hero {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Kerala Ayurveda Difference Single-Line Title & 16:9 Video */
+  html body .difference-header h2,
+  .difference-header h2,
+  html body #heritage h2 {
+    font-size: 22px !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: normal !important;
+  }
+
+  html body .difference-visual,
+  .difference-visual {
+    width: 100% !important;
+    height: 200px !important;
+    max-height: 200px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+
+  html body .difference-visual video,
+  .difference-visual video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* 28px Mobile Review Quote Font Size */
+  html body .testimonial-quote,
+  html body .review-quote,
+  .testimonial-quote,
+  .review-quote,
+  .adapted-reviews h2,
+  .adapted-reviews blockquote {
+    font-size: 28px !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Right-Swipable Product Details Cards */
+  html body .pack-details-grid,
+  html body .pack-facts,
+  .pack-details-grid,
+  .pack-facts {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 16px !important;
+    padding-bottom: 16px !important;
+    width: 100% !important;
+  }
+
+  html body .pack-detail-card,
+  .pack-detail-card {
+    flex: 0 0 85% !important;
+    scroll-snap-align: start !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Confidence / Trust Strip Rendering Fix */
+  html body .confidence-strip,
+  .confidence-strip {
+    display: block !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    padding: 24px 20px !important;
+    background: transparent !important;
+  }
+
+  html body .confidence-strip-inner,
+  .confidence-strip-inner {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 12px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    border-top: 1px solid #B5967B !important;
+    border-bottom: 1px solid #B5967B !important;
+    padding: 20px 10px !important;
+  }
+
+  html body .confidence-strip-inner > div,
+  .confidence-strip-inner > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    font-size: 11px !important;
+  }
+
+  html body .confidence-strip-inner strong,
+  .confidence-strip-inner strong {
+    font-size: 18px !important;
+    color: #39461D !important;
+  }
+}
