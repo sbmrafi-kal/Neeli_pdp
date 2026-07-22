@@ -21,18 +21,55 @@
   color: #39461d;
 }
 
+/* Force High-Contrast Text Colors inside Card Overlays */
+.potent-card h3 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.potent-card p.italic {
+  color: #D1FAE5 !important; /* Soft crisp mint/white */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.potent-card p.line-clamp-2 {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.potent-card button span {
+  color: inherit;
+}
+
 .potent-card {
   position: relative;
-  background-color: #1e2922;
+  background-color: #0d140e;
   transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .potent-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 30px -10px rgba(42, 53, 23, 0.25);
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4);
 }
 
-/* Custom scrollbar for modal */
+/* Hide scrollbars for glitch-free carousel track */
+.scrollbar-none::-webkit-scrollbar,
+.potent-carousel-track::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.scrollbar-none,
+.potent-carousel-track {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Custom scrollbar for detail modal */
 .overflow-y-auto::-webkit-scrollbar {
   width: 6px;
 }
