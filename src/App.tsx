@@ -6,6 +6,8 @@ import ScienceRecoveryStory from './v2/ScienceRecoveryStory';
 import PdpSectionNavV3 from './v3/PdpSectionNavV3';
 import ComparisonV3 from './v3/ComparisonV3';
 import ScienceStoryV3 from './v3/ScienceStoryV3';
+import { PotentIngredientsSection } from './components/PotentIngredientsSection';
+import './components/potent-ingredients.css';
 
 const Arrow = ({left=false}:{left?:boolean}) => <svg viewBox="0 0 24 24" aria-hidden="true"><path d={left?'M15 5l-7 7 7 7':'M9 5l7 7-7 7'}/></svg>;
 const Search = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 4 4"/></svg>;
@@ -93,10 +95,6 @@ function ProductIdentity(){
       <a href="#shop">Shop</a>
       <span className="separator">/</span>
       <a href="#hair-care">Hair Care</a>
-      <span className="separator hide-mobile">/</span>
-      <a href="#hair-oils" className="hide-mobile">Hair Oils</a>
-      <span className="separator hide-mobile">/</span>
-      <span className="current hide-mobile">Neelibhringadi Keram</span>
     </nav>
     <h1>Neelibhringadi <span>Keram</span></h1>
     <p className="identity-subtitle">
@@ -142,16 +140,21 @@ function ProductPresenceMotion(){
     return()=>observer.disconnect();
   },[motionState,reducedMotion]);
   const alt='Official Neelibhringadi Keram bottle with Amla and coconut in warm natural light';
-  if(reducedMotion)return <img className="story-image" src="/assets/production/product-presence-poster.webp" alt={alt} width="936" height="1248" loading="eager" fetchPriority="high"/>;
   const controlLabel=motionState==='playing'?'Pause':motionState==='ended'?'Replay':'Play motion';
   const accessibleControlLabel=motionState==='playing'?'Pause product lighting motion':motionState==='ended'?'Replay product lighting motion':'Play product lighting motion';
   return <div ref={regionRef} className={`story-motion-shell presence-motion-shell ${motionState}`}>
-    <video ref={videoRef} className="story-motion presence-motion" muted playsInline autoPlay preload="metadata" poster="/assets/production/product-presence-poster.webp" aria-label="Natural light and botanical shadows moving gently behind the Neelibhringadi Keram bottle" onPlay={()=>setMotionState('playing')} onPause={()=>setMotionState(current=>current==='ended'?'ended':'paused')} onEnded={()=>setMotionState('ended')} onError={()=>setMotionState('paused')}>
-      <source media="(max-width: 699px)" src="/assets/production/product-presence-motion-mobile.webm" type="video/webm"/>
-      <source media="(max-width: 699px)" src="/assets/production/product-presence-motion-mobile.mp4" type="video/mp4"/>
-      <source src="/assets/production/product-presence-motion.webm" type="video/webm"/>
-      <source src="/assets/production/product-presence-motion.mp4" type="video/mp4"/>
-    </video>
+    <picture>
+      <source media="(max-width: 699px)" type="image/webp" srcSet="/assets/production/product-presence-poster-mobile.webp"/>
+      <img className="story-image presence-poster" src="/assets/production/product-presence-poster.webp" alt={alt} width="936" height="1248" loading="eager" fetchPriority="high"/>
+    </picture>
+    {!reducedMotion && (
+      <video ref={videoRef} className="story-motion presence-motion" muted playsInline autoPlay loop preload="auto" poster="/assets/production/product-presence-poster.webp" aria-label="Natural light and botanical shadows moving gently behind the Neelibhringadi Keram bottle" onPlay={()=>setMotionState('playing')} onPause={()=>setMotionState(current=>current==='ended'?'ended':'paused')} onEnded={()=>setMotionState('ended')} onError={()=>setMotionState('paused')}>
+        <source media="(max-width: 699px)" src="/assets/production/product-presence-motion-mobile.webm" type="video/webm"/>
+        <source media="(max-width: 699px)" src="/assets/production/product-presence-motion-mobile.mp4" type="video/mp4"/>
+        <source src="/assets/production/product-presence-motion.webm" type="video/webm"/>
+        <source src="/assets/production/product-presence-motion.mp4" type="video/mp4"/>
+      </video>
+    )}
     <button type="button" className="story-motion-control presence-motion-control" onClick={toggle} aria-label={accessibleControlLabel}><span aria-hidden="true">{motionState==='playing'?'Ⅱ':motionState==='ended'?'↻':'▶'}</span>{controlLabel}</button>
   </div>
 }
@@ -365,32 +368,7 @@ function ResultsSection(){
 }
 
 function FormulaSection({v3=false}:{v3?:boolean}){
-  const [activeIngredient,setActiveIngredient]=useState(0);
-  const compactIngredients=useMediaQuery('(max-width: 699px)');
-  const ingredientSource=v3?ingredientsV3:ingredients;
-  return <section className="formula section adapted-formula" id="formula">
-    <div className="formula-story">
-      <div className="formula-heading">
-        <p className="kicker">Key ingredients</p>
-        <h2>Three milks. One complete formula.</h2>
-      </div>
-      <div className="formula-materials-grid" aria-label="Formula imagery">
-        <figure className="formula-material">
-          <div><ResponsiveImage src="/assets/production/ingredients.webp" mobileSrc="/assets/production/ingredients-mobile.webp" alt="Amla, Bhringaraj, Neeli and coconut oil"/></div>
-          <figcaption>Four powerful herbal ingredients</figcaption>
-        </figure>
-        <figure className="formula-material">
-          <div><ResponsiveImage src="/assets/production/triple-milk.webp" mobileSrc="/assets/production/triple-milk-mobile.webp" alt="Cow milk, goat milk and coconut milk"/></div>
-          <figcaption>The nourishing triple-milk base</figcaption>
-        </figure>
-        <figure className="formula-material">
-          <div><ResponsiveImage src="/assets/production/slow-cooking.webp" mobileSrc="/assets/production/slow-cooking-mobile.webp" alt="Herbal oil prepared over low heat using Thaila Paaka Vidhi"/></div>
-          <figcaption>Slow-heat Thaila Paaka Vidhi extraction</figcaption>
-        </figure>
-      </div>
-    </div>
-    <div className="ingredient-explorer"><div className="ingredient-heading"><span>Ingredient index</span>{compactIngredients&&<p>Tap an ingredient to read its role.</p>}</div><div className="ingredient-grid">{ingredientSource.map(([name,copy],i)=>{const label=<><span>0{i+1}</span><h3>{name}</h3>{compactIngredients&&<b aria-hidden="true">{activeIngredient===i?'−':'+'}</b>}</>;return <article key={name} className={`ingredient-entry ${activeIngredient===i?'active':''}`}>{compactIngredients?<button aria-expanded={activeIngredient===i} aria-controls={`ingredient-${i}`} onClick={()=>setActiveIngredient(activeIngredient===i?-1:i)}>{label}</button>:<div className="ingredient-label">{label}</div>}<div className="ingredient-copy" id={`ingredient-${i}`}><p>{copy}</p></div></article>})}</div><details className="full-ingredients"><summary>See the full ingredients list <span>+</span></summary><p><b>Oil base:</b> Coconut oil (Cocos nucifera). <b>Primary ingredients:</b> Amla (Emblica officinalis), Bhringaraj (Eclipta alba), Neeli (Indigofera tinctoria), Karnasphota (Cardiospermum halicacabum). <b>Triple-milk base:</b> Cow milk (Dhenukshira), Goat milk (Ajakshira), and Coconut milk (Nalikerakshira). <b>Supporting herbs:</b> Yashtimadhu (Glycyrrhiza glabra), Dhatriphala (Phyllanthus emblica), Gunjamoola (Abrus precatorius), and Anjana.</p></details></div>
-  </section>
+  return <PotentIngredientsSection />;
 }
 
 function RitualSection() {

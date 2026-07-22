@@ -127,18 +127,20 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
                     <span className="sub">AUTHENTIC AYURVEDIC OIL</span>
                   </div>
                 </th>
-                <th scope="col" className="comparison-v3__other-header col-other">
-                  <label htmlFor="comparison-alternative">Compare with</label>
-                  <select
-                    id="comparison-alternative"
-                    value={selectedAlternative.id}
-                    onChange={(event) => setAlternativeId(event.target.value)}
-                  >
-                    {alternatives.map((alternative) => (
-                      <option key={alternative.id} value={alternative.id}>{alternative.name}</option>
-                    ))}
-                  </select>
-                  <span className="sub">{selectedAlternative.descriptor}</span>
+                <th scope="col" className="col-other">
+                  <div className="comparison-v3__other-header">
+                    <label htmlFor="comparison-alternative">Compare with</label>
+                    <select
+                      id="comparison-alternative"
+                      value={selectedAlternative.id}
+                      onChange={(event) => setAlternativeId(event.target.value)}
+                    >
+                      {alternatives.map((alternative) => (
+                        <option key={alternative.id} value={alternative.id}>{alternative.name}</option>
+                      ))}
+                    </select>
+                    <span className="sub">{selectedAlternative.descriptor}</span>
+                  </div>
                 </th>
               </tr>
             </thead>
