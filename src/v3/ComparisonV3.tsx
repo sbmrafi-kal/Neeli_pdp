@@ -21,7 +21,7 @@ const alternatives: Alternative[] = [
     name: 'Minoxidil',
     descriptor: 'Medicine',
     formula: 'A drug treatment intended to stimulate follicles; suitability and response need medical guidance.',
-    targetZone: 'A targeted medicine—not a botanical oil or a like-for-like routine.',
+    targetZone: 'A targeted medicine-not a botanical oil or a like-for-like routine.',
     routine: 'Typically daily · leave on',
   },
   {
@@ -88,8 +88,10 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
       </header>
 
       <article className="comparison-v3__anchor" aria-labelledby="comparison-v3-neeli">
-        <h3 id="comparison-v3-neeli">One formula. Two distinct support paths.</h3>
-        <p className="comparison-v3__formula">{neeli.formula}</p>
+        <div className="comparison-v3__anchor-header">
+          <h3 id="comparison-v3-neeli">One formula. Two distinct support paths.</h3>
+          <p className="comparison-v3__formula">{neeli.formula}</p>
+        </div>
         <div className="comparison-v3__paths">
           <div className="comparison-v3__path-box">
             <span className="comparison-v3__path-tag">Path 01</span>
@@ -117,15 +119,15 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
           <table className="comparison-v3__table">
             <thead>
               <tr>
-                <th scope="col">Comparison parameter</th>
-                <th scope="col" className="highlighted">
+                <th scope="col" className="col-param">Comparison parameter</th>
+                <th scope="col" className="highlighted col-ours">
                   <div className="table-premium-header">
                     <span className="star-tag">★ Canonical Choice</span>
                     <strong>Neelibhringadi Keram</strong>
                     <span className="sub">AUTHENTIC AYURVEDIC OIL</span>
                   </div>
                 </th>
-                <th scope="col" className="comparison-v3__other-header">
+                <th scope="col" className="comparison-v3__other-header col-other">
                   <label htmlFor="comparison-alternative">Compare with</label>
                   <select
                     id="comparison-alternative"
@@ -143,9 +145,9 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
             <tbody>
               {comparisonRows.map((row) => (
                 <tr key={row.label}>
-                  <th scope="row"><strong>{row.label}</strong></th>
-                  <td className="highlighted">{row.ours}</td>
-                  <td>{row.other}</td>
+                  <th scope="row" className="col-param"><strong>{row.label}</strong></th>
+                  <td className="highlighted col-ours">{row.ours}</td>
+                  <td className="col-other">{row.other}</td>
                 </tr>
               ))}
             </tbody>

@@ -110,6 +110,12 @@ body th {
   object-fit: contain;
 }
 
+@media (min-width: 900px) {
+  .header .brand {
+    transform: translateX(-30px) !important;
+  }
+}
+
 .header-primary-nav {
   gap: clamp(22px, 3vw, 42px) !important;
 }
@@ -637,21 +643,26 @@ section.adapted-results {
 }
 
 .results-sequence {
-  gap: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
 }
 
-.results-sequence-card {
-  min-height: 164px !important;
-  padding: clamp(22px, 2.5vw, 34px) !important;
+.results-motion-rail .results-sequence-card {
+  min-height: auto !important;
+  padding: 16px 20px !important;
   background: var(--calm-paper) !important;
   border: 1px solid var(--calm-rule) !important;
-  border-radius: 0 !important;
+  border-radius: 12px !important;
   color: var(--calm-ink) !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .results-motion-rail .results-sequence-card.is-active {
   background: var(--calm-sage) !important;
   border-color: var(--calm-rule-strong) !important;
+  box-shadow: 0 4px 16px rgba(57, 70, 29, 0.08) !important;
 }
 
 .results-motion-rail .results-sequence-card.is-muted {
@@ -690,15 +701,17 @@ section.adapted-results {
 }
 
 .results-qualification-card {
-  margin-top: 18px !important;
+  margin-top: 24px !important;
+  margin-bottom: 24px !important;
+  padding: 16px 24px !important;
   background: transparent !important;
   border: 1px solid var(--calm-rule) !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important;
 }
 
 /* Formula turns the old dark block into a light ingredient index. */
 section.adapted-formula {
-  padding: var(--calm-section) var(--calm-gutter) !important;
+  padding: var(--calm-section) 0 !important;
   background: var(--calm-sage) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
   color: var(--calm-ink) !important;
@@ -739,6 +752,8 @@ section.adapted-formula {
 .ingredient-explorer {
   background: rgba(251, 250, 246, .62) !important;
   border: 1px solid var(--calm-rule) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
 }
 
 .ingredient-heading {
@@ -773,6 +788,59 @@ section.adapted-formula {
   color: var(--calm-ink-soft) !important;
 }
 
+@media (min-width: 900px) {
+  .ingredient-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+    padding: 32px !important;
+    border: none !important;
+  }
+
+  .ingredient-entry {
+    background: #ffffff !important;
+    border: 1px solid var(--calm-rule, rgba(57, 70, 29, 0.15)) !important;
+    border-radius: 12px !important;
+    padding: 28px !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .ingredient-entry:last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+  }
+
+  .ingredient-entry:hover {
+    box-shadow: 0 6px 20px rgba(57, 70, 29, 0.08) !important;
+  }
+
+  .ingredient-label {
+    min-height: auto !important;
+    padding: 0 0 14px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .ingredient-label span {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: var(--calm-clay) !important;
+  }
+
+  .ingredient-label h3 {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--calm-ink) !important;
+  }
+
+  .ingredient-copy p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: var(--calm-ink-soft) !important;
+  }
+}
+
 .full-ingredients {
   background: var(--calm-paper) !important;
 }
@@ -797,10 +865,22 @@ section.science-story-v3 {
   color: var(--calm-ink) !important;
 }
 
-.sv3-intro {
-  padding: clamp(62px, 7vw, 104px) var(--calm-gutter) !important;
-  background: var(--calm-lilac) !important;
+.sv3-intro,
+body .sv3-intro {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding: clamp(54px, 6vw, 92px) 24px !important;
+  background: var(--calm-lilac, #eae5f2) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
+  box-sizing: border-box !important;
+}
+
+body .sv3-intro-content,
+body .sv3-intro > div {
+  max-width: 1380px !important;
+  margin-inline: auto !important;
 }
 
 .sv3-intro h2,
@@ -885,10 +965,11 @@ section.science-story-v3 {
 }
 
 .sv3-resolution {
-  width: 100vw !important;
-  margin-left: calc(-50vw + 50%) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
   margin-top: 0 !important;
-  padding: clamp(48px, 5vw, 72px) max(24px, calc((100vw - 1440px) / 2 + 58px)) !important;
+  padding: clamp(48px, 5vw, 72px) 24px !important;
   background: var(--calm-sage) !important;
   color: var(--calm-ink) !important;
   box-sizing: border-box !important;
@@ -905,7 +986,7 @@ section.science-story-v3 {
 
 .sv3-resolution-card {
   border: 1px solid var(--calm-rule) !important;
-  border-radius: 0 !important;
+  border-radius: 12px !important;
   box-shadow: none !important;
   color: var(--calm-ink) !important;
 }
@@ -914,8 +995,37 @@ section.science-story-v3 {
   background: var(--calm-peach) !important;
 }
 
-.sv3-resolution-card--path2 {
-  background: var(--calm-paper) !important;
+.sv3-resolution-card--path2,
+body .sv3-resolution-card--path2 {
+  background: #ffffff !important;
+  border: 1px solid var(--calm-rule) !important;
+}
+
+.sv3-resolution-card--path2 h3,
+body .sv3-resolution-card--path2 h3 {
+  color: #39461d !important;
+}
+
+.sv3-resolution-card--path2 .sv3-path-desc,
+body .sv3-resolution-card--path2 .sv3-path-desc {
+  color: #4a5732 !important;
+}
+
+.sv3-resolution-card--path2 .sv3-feature-num,
+body .sv3-resolution-card--path2 .sv3-feature-num {
+  color: #954721 !important;
+  font-weight: 800 !important;
+}
+
+.sv3-resolution-card--path2 .sv3-path-feature strong,
+body .sv3-resolution-card--path2 .sv3-path-feature strong {
+  color: #2c3e24 !important;
+  font-weight: 700 !important;
+}
+
+.sv3-resolution-card--path2 .sv3-path-feature p,
+body .sv3-resolution-card--path2 .sv3-path-feature p {
+  color: #3f4e27 !important;
 }
 
 .sv3-resolution-card p,
@@ -929,11 +1039,26 @@ section.science-story-v3 {
   color: var(--calm-clay) !important;
 }
 
-.sv3-evidence-note {
-  background: transparent !important;
-  border: 1px solid var(--calm-rule) !important;
-  border-radius: 0 !important;
-  color: var(--calm-ink) !important;
+/* Science Evidence Note High-Contrast Visibility */
+.science-story-v3 .sv3-evidence-note,
+body .sv3-evidence-note {
+  background: rgba(57, 70, 29, 0.08) !important;
+  border: 1px solid rgba(57, 70, 29, 0.22) !important;
+  border-radius: 8px !important;
+  color: #2c3e24 !important;
+}
+
+.science-story-v3 .sv3-evidence-note summary,
+body .sv3-evidence-note summary,
+.science-story-v3 .sv3-evidence-title {
+  color: #39461d !important;
+  font-weight: 700 !important;
+}
+
+.science-story-v3 .sv3-evidence-note p,
+body .sv3-evidence-note p {
+  color: #2c3e24 !important;
+  font-weight: 600 !important;
 }
 
 /* Comparison */
@@ -969,13 +1094,88 @@ section.comparison-v3 {
   color: var(--calm-clay) !important;
 }
 
+@media (min-width: 900px) {
+  .comparison-v3__main-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1.3fr !important;
+    gap: 32px !important;
+    align-items: start !important;
+    margin-top: 36px !important;
+  }
+
+  .comparison-v3__anchor {
+    margin-top: 0 !important;
+  }
+
+  .comparison-v3__matrix-wrapper {
+    margin-top: 0 !important;
+    max-width: none !important;
+  }
+}
+
 .comparison-v3__anchor {
-  margin-top: clamp(34px, 4vw, 56px) !important;
-  padding: clamp(28px, 4vw, 54px) !important;
-  background: var(--calm-sage) !important;
+  width: 100% !important;
+  max-width: 1380px !important;
+  margin: 36px auto !important;
+  padding: 32px !important;
+  background: var(--calm-paper, #fdfbf7) !important;
   border: 1px solid var(--calm-rule) !important;
-  border-radius: 0 !important;
-  color: var(--calm-ink) !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+}
+
+.comparison-v3__paths {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 24px !important;
+  margin-block: 24px !important;
+}
+
+.comparison-v3__path-box {
+  background: #ffffff !important;
+  border: 1px solid var(--calm-rule) !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+}
+
+.comparison-v3__matrix-wrapper {
+  width: 100% !important;
+  max-width: 1380px !important;
+  margin: 40px auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.comparison-v3__table-container {
+  width: 100% !important;
+  overflow-x: auto !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--calm-rule) !important;
+  background: #ffffff !important;
+}
+
+.comparison-v3__table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  table-layout: fixed !important;
+}
+
+.comparison-v3__table th.col-param {
+  width: 25% !important;
+  padding: 20px 24px !important;
+}
+
+.comparison-v3__table th.col-ours,
+.comparison-v3__table td.col-ours {
+  width: 37.5% !important;
+  padding: 20px 24px !important;
+  background: var(--calm-sage, #e3e8db) !important;
+}
+
+.comparison-v3__table th.col-other,
+.comparison-v3__table td.col-other {
+  width: 37.5% !important;
+  padding: 20px 24px !important;
 }
 
 .comparison-v3__anchor h3,
@@ -1156,12 +1356,12 @@ section.difference-section {
 
 .difference-grid {
   margin-top: clamp(36px, 5vw, 68px) !important;
-  grid-template-columns: minmax(320px, .9fr) minmax(0, 1.1fr) !important;
+  grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr) !important;
   gap: clamp(34px, 7vw, 110px) !important;
 }
 
 .difference-visual {
-  min-height: 520px !important;
+  min-height: 350px !important;
   background: var(--calm-sage) !important;
   border: 1px solid var(--calm-rule) !important;
   border-radius: 0 !important;
@@ -1178,9 +1378,17 @@ section.difference-section {
 }
 
 .diff-visual-overlay {
-  background: rgba(251, 250, 246, .94) !important;
-  border-top: 1px solid var(--calm-rule) !important;
-  color: var(--calm-ink) !important;
+  background: linear-gradient(0deg, rgba(18, 26, 17, 0.65) 0%, transparent 60%) !important;
+  border-top: none !important;
+  color: #ffffff !important;
+}
+
+.diff-visual-overlay strong {
+  color: #ffffff !important;
+}
+
+.diff-visual-overlay span {
+  color: var(--calm-gold, #cca54e) !important;
 }
 
 .diff-lede,
@@ -1196,7 +1404,7 @@ section.difference-section {
 }
 
 .diff-acc-item.active {
-  background: var(--calm-sage) !important;
+  background: var(--calm-paper) !important;
 }
 
 .diff-acc-header,
@@ -1210,9 +1418,15 @@ section.difference-section {
 }
 
 /* Reviews */
-section.review-carousel {
-  min-height: 570px !important;
-  padding: var(--calm-section) var(--calm-gutter) !important;
+section.review-carousel,
+body section.review-carousel {
+  min-height: auto !important;
+  padding: clamp(48px, 6vw, 72px) 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
   background: var(--calm-lilac) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
   color: var(--calm-ink) !important;
@@ -1221,6 +1435,7 @@ section.review-carousel {
 section.review-carousel .testimonials-inner.review-carousel__stage {
   background: transparent !important;
   color: var(--calm-ink) !important;
+  margin-bottom: 0 !important;
 }
 
 .review-carousel__eyebrow,
@@ -1231,6 +1446,7 @@ section.review-carousel .testimonials-author strong {
 
 section.review-carousel blockquote {
   max-width: 900px !important;
+  margin-block: 16px !important;
 }
 
 section.review-carousel blockquote p,
@@ -1250,7 +1466,15 @@ section.review-carousel .testimonials-author span {
   color: var(--calm-ink-soft) !important;
 }
 
-.review-progress-controls {
+section.review-carousel .testimonials-author,
+body section.review-carousel .testimonials-author {
+  margin-bottom: 8px !important;
+}
+
+.review-progress-controls,
+body .review-progress-controls {
+  margin-top: 8px !important;
+  margin-bottom: 0 !important;
   background: rgba(251, 250, 246, .75) !important;
   border: 1px solid var(--calm-rule) !important;
   border-radius: 999px !important;
@@ -1282,6 +1506,14 @@ section.adapted-faq {
   color: var(--calm-ink) !important;
 }
 
+.faq-list article {
+  border-radius: 12px !important;
+  border: 1px solid var(--calm-rule) !important;
+  margin-bottom: 16px !important;
+  overflow: hidden !important;
+  transition: background-color 0.2s ease !important;
+}
+
 .faq-list article,
 .faq-list button,
 .faq-answer {
@@ -1290,43 +1522,136 @@ section.adapted-faq {
   color: var(--calm-ink) !important;
 }
 
-.faq-list article.open {
-  background: var(--calm-sage) !important;
+.faq-list article.open,
+.faq-list article.open button {
+  background: var(--calm-paper) !important;
 }
 
-.faq-list article h3 button > span {
-  color: var(--calm-clay) !important;
+.faq-list article h3 button,
+body .faq-list article h3 button {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 24px 36px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+  cursor: pointer !important;
 }
 
-.faq-list button > b {
+.faq-list button > b,
+body .faq-list button > b {
+  font-size: clamp(21px, 2.4vw, 28px) !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
   color: var(--calm-ink) !important;
 }
 
-.faq-answer p {
+.faq-list button > i,
+body .faq-list button > i {
+  font-size: 32px !important;
+  font-weight: 300 !important;
+  line-height: 1 !important;
+  color: var(--calm-clay) !important;
+  flex: 0 0 auto !important;
+  margin-left: 24px !important;
+}
+
+.faq-answer,
+body .faq-answer {
+  padding: 0 36px 28px 36px !important;
+  box-sizing: border-box !important;
+}
+
+.faq-answer p,
+body .faq-answer p {
+  font-size: 15px !important;
+  line-height: 1.65 !important;
   color: var(--calm-ink-soft) !important;
 }
 
+body section.adapted-pack,
 section.adapted-pack {
-  padding: var(--calm-section) var(--calm-gutter) !important;
+  padding: 64px 0 !important;
   background: var(--calm-cream) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
   color: var(--calm-ink) !important;
 }
 
+body .adapted-pack {
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-inline: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.pack-layout {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 36px !important;
+  align-items: start !important;
+  box-sizing: border-box !important;
+}
+
 .pack-heading h2 {
+  font-size: clamp(32px, 4vw, 48px) !important;
+  color: var(--calm-ink) !important;
+  margin: 8px 0 24px !important;
+}
+
+.pack-list {
+  background: #ffffff !important;
+  border: 1px solid var(--calm-rule) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+
+.pack-list > div {
+  display: grid !important;
+  grid-template-columns: 150px 1fr !important;
+  gap: 20px !important;
+  align-items: center !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid var(--calm-rule) !important;
+  background: #ffffff !important;
+}
+
+.pack-list > div:last-child {
+  border-bottom: none !important;
+}
+
+.pack-list dt {
+  color: var(--calm-clay) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+.pack-list dd {
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
   color: var(--calm-ink) !important;
 }
 
-.pack-list,
-.pack-list > div,
-.pack-image,
-.pack-zoom-dialog,
-.pack-zoom-panel {
-  background: var(--calm-paper) !important;
-  border-color: var(--calm-rule) !important;
-  border-radius: 0 !important;
-  color: var(--calm-ink) !important;
-  box-shadow: none !important;
+.pack-image {
+  background: #ffffff !important;
+  border: 1px solid var(--calm-rule) !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+.pack-image img {
+  max-height: 380px !important;
+  width: auto !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+  display: block !important;
 }
 
 .pack-zoom-trigger > span {
@@ -1335,24 +1660,146 @@ section.adapted-pack {
 }
 
 /* Final brand block and footer */
+body section.heritage,
+body section.adapted-heritage,
 section.adapted-heritage {
-  padding: var(--calm-section) var(--calm-gutter) !important;
-  background: var(--calm-sage) !important;
+  display: block !important;
+  width: 100% !important;
+  padding: clamp(64px, 8vw, 96px) 24px !important;
+  background: var(--calm-sage, #e3e8db) !important;
   border-bottom: 1px solid var(--calm-rule) !important;
-  color: var(--calm-ink) !important;
+  box-sizing: border-box !important;
 }
 
-.adapted-heritage .kicker,
-.adapted-heritage .heritage-metrics strong,
-.adapted-heritage .heritage-spectrum p,
-.adapted-heritage .heritage-patents p {
+body section.heritage .heritage-title,
+body .adapted-heritage .heritage-title,
+.adapted-heritage .heritage-title {
+  display: block !important;
+  width: 100% !important;
+  max-width: 840px !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+  margin-bottom: 48px !important;
+  float: none !important;
+}
+
+body section.heritage .kicker,
+body .adapted-heritage .kicker {
   color: var(--calm-clay) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+  text-align: center !important;
 }
 
-.adapted-heritage h2,
-.adapted-heritage h3,
-.adapted-heritage span {
+body section.heritage h2,
+body .adapted-heritage h2 {
+  font-size: clamp(36px, 5.5vw, 64px) !important;
   color: var(--calm-ink) !important;
+  margin: 12px 0 16px !important;
+  line-height: 1.05 !important;
+  text-align: center !important;
+}
+
+body section.heritage .heritage-subtitle,
+body .adapted-heritage .heritage-subtitle {
+  font-size: 17px !important;
+  color: var(--calm-ink-soft) !important;
+  line-height: 1.6 !important;
+  max-width: 680px !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+body section.heritage .heritage-metrics,
+body .adapted-heritage .heritage-metrics {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  margin-bottom: 36px !important;
+  box-sizing: border-box !important;
+  float: none !important;
+  width: 100% !important;
+}
+
+body section.heritage .metric-card,
+body .adapted-heritage .metric-card {
+  background: #ffffff !important;
+  border: 1px solid var(--calm-rule) !important;
+  border-radius: 12px !important;
+  padding: 28px 20px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+body section.heritage .metric-card strong,
+body .adapted-heritage .metric-card strong {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  color: #39461d !important;
+  line-height: 1 !important;
+}
+
+body section.heritage .metric-card span,
+body .adapted-heritage .metric-card span {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #954721 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+body section.heritage .metric-card small,
+body .adapted-heritage .metric-card small {
+  font-size: 13px !important;
+  color: var(--calm-ink-soft) !important;
+}
+
+body section.heritage .heritage-pillars,
+body .adapted-heritage .heritage-pillars {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 24px !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+
+body section.heritage .heritage-pillar,
+body .adapted-heritage .heritage-pillar {
+  background: #ffffff !important;
+  border: 1px solid var(--calm-rule) !important;
+  border-radius: 12px !important;
+  padding: 32px !important;
+  text-align: left !important;
+}
+
+.adapted-heritage .pillar-badge {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: #954721 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.adapted-heritage .heritage-pillar h3 {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #39461d !important;
+  margin: 10px 0 12px !important;
+}
+
+.adapted-heritage .heritage-pillar p {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #4a5732 !important;
 }
 
 .heritage-metrics > div {
@@ -1639,7 +2086,7 @@ section.adapted-heritage {
   }
 
   .difference-visual {
-    min-height: 390px !important;
+    min-height: 240px !important;
   }
 
   section.review-carousel {
@@ -1835,20 +2282,27 @@ section.comparison-v3 .comparison-v3__table {
 
 section.comparison-v3 .comparison-v3__table th,
 section.comparison-v3 .comparison-v3__table td {
-  overflow-wrap: anywhere !important;
+  overflow-wrap: normal !important;
   word-break: normal !important;
+  hyphens: none !important;
 }
 
 section.comparison-v3 .comparison-v3__table th:first-child,
 section.comparison-v3 .comparison-v3__table td:first-child {
-  width: 20% !important;
+  width: 26% !important;
+  min-width: 220px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  vertical-align: middle !important;
 }
 
 section.comparison-v3 .comparison-v3__table th:nth-child(2),
 section.comparison-v3 .comparison-v3__table td:nth-child(2),
 section.comparison-v3 .comparison-v3__table th:nth-child(3),
 section.comparison-v3 .comparison-v3__table td:nth-child(3) {
-  width: 40% !important;
+  width: 37% !important;
 }
 
 section.comparison-v3 .comparison-v3__other-header {
@@ -1859,9 +2313,10 @@ section.comparison-v3 .comparison-v3__other-header label {
   display: block !important;
   margin-bottom: 6px !important;
   color: var(--calm-clay) !important;
-  font: 800 10px/1.2 var(--font-label) !important;
-  letter-spacing: .1em !important;
+  font: 800 11px/1.2 var(--font-label) !important;
+  letter-spacing: .08em !important;
   text-transform: uppercase !important;
+  white-space: nowrap !important;
 }
 
 section.comparison-v3 .comparison-v3__other-header select {
@@ -1875,7 +2330,7 @@ section.comparison-v3 .comparison-v3__other-header select {
   -moz-appearance: none !important;
   appearance: none !important;
   color: var(--calm-ink) !important;
-  font: 800 16px/1.2 var(--font-body) !important;
+  font: 800 15px/1.2 var(--font-body) !important;
   cursor: pointer !important;
   transition: border-color 160ms ease !important;
 }
@@ -1892,11 +2347,12 @@ section.comparison-v3 .comparison-v3__other-header select:focus-visible {
 section.comparison-v3 .comparison-v3__other-header .sub {
   display: block !important;
   margin-top: 7px !important;
+  white-space: nowrap !important;
 }
 
-/* Reduce comparison matrix box width and center align it */
+/* Expand comparison matrix box width and center align it */
 section.comparison-v3 .comparison-v3__matrix-wrapper {
-  max-width: 960px !important;
+  max-width: 1180px !important;
   margin-inline: auto !important;
 }
 
@@ -2245,8 +2701,8 @@ section.adapted-heritage .heritage-metrics strong {
 /* 1.1 Design tokens */
 :root {
   /* Container */
-  --page-max: 1320px !important;
-  --page-gutter: 20px !important;
+  --page-max: 1380px !important;
+  --page-gutter: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
   --section-gap: 72px !important;
 
   /* Colors (audit palette) */
@@ -2288,35 +2744,31 @@ section.adapted-heritage .heritage-metrics strong {
 
 @media (min-width: 768px) {
   :root {
-    --page-gutter: 32px !important;
-    --section-gap: 96px !important;
+    --section-gap: 48px !important;
   }
 }
 
-@media (min-width: 1024px) {
-  :root {
-    --page-gutter: 48px !important;
-    --section-gap: 120px !important;
-  }
-}
-
-@media (min-width: 1280px) {
-  :root {
-    --page-gutter: 64px !important;
-    --section-gap: 160px !important;
-  }
-}
-
-/* 1.2 Global section reset — every outer section gets edge-to-edge bg, consistent padding */
+/* 1.2 Global section reset — every outer section gets edge-to-edge bg, consistent 24px padding */
 body main > section,
 body section.confidence-strip,
 body section.difference-section,
-body section.testimonials-section {
+body section.testimonials-section,
+body section.checkpoint-hero,
+body section.results,
+body section.formula,
+body section.comparison-v3,
+body section.adapted-ritual,
+body section.combined-reviews-section,
+body section.adapted-faq,
+body section.adapted-pack {
   width: 100% !important;
   max-width: none !important;
-  padding-left: var(--page-gutter) !important;
-  padding-right: var(--page-gutter) !important;
-  padding-inline: var(--page-gutter) !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-inline: 24px !important;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+  padding-block: 24px !important;
   margin-bottom: var(--section-gap) !important;
   margin-top: 0 !important;
   margin-left: 0 !important;
@@ -2326,10 +2778,42 @@ body section.testimonials-section {
 
 /* Sections with full-width backgrounds: reset outer padding to 0,
    let inner wrappers carry the gutter */
-body section.science-story-v3 {
+body section.science-story-v3,
+body section.confidence-strip,
+section.confidence-strip {
+  width: 100% !important;
+  max-width: 100% !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-inline: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  background: var(--calm-sage, #e3e8db) !important;
+  border-block: 1px solid var(--calm-rule) !important;
+  box-sizing: border-box !important;
+}
+
+.confidence-strip-inner,
+body .confidence-strip-inner {
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-inline: 24px !important;
+  padding-block: 28px !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+body section.adapted-pack,
+section.adapted-pack,
+body .adapted-pack {
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-inline: 24px !important;
+  box-sizing: border-box !important;
 }
 
 /* 1.3 Inner content wrappers — max-width + auto centering */
@@ -2421,6 +2905,10 @@ body section.hero.checkpoint-hero {
   row-gap: 0 !important;
 }
 
+body .product-identity h1 span {
+  display: inline !important;
+}
+
 body .product-identity h1 {
   font-size: clamp(28px, 3.2vw, 42px) !important;
   white-space: nowrap !important;
@@ -2430,16 +2918,12 @@ body .product-identity h1 {
 @media (max-width: 767px) {
   body section.hero.checkpoint-hero {
     min-height: 0 !important;
-    padding: 0 !important;
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    grid-template-rows: auto auto auto auto !important;
-    grid-template-areas:
-      'identity'
-      'gallery'
-      'proof'
-      'commerce' !important;
-    gap: 0 !important;
+    padding-left: var(--page-gutter) !important;
+    padding-right: var(--page-gutter) !important;
+    padding-inline: var(--page-gutter) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
   }
 
   body .hero-overview {
@@ -2447,26 +2931,49 @@ body .product-identity h1 {
   }
 
   body .product-identity {
-    grid-area: identity !important;
-    padding: 30px var(--page-gutter) 12px !important;
-  }
-
-  body .product-proof {
-    grid-area: proof !important;
-    padding: 12px var(--page-gutter) 12px !important;
+    order: 1 !important;
+    padding: 0 !important;
+    background: transparent !important;
   }
 
   body .checkpoint-hero .story-gallery {
-    grid-area: gallery !important;
+    order: 2 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    aspect-ratio: 4 / 5 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  body .story-frame {
+    min-height: 0 !important;
+    height: 100% !important;
+  }
+
+  body .story-motion-shell,
+  body .presence-motion-shell,
+  body .story-motion,
+  body .presence-motion,
+  body .story-image {
+    height: 100% !important;
+    min-height: 0 !important;
+    object-fit: cover !important;
+  }
+
+  body .product-proof {
+    order: 3 !important;
+    padding: 12px 0 0 !important;
+    background: transparent !important;
   }
 
   body .hero-commerce {
-    grid-area: commerce !important;
-    padding-inline: var(--page-gutter) !important;
+    order: 4 !important;
+    padding: 0 !important;
+    background: transparent !important;
   }
 
   body .product-identity h1 {
-    font-size: clamp(22px, 6.2vw, 29px) !important;
+    font-size: clamp(20px, 6.2vw, 29px) !important;
   }
 }
 
@@ -2481,18 +2988,168 @@ body .statement-header h2 {
   max-width: 20ch !important;
 }
 
-/* 2.4 Comparison table select dropdown */
-body section.comparison-v3 .comparison-v3__other-header select {
-  width: auto !important;
-  min-width: 170px !important;
-  margin-inline: auto !important;
+/* 2.4 Comparison table: Seed-style layout side-by-side but with original light bg */
+body section.comparison-v3 {
+  background: var(--comparison-paper, #f8f3ed) !important;
+  color: var(--calm-ink) !important;
 }
 
-/* 2.5 Reviews: constrain quote width, proper padding */
+body .comparison-v3 h2,
+body .comparison-v3 h3,
+body .comparison-v3__versus-title h3,
+body .comparison-v3__anchor h3 {
+  color: var(--calm-ink) !important;
+}
+
+body .comparison-v3__lede {
+  color: var(--calm-ink-soft) !important;
+}
+
+@media (min-width: 1024px) {
+  body .comparison-v3__matrix-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr 2.1fr !important;
+    column-gap: 60px !important;
+    align-items: start !important;
+  }
+}
+
+body .comparison-v3__versus-title {
+  margin-top: 0 !important;
+}
+
+body .comparison-v3__versus-title h3 {
+  font-family: Avenir, Figtree, sans-serif !important;
+  font-size: clamp(30px, 3.5vw, 42px) !important;
+  line-height: 1.15 !important;
+}
+
+body .comparison-v3__versus-title p {
+  color: var(--calm-ink-soft) !important;
+}
+
+body .comparison-v3__table-container {
+  background: #ffffff !important;
+  border: 1px solid rgba(57, 70, 29, 0.12) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(57, 70, 29, 0.04) !important;
+}
+
+body .comparison-v3__table {
+  color: var(--calm-ink) !important;
+}
+
+body .comparison-v3__table th,
+body .comparison-v3__table td {
+  color: var(--calm-ink) !important;
+  border-bottom: 1px solid rgba(57, 70, 29, 0.08) !important;
+  border-right: 1px solid rgba(57, 70, 29, 0.08) !important;
+  background: transparent !important;
+  font-size: 14px !important;
+}
+
+body .comparison-v3__table th:last-child,
+body .comparison-v3__table td:last-child {
+  border-right: none !important;
+}
+
+body .comparison-v3__table th {
+  font-weight: 700 !important;
+  color: var(--calm-ink) !important;
+}
+
+body .comparison-v3__table th:first-child {
+  color: var(--calm-ink-soft) !important;
+  font-weight: 500 !important;
+}
+
+body .comparison-v3__table th strong {
+  color: var(--calm-ink) !important;
+}
+
+body .comparison-v3__table th .sub {
+  color: var(--calm-ink-soft) !important;
+}
+
+body .comparison-v3__table .highlighted {
+  background: rgba(57, 70, 29, 0.03) !important;
+}
+
+body .comparison-v3__table th.highlighted .table-premium-header {
+  border: 1px solid rgba(57, 70, 29, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 10px 16px !important;
+  background: #ffffff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+body .comparison-v3__table th.highlighted .star-tag {
+  background: rgba(57, 70, 29, 0.08) !important;
+  color: var(--calm-ink) !important;
+}
+
+body .comparison-v3__other-header select {
+  background: #ffffff !important;
+  color: var(--calm-ink) !important;
+  border: 1px solid rgba(57, 70, 29, 0.2) !important;
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  outline: none !important;
+  min-width: 170px !important;
+  width: auto !important;
+  margin-inline: auto !important;
+  cursor: pointer !important;
+}
+
+body .comparison-v3__other-header select option {
+  background: #ffffff !important;
+  color: var(--calm-ink) !important;
+}
+
+/* Glassy anchor box */
+body .comparison-v3__anchor {
+  background: #ffffff !important;
+  border: 1px solid rgba(57, 70, 29, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: var(--calm-ink) !important;
+}
+
+body .comparison-v3__path-box {
+  background: rgba(57, 70, 29, 0.02) !important;
+  border: 1px solid rgba(57, 70, 29, 0.06) !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+}
+
+/* 2.5 Reviews: compact, stars centered with quote (Image 5) */
 body section.review-carousel {
-  min-height: auto !important;
-  padding-top: clamp(48px, 6vw, 96px) !important;
-  padding-bottom: clamp(48px, 6vw, 96px) !important;
+  min-height: 0 !important;
+  padding-top: 18px !important; /* reduced by 75% */
+  padding-bottom: 18px !important;
+}
+
+body section.review-carousel .review-carousel__stage,
+body .review-carousel__stage {
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 12px !important;
+  padding: 0 !important;
+}
+
+body section.review-carousel .testimonials-stars {
+  margin: 0 !important;
+}
+
+body section.review-carousel blockquote {
+  margin: 0 !important;
 }
 
 body section.review-carousel blockquote p {
@@ -2502,20 +3159,54 @@ body section.review-carousel blockquote p {
 
 @media (min-width: 768px) {
   body section.review-carousel blockquote p {
-    font-size: 32px !important;
+    font-size: 28px !important;
     line-height: 1.35 !important;
   }
 }
 
-/* 2.6 FAQs: constrained text width, consistent alignment */
-body section.adapted-faq > header,
+body section.review-carousel .testimonials-author {
+  margin-top: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* 2.6 FAQs: Ritual-style layout and typography matching Image 2 */
+body .faq-list article.open {
+  background-color: #ffffff !important;
+}
+
+@media (min-width: 1024px) {
+  body section.adapted-faq {
+    display: grid !important;
+    grid-template-columns: 1fr 2fr !important;
+    gap: 60px !important;
+    align-items: start !important;
+    max-width: var(--page-max) !important;
+    margin-inline: auto !important;
+  }
+}
+
+body section.adapted-faq h2 {
+  font-family: Avenir, Figtree, sans-serif !important;
+  font-size: clamp(36px, 4vw, 54px) !important;
+  line-height: 1.1 !important;
+  margin: 0 !important;
+  color: var(--calm-ink) !important;
+}
+
 body .faq-list {
-  max-width: 850px !important;
-  margin-inline: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
 }
 
 body .faq-list article {
-  padding-inline: 24px !important;
+  padding-inline: 0 !important; /* aligns edge-to-edge with separator lines */
+  background: transparent !important;
+  border-top: none !important;
+  border-bottom: 1px solid var(--line) !important;
   transition: background-color 220ms ease !important;
 }
 
@@ -2523,59 +3214,196 @@ body .faq-list button {
   padding-left: 0 !important;
   padding-right: 0 !important;
   min-height: 48px !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: var(--calm-ink) !important;
+  padding-block: 20px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+body .faq-list button b {
+  font-weight: 600 !important;
+}
+
+body .faq-list button i {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 20px !important;
 }
 
 body .faq-answer {
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-top: 0 !important;
-  padding-bottom: 24px !important;
+  padding-bottom: 20px !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: var(--calm-ink-soft) !important;
 }
 
-/* Remove image carousel selector boxes */
-body .story-selector {
+/* Remove image carousel selector boxes and counters globally */
+body .story-gallery .story-selector,
+body .story-selector,
+body .story-gallery .story-counter,
+body .story-counter {
   display: none !important;
 }
 
-/* Full ingredients accordion */
-body .full-ingredients {
-  border-radius: 0 !important;
-  border: 1px solid var(--line) !important;
-  margin-top: 24px !important;
+body .story-gallery {
+  grid-template-rows: 1fr !important;
+  grid-template-columns: 1fr !important;
 }
 
-body .full-ingredients summary {
-  padding: 18px 24px !important;
-  min-height: 56px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  cursor: pointer !important;
-  user-select: none !important;
+/* Remove Results overlay box (Image 3) */
+body .results-media-overlay-chip {
+  display: none !important;
 }
 
-body .full-ingredients[open] summary {
-  border-bottom: 1px solid var(--line) !important;
+/* 2.7 The honest sequence title should come in 1 line (Image 5) */
+body .results-intro h2 {
+  max-width: none !important;
+  white-space: nowrap !important;
 }
 
-body .full-ingredients > p {
-  padding: 20px 24px !important;
-  margin: 0 !important;
-}
-
-/* Resolution section ("ONE COMPLETE RITUAL") — remove top gap */
+/* Resolution section ("ONE COMPLETE RITUAL") — full width background and centered grid content alignment */
 body .sv3-resolution {
-  padding-top: 24px !important;
+  background: var(--sage, #dce7de) !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin-inline: 0 !important;
+  box-sizing: border-box !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-inline: 0 !important;
+  padding-top: 32px !important;
+  padding-bottom: 32px !important;
+  padding-block: 32px !important;
+  display: grid !important;
+  grid-template-columns: minmax(24px, 1fr) minmax(0, 666px) minmax(0, 666px) minmax(24px, 1fr) !important;
+  gap: 20px 24px !important;
+}
+
+@media (max-width: 899px) {
+  body .sv3-resolution {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    padding-inline: 24px !important;
+  }
 }
 
 body .sv3-resolution-title-wrapper {
+  grid-column: 2 / 4 !important;
+  height: auto !important;
+  min-height: auto !important;
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
+@media (max-width: 899px) {
+  body .sv3-resolution-title-wrapper {
+    grid-column: 1 !important;
+  }
+}
+
 body .sv3-resolution-card {
-  padding-left: 24px !important;
-  padding-right: 24px !important;
+  padding: 24px !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body .sv3-resolution-card--path1 {
+  grid-column: 2 !important;
+}
+
+body .sv3-resolution-card--path2 {
+  grid-column: 3 !important;
+}
+
+@media (max-width: 899px) {
+  body .sv3-resolution-card--path1,
+  body .sv3-resolution-card--path2 {
+    grid-column: 1 !important;
+  }
+}
+
+/* Center align Science Intro on Mobile (Image 4) */
+@media (max-width: 899px) {
+  body .sv3-intro {
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  body .sv3-intro h2 {
+    text-align: center !important;
+    margin-inline: auto !important;
+  }
+  
+  body .sv3-intro-content,
+  body .sv3-intro > div {
+    align-items: center !important;
+    text-align: center !important;
+    margin-inline: auto !important;
+  }
+}
+
+/* Glossy transparent glass panel for Science copy stack exclusively on mobile (Image 5) */
+@media (max-width: 899px) {
+  body .sv3-copy-stack {
+    background: rgba(18, 26, 17, 0.55) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-left: 0 !important;
+    inset: auto 0 0 !important;
+    width: 100% !important;
+    height: 49% !important;
+  }
+}
+
+/* Size Option variant grid layout: Name and price inline, badge centered below (Image 2) */
+body .size-option {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: auto auto !important;
+  gap: 8px 12px !important;
+  align-items: center !important;
+  min-height: auto !important;
+  padding: 16px 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body .size-radio {
+  display: none !important;
+}
+
+body .size-name {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  margin: 0 !important;
+  text-align: left !important;
+  font-size: 16px !important;
+}
+
+body .size-price {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  margin: 0 !important;
+  text-align: right !important;
+  font-size: 16px !important;
+  margin-left: auto !important;
+}
+
+body .size-badge {
+  grid-column: 1 / 3 !important;
+  grid-row: 2 !important;
+  margin: 0 !important;
+  margin-inline: auto !important;
+  width: fit-content !important;
 }
 
 /* ----------------------------------------------------------------
@@ -2625,9 +3453,29 @@ body .results-media > div {
   overflow: hidden !important;
 }
 
+body .difference-grid {
+  display: grid !important;
+  grid-template-columns: minmax(320px, 1fr) 1.2fr !important;
+  gap: 36px !important;
+  align-items: start !important;
+}
+
 body .difference-visual {
-  aspect-ratio: 16 / 10 !important;
+  position: sticky !important;
+  top: 100px !important;
+  width: 100% !important;
+  height: 480px !important;
+  min-height: 440px !important;
+  border-radius: 12px !important;
   overflow: hidden !important;
+}
+
+body .difference-visual video,
+body .difference-visual img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
 body .formula-material img,
@@ -2707,4 +3555,393 @@ html {
 
 body main {
   overflow-x: clip !important;
+}
+
+/* 5.6 Ritual Steps Horizontal Column Progress Sequence (Superpower style, Images 1-3) */
+/* 5.6 Ritual Steps Pinned Scroll Progression & Animation (Images 1-3) */
+@media (min-width: 768px) {
+  body section.adapted-ritual {
+    min-height: 280vh !important;
+    position: relative !important;
+    display: block !important;
+    padding-bottom: 80px !important;
+  }
+
+  body .ritual-sticky-container {
+    position: sticky !important;
+    top: 90px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 36px !important;
+    width: 100% !important;
+    max-width: 1380px !important;
+    margin-inline: auto !important;
+    padding-inline: 24px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+body .ritual-intro {
+  max-width: 800px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body .ritual-steps {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 32px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 20px 0 0 0 !important;
+  width: 100% !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  background: transparent !important;
+  border: none !important;
+  box-sizing: border-box !important;
+}
+
+body .ritual-steps li {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: start !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+}
+
+/* Ritual Guide Refined Header & Pills */
+.ritual-header-badge {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 12px !important;
+}
+
+.ritual-kicker {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: var(--calm-clay) !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+.ritual-pill {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #39461d !important;
+  background: var(--calm-sage, #e3e8db) !important;
+  border: 1px solid var(--calm-rule) !important;
+  border-radius: 999px !important;
+  padding: 4px 12px !important;
+}
+
+.ritual-intro-sub {
+  font-size: 16px !important;
+  color: var(--calm-ink-soft) !important;
+  margin-top: 8px !important;
+}
+
+/* Single Continuous Live Moving Track */
+.ritual-track-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+}
+
+.ritual-continuous-track {
+  position: absolute !important;
+  top: 250px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 2px !important;
+  background: rgba(57, 70, 29, 0.15) !important;
+  z-index: 1 !important;
+}
+
+.ritual-continuous-fill {
+  width: 100% !important;
+  height: 100% !important;
+  background: #954721 !important;
+  transform-origin: left !important;
+  transition: transform 0.08s linear !important;
+}
+
+body .ritual-step-item .ritual-step-image-wrapper {
+  opacity: 0 !important;
+  transform: translateY(-24px) !important;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body .ritual-step-item .ritual-step-content {
+  opacity: 0 !important;
+  transform: translateY(24px) !important;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body .ritual-step-item.step-active .ritual-step-image-wrapper {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+body .ritual-step-item.step-active .ritual-step-content {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+body .ritual-step-image-wrapper img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+body .ritual-step-progress-line {
+  position: relative !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: rgba(57, 70, 29, 0.12) !important;
+  margin-bottom: 24px !important;
+}
+
+body .ritual-step-progress-line::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: -32px !important;
+  height: 2px !important;
+  background: #b1ba93 !important;
+  z-index: 1 !important;
+  transform: scaleX(var(--step-fill, 0)) !important;
+  transform-origin: left !important;
+  transition: transform 0.08s linear !important;
+}
+
+body .ritual-steps li:last-child .ritual-step-progress-line::before {
+  right: 0 !important;
+}
+
+body .ritual-step-badge {
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  transform: translateY(-50%) scale(0) !important;
+  transform-origin: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  background: #b1ba93 !important;
+  color: #2c3e24 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  font-family: Avenir, Figtree, sans-serif !important;
+  display: grid !important;
+  place-items: center !important;
+  z-index: 2 !important;
+  border-radius: 0 !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Active step animation triggers */
+body .ritual-steps li.step-active .ritual-step-image-wrapper,
+body .adapted-ritual.is-visible .ritual-steps li.step-active .ritual-step-image-wrapper {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+body .ritual-steps li.step-active .ritual-step-content,
+body .adapted-ritual.is-visible .ritual-steps li.step-active .ritual-step-content {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+body .ritual-steps li.step-active .ritual-step-progress-line::before,
+body .adapted-ritual.is-visible .ritual-steps li.step-active .ritual-step-progress-line::before {
+  transform: scaleX(1) !important;
+}
+
+body .ritual-steps li.step-active .ritual-step-badge,
+body .adapted-ritual.is-visible .ritual-steps li.step-active .ritual-step-badge {
+  transform: translateY(-50%) scale(1) !important;
+}
+
+body .ritual-step-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body .ritual-step-content b {
+  font-family: Avenir, Figtree, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: var(--calm-ink) !important;
+}
+
+body .ritual-step-content p {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: var(--calm-ink-soft) !important;
+  margin: 0 !important;
+}
+
+/* Mobile responsive horizontal swiping (degrades to snaps, bleeding right) */
+@media (max-width: 767px) {
+  body section.adapted-ritual {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    padding-inline: 24px !important;
+  }
+
+  body .ritual-steps {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 20px !important;
+    margin-inline: -24px !important; /* Bleed edge-to-edge */
+    padding-inline: 24px !important;
+    padding-bottom: 20px !important;
+    width: calc(100% + 48px) !important;
+  }
+
+  body .ritual-steps li {
+    flex: 0 0 280px !important;
+    scroll-snap-align: start !important;
+  }
+
+  body .ritual-step-progress-line::before {
+    right: -20px !important;
+  }
+
+  body .ritual-steps li:last-child .ritual-step-progress-line::before {
+    right: 0 !important;
+  }
+}
+
+/* 5.7 Full-Bleed Section Background Overrides (Image 1) */
+body main > section,
+body section.confidence-strip,
+body section.difference-section,
+body section.testimonials-section,
+body section.checkpoint-hero,
+body section.results,
+body section.formula,
+body section.comparison-v3,
+body section.adapted-ritual,
+body section.combined-reviews-section,
+body section.adapted-faq,
+body section.adapted-pack,
+body section.pack-facts {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body .formula-story,
+body .ingredient-explorer,
+body .results-intro,
+body .results-layout,
+body .results-qualification-card,
+body .ritual-intro,
+body .ritual-guidance-grid,
+body .difference-header,
+body .difference-grid,
+body .testimonials-inner,
+body .review-carousel__stage,
+body .faq-list,
+body section.adapted-faq > header,
+body .pack-heading,
+body .pack-list,
+body .pack-image,
+body .heritage-title,
+body .heritage-metrics,
+body .heritage-spectrum,
+body .heritage-patents {
+  max-width: 1380px !important;
+  margin-inline: auto !important;
+  padding-inline: 24px !important;
+  box-sizing: border-box !important;
+}
+
+/* Remove all internal left/right padding wrapper offsets */
+body .results-intro,
+body .results-layout,
+body .results-qualification-card,
+body .formula-story,
+body .ingredient-explorer,
+body .ritual-intro,
+body .ritual-media,
+body .ritual-guidance-grid,
+body .difference-header,
+body .difference-grid,
+body .testimonials-inner,
+body .review-carousel__stage,
+body .faq-list,
+body section.adapted-faq > header,
+body .pack-heading,
+body .pack-list,
+body .pack-image {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-inline: 0 !important;
+}
+
+/* 5.8 Mobile Typography Scale Legibility Tweaks (Image 2) */
+@media (max-width: 767px) {
+  body h1,
+  body .product-identity h1 {
+    font-size: 24px !important;
+    line-height: 1.15 !important;
+  }
+
+  body h2,
+  body .results-intro h2,
+  body .statement-header h2,
+  body .adapted-ritual h2,
+  body section.adapted-faq h2 {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+
+  body h3,
+  body .comparison-v3__versus-title h3,
+  body .sv3-resolution h3,
+  body .sv3-resolution-card h3 {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+  }
+
+  body p,
+  body li,
+  body td,
+  body th,
+  body .faq-answer {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  body .identity-subtitle {
+    font-size: 14px !important;
+  }
+}
+
+/* 5.9 Mobile Hero Gallery Object-Fit Fix (replaces contain with cover, removes white bg) */
+body .story-frame.frame-product video,
+body .story-frame.frame-product img,
+body .story-gallery video,
+body .story-gallery img {
+  object-fit: cover !important;
+  background-color: transparent !important;
 }

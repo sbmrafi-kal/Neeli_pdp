@@ -76,7 +76,7 @@ const scenes: Scene[] = [
     eyebrow: 'Recovery path 2 · Follicle research',
     title: 'Finally, follow the Bhringraj research story.',
     body:
-      'In preclinical dermal-papilla research, Bhringraj has shown molecular activity associated with the anagen phase. It is a promising ingredient story—not proof of regrowth from the finished oil.',
+      'In preclinical dermal-papilla research, Bhringraj has shown molecular activity associated with the anagen phase. It is a promising ingredient story-not proof of regrowth from the finished oil.',
     alt: 'Scientific research view of a hair follicle and dermal papilla with restrained gold signalling',
     image: 'follicle',
     evidenceLabel: 'Preclinical signals',
@@ -124,19 +124,22 @@ function SciencePicture({ scene }: { scene: Scene }) {
 function SceneTrace({ scene }: { scene: Scene['key'] }) {
   return (
     <svg className={`sv3-trace sv3-trace--${scene}`} viewBox="0 0 100 100" aria-hidden="true">
-      {scene === 'droplet' && <path pathLength="1" d="M68 10C82 28 84 54 69 78C59 92 42 94 31 84" />}
-      {scene === 'fibre' && <path pathLength="1" d="M14 74C32 69 42 61 54 48S76 28 91 24" />}
+      {scene === 'droplet' && <path pathLength="1" d="M32 24 C55 12 82 32 74 68 C66 84 46 90 32 78" />}
+      {scene === 'fibre' && <path pathLength="1" d="M18 78 C36 68 46 54 58 42 C72 28 84 22 92 18" />}
       {scene === 'scalp' && (
         <>
-          <path className="sv3-trace__amla" pathLength="1" d="M22 71C40 69 49 62 58 49" />
-          <path className="sv3-trace__neeli" pathLength="1" d="M18 80C37 79 44 70 54 58" />
-          <path className="sv3-trace__karnasphota" pathLength="1" d="M82 84C72 76 67 63 70 48S80 28 85 18" />
+          <path className="sv3-trace__amla" pathLength="1" d="M22 71 C40 69 49 62 58 49" />
+          <circle cx="58" cy="49" r="3.5" fill="#cca54e" />
+          <path className="sv3-trace__neeli" pathLength="1" d="M18 80 C37 79 44 70 54 58" />
+          <circle cx="54" cy="58" r="3.5" fill="#cca54e" />
+          <path className="sv3-trace__karnasphota" pathLength="1" d="M82 84 C72 76 67 63 70 48 S80 28 85 18" />
+          <circle cx="70" cy="48" r="3.5" fill="#cca54e" />
         </>
       )}
       {scene === 'follicle' && (
         <>
-          <path pathLength="1" d="M42 86C50 76 53 68 53 57" />
-          <circle cx="53" cy="56" r="8" />
+          <path pathLength="1" d="M48 86 C52 74 53 66 53 56" />
+          <circle cx="53" cy="56" r="7" stroke="#cca54e" strokeWidth="1.8" fill="none" />
         </>
       )}
     </svg>
@@ -326,7 +329,7 @@ export default function ScienceStoryV3({ onSceneChange }: ScienceStoryV3Props) {
         </div>
         <div className="sv3-intro-content">
           <p>
-            Follow the formula from hair fibre to scalp and follicle research—while keeping every evidence
+            Follow the formula from hair fibre to scalp and follicle research-while keeping every evidence
             boundary clear.
           </p>
         </div>

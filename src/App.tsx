@@ -44,7 +44,7 @@ const resultStages = [
 ];
 
 const ritualSteps = [
-  ['01','Warm','Warm oil penetrates—cold oil sits on the surface.'],
+  ['01','Warm','Warm oil penetrates-cold oil sits on the surface.'],
   ['02','Apply','Apply adequate amount gently onto the scalp and hair.'],
   ['03','Massage','Circular motion, 5 minutes. Fingertips, not nails.'],
   ['04','Wash','Rinse after 30 minutes to 1 hour with a mild shampoo.'],
@@ -52,7 +52,7 @@ const ritualSteps = [
 
 const faqItems = [
   ['What is the full ingredients list?',<><b>Oil base:</b> Coconut oil (Cocos nucifera). <b>Primary ingredients:</b> Amla (Emblica officinalis), Bhringaraj (Eclipta alba), Neeli (Indigofera tinctoria), Karnasphota (Cardiospermum halicacabum). <b>Triple-milk base:</b> Cow milk (Dhenukshira), Goat milk (Ajakshira), and Coconut milk (Nalikerakshira). <b>Supporting herbs:</b> Yashtimadhu (Glycyrrhiza glabra), Dhatriphala (Phyllanthus emblica), Gunjamoola (Abrus precatorius), and Anjana.</>],
-  ['How is it prepared?','Each bottle of Neelibhringadi Oil follows a 7-day process of preparation. It is prepared in small batches following the Thaila Paaka Vidhi process—a classical method requiring up to 48 hours of slow-heat extraction. Herbs are processed into a kashaya (decoction), and kalka (paste), then combined with the coconut oil base. The mixture is heated on low flame, stirred by hand, until the water content fully evaporates and the herbal essence binds to the oil.'],
+  ['How is it prepared?','Each bottle of Neelibhringadi Oil follows a 7-day process of preparation. It is prepared in small batches following the Thaila Paaka Vidhi process-a classical method requiring up to 48 hours of slow-heat extraction. Herbs are processed into a kashaya (decoction), and kalka (paste), then combined with the coconut oil base. The mixture is heated on low flame, stirred by hand, until the water content fully evaporates and the herbal essence binds to the oil.'],
   ['Are there any safety instructions for use?','External use only.'],
   ['Can I use it on coloured hair?','Yes. The formula is gentle. It may slightly darken hair over extended use due to the Bhringaraj and Neeli content.'],
   ['Does it help with greying?','Yes. Neeli and Bhringaraja are traditionally used to help minimise premature greying and support natural hair colour.'],
@@ -277,7 +277,13 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
 }
 
 function ConfidenceStrip(){
-  return <section className="confidence-strip" aria-label="Product confidence"><div><strong>4.7 / 5</strong><span>from 137 reviews</span></div><div><strong>40,000+</strong><span>bought this year</span></div><div><strong>Since 1945</strong><span>rooted in authentic Ayurveda</span></div></section>
+  return <section className="confidence-strip" aria-label="Product confidence">
+    <div className="confidence-strip-inner">
+      <div><strong>4.7 / 5</strong><span>from 137 reviews</span></div>
+      <div><strong>40,000+</strong><span>bought this year</span></div>
+      <div><strong>Since 1945</strong><span>rooted in authentic Ayurveda</span></div>
+    </div>
+  </section>
 }
 
 function ResultsSection(){
@@ -385,41 +391,122 @@ function FormulaSection({v3=false}:{v3?:boolean}){
   </section>
 }
 
-function RitualSection(){
-  return <section className="ritual section adapted-ritual" id="ritual">
-    <div className="ritual-intro"><p className="kicker">The ritual guide</p><h2>Warm, Apply, Massage, Wash</h2><p>Use 2× weekly. Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p></div>
-    <figure className="ritual-media"><div><ResponsiveImage src="/assets/production/ritual.webp" mobileSrc="/assets/production/ritual-mobile.webp" alt="Gentle fingertip scalp massage" width={1600} height={1200}/></div><figcaption>2× weekly · 30–60 minutes · wash out</figcaption></figure>
-    <ol className="ritual-steps">{ritualSteps.map(([index,title,copy])=><li key={index}><span>{index}</span><div><b>{title}</b><p>{copy}</p></div></li>)}</ol>
-    <div className="ritual-guidance-grid">
-      <aside className="ritual-reassurance-card" aria-label="What to expect from the ritual">
-        <div className="ritual-card-badge">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-          <span>Dosage & Application</span>
+function RitualSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      if (rect.top <= windowHeight && rect.bottom >= 0) {
+        setIsVisible(true);
+        const totalScrollable = rect.height - windowHeight;
+        if (totalScrollable > 0) {
+          const current = -rect.top;
+          const progress = Math.min(Math.max(current / totalScrollable, 0), 1);
+          setScrollProgress(progress);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const stepThresholds = [0, 0.20, 0.48, 0.72];
+
+  return (
+    <section 
+      ref={sectionRef} 
+      className={`ritual section adapted-ritual ${isVisible ? 'is-visible' : ''}`} 
+      id="ritual"
+    >
+      <div className="ritual-sticky-container">
+        <div className="ritual-intro">
+          <div className="ritual-header-badge">
+            <span className="ritual-kicker">THE RITUAL GUIDE</span>
+            <span className="ritual-pill">2× Weekly</span>
+            <span className="ritual-pill">30–60 Min Wash-Out</span>
+          </div>
+          <h2>Warm, Apply, Massage, Wash</h2>
+          <p className="ritual-intro-sub">Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.</p>
         </div>
-        <strong>Rich by design. Easier with the right amount.</strong>
-        <p>This is a pre-wash oil, so it will feel richer than a leave-in serum. Start small and adjust for your hair density. Consistency matters more than vigorous rubbing or leaving it on overnight.</p>
-        <div className="ritual-card-chips">
-          <span>Start with 5–10 ml</span>
-          <span>Focus on scalp roots</span>
-          <span>Consistency over intensity</span>
-        </div>
-      </aside>
-      <div className="ritual-temperature-card" aria-label="Seasonal care advice">
-        <div className="ritual-card-badge">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          <span>Seasonal Care</span>
-        </div>
-        <strong>In cooler weather, the coconut oil base may solidify.</strong>
-        <p>Because Neelibhringadi Keram uses pure, unrefined coconut oil as its base, it naturally solidifies below 24°C. Warm the bottle gently in a bowl of warm water before use to restore its smooth fluid flow.</p>
-        <div className="ritual-card-chips">
-          <span>100% Pure Coconut Base</span>
-          <span>Warm gently in water</span>
-          <span>Preserves herbal potency</span>
+
+        <div className="ritual-track-wrapper">
+          <div className="ritual-continuous-track">
+            <div 
+              className="ritual-continuous-fill" 
+              style={{ transform: `scaleX(${Math.min(1, Math.max(0, scrollProgress))})` }} 
+            />
+          </div>
+
+          <ol className="ritual-steps">
+            {ritualSteps.map(([index, title, copy], idx) => {
+              const isActive = !isVisible || scrollProgress >= stepThresholds[idx];
+
+              return (
+                <li 
+                  key={index} 
+                  className={`ritual-step-item ${isActive ? 'step-active' : ''}`}
+                >
+                  <div className="ritual-step-image-wrapper">
+                    <img 
+                      src={`/assets/production/ritual-step-${idx + 1}.webp`} 
+                      alt={title} 
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="ritual-step-badge-wrapper">
+                    <span className="ritual-step-badge">{index}</span>
+                  </div>
+                  <div className="ritual-step-content">
+                    <b>{title}</b>
+                    <p>{copy}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
-    </div>
-  </section>
-}
+
+        <div className="ritual-guidance-grid">
+          <aside className="ritual-reassurance-card" aria-label="What to expect from the ritual">
+            <div className="ritual-card-badge">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              <span>Dosage & Application</span>
+            </div>
+            <strong>Rich by design. Easier with the right amount.</strong>
+            <p>This is a pre-wash oil, so it will feel richer than a leave-in serum. Start small and adjust for your hair density. Consistency matters more than vigorous rubbing or leaving it on overnight.</p>
+            <div className="ritual-card-chips">
+              <span>Start with 5–10 ml</span>
+              <span>Focus on scalp roots</span>
+              <span>Consistency over intensity</span>
+            </div>
+          </aside>
+          <div className="ritual-temperature-card" aria-label="Seasonal care advice">
+            <div className="ritual-card-badge">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              <span>Seasonal Care</span>
+            </div>
+            <strong>In cooler weather, the coconut oil base may solidify.</strong>
+            <p>Because Neelibhringadi Keram uses pure, unrefined coconut oil as its base, it naturally solidifies below 24°C. Warm the bottle gently in a bowl of warm water before use to restore its smooth fluid flow.</p>
+            <div className="ritual-card-chips">
+              <span>100% Pure Coconut Base</span>
+              <span>Warm gently in water</span>
+              <span>Preserves herbal potency</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
 /**
  * APPROVED AND LOCKED PDP SECTION
@@ -455,7 +542,17 @@ function KeralaAyurvedaDifference() {
       </header>
       <div className="difference-grid">
         <div className="difference-visual">
-          <img src="/assets/production/slow-cooking.webp" alt="Herbs boiling on low fire in oil" className="diff-image" />
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            poster="/assets/production/slow-cooking.webp"
+            className="diff-image diff-video"
+          >
+            <source src="/assets/production/slow-cooking.mp4" type="video/mp4" />
+            <img src="/assets/production/slow-cooking.webp" alt="Herbs boiling on low fire in oil" className="diff-image" />
+          </video>
           <div className="diff-visual-overlay">
             <strong>Authentic Thaila Paaka Vidhi</strong>
             <span>48-hour traditional cooking process</span>
@@ -501,6 +598,9 @@ function KeralaAyurvedaDifference() {
 function TestimonialsSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const touchStartX = useRef<number | null>(null);
+  const pointerStartX = useRef<number | null>(null);
+
   const reviews = [
     {
       quote: "My hair felt softer after washing, and the oil was easier to remove than I expected.",
@@ -525,6 +625,39 @@ function TestimonialsSlider() {
     }
   ];
 
+  const next = () => {
+    setCurrentSlide((prev) => (prev + 1) % reviews.length);
+  };
+  const previous = () => {
+    setCurrentSlide((prev) => (prev - 1 + reviews.length) % reviews.length);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diffX = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) next();
+      else previous();
+    }
+    touchStartX.current = null;
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pointerStartX.current = e.clientX;
+  };
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (pointerStartX.current === null) return;
+    const diffX = e.clientX - pointerStartX.current;
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) next();
+      else previous();
+    }
+    pointerStartX.current = null;
+  };
+
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
@@ -538,6 +671,11 @@ function TestimonialsSlider() {
       className="testimonials-section"
       onMouseEnter={() => setIsPlaying(false)}
       onMouseLeave={() => setIsPlaying(true)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      style={{ touchAction: 'pan-y' }}
       aria-label="Customer Testimonials"
       data-section="approved-testimonial"
     >
@@ -554,7 +692,7 @@ function TestimonialsSlider() {
           <button
             type="button"
             aria-label="Previous testimonial"
-            onClick={() => setCurrentSlide((prev) => (prev - 1 + reviews.length) % reviews.length)}
+            onClick={previous}
           >
             ←
           </button>
@@ -562,7 +700,7 @@ function TestimonialsSlider() {
           <button
             type="button"
             aria-label="Next testimonial"
-            onClick={() => setCurrentSlide((prev) => (prev + 1) % reviews.length)}
+            onClick={next}
           >
             →
           </button>
@@ -578,6 +716,8 @@ function ReviewsSection(){
   const [isPlaying, setIsPlaying] = useState(true);
   const [isVisible,setIsVisible]=useState(false);
   const [cycleToken,setCycleToken]=useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const pointerStartX = useRef<number | null>(null);
   const reducedMotion=useMediaQuery('(prefers-reduced-motion: reduce)');
   const reviewDuration=5200;
   const reviews = [
@@ -604,6 +744,41 @@ function ReviewsSection(){
     }
   ];
 
+  const next = () => {
+    setCurrentSlide((prev) => (prev + 1) % reviews.length);
+    setCycleToken((token) => token + 1);
+  };
+  const previous = () => {
+    setCurrentSlide((prev) => (prev - 1 + reviews.length) % reviews.length);
+    setCycleToken((token) => token + 1);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diffX = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) next();
+      else previous();
+    }
+    touchStartX.current = null;
+  };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pointerStartX.current = e.clientX;
+  };
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (pointerStartX.current === null) return;
+    const diffX = e.clientX - pointerStartX.current;
+    if (Math.abs(diffX) > 50) {
+      if (diffX < 0) next();
+      else previous();
+    }
+    pointerStartX.current = null;
+  };
+
   useEffect(() => {
     const section=sectionRef.current;
     if(!section)return;
@@ -629,10 +804,11 @@ function ReviewsSection(){
     className={`reviews section adapted-reviews verified-reviews combined-reviews-section review-carousel${isPlaying&&!reducedMotion?' is-running':''}`}
     id="reviews"
     data-review-index={currentSlide+1}
-    onMouseEnter={pauseReviews}
-    onMouseLeave={resumeReviews}
-    onFocusCapture={pauseReviews}
-    onBlurCapture={resumeReviews}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd}
+    onPointerDown={handlePointerDown}
+    onPointerUp={handlePointerUp}
+    style={{ touchAction: 'pan-y' }}
     aria-label="Customer Reviews"
   >
     <div className="testimonials-inner review-carousel__stage" key={currentSlide}>
@@ -673,7 +849,47 @@ function ProductDetailsSection(){
 }
 
 function HeritageSection(){
-  return <section className="heritage adapted-heritage"><div className="heritage-title"><p className="kicker">Kerala Ayurveda</p><h2>Rooted in Authentic Ayurveda.</h2></div><div className="heritage-metrics"><div><strong>1945</strong><span>Established</span></div><div><strong>350+</strong><span>Products</span></div><div><strong>Expert led</strong><span>Clinics &amp; Academy</span></div></div><div className="heritage-spectrum"><p>Full Spectrum</p><span>Classical and Proprietary Ayurvedic Products (350+ Products) · Therapies and Ayurvedic Retreats · Academy and Education Initiatives · Pioneering Ayurvedic R&amp;D</span></div><div className="heritage-patents"><p>Globally Recognized</p><h3>Patented formulations</h3><span>Patented products in the United States, Japan and Korea.</span></div></section>
+  return <section className="heritage adapted-heritage" id="heritage">
+    <div className="heritage-title">
+      <p className="kicker">SINCE 1945 • 80 YEARS OF EXCELLENCE</p>
+      <h2>Rooted in Authentic Ayurveda.</h2>
+      <p className="heritage-subtitle">Over eight decades of classical formulation, organic herbal cultivation, and global patented research.</p>
+    </div>
+    <div className="heritage-metrics">
+      <div className="metric-card">
+        <strong>1945</strong>
+        <span>Est. Lineage</span>
+        <small>80-year Vaidya tradition</small>
+      </div>
+      <div className="metric-card">
+        <strong>350+</strong>
+        <span>Classical Formulas</span>
+        <small>Purity-tested preparations</small>
+      </div>
+      <div className="metric-card">
+        <strong>100%</strong>
+        <span>Organic Sourcing</span>
+        <small>Herbs from natural habitats</small>
+      </div>
+      <div className="metric-card">
+        <strong>Global</strong>
+        <span>Patented Research</span>
+        <small>US, Japan & Korea patents</small>
+      </div>
+    </div>
+    <div className="heritage-pillars">
+      <div className="heritage-pillar">
+        <span className="pillar-badge">SEED-TO-SHELF PURITY</span>
+        <h3>Own Herbal Gardens in Kerala</h3>
+        <p>We manage our own organic herbal farms, wellness clinics, research centers, and academy to guarantee complete authenticity with zero artificial adulteration.</p>
+      </div>
+      <div className="heritage-pillar">
+        <span className="pillar-badge">SCIENTIFIC VALIDATION</span>
+        <h3>Global Formulations & Patents</h3>
+        <p>Backed by US, Japan, and Korea patents, combining ancient Vaidya wisdom with modern safety testing and strict GMP manufacturing standards.</p>
+      </div>
+    </div>
+  </section>
 }
 
 function SiteFooter(){
@@ -849,10 +1065,10 @@ function App(){
             <h3>WHAT’S IN IT</h3>
             <ul>
               <li><b>21 Ayurvedic ingredients</b> slow-cooked in unrefined coconut oil</li>
-              <li><b>Bhringraj</b> — Traditionally used for scalp &amp; root care</li>
-              <li><b>Amla</b> — Natural Vitamin C &amp; antioxidant support</li>
-              <li><b>Neeli &amp; Karnasphota</b> — Deep scalp cooling &amp; hair fibre protection</li>
-              <li><b>Three milks</b> — Coconut, Cow &amp; Goat milk nourishment</li>
+              <li><b>Bhringraj</b> - Traditionally used for scalp &amp; root care</li>
+              <li><b>Amla</b> - Natural Vitamin C &amp; antioxidant support</li>
+              <li><b>Neeli &amp; Karnasphota</b> - Deep scalp cooling &amp; hair fibre protection</li>
+              <li><b>Three milks</b> - Coconut, Cow &amp; Goat milk nourishment</li>
             </ul>
           </div>
           <div className="statement-exclusion">
