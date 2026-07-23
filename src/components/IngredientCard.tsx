@@ -57,7 +57,7 @@ export const IngredientCard: React.FC<IngredientCardProps> = ({
         willChange: 'transform, box-shadow',
       }}
     >
-      {/* Background Media Edge-to-Edge (Properly Framed & Zoomed Out) */}
+      {/* Background Media Edge-to-Edge */}
       <div className="absolute inset-0 bg-slate-950 overflow-hidden pointer-events-none">
         {ingredient.videoSrc ? (
           <video
@@ -83,19 +83,19 @@ export const IngredientCard: React.FC<IngredientCardProps> = ({
 
       {/* Subtle Top Gradient Overlay */}
       <div
-        className={`absolute top-0 inset-x-0 h-20 pointer-events-none z-10 ${
+        className={`absolute top-0 inset-x-0 h-16 pointer-events-none z-10 ${
           isLightTheme
-            ? 'bg-gradient-to-b from-white/40 via-transparent to-transparent'
-            : 'bg-gradient-to-b from-black/40 via-transparent to-transparent'
+            ? 'bg-gradient-to-b from-white/30 via-transparent to-transparent'
+            : 'bg-gradient-to-b from-black/35 via-transparent to-transparent'
         }`}
       />
 
-      {/* Subtle Bottom Gradient Overlay (Only Darkens Behind Text) */}
+      {/* Soft, Light Bottom Gradient Overlay (Natural Media Visible to Bottom Edge) */}
       <div
-        className={`absolute bottom-0 inset-x-0 h-[60%] pointer-events-none z-10 transition-opacity duration-500 ${
+        className={`absolute bottom-0 inset-x-0 h-[45%] pointer-events-none z-10 transition-opacity duration-500 ${
           isLightTheme
-            ? 'bg-gradient-to-t from-[#F4F7F2]/90 via-[#F4F7F2]/40 to-transparent'
-            : 'bg-gradient-to-t from-black/75 via-black/25 to-transparent'
+            ? 'bg-gradient-to-t from-[#F4F7F2]/80 via-[#F4F7F2]/30 to-transparent'
+            : 'bg-gradient-to-t from-black/50 via-black/15 to-transparent'
         }`}
       />
 
@@ -152,15 +152,15 @@ export const IngredientCard: React.FC<IngredientCardProps> = ({
             {ingredient.description}
           </p>
 
-          {/* Action Button: Transparent Outline Pill */}
+          {/* Action Button: ALWAYS Solid White Text Outline Pill */}
           <div>
             <button
               type="button"
               onClick={() => onOpenDetails(ingredient)}
-              className={`inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 shadow-sm cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all duration-300 shadow-sm cursor-pointer ${
                 isLightTheme
-                  ? 'border border-[#39461d]/70 bg-transparent text-[#39461d] hover:bg-[#39461d] hover:text-white'
-                  : 'border border-white/80 bg-transparent text-white hover:bg-white hover:text-slate-950'
+                  ? 'border-[#39461d]/80 bg-transparent !text-[#39461d] hover:bg-[#39461d] hover:!text-white'
+                  : 'border-white/80 bg-transparent !text-white hover:bg-white hover:!text-slate-950 font-medium'
               }`}
             >
               <span>Learn More</span>
