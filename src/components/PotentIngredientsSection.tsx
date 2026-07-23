@@ -142,10 +142,11 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
   const [selectedIngredient, setSelectedIngredient] = useState<IngredientItem | null>(null);
 
   return (
-    <section
-      id="ingredients"
-      className={`potent-ingredients-section relative py-14 sm:py-20 px-3 sm:px-6 md:px-12 my-8 sm:my-16 bg-[#DCE4DA] rounded-[32px] sm:rounded-[40px] border border-[#39461d]/10 text-[#39461d] overflow-hidden shadow-sm ${className}`}
-    >
+    <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container my-8 sm:my-16">
+      <section
+        id="ingredients"
+        className={`potent-ingredients-section relative py-14 sm:py-20 bg-[#DCE4DA] rounded-[32px] sm:rounded-[40px] text-[#39461d] overflow-hidden shadow-sm ${className}`}
+      >
       {/* Background Decorative Soft Blur Spheres */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
@@ -178,6 +179,7 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
         ingredient={selectedIngredient}
         onClose={() => setSelectedIngredient(null)}
       />
-    </section>
+      </section>
+    </div>
   );
 };

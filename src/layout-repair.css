@@ -651,6 +651,126 @@ body .confidence-strip-inner {
   margin-block: 0 !important;
 }
 
+/* ==========================================================================
+   DEFINITIVE GLOBAL PDP SECTION & MARGINAL CONTAINER SYSTEM REPAIR
+   ========================================================================== */
 
+/* 1. All root section elements must be full-bleed block wrappers */
+html body main > section,
+html body section,
+html body section.statement,
+html body section.faq,
+html body section.adapted-faq,
+html body section#purity-statement,
+html body section#results,
+html body section#details,
+html body section#product,
+html body section#reviews,
+html body section#comparison,
+html body section.difference-section {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-inline: 0 !important;
+  grid-template-columns: none !important;
+  box-sizing: border-box !important;
+}
 
+/* 2. All inner site-containers enforce standard 1280px max-width & responsive marginal padding */
+@media (min-width: 1024px) {
+  html body main > section > div.site-container,
+  html body section > div.site-container,
+  html body .site-container,
+  html body .difference-grid,
+  html body .difference-header {
+    width: 100% !important;
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 48px !important;
+    padding-right: 48px !important;
+    box-sizing: border-box !important;
+  }
+}
 
+@media (max-width: 1023px) {
+  html body main > section > div.site-container,
+  html body section > div.site-container,
+  html body .site-container,
+  html body .difference-grid,
+  html body .difference-header {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* 3. Specific Section Component Layout Resets */
+
+/* FAQs Section Reset */
+html body section#faq,
+html body section.adapted-faq {
+  background-color: #efe6dc !important;
+}
+
+html body .faq-list,
+html body section.adapted-faq .faq-list {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+html body .faq-list article {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Purity Statement Section Reset */
+html body section#purity-statement,
+html body section.statement {
+  background-color: #efe6dc !important;
+}
+
+/* Product Specifications Section Reset */
+html body section#details {
+  background-color: #faf8f5 !important;
+}
+
+/* Hero Section Reset */
+html body section#product {
+  background-color: #faf8f5 !important;
+}
+
+/* Heritage Section Header & Grid Reset */
+html body .difference-header,
+html body header.difference-header {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+html body .difference-grid {
+  margin-top: 32px !important;
+}
+
+/* Sticky FAQ Header Reset */
+@media (min-width: 1024px) {
+  html body section.adapted-faq header,
+  html body section#faq header {
+    position: sticky !important;
+    top: 120px !important;
+    align-self: start !important;
+  }
+}

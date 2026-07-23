@@ -70,58 +70,60 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
       {/* ========================================== */}
       {/* 1. ONE COMPLETE RITUAL SECTION */}
       {/* ========================================== */}
-      <section className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16 text-left">
-        <h2 className="text-2xl md:text-3xl font-serif tracking-widest text-stone-900 uppercase mb-8 text-center">
-          ONE COMPLETE RITUAL
-        </h2>
+      <section className="w-full bg-[#efe6dc] py-0 text-left">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
+          <h2 className="text-2xl md:text-3xl font-serif tracking-widest text-stone-900 uppercase mb-8 text-center">
+            ONE COMPLETE RITUAL
+          </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: Path 01 */}
-          <div className="bg-[#f8f6f0] border border-stone-200/80 p-8 sm:p-10 rounded-3xl text-left shadow-xs flex flex-col justify-between">
-            <div>
-              <span className="bg-stone-200/80 text-stone-700 text-[10px] tracking-widest uppercase px-3.5 py-1 rounded-full w-fit mb-4 font-semibold block">
-                Path 01
-              </span>
-              <h3 className="font-serif text-2xl sm:text-3xl text-stone-900 mb-3 font-medium">
-                Fibre + Scalp Support
-              </h3>
-              <p className="text-stone-700 text-sm sm:text-base leading-relaxed font-sans">
-                Lauric-acid-rich coconut oil penetrates the hair shaft to significantly reduce protein loss during wash cycles, while Amla and Neeli provide traditional antioxidant scalp defense.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-stone-300/50">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Card 1: Path 01 */}
+            <div className="bg-[#f8f6f0] border border-stone-200/80 p-8 sm:p-10 rounded-3xl text-left shadow-xs flex flex-col justify-between">
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Shaft Protection</span>
-                <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Reduces protein loss</p>
+                <span className="bg-stone-200/80 text-stone-700 text-[10px] tracking-widest uppercase px-3.5 py-1 rounded-full w-fit mb-4 font-semibold block font-sans">
+                  PATH 01
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl text-stone-900 mb-3 font-medium">
+                  Fibre + Scalp Support
+                </h3>
+                <p className="text-stone-700 text-sm sm:text-base leading-relaxed font-sans">
+                  Lauric-acid-rich coconut oil penetrates the hair shaft to significantly reduce protein loss during wash cycles, while Amla and Neeli provide traditional antioxidant scalp defense.
+                </p>
               </div>
-              <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Scalp Defense</span>
-                <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Cooling &amp; soothe</p>
+              <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-stone-300/50 font-sans">
+                <div>
+                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Shaft Protection</span>
+                  <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Reduces protein loss</p>
+                </div>
+                <div>
+                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Scalp Defense</span>
+                  <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Cooling &amp; soothe</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Card 2: Path 02 */}
-          <div className="bg-[#f8f6f0] border border-stone-200/80 p-8 sm:p-10 rounded-3xl text-left shadow-xs flex flex-col justify-between">
-            <div>
-              <span className="bg-stone-200/80 text-stone-700 text-[10px] tracking-widest uppercase px-3.5 py-1 rounded-full w-fit mb-4 font-semibold block">
-                Path 02
-              </span>
-              <h3 className="font-serif text-2xl sm:text-3xl text-stone-900 mb-3 font-medium">
-                Growth Cycle Research Signals
-              </h3>
-              <p className="text-stone-700 text-sm sm:text-base leading-relaxed font-sans">
-                Bhringraj (*Eclipta alba*) is the growth-cycle research anchor. Preclinical findings report activity in anagen-linked signals (FGF-7 &amp; mTOR) to support natural root strength.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-stone-300/50">
+            {/* Card 2: Path 02 */}
+            <div className="bg-[#f8f6f0] border border-stone-200/80 p-8 sm:p-10 rounded-3xl text-left shadow-xs flex flex-col justify-between">
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Anagen Support</span>
-                <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Preclinical signals</p>
+                <span className="bg-stone-200/80 text-stone-700 text-[10px] tracking-widest uppercase px-3.5 py-1 rounded-full w-fit mb-4 font-semibold block font-sans">
+                  PATH 02
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl text-stone-900 mb-3 font-medium">
+                  Growth Cycle Research Signals
+                </h3>
+                <p className="text-stone-700 text-sm sm:text-base leading-relaxed font-sans">
+                  Bhringraj (*Eclipta alba*) is the growth-cycle research anchor. Preclinical findings report activity in anagen-linked signals (FGF-7 &amp; mTOR) to support natural root strength.
+                </p>
               </div>
-              <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Ayurvedic Base</span>
-                <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Triple-milk nourish</p>
+              <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-stone-300/50 font-sans">
+                <div>
+                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Anagen Support</span>
+                  <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Preclinical signals</p>
+                </div>
+                <div>
+                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Ayurvedic Base</span>
+                  <p className="text-xs sm:text-sm font-medium text-stone-800 mt-0.5">Triple-milk nourish</p>
+                </div>
               </div>
             </div>
           </div>
@@ -131,7 +133,8 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
       {/* ========================================== */}
       {/* 2. CATEGORY COMPARISON SECTION */}
       {/* ========================================== */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 text-left">
+      <section className="w-full bg-[#efe6dc] py-0 text-left">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
         <div className="mb-8 border-b border-stone-300/60 pb-6">
           <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
             Category Comparison
@@ -198,13 +201,15 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
             </div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* ========================================== */}
       {/* 3. DOCTOR CONSULTATION CARD */}
       {/* ========================================== */}
-      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 text-left">
-        <div className="bg-[#f0edeb] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center border border-stone-300/60 shadow-xs max-h-[320px]">
+      <section className="w-full bg-[#efe6dc] py-0 text-left">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
+          <div className="bg-[#f0edeb] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center border border-stone-300/60 shadow-xs max-h-[320px]">
           {/* Left Content Column */}
           <div className="p-6 md:p-8 flex flex-col justify-center space-y-3 text-left">
             <span className="text-[10px] tracking-widest text-stone-500 font-semibold uppercase block font-sans">
@@ -248,7 +253,8 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
             />
           </div>
         </div>
-      </section>
+      </div>
+    </section>
     </div>
   );
 }
