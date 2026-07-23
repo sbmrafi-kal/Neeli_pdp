@@ -132,7 +132,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
   const activeModuloIndex = ((currentIndex % baseCount) + baseCount) % baseCount;
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-1 sm:px-6">
+    <div className="relative w-full max-w-7xl mx-auto px-0 sm:px-6">
       {/* Outer Container */}
       <div className="relative group">
         {/* Navigation Arrow Left */}
@@ -171,7 +171,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
             return (
               <div
                 key={item.id}
-                className="snap-start shrink-0 w-[82vw] sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] xl:w-[calc(25%-12px)] transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)"
+                className="snap-start shrink-0 w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] xl:w-[calc(25%-12px)] transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)"
                 style={{ scrollSnapAlign: 'start' }}
               >
                 <IngredientCard

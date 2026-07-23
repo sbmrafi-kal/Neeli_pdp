@@ -15,12 +15,12 @@ const Search = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.
 const Check = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>;
 
 const slides = [
-  {src:'/assets/production/product-presence-poster.webp',mobileSrc:'/assets/production/product-presence-poster.webp',alt:'Official Neelibhringadi Keram bottle with Amla and coconut in warm natural light',label:'The complete hair recovery oil',eyebrow:'Complete hair recovery',shortLabel:'Bottle',frameClass:'frame-product'},
-  {src:'/assets/production/oil-texture.webp',mobileSrc:'/assets/production/oil-texture-mobile.webp',alt:'Deep violet-brown herbal oil flowing from a spoon',label:'The medicated oil texture',eyebrow:'The coconut oil base',shortLabel:'Texture',frameClass:'frame-texture'},
+  {src:'/assets/production/product-presence-motion.mp4',mobileSrc:'/assets/production/product-presence-motion-mobile.mp4',poster:'/assets/production/product-presence-poster.webp',alt:'Official Neelibhringadi Keram bottle with Amla and coconut in warm natural light',label:'The complete hair recovery oil',eyebrow:'Complete hair recovery',shortLabel:'Bottle',frameClass:'frame-product',isVideo:true},
+  {src:'/assets/production/oil-texture-motion.mp4',mobileSrc:'/assets/production/oil-texture-motion.mp4',poster:'/assets/production/oil-texture.webp',alt:'Deep violet-brown herbal oil flowing from a spoon',label:'The medicated oil texture',eyebrow:'The coconut oil base',shortLabel:'Texture',frameClass:'frame-texture',isVideo:true},
   {src:'/assets/production/ritual.webp',mobileSrc:'/assets/production/ritual-mobile.webp',alt:'Woman receiving a gentle fingertip scalp massage',label:'Fingertip scalp massage',eyebrow:'Ritual use',shortLabel:'Massage',frameClass:'frame-ritual'},
   {src:'/assets/production/ingredients.webp',mobileSrc:'/assets/production/ingredients-mobile.webp',alt:'Amla, Neeli, Bhringaraj and coconut used in the formula',label:'Four powerful ingredients',eyebrow:'Key ingredients',shortLabel:'Herbs',frameClass:'frame-ingredients'},
   {src:'/assets/production/triple-milk.webp',mobileSrc:'/assets/production/triple-milk-mobile.webp',alt:'Cow milk, goat milk and coconut milk in three bowls',label:'The triple-milk formula',eyebrow:'The special base',shortLabel:'Milks',frameClass:'frame-milks'},
-  {src:'/assets/production/hair-result.webp',mobileSrc:'/assets/production/hair-result-mobile.webp',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Video',frameClass:'frame-results'},
+  {src:'/assets/production/hair-result.webp',mobileSrc:'/assets/production/hair-result-mobile.webp',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Result',frameClass:'frame-results'},
 ];
 
 const navItems = [['product','Overview'],['results','Results'],['formula','Formula'],['comparison','Compare'],['ritual','How to use'],['reviews','Reviews']];
@@ -93,9 +93,9 @@ function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,pr
         <span aria-label={`${cart} in cart`} className="px-4 py-3.5 font-semibold text-stone-900">{cart}</span>
         <button type="button" aria-label="Increase quantity" onClick={onIncrease} className="px-4 py-3.5 font-bold text-stone-700 hover:bg-stone-200 cursor-pointer">+</button>
       </div>
-      <button type="button" className="w-full flex-1 bg-[#2C3E2E] hover:bg-[#1f2d21] text-white py-4 px-6 rounded-xl font-semibold tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans" onClick={onViewCart}>
-        <span>VIEW CART</span>
-        <span className="opacity-80 font-mono">· ₹{price * cart}</span>
+      <button type="button" style={{ color: '#ffffff' }} className="w-full flex-1 bg-[#2C3E2E] hover:bg-[#1f2d21] !text-white text-white py-4 px-6 rounded-xl font-semibold tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans" onClick={onViewCart}>
+        <span style={{ color: '#ffffff' }} className="!text-white">VIEW CART</span>
+        <span style={{ color: '#ffffff' }} className="opacity-90 font-mono !text-white">· ₹{price * cart}</span>
       </button>
     </div>
   );
@@ -304,12 +304,13 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
       >
         {slides[slide].src.endsWith('.mp4') || (slides[slide] as any).isVideo ? (
           <video 
+            key={slides[slide].src}
             src={slides[slide].src} 
             autoPlay 
             loop 
             muted 
             playsInline 
-            className="w-full h-full object-cover object-center" 
+            className="w-full h-full object-cover object-center scale-[0.94] transition-transform duration-300" 
           />
         ) : (
           <img 
@@ -343,8 +344,8 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
         </button>
       </div>
 
-      {/* Thumbnails Container - Hidden on Mobile */}
-      <div className="hidden sm:flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-none" aria-label="Choose a gallery image">
+      {/* Thumbnails Container - Hidden on Mobile, Centered on Desktop */}
+      <div className="hidden sm:flex justify-center items-center gap-3 mt-4 overflow-x-auto pb-2 scrollbar-none" aria-label="Choose a gallery image">
         {slides.map((frame, index) => {
           const isThumbVideo = frame.src.endsWith('.mp4') || (frame as any).isVideo;
           return (
@@ -361,7 +362,7 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
               aria-label={`View thumbnail ${index + 1}: ${frame.label}`}
             >
               {isThumbVideo ? (
-                <video src={frame.src} muted playsInline className="w-full h-full object-cover object-center" />
+                <video src={frame.src} autoPlay loop muted playsInline className="w-full h-full object-cover object-center" />
               ) : (
                 <img 
                   src={frame.src} 
@@ -381,30 +382,30 @@ function ConfidenceStrip(){
   return (
     <div className="w-full bg-[#f2efe9] border-y border-stone-200/80 my-10 text-left confidence-strip-wrapper">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 site-container">
-        <div className="bg-[#f2efe9] rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 text-center divide-y md:divide-y-0 md:divide-x divide-stone-300/70">
-          <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
-            <span className="text-2xl md:text-3xl font-serif font-semibold text-stone-900">
+        <div className="bg-[#f2efe9] rounded-2xl grid grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-4 md:gap-0 text-center divide-y-0 md:divide-x divide-stone-300/70">
+          <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4 border-r md:border-r-0 border-stone-300/70">
+            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-stone-900">
               4.7 / 5
             </span>
-            <span className="text-[11px] font-bold tracking-widest text-stone-600 uppercase mt-1">
+            <span className="text-[10px] sm:text-[11px] font-bold tracking-widest text-stone-600 uppercase mt-1">
               FROM 137 VERIFIED REVIEWS
             </span>
           </div>
 
           <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
-            <span className="text-2xl md:text-3xl font-serif font-semibold text-stone-900">
+            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-stone-900">
               100% AUTHENTIC
             </span>
-            <span className="text-[11px] font-bold tracking-widest text-stone-600 uppercase mt-1">
+            <span className="text-[10px] sm:text-[11px] font-bold tracking-widest text-stone-600 uppercase mt-1">
               CLASSICAL THAILA PAAKA VIDHI
             </span>
           </div>
 
-          <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
-            <span className="text-2xl md:text-3xl font-serif font-semibold text-stone-900">
+          <div className="col-span-2 md:col-span-1 flex flex-col items-center justify-center py-3 md:py-0 md:px-4 border-t md:border-t-0 border-stone-300/70 pt-4 md:pt-0">
+            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-stone-900">
               SINCE 1945
             </span>
-            <span className="text-[11px] font-bold tracking-widest text-stone-600 uppercase mt-1">
+            <span className="text-[10px] sm:text-[11px] font-bold tracking-widest text-stone-600 uppercase mt-1">
               ROOTED IN AYURVEDIC LINEAGE
             </span>
           </div>
@@ -444,7 +445,7 @@ function ResultsSection(){
         {/* Right Side: Clean Unboxed Editorial Timeline (lg:col-span-7) */}
         <div className="lg:col-span-7 space-y-6">
           {resultStages.map(([index, time, title, copy]) => (
-            <div key={index} className="flex items-start gap-5 border-b border-stone-200/80 pb-6 mb-6 last:border-b-0 last:mb-0">
+            <div key={index} className="flex items-start gap-5 border-b border-stone-200/80 pb-0 mb-6 last:border-b-0 last:mb-0">
               <span className="text-2xl sm:text-3xl font-serif text-stone-400 font-light w-10 shrink-0 mt-0.5">
                 {index}
               </span>
@@ -462,14 +463,6 @@ function ResultsSection(){
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Clinical Honesty Note */}
-      <div className="bg-[#f4f2eb] p-4 sm:p-5 rounded-xl text-xs text-stone-700 border-l-2 border-stone-500 mt-8 flex items-start gap-3">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" className="text-stone-600 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <p className="leading-relaxed">
-          <strong className="font-semibold text-stone-900">Clinical Honesty Note:</strong> Timeline based on consistent 2× weekly use as directed. Individual response times vary based on scalp health, lifestyle, and hair density.
-        </p>
       </div>
     </div>
   </section>
@@ -826,8 +819,8 @@ function ReviewsSection(){
 
         <blockquote className="my-4">
           <p 
-            className="font-serif italic text-2xl md:text-4xl text-stone-900 leading-relaxed text-center max-w-4xl mx-auto tracking-normal"
-            style={{ fontFamily: 'Amstir, Georgia, serif', fontStyle: 'italic' }}
+            className="font-serif italic text-[22px] md:text-[22px] !text-[22px] text-stone-900 leading-relaxed text-center max-w-4xl mx-auto tracking-normal"
+            style={{ fontFamily: 'Amstir, Georgia, serif', fontStyle: 'italic', fontSize: '22px' }}
           >
             “{reviews[currentSlide].quote}”
           </p>
@@ -948,9 +941,10 @@ function KeralaAyurvedaDifference() {
 
   return (
     <section className="difference-section" id="difference" data-section="approved-testimonial">
-      <header className="difference-header">
+      <header className="difference-header pt-9">
         <span className="diff-eyebrow">OUR HERITAGE</span>
         <h2>The Kerala Ayurveda Difference</h2>
+        <div className="w-20 h-0.5 bg-[#B5967B]/50 mx-auto mt-3 mb-1 rounded-full" />
       </header>
       <div className="difference-grid">
         <div className="difference-visual">
@@ -1520,48 +1514,104 @@ function App(){
   const submitSearch=(event:FormEvent)=>{event.preventDefault();const query=searchTerm.trim().toLowerCase();if(!query)return;const targets=[{terms:'overview product neelibhringadi hair oil',id:'product'},{terms:'result results hair fall hair growth expect',id:'results'},{terms:'formula ingredient ingredients amla bhringaraj neeli coconut milk',id:'formula'},{terms:'mechanism science works recovery pathway shaft scalp follicle anagen',id:'science'},{terms:'ritual how to use apply massage wash mild shampoo',id:'ritual'},{terms:'compare comparison minoxidil serum rosemary alternative',id:'comparison'},{terms:'doctor consultation whatsapp persistent sudden clinical',id:'consultation'},{terms:'review reviews rating',id:'reviews'},{terms:'faq questions pregnancy coloured greying dandruff everyday science',id:'faq'},{terms:'details size pack label zoom external taxes price',id:'details'}];const match=targets.find(item=>item.terms.includes(query)||query.split(/\s+/).some(word=>word.length>2&&item.terms.includes(word)));if(match){document.getElementById(match.id)?.scrollIntoView({behavior:'smooth'});setSearchStatus(`Showing ${match.id==='product'?'product overview':match.id}.`);setSearchOpen(false)}else setSearchStatus('No matching section in this product prototype.')};
   return <>
     <a className="skip" href="#main">Skip to product</a>
-    <header className="official-site-header">
-      <div className="official-main-header">
-        <div className="header-col-left flex items-center gap-6">
-          <a className="brand" href="#main" aria-label="Kerala Ayurveda home">
-            <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="125" height="48" className="h-10 w-auto object-contain"/>
+    
+    {/* Official Header (Matching Images 2 & 3) */}
+    <header className="official-site-header sticky top-0 z-50 bg-[#F4F3F0] border-b border-stone-300/70 shadow-xs text-[#2C3E24]">
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-3 flex items-center justify-between gap-4 site-container min-h-[62px]">
+        
+        {/* Mobile Header Layout (< lg) - Matching Image 3 */}
+        <div className="flex lg:hidden items-center justify-between w-full">
+          <button type="button" aria-label="Open menu" className="p-1.5 text-[#2C3E24] hover:opacity-80 cursor-pointer">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+          </button>
+
+          <a className="brand flex items-center" href="#main" aria-label="Kerala Ayurveda home">
+            <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="130" height="40" className="h-9 w-auto object-contain"/>
           </a>
-          <nav className="hidden lg:flex items-center gap-5 text-xs font-semibold tracking-wider uppercase text-stone-700">
-            <a href="#main" className="hover:text-[#954721] transition-colors">Home</a>
-            <a href="#product" className="hover:text-[#954721] transition-colors">Overview</a>
-            <a href="#science" className="hover:text-[#954721] transition-colors">Details</a>
-            <a href="#formula" className="hover:text-[#954721] transition-colors">Explore</a>
-            <a href="#ingredients" className="hover:text-[#954721] transition-colors">Ingredients</a>
-            <a href="#reviews" className="hover:text-[#954721] transition-colors">Reviews</a>
-          </nav>
+
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <button type="button" onClick={() => setSearchOpen(true)} aria-label="Open Search" className="p-1.5 text-[#2C3E24] hover:opacity-80 cursor-pointer">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+            <button type="button" aria-label="Account" className="p-1.5 text-[#2C3E24] hover:opacity-80 cursor-pointer">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+            <button type="button" onClick={() => cart ? openDrawer() : document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })} aria-label="Cart" className="relative p-1.5 text-[#2C3E24] hover:opacity-80 cursor-pointer">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              {cart > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#954721] text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+                  {cart}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
-        <div className="header-col-right flex items-center gap-3">
-          <form className={`header-search-pill ${searchOpen ? 'search-is-active' : ''}`} role="search" onSubmit={submitSearch}>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        {/* Desktop Header Layout (>= lg) - Matching Image 2 */}
+        <div className="hidden lg:flex items-center justify-between w-full gap-6">
+          <form onSubmit={submitSearch} className="relative flex items-center bg-white border border-[#2C3E24]/60 rounded-full px-4 py-1.5 w-64 focus-within:w-72 transition-all duration-300 shadow-xs">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2C3E24" strokeWidth="2" className="mr-2 shrink-0"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
             <input 
-              ref={searchRef} 
-              id="site-search" 
-              value={searchTerm} 
-              onChange={event => setSearchTerm(event.target.value)} 
-              placeholder="Search..." 
-              autoComplete="off"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              placeholder="Search For Hair Care..."
+              className="bg-transparent text-xs text-[#2C3E24] outline-none w-full placeholder:text-stone-500 font-sans italic"
             />
           </form>
-          <button type="button" className="header-icon-btn mobile-search-trigger" onClick={() => setSearchOpen(prev => !prev)} aria-label="Toggle search">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          </button>
-          <button type="button" className="header-icon-btn" aria-label="Account">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </button>
-          <button type="button" className="header-icon-btn" aria-label="Wishlist">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </button>
-          <button type="button" className="header-icon-btn cart-icon-btn" onClick={() => cart ? openDrawer() : document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })} aria-label="Cart">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            {cart > 0 && <span className="cart-badge-pill">{cart}</span>}
-          </button>
+
+          <a className="brand flex items-center" href="#main" aria-label="Kerala Ayurveda home">
+            <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="145" height="45" className="h-11 w-auto object-contain"/>
+          </a>
+
+          <div className="flex items-center gap-6 text-xs font-semibold tracking-wide text-[#2C3E24]">
+            <nav className="flex items-center gap-3.5 text-stone-700 font-sans">
+              <a href="https://keralaayurveda.com/pages/clinics" target="_blank" rel="noopener noreferrer" className="hover:text-[#2C3E24] transition-colors">Clinics</a>
+              <span className="text-stone-400">|</span>
+              <a href="https://www.ayurvedagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#2C3E24] transition-colors">Resorts</a>
+              <span className="text-stone-400">|</span>
+              <a href="https://www.thehealthvillage.biz" target="_blank" rel="noopener noreferrer" className="hover:text-[#2C3E24] transition-colors">Hospitals</a>
+              <span className="text-stone-400">|</span>
+              <a href="https://keralaayurvedaacademy.in" target="_blank" rel="noopener noreferrer" className="hover:text-[#2C3E24] transition-colors">Academy</a>
+            </nav>
+            <div className="flex items-center gap-3.5 border-l border-stone-300/80 pl-5">
+              <button type="button" aria-label="Account" className="text-[#2C3E24] hover:opacity-80 cursor-pointer">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </button>
+              <button type="button" onClick={() => cart ? openDrawer() : document.getElementById('product')?.scrollIntoView({ behavior: 'smooth' })} aria-label="Cart" className="relative text-[#2C3E24] hover:opacity-80 cursor-pointer">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                {cart > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#954721] text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+                    {cart}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
+
+        {/* Mobile Interactive Search Overlay (When Search Icon Clicked - Overlays existing elements in line) */}
+        {searchOpen && (
+          <div className="absolute inset-0 bg-[#F4F3F0] z-50 flex items-center px-4 sm:px-6 gap-3 shadow-md animate-fade-in">
+            <form onSubmit={submitSearch} className="flex-1 flex items-center bg-white border border-[#2C3E24] rounded-full px-4 py-2 shadow-inner">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#2C3E24" strokeWidth="2" className="mr-2.5 shrink-0"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input 
+                ref={searchRef}
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                placeholder="Search products..."
+                className="bg-transparent text-sm text-[#2C3E24] outline-none w-full font-sans"
+              />
+            </form>
+            <button 
+              type="button" 
+              onClick={() => setSearchOpen(false)} 
+              className="p-2 text-[#2C3E24] hover:bg-stone-200 rounded-full cursor-pointer shrink-0"
+              aria-label="Close search overlay"
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        )}
       </div>
     </header>
     <ChatGPTRightNav activeSection={activeSection} />
@@ -1644,8 +1694,8 @@ function App(){
       </section>
       <ConfidenceStrip/>
 
-      <section className="statement w-full bg-[#efe6dc] border-b border-stone-200/80 py-0 text-left" id="purity-statement">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
+      <section className="statement w-full bg-[#efe6dc] border-b border-stone-200/80 pt-10 pb-16 sm:pb-20 text-left" id="purity-statement">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container pb-8 sm:pb-12">
           <div className="mb-8 border-b border-stone-300/60 pb-6">
             <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
               Formulation Purity &amp; Sourcing
@@ -1745,15 +1795,49 @@ function App(){
     <SiteFooter />
 
     <aside className={`purchase contextual-purchase ${dockVisible&&!scienceDockHidden?'visible':''}`} aria-label="Purchase Neelibhringadi Keram" aria-hidden={!(dockVisible&&!scienceDockHidden)} inert={!(dockVisible&&!scienceDockHidden)}>
-      <div className="purchase-product">
-        <img src="/assets/production/official-product.webp" width="40" height="40" alt="" className="dock-thumb" />
-        <div>
-          <strong>Neelibhringadi Keram</strong>
-          <span>{selectedSize} · ₹{currentPrice}</span>
+      <div className="sticky-dock-inner w-full flex items-center justify-between gap-4">
+        {/* Left Side: M.R.P. & Taxes (Matching Images 1 & 2) */}
+        <div className="flex flex-col text-left justify-center leading-tight">
+          <div className="flex items-baseline gap-1.5 text-white font-sans">
+            <span className="text-xs sm:text-sm font-bold tracking-wide">M.R.P.</span>
+            <span className="text-xs sm:text-sm line-through text-white/70 font-normal">₹{currentMrp}</span>
+            <span className="text-base sm:text-xl font-extrabold text-white">₹{currentPrice}</span>
+          </div>
+          <div className="text-[10px] sm:text-xs text-white/80 font-medium tracking-tight mt-0.5">
+            Inclusive of all taxes
+          </div>
+        </div>
+
+        {/* Right Side: Add to Cart Button (Matching Images 1 & 2) */}
+        <div className="flex items-center gap-3 shrink-0">
+          {cart > 0 ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center border border-white/40 rounded-lg overflow-hidden bg-white/10 text-white">
+                <button type="button" aria-label="Decrease quantity" onClick={() => setCart(Math.max(0, cart - 1))} className="px-2.5 sm:px-3 py-1.5 font-bold hover:bg-white/20 cursor-pointer">−</button>
+                <span className="px-2.5 sm:px-3 py-1.5 font-semibold text-xs sm:text-sm">{cart}</span>
+                <button type="button" aria-label="Increase quantity" onClick={() => setCart(cart + 1)} className="px-2.5 sm:px-3 py-1.5 font-bold hover:bg-white/20 cursor-pointer">+</button>
+              </div>
+              <button 
+                type="button" 
+                onClick={() => openDrawer()} 
+                className="bg-white text-[#8C4A27] font-extrabold px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
+              >
+                VIEW CART • ₹{currentPrice * cart}
+              </button>
+            </div>
+          ) : (
+            <button 
+              type="button" 
+              disabled={buyState !== 'ready'} 
+              onClick={() => add('dock')} 
+              className="dock-add-btn bg-white text-[#8C4A27] font-extrabold px-4 sm:px-8 py-2 sm:py-2.5 rounded-lg hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
+            >
+              {buyState === 'ready' ? 'ADD TO CART' : buyState === 'adding' ? 'ADDING…' : 'ADDED TO CART'}
+            </button>
+          )}
         </div>
       </div>
-      <PurchaseAction cart={cart} buyState={buyState} price={currentPrice} onAdd={()=>add('dock')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('dock')} className="dock-purchase-action"/>
-      <p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p>
+      <p className="live" aria-live="polite">{buyState === 'added' ? 'Product added to the cart' : ''}</p>
     </aside>
 
     <div className={`scrim ${drawer?'open':''}`} inert={!drawer} onMouseDown={e=>{if(e.target===e.currentTarget)closeDrawer()}} aria-hidden={!drawer}><section ref={drawerRef} className="drawer" role="dialog" aria-modal="true" aria-label="Your cart"><header><div><p>Your cart</p><h2>{cart?`${cart} item${cart>1?'s':''}`:'Your cart is empty'}</h2></div><button ref={closeRef} onClick={closeDrawer} aria-label="Close cart">×</button></header>{cart?<><div className="cart-item"><div className="cart-thumb"><img src="/assets/production/official-product.webp" alt="" width="609" height="1800"/></div><div><h3>Neelibhringadi Keram</h3><p>{selectedSize === '200ml' ? '200 ml' : '100 ml'}</p><strong>₹{currentPrice}</strong> <del>₹{currentMrp}</del></div><div className="quantity small"><button aria-label="Decrease quantity" onClick={()=>setCart(Math.max(0,cart-1))}>−</button><span>{cart}</span><button aria-label="Increase quantity" onClick={()=>setCart(cart+1)}>+</button></div></div><div className="subtotal"><span>Subtotal</span><strong>₹{currentPrice*cart}</strong></div><button className="checkout" onClick={()=>track('checkout_clicked',{experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current,cart_quantity:cart,value:currentPrice*cart,currency:'INR'})}>Checkout Now</button><small>Inclusive of all taxes</small></>:<p className="empty">Explore our range.</p>}</section></div>

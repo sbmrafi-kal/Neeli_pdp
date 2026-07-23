@@ -62,12 +62,13 @@ export const IngredientCard: React.FC<IngredientCardProps> = ({
         {ingredient.videoSrc ? (
           <video
             ref={videoRef}
+            key={ingredient.videoSrc}
             src={ingredient.videoSrc}
-            poster={ingredient.imageSrc}
             autoPlay
             loop
             muted
             playsInline
+            preload="auto"
             className="absolute inset-0 w-full h-full object-cover object-center scale-100"
             style={{ backfaceVisibility: 'hidden' }}
           />

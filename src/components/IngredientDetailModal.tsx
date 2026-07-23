@@ -43,12 +43,13 @@ export const IngredientDetailModal: React.FC<IngredientDetailModalProps> = ({
         <div className="relative h-56 sm:h-64 w-full bg-slate-950 overflow-hidden flex-shrink-0">
           {ingredient.videoSrc ? (
             <video
+              key={ingredient.videoSrc}
               src={ingredient.videoSrc}
-              poster={ingredient.imageSrc}
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               className="w-full h-full object-cover"
             />
           ) : (

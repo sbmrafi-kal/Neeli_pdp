@@ -249,7 +249,7 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
             <img
               src="/assets/ayurveda-doctor-consultation.png"
               alt="Ayurveda Doctor Consultation"
-              className="w-full h-full md:max-h-[320px] object-cover object-[center_15%] md:object-top"
+              className="w-full h-full md:max-h-[320px] object-cover object-[center_28%] md:object-[center_28%]"
             />
           </div>
         </div>

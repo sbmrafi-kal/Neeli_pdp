@@ -144,7 +144,7 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
   return (
     <section
       id="ingredients"
-      className={`potent-ingredients-section w-full relative py-12 sm:py-16 bg-[#DCE4DA] text-[#39461d] overflow-hidden ${className}`}
+      className={`potent-ingredients-section w-full relative py-12 sm:py-16 !pb-8 sm:!pb-8 bg-[#DCE4DA] text-[#39461d] overflow-hidden ${className}`}
     >
       {/* Background Decorative Soft Blur Spheres */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
