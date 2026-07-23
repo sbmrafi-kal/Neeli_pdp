@@ -20,7 +20,7 @@ const slides = [
   {src:'/assets/production/ritual.webp',mobileSrc:'/assets/production/ritual-mobile.webp',alt:'Woman receiving a gentle fingertip scalp massage',label:'Fingertip scalp massage',eyebrow:'Ritual use',shortLabel:'Massage',frameClass:'frame-ritual'},
   {src:'/assets/production/ingredients.webp',mobileSrc:'/assets/production/ingredients-mobile.webp',alt:'Amla, Neeli, Bhringaraj and coconut used in the formula',label:'Four powerful ingredients',eyebrow:'Key ingredients',shortLabel:'Herbs',frameClass:'frame-ingredients'},
   {src:'/assets/production/triple-milk.webp',mobileSrc:'/assets/production/triple-milk-mobile.webp',alt:'Cow milk, goat milk and coconut milk in three bowls',label:'The triple-milk formula',eyebrow:'The special base',shortLabel:'Milks',frameClass:'frame-milks'},
-  {src:'/assets/production/hair-result.webp',mobileSrc:'/assets/production/hair-result-mobile.webp',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Result',frameClass:'frame-results'},
+  {src:'/assets/production/Honest_Sequence.png',mobileSrc:'/assets/production/Honest_Sequence.png',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Result',frameClass:'frame-results'},
 ];
 
 const navItems = [['product','Overview'],['results','Results'],['formula','Formula'],['comparison','Compare'],['ritual','How to use'],['reviews','Reviews']];
@@ -116,16 +116,11 @@ function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,pr
 function ProductIdentity(){
   return (
     <div>
-      <div className="hidden sm:flex flex-wrap items-center gap-2 mb-1" aria-label="Category pills">
-        <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
-          80-Year Ayurvedic Lineage
-        </span>
-        <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
-          100% Herbal
-        </span>
-        <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
-          48-Hour Paaka Vidhi
-        </span>
+      <div className="flex items-center mb-3" aria-label="Product benefit highlights">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#FFF6D6] border border-[#FCEBA2] text-[#2C3E24] text-[9.5px] xs:text-[10.5px] sm:text-[12px] font-extrabold tracking-normal sm:tracking-wider uppercase px-3 sm:px-4 py-1.5 rounded-full shadow-xs max-w-full leading-none">
+          <span className="whitespace-nowrap">• HELPS MINIMIZE HAIR FALL</span>
+          <span className="whitespace-nowrap">• SUPPORTS HAIR GROWTH</span>
+        </div>
       </div>
       <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-stone-900 leading-tight mb-2 tracking-tight">
         Neelibhringadi Keram
@@ -310,7 +305,7 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
             loop 
             muted 
             playsInline 
-            className="w-full h-full object-cover object-center scale-[0.94] transition-transform duration-300" 
+            className="w-full h-full object-cover object-center" 
           />
         ) : (
           <img 
@@ -434,11 +429,10 @@ function ResultsSection(){
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Side: Constrained Image Media (lg:col-span-5) */}
         <figure className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-sm">
-          <ResponsiveImage 
-            src="/assets/production/hair-result.webp" 
-            mobileSrc="/assets/production/hair-result-mobile.webp" 
-            alt="Long, healthy-looking dark hair" 
-            className="w-full max-h-[420px] aspect-[4/5] object-cover rounded-3xl shadow-sm" 
+          <img 
+            src="/assets/production/Honest_Sequence.png" 
+            alt="The honest sequence hair care progression" 
+            className="w-full max-h-[440px] aspect-[4/5] object-cover rounded-3xl shadow-sm" 
           />
         </figure>
 
@@ -1555,7 +1549,8 @@ function App(){
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               placeholder="Search For Hair Care..."
-              className="bg-transparent text-xs text-[#2C3E24] outline-none w-full placeholder:text-stone-500 font-sans italic"
+              className="bg-transparent text-xs text-[#2C3E24] outline-none focus:outline-none focus:ring-0 border-0 w-full placeholder:text-stone-500 font-sans italic"
+              style={{ outline: 'none', boxShadow: 'none' }}
             />
           </form>
 
@@ -1599,7 +1594,8 @@ function App(){
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 placeholder="Search products..."
-                className="bg-transparent text-sm text-[#2C3E24] outline-none w-full font-sans"
+                className="bg-transparent text-sm text-[#2C3E24] outline-none focus:outline-none focus:ring-0 border-0 w-full font-sans"
+                style={{ outline: 'none', boxShadow: 'none' }}
               />
             </form>
             <button 

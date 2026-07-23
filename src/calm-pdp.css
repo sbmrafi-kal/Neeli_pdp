@@ -65,6 +65,17 @@ header.header,
   fill: none !important;
 }
 
+/* Remove focus rectangle outlines on inputs */
+.official-site-header input,
+.official-site-header input:focus,
+.official-site-header input:focus-visible,
+form input:focus,
+form input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
 .header-search-pill {
   background: rgba(255, 255, 255, 0.15) !important;
   border-color: rgba(255, 255, 255, 0.3) !important;
@@ -2061,13 +2072,15 @@ body .adapted-heritage .heritage-pillar {
 }
 
 /* Commerce dock and cart */
-.purchase.contextual-purchase {
-  min-height: 76px !important;
-  padding: 10px var(--calm-gutter) !important;
-  background: rgba(251, 250, 246, .98) !important;
-  border-top: 1px solid var(--calm-rule-strong) !important;
-  box-shadow: none !important;
-  color: var(--calm-ink) !important;
+html body .purchase.contextual-purchase,
+html body .contextual-purchase,
+html body aside.purchase,
+.purchase.contextual-purchase,
+.contextual-purchase,
+aside.purchase {
+  background-color: #8C4A27 !important;
+  background: #8C4A27 !important;
+  color: #ffffff !important;
 }
 
 .dock-thumb,

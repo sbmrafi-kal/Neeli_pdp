@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { IngredientCard, IngredientItem } from './IngredientCard';
 
@@ -11,47 +11,45 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
   ingredients,
   onOpenDetails,
 }) => {
-  const baseCount = ingredients.length;
-
-  // Tripled array for seamless infinite 360° looping
-  const displayItems = useMemo(() => {
-    let list: IngredientItem[] = [];
-    for (let i = 0; i < 3; i++) {
-      list = list.concat(
-        ingredients.map((item, idx) => ({
-          ...item,
-          id: `${item.id}-loop-${i}-${idx}`,
-        }))
-      );
-    }
-    return list;
-  }, [ingredients]);
-
-  // Start at index baseCount (beginning of middle set)
-  const [currentIndex, setCurrentIndex] = useState<number>(baseCount);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
-  const isAutoScrolling = useRef<boolean>(false);
 
-  // Initialize track position to middle set on mount
+  // Initialize track position to start (index 0 - Neeli)
   useEffect(() => {
     const track = scrollTrackRef.current;
     if (!track) return;
+    track.scrollTo({ left: 0, behavior: 'auto' });
+  }, []);
 
-    const timer = setTimeout(() => {
-      const firstChild = track.firstElementChild as HTMLElement;
-      if (!firstChild) return;
+  const scrollToSlide = (targetIndex: number) => {
+    const track = scrollTrackRef.current;
+    if (!track) return;
+
+    // Wrap around bounds (0 to ingredients.length - 1)
+    let newIndex = targetIndex;
+    if (newIndex < 0) {
+      newIndex = ingredients.length - 1;
+    } else if (newIndex >= ingredients.length) {
+      newIndex = 0;
+    }
+
+    const firstChild = track.firstElementChild as HTMLElement;
+    if (firstChild) {
       const gap = window.innerWidth < 640 ? 12 : 16;
       const itemWidth = firstChild.getBoundingClientRect().width + gap;
-      track.scrollTo({ left: baseCount * itemWidth, behavior: 'auto' });
-    }, 60);
+      track.scrollTo({
+        left: newIndex * itemWidth,
+        behavior: 'smooth',
+      });
+    }
 
-    return () => clearTimeout(timer);
-  }, [baseCount]);
+    setCurrentIndex(newIndex);
+  };
 
-  // Handle native scroll & silent boundary wrapping
+  // Sync scroll state with native swipe / drag
   const handleScroll = useCallback(() => {
-    if (!scrollTrackRef.current) return;
     const track = scrollTrackRef.current;
+    if (!track) return;
 
     window.requestAnimationFrame(() => {
       const firstChild = track.firstElementChild as HTMLElement;
@@ -62,22 +60,10 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
       if (itemWidth <= 0) return;
 
       const rawIndex = Math.round(track.scrollLeft / itemWidth);
-      const clampedIndex = Math.max(0, Math.min(displayItems.length - 1, rawIndex));
-
-      setCurrentIndex((prev) => (prev !== clampedIndex ? clampedIndex : prev));
-
-      // Silent boundary reset (Instant jump to middle set without animation)
-      if (!isAutoScrolling.current) {
-        if (clampedIndex < baseCount) {
-          track.scrollTo({ left: (clampedIndex + baseCount) * itemWidth, behavior: 'auto' });
-          setCurrentIndex(clampedIndex + baseCount);
-        } else if (clampedIndex >= baseCount * 2) {
-          track.scrollTo({ left: (clampedIndex - baseCount) * itemWidth, behavior: 'auto' });
-          setCurrentIndex(clampedIndex - baseCount);
-        }
-      }
+      const clampedIndex = Math.max(0, Math.min(ingredients.length - 1, rawIndex));
+      setCurrentIndex(clampedIndex);
     });
-  }, [baseCount, displayItems.length]);
+  }, [ingredients.length]);
 
   useEffect(() => {
     const track = scrollTrackRef.current;
@@ -87,39 +73,6 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
     return () => track.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  const scrollToSlide = (targetIndex: number) => {
-    const track = scrollTrackRef.current;
-    if (!track) return;
-
-    const firstChild = track.firstElementChild as HTMLElement;
-    if (!firstChild) return;
-
-    const gap = window.innerWidth < 640 ? 12 : 16;
-    const itemWidth = firstChild.getBoundingClientRect().width + gap;
-
-    isAutoScrolling.current = true;
-    track.scrollTo({
-      left: targetIndex * itemWidth,
-      behavior: 'smooth',
-    });
-
-    setCurrentIndex(targetIndex);
-
-    setTimeout(() => {
-      isAutoScrolling.current = false;
-      // Wrap boundaries seamlessly after smooth scroll finishes
-      if (targetIndex < baseCount) {
-        const wrapped = targetIndex + baseCount;
-        track.scrollTo({ left: wrapped * itemWidth, behavior: 'auto' });
-        setCurrentIndex(wrapped);
-      } else if (targetIndex >= baseCount * 2) {
-        const wrapped = targetIndex - baseCount;
-        track.scrollTo({ left: wrapped * itemWidth, behavior: 'auto' });
-        setCurrentIndex(wrapped);
-      }
-    }, 450);
-  };
-
   const handlePrev = () => {
     scrollToSlide(currentIndex - 1);
   };
@@ -127,9 +80,6 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
   const handleNext = () => {
     scrollToSlide(currentIndex + 1);
   };
-
-  // Active Modulo Index for Progress Bar
-  const activeModuloIndex = ((currentIndex % baseCount) + baseCount) % baseCount;
 
   return (
     <div className="relative w-full max-w-7xl mx-auto px-0 sm:px-6">
@@ -139,7 +89,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
         <button
           type="button"
           onClick={handlePrev}
-          aria-label="Previous ingredients slide"
+          aria-label="Previous ingredient slide"
           className="absolute -left-2 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 backdrop-blur-md border border-[#39461d]/20 text-[#39461d] shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-white hover:scale-110 active:scale-95 cursor-pointer"
         >
           <ChevronLeft className="w-6 h-6 stroke-[2.2]" />
@@ -149,7 +99,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
         <button
           type="button"
           onClick={handleNext}
-          aria-label="Next ingredients slide"
+          aria-label="Next ingredient slide"
           className="absolute -right-2 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 backdrop-blur-md border border-[#39461d]/20 text-[#39461d] shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-white hover:scale-110 active:scale-95 cursor-pointer"
         >
           <ChevronRight className="w-6 h-6 stroke-[2.2]" />
@@ -165,7 +115,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
             msOverflowStyle: 'none',
           }}
         >
-          {displayItems.map((item, index) => {
+          {ingredients.map((item, index) => {
             const isItemActive = index === currentIndex;
 
             return (
@@ -185,7 +135,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
         </div>
       </div>
 
-      {/* Segmented Progress Bar Indicator (Synced Modulo Index) */}
+      {/* Segmented Progress Bar Indicator */}
       <div className="mt-4 sm:mt-4 flex justify-center">
         <div
           className="flex items-center gap-2 max-w-xs sm:max-w-md w-full justify-center px-4"
@@ -193,16 +143,13 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
           aria-label="Ingredients carousel slides"
         >
           {ingredients.map((item, idx) => {
-            const isExactCurrent = idx === activeModuloIndex;
+            const isExactCurrent = idx === currentIndex;
 
             return (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => {
-                  const targetOffset = currentIndex - activeModuloIndex + idx;
-                  scrollToSlide(targetOffset);
-                }}
+                onClick={() => scrollToSlide(idx)}
                 aria-label={`Go to slide ${idx + 1}: ${item.name}`}
                 aria-selected={isExactCurrent}
                 className="flex-1 py-2 group focus:outline-none cursor-pointer"
