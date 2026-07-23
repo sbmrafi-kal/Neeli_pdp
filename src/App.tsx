@@ -85,32 +85,51 @@ type PurchaseActionProps = {
   className?:string;
 };
 
-function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,className='',price=338}:{cart:number;buyState:'ready'|'adding'|'added';onAdd:()=>void;onDecrease:()=>void;onIncrease:()=>void;onViewCart:()=>void;className?:string;price?:number}){
-  if(cart>0)return <div className={`quantity purchase-action ${className}`}><button aria-label="Decrease quantity" onClick={onDecrease}>−</button><span aria-label={`${cart} in cart`}>{cart}</span><button aria-label="Increase quantity" onClick={onIncrease}>+</button><button className="viewbag" onClick={onViewCart}>View Cart <span className="viewbag-total">· ₹{price*cart}</span></button></div>;
-  return <button className={`add ${buyState} ${className}`} disabled={buyState!=='ready'} onClick={onAdd}>{buyState==='ready'?'ADD TO CART':buyState==='adding'?'Adding…':<><Check/> Added to Cart</>}</button>;
+function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,price=338,className=''}:{cart:number;buyState:'ready'|'adding'|'added';onAdd:()=>void;onDecrease:()=>void;onIncrease:()=>void;onViewCart:()=>void;price?:number;className?:string}){
+  if(cart>0) return (
+    <div className="flex items-center gap-3 w-full mt-2">
+      <div className="flex items-center border border-stone-300 rounded-xl overflow-hidden bg-stone-100 shrink-0">
+        <button type="button" aria-label="Decrease quantity" onClick={onDecrease} className="px-4 py-3.5 font-bold text-stone-700 hover:bg-stone-200 cursor-pointer">−</button>
+        <span aria-label={`${cart} in cart`} className="px-4 py-3.5 font-semibold text-stone-900">{cart}</span>
+        <button type="button" aria-label="Increase quantity" onClick={onIncrease} className="px-4 py-3.5 font-bold text-stone-700 hover:bg-stone-200 cursor-pointer">+</button>
+      </div>
+      <button type="button" className="w-full flex-1 bg-[#2C3E2E] hover:bg-[#1f2d21] text-white py-4 px-6 rounded-xl font-semibold tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans" onClick={onViewCart}>
+        <span>VIEW CART</span>
+        <span className="opacity-80 font-mono">· ₹{price * cart}</span>
+      </button>
+    </div>
+  );
+
+  return (
+    <button 
+      type="button" 
+      disabled={buyState!=='ready'} 
+      onClick={onAdd}
+      className="w-full bg-[#2C3E2E] hover:bg-[#1f2d21] text-white py-4 rounded-xl font-semibold tracking-wider transition-all shadow-md flex items-center justify-center gap-2 mt-2 cursor-pointer font-sans"
+    >
+      {buyState==='ready'?'ADD TO CART':buyState==='adding'?'ADDING…':<><Check/> ADDED TO CART</>}
+    </button>
+  );
 }
 
 function ProductIdentity(){
   return (
-    <div className="product-identity">
-      <div className="flex flex-wrap items-center gap-2 mb-3" aria-label="Category pills">
-        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#39461d] text-white shadow-xs">
-          Product Detail Page
+    <div>
+      <div className="flex flex-wrap items-center gap-2 mb-1" aria-label="Category pills">
+        <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
+          80-Year Ayurvedic Lineage
         </span>
-        <a href="#hair-oil" className="px-3 py-1 rounded-full text-xs font-medium bg-stone-200/50 border border-stone-300/60 text-stone-700 hover:bg-stone-200 transition-all">
-          Hair Oil
-        </a>
-        <a href="#hair-care" className="px-3 py-1 rounded-full text-xs font-medium bg-stone-200/50 border border-stone-300/60 text-stone-700 hover:bg-stone-200 transition-all">
-          Hair Care
-        </a>
-        <span className="px-3 py-1 rounded-full text-xs font-medium bg-stone-200/50 border border-stone-300/60 text-stone-700">
+        <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
+          100% Herbal
+        </span>
+        <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
           48-Hour Paaka Vidhi
         </span>
       </div>
-      <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium text-stone-900 leading-tight tracking-tight my-2">
-        Neelibhringadi <span className="font-serif italic text-[#39461d]">Keram</span>
+      <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-stone-900 leading-tight mb-2 tracking-tight">
+        Neelibhringadi Keram
       </h1>
-      <p className="identity-subtitle text-sm sm:text-base text-stone-700 leading-relaxed font-sans mt-2">
+      <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans max-w-md">
         Traditional 48-hour slow-cooked Ayurvedic hair oil infused with Bhringraj, Neeli, and triple milks—formulated to strengthen roots, reduce hair fall, and nourish the scalp.
       </p>
     </div>
@@ -138,20 +157,17 @@ function ProductPresenceMotion(){
       if((!entry.isIntersecting||entry.intersectionRatio<.4)&&!video.paused){
         video.pause();
         setMotionState('paused');
-      }else if(entry.isIntersecting&&entry.intersectionRatio>=.4&&video.paused&&motionState==='playing'){
-        void video.play().catch(()=>{});
       }
     },{threshold:[0,.4]});
     observer.observe(region);
     return()=>observer.disconnect();
-  },[motionState,reducedMotion]);
-  const alt='Official Neelibhringadi Keram bottle with Amla and coconut in warm natural light';
-  const controlLabel=motionState==='playing'?'Pause':motionState==='ended'?'Replay':'Play motion';
+  },[reducedMotion]);
+  const controlLabel=motionState==='playing'?'Pause':motionState==='ended'?'Replay':'Play';
   const accessibleControlLabel=motionState==='playing'?'Pause product lighting motion':motionState==='ended'?'Replay product lighting motion':'Play product lighting motion';
   return <div ref={regionRef} className={`story-motion-shell presence-motion-shell ${motionState}`}>
     <picture>
       <source media="(max-width: 699px)" type="image/webp" srcSet="/assets/production/product-presence-poster-mobile.webp"/>
-      <img className="story-image presence-poster" src="/assets/production/product-presence-poster.webp" alt={alt} width="936" height="1248" loading="eager" fetchPriority="high"/>
+      <img className="story-image presence-poster" src="/assets/production/product-presence-poster.webp" alt="Neelibhringadi Keram bottle" width="936" height="1248" loading="eager" fetchPriority="high"/>
     </picture>
     {!reducedMotion && (
       <video ref={videoRef} className="story-motion presence-motion" muted playsInline autoPlay loop preload="auto" poster="/assets/production/product-presence-poster.webp" aria-label="Natural light and botanical shadows moving gently behind the Neelibhringadi Keram bottle" onPlay={()=>setMotionState('playing')} onPause={()=>setMotionState(current=>current==='ended'?'ended':'paused')} onEnded={()=>setMotionState('ended')} onError={()=>setMotionState('paused')}>
@@ -270,25 +286,59 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
   };
 
   return (
-    <div className="story-gallery relative overflow-hidden rounded-[28px] shadow-lg" role="region" aria-roledescription="carousel" aria-label="Six-frame product story" tabIndex={0} onKeyDown={event=>{if(event.key==='ArrowLeft')previous();if(event.key==='ArrowRight')next()}} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} style={{ touchAction: 'pan-y' }}>
-      <div className={`story-frame story-${direction} ${slides[slide].frameClass} relative overflow-hidden rounded-[28px] h-[440px] sm:h-[480px]`} key={slide}>
-        {slides[slide].frameClass==='frame-product'?<ProductPresenceMotion/>:slides[slide].frameClass==='frame-texture'?<ProductTextureMotion autoPlayOnce={!textureHasPlayed.current} onAutoPlay={()=>{textureHasPlayed.current=true}} experiment={experiment}/>:<ResponsiveImage className="story-image w-full h-full object-cover" src={slides[slide].src} mobileSrc={slides[slide].mobileSrc} alt={slides[slide].alt} priority={slide===0}/>}
+    <div className="w-full flex flex-col gap-4">
+      {/* Main Image Viewport Card */}
+      <div 
+        className="w-full max-h-[460px] aspect-[4/3] rounded-3xl overflow-hidden bg-[#f0edeb] relative shadow-sm border border-stone-200/80" 
+        role="region" 
+        aria-roledescription="carousel" 
+        aria-label="Product image gallery" 
+        tabIndex={0} 
+        onKeyDown={event=>{if(event.key==='ArrowLeft')previous();if(event.key==='ArrowRight')next()}} 
+        onTouchStart={handleTouchStart} 
+        onTouchEnd={handleTouchEnd} 
+        onPointerDown={handlePointerDown} 
+        onPointerUp={handlePointerUp} 
+        style={{ touchAction: 'pan-y' }}
+      >
+        <img 
+          src={slides[slide].src} 
+          alt={slides[slide].label || "Neelibhringadi Keram"} 
+          className="w-full h-full object-cover object-center" 
+        />
         <div className="story-counter absolute top-4 left-4 z-20 bg-black/40 text-white backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono" aria-hidden="true">
           <span>{String(slide+1).padStart(2,'0')}</span><i className="mx-1 opacity-50">/</i><span>{String(slides.length).padStart(2,'0')}</span>
         </div>
         <div className="story-arrows absolute inset-x-3 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none z-30">
-          <button onClick={previous} aria-label="Previous gallery frame" className="pointer-events-auto w-10 h-10 rounded-full bg-white/40 backdrop-blur-md text-stone-800 hover:bg-white/80 flex items-center justify-center shadow-md transition-all cursor-pointer">
+          <button type="button" onClick={previous} aria-label="Previous gallery frame" className="pointer-events-auto w-10 h-10 rounded-full bg-white/60 backdrop-blur-md text-stone-800 hover:bg-white flex items-center justify-center shadow-md transition-all cursor-pointer">
             <Arrow left/>
           </button>
-          <button onClick={next} aria-label="Next gallery frame" className="pointer-events-auto w-10 h-10 rounded-full bg-white/40 backdrop-blur-md text-stone-800 hover:bg-white/80 flex items-center justify-center shadow-md transition-all cursor-pointer">
+          <button type="button" onClick={next} aria-label="Previous gallery frame" className="pointer-events-auto w-10 h-10 rounded-full bg-white/60 backdrop-blur-md text-stone-800 hover:bg-white flex items-center justify-center shadow-md transition-all cursor-pointer">
             <Arrow/>
           </button>
         </div>
       </div>
-      <div className="story-selector mt-3 flex justify-center gap-1.5 overflow-x-auto py-1" aria-label="Choose a gallery frame">
-        {slides.map((frame,index)=>(
-          <button key={frame.src} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${index===slide?'bg-[#39461d] text-white shadow-xs':'bg-stone-200/60 text-stone-700 hover:bg-stone-200'}`} aria-label={`${index+1}: ${frame.label}`} aria-current={index===slide?'true':undefined} onClick={()=>{setDirection(index<slide?'previous':'next');track('gallery_navigated',{interaction:'selector',from_frame:slide+1,to_frame:index+1,experiment_id:experiment.id,experiment_variant:experiment.variant});setSlide(index)}}>
-            <span>{String(index+1).padStart(2,'0')}. </span><b>{frame.shortLabel}</b>
+
+      {/* Thumbnails Container */}
+      <div className="flex gap-3 mt-4 overflow-x-auto pb-2" aria-label="Choose a gallery image">
+        {slides.map((frame, index) => (
+          <button
+            key={frame.src}
+            type="button"
+            onClick={() => {
+              setDirection(index < slide ? 'previous' : 'next');
+              setSlide(index);
+            }}
+            className={`w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-2xl overflow-hidden border-2 cursor-pointer transition-all bg-[#f0edeb] relative ${
+              index === slide ? 'border-stone-900 shadow-sm scale-105' : 'border-stone-200/80 hover:border-stone-400 opacity-70'
+            }`}
+            aria-label={`View thumbnail ${index + 1}: ${frame.label}`}
+          >
+            <img 
+              src={frame.src} 
+              alt={frame.label} 
+              className="w-full h-full object-cover object-center" 
+            />
           </button>
         ))}
       </div>
@@ -335,9 +385,9 @@ function ConfidenceStrip(){
 
 function ResultsSection(){
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16 text-left" id="results">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 text-left" id="results">
       <header className="mb-10 border-b border-stone-300/60 pb-6">
-        <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
+        <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block font-sans">
           What to expect
         </span>
         <h2 className="text-3xl md:text-4xl font-serif text-stone-900 leading-snug tracking-tight">
@@ -355,7 +405,7 @@ function ResultsSection(){
             src="/assets/production/hair-result.webp" 
             mobileSrc="/assets/production/hair-result-mobile.webp" 
             alt="Long, healthy-looking dark hair" 
-            className="w-full max-h-[440px] aspect-[4/5] object-cover rounded-3xl" 
+            className="w-full max-h-[420px] aspect-[4/5] object-cover rounded-3xl shadow-sm" 
           />
         </figure>
 
@@ -685,7 +735,7 @@ function ReviewsSection(){
   return (
     <section 
       ref={sectionRef}
-      className="w-full bg-[#faf8f5] py-16 px-6 md:px-12 text-center my-12 border-y border-stone-200/80 relative"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#faf8f5] py-12 text-center my-12 border-y border-stone-200/80 relative"
       id="reviews"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -704,16 +754,19 @@ function ReviewsSection(){
         </div>
 
         <blockquote className="my-4">
-          <p className="font-serif italic text-2xl md:text-3xl text-stone-900 leading-relaxed text-center max-w-3xl mx-auto">
+          <p 
+            className="font-serif italic text-2xl md:text-4xl text-stone-900 leading-relaxed text-center max-w-4xl mx-auto tracking-normal"
+            style={{ fontFamily: 'Amstir, Georgia, serif', fontStyle: 'italic' }}
+          >
             “{reviews[currentSlide].quote}”
           </p>
         </blockquote>
 
         <div className="mt-6">
-          <strong className="font-semibold text-xs tracking-wider uppercase text-stone-900 block font-sans">
+          <strong className="font-sans font-bold text-xs md:text-sm tracking-widest text-stone-900 uppercase mt-6 text-center block">
             {reviews[currentSlide].author}
           </strong>
-          <span className="text-xs text-stone-500 mt-1 block font-sans">
+          <span className="font-sans text-xs text-stone-600 font-medium text-center mt-1 block">
             Verified Buyer • {reviews[currentSlide].variant} • {reviews[currentSlide].duration}
           </span>
         </div>
@@ -760,7 +813,7 @@ function ReviewsSection(){
 function FaqSection(){
   const [openItem,setOpenItem]=useState<number|null>(0);
   return (
-    <section className="faq section adapted-faq w-full max-w-7xl mx-auto px-6 md:px-12 py-16" id="faq">
+    <section className="faq section adapted-faq w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="faq">
       <header>
         <h2>FAQs</h2>
       </header>
@@ -992,10 +1045,10 @@ function ProductDetailsSection(){
   const closeZoom=()=>dialogRef.current?.close();
 
   return (
-    <section className="product-details-overhaul w-full max-w-7xl mx-auto px-6 md:px-12 py-16 text-left" id="details">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-left" id="details">
       {/* Header */}
       <div className="mb-10 border-b border-stone-300/60 pb-6">
-        <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
+        <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block font-sans">
           Product Details
         </span>
         <h2 className="text-3xl md:text-4xl font-serif text-stone-900 leading-snug tracking-tight">
@@ -1007,9 +1060,9 @@ function ProductDetailsSection(){
       </div>
 
       {/* 2-Column Main Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Left Column: 3 Wide Horizontal Cards (lg:col-span-7) */}
-        <div className="lg:col-span-7 space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Left Column: Specs & Pricing (lg:col-span-7) */}
+        <div className="lg:col-span-7 space-y-6">
           {/* Card 1: Product Specifications */}
           <div className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-7 rounded-2xl shadow-xs">
             <h3 className="font-serif text-lg font-semibold text-stone-900 mb-4 border-b border-stone-200/80 pb-2.5 flex items-center justify-between">
@@ -1018,16 +1071,16 @@ function ProductDetailsSection(){
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Available Sizes</span>
-                <p className="text-stone-800 font-medium mt-0.5">200 ml &amp; 100 ml bottles</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Available Sizes</span>
+                <p className="text-stone-800 font-medium mt-0.5 font-sans">200 ml &amp; 100 ml bottles</p>
               </div>
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Administration</span>
-                <p className="text-stone-800 font-medium mt-0.5">External scalp &amp; hair application</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Administration</span>
+                <p className="text-stone-800 font-medium mt-0.5 font-sans">External scalp &amp; hair application</p>
               </div>
               <div className="sm:col-span-2 pt-1 border-t border-stone-200/60">
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Formula Lineage</span>
-                <p className="text-stone-800 font-medium mt-0.5">Sahasrayogam classical Ayurvedic reference (Thaila Paaka Vidhi)</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Formula Lineage</span>
+                <p className="text-stone-800 font-medium mt-0.5 font-sans">Sahasrayogam classical Ayurvedic reference (Thaila Paaka Vidhi)</p>
               </div>
             </div>
           </div>
@@ -1036,20 +1089,20 @@ function ProductDetailsSection(){
           <div className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-7 rounded-2xl shadow-xs">
             <h3 className="font-serif text-lg font-semibold text-stone-900 mb-4 border-b border-stone-200/80 pb-2.5 flex items-center justify-between">
               <span>Pricing &amp; Value</span>
-              <span className="text-[10px] text-[#954721] font-bold uppercase tracking-wider">COMMERCE DETAILS</span>
+              <span className="text-[10px] text-[#954721] font-bold uppercase tracking-wider font-sans">COMMERCE DETAILS</span>
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">200 ml Value Pack</span>
-                <p className="text-stone-900 font-bold mt-0.5">₹338 <del className="text-stone-400 font-normal ml-1">₹375</del> <span className="text-[#954721] text-xs font-semibold ml-1">(Save ₹37)</span></p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">200 ml Value Pack</span>
+                <p className="text-stone-900 font-bold mt-0.5 font-sans">₹338 <del className="text-stone-400 font-normal ml-1">₹375</del> <span className="text-[#954721] text-xs font-semibold ml-1">(Save ₹37)</span></p>
               </div>
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">100 ml Standard Pack</span>
-                <p className="text-stone-900 font-bold mt-0.5">₹195</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">100 ml Standard Pack</span>
+                <p className="text-stone-900 font-bold mt-0.5 font-sans">₹195</p>
               </div>
               <div className="sm:col-span-2 pt-1 border-t border-stone-200/60">
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Taxes &amp; Shipping</span>
-                <p className="text-stone-700 mt-0.5">Inclusive of all taxes • Free delivery above ₹299</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Taxes &amp; Shipping</span>
+                <p className="text-stone-700 mt-0.5 font-sans">Inclusive of all taxes • Free delivery above ₹299</p>
               </div>
             </div>
           </div>
@@ -1062,19 +1115,19 @@ function ProductDetailsSection(){
             </h3>
             <div className="space-y-3 text-xs sm:text-sm">
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Recommended Ritual</span>
-                <p className="text-stone-800 font-medium mt-0.5">2× weekly application. Leave for 30–60 minutes before rinsing with a mild shampoo.</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Recommended Ritual</span>
+                <p className="text-stone-800 font-medium mt-0.5 font-sans">2× weekly application. Leave for 30–60 minutes before rinsing with a mild shampoo.</p>
               </div>
               <div>
-                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block">Cool Weather Care</span>
-                <p className="text-stone-700 mt-0.5">Pure unrefined coconut oil base naturally solidifies below 24°C. Place bottle in warm water for 2-3 minutes to liquefy before use.</p>
+                <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Cool Weather Care</span>
+                <p className="text-stone-700 mt-0.5 font-sans">Pure unrefined coconut oil base naturally solidifies below 24°C. Place bottle in warm water for 2-3 minutes to liquefy before use.</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Pack Label Image Preview (lg:col-span-5) */}
-        <div className="lg:col-span-5 bg-[#f4f2eb] p-6 sm:p-8 rounded-2xl border border-stone-200/80 flex flex-col items-center justify-center text-center shadow-xs">
+        {/* Right Column: Pack Label & Zoom (lg:col-span-5) */}
+        <div className="lg:col-span-5 bg-[#f5f2eb] p-6 rounded-3xl border border-stone-200/60 flex flex-col items-center justify-center text-center shadow-xs">
           <div className="w-full flex items-center justify-center p-2">
             <img 
               src="/assets/gallery/neeli-back.webp" 
@@ -1243,36 +1296,61 @@ function SiteFooter() {
 function ChatGPTRightNav({ activeSection }: { activeSection: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const activeIndex = Math.max(
+    0,
+    navItems.findIndex(([id]) => id === activeSection)
+  );
+
+  const totalItems = navItems.length;
+  const centerIndex = (totalItems - 1) / 2;
+  const stepHeight = 36; // 28px item height + 8px gap
+  const translateYOffset = (activeIndex - centerIndex) * stepHeight;
+
   return (
-    <div 
+    <nav
       className={`chatgpt-expanding-nav ${isOpen ? 'is-open' : ''}`}
+      style={{
+        transform: isOpen
+          ? `translateY(calc(-50% - ${translateYOffset}px))`
+          : 'translateY(-50%)',
+      }}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       role="navigation"
       aria-label="Section navigation menu"
     >
-      <div className="expanding-nav-list">
+      <div className="expanding-nav-list flex flex-col items-end gap-2 text-right">
         {navItems.map(([id, label]) => {
           const isActive = activeSection === id;
-
-          if (!isOpen && !isActive) return null;
+          const isVisible = isOpen || isActive;
 
           return (
             <button
               key={id}
               type="button"
+              tabIndex={isVisible ? 0 : -1}
               className={`expanding-nav-item ${isActive ? 'active' : 'inactive'}`}
+              style={{
+                opacity: isVisible ? (isActive ? 1 : 0.55) : 0,
+                maxHeight: isVisible ? '28px' : '0px',
+                height: isVisible ? '28px' : '0px',
+                margin: 0,
+                padding: 0,
+                pointerEvents: isVisible ? 'auto' : 'none',
+                overflow: 'hidden',
+                transition: 'opacity 0.2s ease, height 0.2s ease, max-height 0.2s ease, color 0.2s ease',
+              }}
               onClick={() => {
                 document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
                 setIsOpen(false);
               }}
             >
-              {label}
+              <span>{label}</span>
             </button>
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 }
 
@@ -1295,7 +1373,7 @@ function App(){
   const closeRef=useRef<HTMLButtonElement>(null);
   const drawerRef=useRef<HTMLElement>(null);
   const drawerOpenerRef=useRef<HTMLElement|null>(null);
-  const heroCommerceRef=useRef<HTMLElement>(null);
+  const heroCommerceRef=useRef<HTMLDivElement>(null);
   const searchRef=useRef<HTMLInputElement>(null);
   const textureExposed=useRef(false);
   const markTextureExposure=useCallback(()=>{textureExposed.current=true},[]);
@@ -1404,66 +1482,80 @@ function App(){
     </header>
     <ChatGPTRightNav activeSection={activeSection} />
     <main id="main" className={scienceDockHidden?'science-is-active':undefined}>
-      <section className="hero checkpoint-hero" id="product">
-        <div className="hero-overview">
-          <ProductIdentity/>
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 text-left" id="product">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column: Gallery & 3 Thumbnails (lg:col-span-7) */}
+          <div className="lg:col-span-7">
+            <StoryGallery slide={slide} setSlide={setSlide} experiment={motionExperiment} onTextureExposure={markTextureExposure}/>
+          </div>
+
+          {/* Right Column: Product Details & Purchase (lg:col-span-5) */}
+          <div ref={heroCommerceRef} className="lg:col-span-5 flex flex-col justify-between space-y-4" aria-label="Purchase details">
+            <ProductIdentity/>
+
+            <div className="hero-price-row">
+              <div className="flex items-baseline gap-3">
+                <strong className="text-2xl md:text-3xl font-semibold text-stone-900 font-sans">₹{currentPrice}</strong>
+                <del className="text-stone-400 text-base line-through font-sans">₹{currentMrp}</del>
+                <span className="bg-[#cca54e] text-stone-900 px-2.5 py-0.5 rounded-full text-xs font-extrabold font-sans">{currentDiscount}</span>
+              </div>
+              <p className="price-note text-xs text-stone-600 mt-1 font-sans">Inclusive of all taxes • Free delivery above ₹299</p>
+            </div>
+
+            <div className="size-selector mt-3">
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-stone-500 mb-2 block font-sans">SELECT SIZE:</span>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <button 
+                  type="button" 
+                  className={`p-4 rounded-2xl border flex flex-col justify-between relative text-left transition-all cursor-pointer ${selectedSize==='200ml'?'border-stone-900 bg-white shadow-xs':'border-stone-200/80 bg-white/40 hover:bg-white'}`} 
+                  onClick={()=>setSelectedSize('200ml')}
+                >
+                  <div className="flex items-center justify-between font-sans w-full">
+                    <span className="font-bold text-stone-900 text-sm">200 ml</span>
+                    <span className="font-bold text-stone-900 text-sm">₹338</span>
+                  </div>
+                  <span className="text-[10px] font-extrabold text-[#954721] uppercase tracking-wider mt-2 block font-sans">Best value • Save ₹37</span>
+                </button>
+                <button 
+                  type="button" 
+                  className={`p-4 rounded-2xl border flex flex-col justify-between relative text-left transition-all cursor-pointer ${selectedSize==='100ml'?'border-stone-900 bg-white shadow-xs':'border-stone-200/80 bg-white/40 hover:bg-white'}`} 
+                  onClick={()=>setSelectedSize('100ml')}
+                >
+                  <div className="flex items-center justify-between font-sans w-full">
+                    <span className="font-bold text-stone-900 text-sm">100 ml</span>
+                    <span className="font-bold text-stone-700 text-sm">₹195</span>
+                  </div>
+                  <span className="text-[10px] text-stone-500 mt-2 block font-sans">Standard Pack</span>
+                </button>
+              </div>
+            </div>
+
+            <PurchaseAction cart={cart} buyState={buyState} price={currentPrice} onAdd={()=>add('hero')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('hero')}/>
+            
+            <div className="flex items-center justify-center gap-4 pt-1">
+              <button type="button" className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors cursor-pointer font-sans">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                <span>Add to Wishlist</span>
+              </button>
+              <span className="text-stone-300">•</span>
+              <a href="#ingredients" className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors cursor-pointer font-sans">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Explore Ingredients</span>
+              </a>
+            </div>
+
+            <div className="hero-reassurance-strip flex flex-wrap gap-4 text-xs font-medium text-stone-600 pt-2 border-t border-stone-200/80 font-sans">
+              <span>✓ Free shipping above ₹499</span>
+              <span>✓ COD available</span>
+              <span>✓ 100% Authentic Ayurveda</span>
+            </div>
+            <p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p>
+          </div>
         </div>
-        <StoryGallery slide={slide} setSlide={setSlide} experiment={motionExperiment} onTextureExposure={markTextureExposure}/>
-        <section ref={heroCommerceRef} className="hero-commerce space-y-4" aria-label="Purchase details">
-          <div className="hero-price-row">
-            <div className="flex items-baseline gap-3">
-              <strong className="text-3xl font-bold text-stone-900">₹{currentPrice}</strong>
-              <del className="text-stone-400 text-base line-through">₹{currentMrp}</del>
-              <span className="bg-[#cca54e] text-stone-900 px-2.5 py-0.5 rounded-full text-xs font-extrabold">{currentDiscount}</span>
-            </div>
-            <p className="price-note text-xs text-stone-600 mt-1">Inclusive of all taxes • Free delivery above ₹299</p>
-          </div>
-
-          <div className="size-selector">
-            <span className="text-[11px] font-extrabold uppercase tracking-widest text-stone-500 mb-2 block">SELECT SIZE:</span>
-            <div className="grid grid-cols-2 gap-3">
-              <button type="button" className={`p-3 rounded-2xl border-2 text-left transition-all cursor-pointer ${selectedSize==='200ml'?'border-[#39461d] bg-white shadow-xs':'border-stone-200/80 bg-white/40 hover:bg-white'}`} onClick={()=>setSelectedSize('200ml')}>
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-stone-900 text-sm">200 ml</span>
-                  <span className="font-bold text-[#39461d] text-sm">₹338</span>
-                </div>
-                <span className="text-[10px] font-extrabold text-[#954721] uppercase tracking-wider mt-1 block">Best value • Save ₹37</span>
-              </button>
-              <button type="button" className={`p-3 rounded-2xl border-2 text-left transition-all cursor-pointer ${selectedSize==='100ml'?'border-[#39461d] bg-white shadow-xs':'border-stone-200/80 bg-white/40 hover:bg-white'}`} onClick={()=>setSelectedSize('100ml')}>
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-stone-900 text-sm">100 ml</span>
-                  <span className="font-bold text-stone-700 text-sm">₹195</span>
-                </div>
-                <span className="text-[10px] text-stone-500 mt-1 block">Standard Pack</span>
-              </button>
-            </div>
-          </div>
-
-          <PurchaseAction cart={cart} buyState={buyState} price={currentPrice} onAdd={()=>add('hero')} onDecrease={()=>setCart(Math.max(0,cart-1))} onIncrease={()=>setCart(cart+1)} onViewCart={()=>viewCart('hero')} className="hero-purchase-action"/>
-          
-          <div className="flex items-center justify-center gap-4 pt-1">
-            <button type="button" className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-stone-600 hover:text-[#954721] transition-colors cursor-pointer">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              <span>Add to Wishlist</span>
-            </button>
-            <span className="text-stone-300">•</span>
-            <a href="#ingredients" className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-stone-600 hover:text-[#954721] transition-colors cursor-pointer">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <span>Explore Ingredients</span>
-            </a>
-          </div>
-
-          <div className="hero-reassurance-strip flex flex-wrap gap-4 text-xs font-medium text-stone-600 pt-2 border-t border-stone-200/80">
-            <span>✓ Free shipping above ₹499</span>
-            <span>✓ COD available</span>
-            <span>✓ 100% Authentic Ayurveda</span>
-          </div>
-          <p className="live" aria-live="polite">{buyState==='added'?'Product added to the cart':''}</p>
-        </section>
       </section>
       <ConfidenceStrip/>
 
-      <section className="statement w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16 text-left" id="purity-statement">
+      <section className="statement w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 text-left" id="purity-statement">
         <div className="mb-8 border-b border-stone-300/60 pb-6">
           <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
             Formulation Purity &amp; Sourcing

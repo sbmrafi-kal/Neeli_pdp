@@ -131,7 +131,7 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
       {/* ========================================== */}
       {/* 2. CATEGORY COMPARISON SECTION */}
       {/* ========================================== */}
-      <section className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16 text-left">
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 text-left">
         <div className="mb-8 border-b border-stone-300/60 pb-6">
           <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
             Category Comparison
@@ -203,17 +203,17 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
       {/* ========================================== */}
       {/* 3. DOCTOR CONSULTATION CARD */}
       {/* ========================================== */}
-      <section className="w-full max-w-7xl mx-auto px-6 md:px-12 py-6 md:py-8 text-left">
-        <div className="bg-[#efece6] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-12 items-center border border-stone-300/60 shadow-xs max-h-none md:max-h-[320px]">
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 text-left">
+        <div className="bg-[#f0edeb] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center border border-stone-300/60 shadow-xs max-h-[320px]">
           {/* Left Content Column */}
-          <div className="md:col-span-6 p-6 sm:p-7 md:p-8 text-left">
-            <span className="text-[10px] tracking-widest text-stone-500 font-semibold uppercase mb-1 block">
+          <div className="p-6 md:p-8 flex flex-col justify-center space-y-3 text-left">
+            <span className="text-[10px] tracking-widest text-stone-500 font-semibold uppercase block font-sans">
               1-ON-1 AYURVEDA DOCTOR CONSULTATION
             </span>
-            <h3 className="font-serif text-2xl md:text-3xl text-stone-900 leading-snug mb-2 tracking-tight">
+            <h3 className="font-serif text-2xl md:text-3xl text-stone-900 leading-snug tracking-tight">
               Bring your hair-fall concern to an Ayurveda doctor.
             </h3>
-            <p className="text-xs md:text-sm text-stone-600 leading-relaxed font-sans max-w-md mb-4">
+            <p className="text-xs md:text-sm text-stone-600 leading-relaxed font-sans max-w-md">
               Get customized Ayurvedic guidance tailored to your scalp type, hair density, and lifestyle from qualified Ayurveda physicians.
             </p>
             {hasConsultLink ? (
@@ -223,7 +223,7 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Start a WhatsApp consultation with an Ayurveda doctor"
-                className="px-5 py-2.5 text-[11px] tracking-wider uppercase font-medium bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm"
+                className="px-5 py-2.5 text-[11px] tracking-wider uppercase font-medium bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm w-fit"
               >
                 <span>Start on WhatsApp ↗</span>
               </a>
@@ -232,7 +232,7 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
                 href="https://wa.me/919995559842"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 text-[11px] tracking-wider uppercase font-medium bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm"
+                className="px-5 py-2.5 text-[11px] tracking-wider uppercase font-medium bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm w-fit"
               >
                 <span>Start Doctor Consultation ↗</span>
               </a>
@@ -240,7 +240,7 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
           </div>
 
           {/* Right Image Column */}
-          <div className="md:col-span-6 h-full max-h-[320px] overflow-hidden">
+          <div className="h-full max-h-[320px] overflow-hidden">
             <img
               src="/assets/ayurveda-doctor-consultation.png"
               alt="Ayurveda Doctor Consultation"

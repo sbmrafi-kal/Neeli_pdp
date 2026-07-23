@@ -4251,14 +4251,13 @@ html body .adapted-heritage {
   position: fixed !important;
   right: 24px !important;
   top: 50% !important;
-  transform: translateY(-50%) !important;
   z-index: 999 !important;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
 }
 
 .chatgpt-expanding-nav.is-open {
@@ -4281,29 +4280,31 @@ html body .adapted-heritage {
   text-align: right !important;
   font-size: 11px !important;
   font-weight: 750 !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
   padding: 4px 0 !important;
+  height: 28px !important;
+  line-height: 20px !important;
   border-radius: 0 !important;
   transition: all 0.2s ease !important;
 }
 
 .expanding-nav-item.active {
-  color: #954721 !important;
+  color: #8C4A27 !important;
   opacity: 1 !important;
-  font-weight: 850 !important;
+  font-weight: 800 !important;
   background: transparent !important;
 }
 
 .expanding-nav-item.inactive {
-  color: #314225 !important;
-  opacity: 0.4 !important;
+  color: #8C887B !important;
+  opacity: 0.55 !important;
   background: transparent !important;
 }
 
 .expanding-nav-item.inactive:hover {
   opacity: 1 !important;
-  color: #954721 !important;
+  color: #1c1917 !important;
   background: transparent !important;
 }
 
