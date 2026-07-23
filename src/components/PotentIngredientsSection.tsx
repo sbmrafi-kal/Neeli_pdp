@@ -103,26 +103,6 @@ export const DEFAULT_INGREDIENTS: IngredientItem[] = [
       ayurvedicProperties: 'Rasa: Madhura, Kashaya | Virya: Sita | Vipaka: Madhura',
       keyCompounds: 'Enzymes, Amino Acids, Fructose, Milk Lipids (Lactic Acid)'
     }
-  },
-  {
-    id: 'slow-cooking',
-    name: 'Thaila Paaka',
-    scientificName: '48-Hour Paaka Vidhi Extraction',
-    description: 'Classical 48-hour slow-heat extraction process where herbal decoctions (Kashaya) bind with oil over gentle flames.',
-    videoSrc: '/assets/production/slow-cooking.mp4',
-    imageSrc: '/assets/production/slow-cooking.webp',
-    fullDetails: {
-      role: 'Classical Paaka Vidhi Alchemy',
-      benefits: [
-        'Slow low-flame heating ensures zero thermal degradation of herbs',
-        'Allows oil-soluble and water-soluble active molecules to bind',
-        'Evaporates water content for 100% pure potent oil formulation',
-        'Maximizes bioavailability and scalp absorption rate'
-      ],
-      sourcing: 'Prepared in traditional copper vessels following Sahasrayogam text',
-      ayurvedicProperties: 'Process: Sneha Kalpana (Thaila Paaka Vidhi)',
-      keyCompounds: 'Synergistic Herbal Decoction + Lipid Complex'
-    }
   }
 ];
 
@@ -144,20 +124,20 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
   return (
     <section
       id="ingredients"
-      className={`potent-ingredients-section w-full relative py-12 sm:py-16 !pb-8 sm:!pb-8 bg-[#DCE4DA] text-[#39461d] overflow-hidden ${className}`}
+      className={`potent-ingredients-section w-full relative py-12 sm:py-16 !pb-8 sm:!pb-8 bg-[#5F6C3D] text-[#FAF8F5] overflow-hidden ${className}`}
     >
       {/* Background Decorative Soft Blur Spheres */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-900/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-stone-900/20 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container relative z-10">
         <div className="relative z-10 max-w-7xl mx-auto text-center">
           {/* Section Header */}
           <div className="mb-0 sm:mb-0 space-y-2">
-            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#2A3517] leading-tight">
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#FAF8F5] leading-tight">
               {title}
             </h2>
-            <p className="text-sm sm:text-base text-[#39461d]/85 max-w-2xl mx-auto font-light leading-relaxed mt-3">
+            <p className="text-sm sm:text-base text-stone-200/90 max-w-2xl mx-auto font-light leading-relaxed mt-3">
               Hand-harvested botanicals and lipid carriers slow-cooked using classical Thaila Paaka Vidhi for targeted scalp and hair restoration.
             </p>
           </div>

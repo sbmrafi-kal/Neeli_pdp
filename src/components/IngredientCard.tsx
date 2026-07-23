@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { MoreHorizontal } from 'lucide-react';
 
 export interface IngredientDetail {
@@ -24,34 +24,48 @@ interface IngredientCardProps {
   ingredient: IngredientItem;
   onOpenDetails: (ingredient: IngredientItem) => void;
   isActive?: boolean;
+  onMouseEnter?: () => void;
 }
 
 export const IngredientCard: React.FC<IngredientCardProps> = ({
   ingredient,
   onOpenDetails,
   isActive = false,
+  onMouseEnter,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const isLightTheme = ingredient.theme === 'light';
+
+  const isCardActive = isActive || isHovered;
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay handled silently
-      });
+    if (isCardActive) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay handled silently
+        });
+      }
+    } else {
+      video.pause();
     }
-  }, [ingredient.videoSrc]);
+  }, [isCardActive, ingredient.videoSrc]);
 
   return (
     <article
+      onMouseEnter={() => {
+        setIsHovered(true);
+        onMouseEnter?.();
+      }}
+      onMouseLeave={() => setIsHovered(false)}
       className={`potent-card ${isLightTheme ? 'potent-card-light' : 'potent-card-dark'} group relative w-full aspect-[4/5] sm:h-[400px] rounded-[24px] overflow-hidden select-none transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) transform-gpu ${
-        isActive
-          ? 'scale-[1.04] opacity-100 shadow-2xl z-20'
-          : 'scale-[0.96] opacity-100 hover:scale-[0.98] shadow-md z-10'
+        isCardActive
+          ? 'scale-[1.04] -translate-y-2 opacity-100 shadow-2xl z-20'
+          : 'scale-[0.96] opacity-90 shadow-md z-10'
       }`}
       style={{
         willChange: 'transform, box-shadow',
@@ -64,7 +78,6 @@ export const IngredientCard: React.FC<IngredientCardProps> = ({
             ref={videoRef}
             key={ingredient.videoSrc}
             src={ingredient.videoSrc}
-            autoPlay
             loop
             muted
             playsInline
@@ -139,9 +152,9 @@ export const IngredientCard: React.FC<IngredientCardProps> = ({
         {/* Expandable Section: Description + Learn More Button (Visible on Active Card or Hover) */}
         <div
           className={`transition-all duration-500 ease-out overflow-hidden ${
-            isActive
+            isCardActive
               ? 'max-h-48 opacity-100 mt-2'
-              : 'max-h-0 opacity-0 group-hover:max-h-48 group-hover:opacity-100 group-hover:mt-2'
+              : 'max-h-0 opacity-0'
           }`}
         >
           {/* Short 2-Line Description */}

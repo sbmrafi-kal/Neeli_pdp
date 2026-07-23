@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { getMotionExperiment, isMotionEligible, observeWebVitals, track, trackOnce, type MotionExperiment } from './analytics';
 import { RecoveryComparison } from './v2/RecoveryComparison';
 import { ConsultationCTA } from './v2/ConsultationCTA';
@@ -469,10 +469,19 @@ function FormulaSection({v3=false}:{v3?:boolean}){
 
 function RitualSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const mobileContainerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [mobileScrollProgress, setMobileScrollProgress] = useState(0);
 
+  // Desktop Scroll Progress
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Mobile Scroll Progress
+  const { scrollYProgress: mobileYProgress } = useScroll({
+    target: mobileContainerRef,
     offset: ["start start", "end end"],
   });
 
@@ -482,72 +491,56 @@ function RitualSection() {
     setScrollProgress(latest);
   });
 
-  // Thresholds for Step Box Arrival: Step 01 (0%), Step 02 (33%), Step 03 (66%), Step 04 (98%)
+  useMotionValueEvent(mobileYProgress, "change", (latest) => {
+    setMobileScrollProgress(latest);
+  });
+
+  // Active mobile step index (0 -> 3)
+  const activeMobileStep = Math.min(
+    3,
+    Math.max(0, Math.floor(mobileScrollProgress * 4.05))
+  );
+
+  const scrollToMobileStep = (stepIdx: number) => {
+    if (!mobileContainerRef.current) return;
+    const rect = mobileContainerRef.current.getBoundingClientRect();
+    const scrollTop = window.scrollY + rect.top;
+    const stepHeight = mobileContainerRef.current.clientHeight / 4;
+    window.scrollTo({
+      top: scrollTop + stepIdx * stepHeight + 15,
+      behavior: 'smooth'
+    });
+  };
+
+  // Thresholds for Step Box Arrival (Desktop)
   const stepThresholds = [0, 0.33, 0.66, 0.98];
-  // 50% Midpoint Thresholds for Glossy Preview Reveal (Step 02 @ 16.5%, Step 03 @ 49.5%, Step 04 @ 82%)
   const previewThresholds = [0, 0.165, 0.495, 0.82];
 
   return (
     <>
-      {/* Sticky Pinning Wrapper: Creates 300vh scroll height on desktop, auto height on mobile */}
-      <div className="relative h-auto sm:h-[300vh] py-8 sm:py-0" ref={containerRef} id="ritual">
-        {/* Sticky Inner Viewport: Pins during scroll on desktop only */}
-        <div className="sm:sticky sm:top-0 sm:h-screen h-auto flex flex-col justify-center overflow-hidden">
-          <div className="w-full max-w-7xl mx-auto px-0 text-left py-4">
-            {/* Section Header */}
-            <div className="mb-6 border-b border-stone-300/60 pb-4">
-              <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-1 block">
-                Application Ritual
-              </span>
-              <h2 className="text-3xl md:text-4xl font-serif text-stone-900 leading-snug tracking-tight">
-                The Ritual Guide
-              </h2>
-              <p className="text-xs sm:text-sm text-stone-600 mt-1 font-sans">
-                Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
-              </p>
-            </div>
-
-            {/* 4-Step Structured Flow */}
-            <div className="space-y-4">
-              {/* Mobile Swipable Carousel (< sm) */}
-              <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-4 -mx-4 no-scrollbar">
-                {ritualSteps.map(([index, title, copy], idx) => (
-                  <div 
-                    key={index}
-                    className="snap-center shrink-0 w-[78vw] max-w-[280px] bg-stone-100/90 border border-stone-200/80 rounded-2xl p-4 flex flex-col justify-between shadow-xs"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="w-7 h-7 rounded-md bg-stone-900 text-white text-xs font-semibold flex items-center justify-center font-sans">
-                          {index}
-                        </span>
-                        <span className="text-[10px] tracking-wider uppercase font-semibold text-stone-400 font-sans">
-                          Step {idx + 1} of 4
-                        </span>
-                      </div>
-                      <h3 className="font-serif text-xl text-stone-900 mb-3 text-left">
-                        {title}
-                      </h3>
-                      <div className="w-full aspect-[4/3] max-h-[200px] overflow-hidden rounded-xl border border-stone-200/80 mb-3 bg-stone-200">
-                        <img
-                          src={`/assets/production/ritual-step-${idx + 1}.webp`}
-                          alt={`${title} - Step ${index}`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                    <p className="text-xs leading-relaxed text-stone-600 font-sans text-left">
-                      {copy}
-                    </p>
-                  </div>
-                ))}
+      {/* ====================================================================== */}
+      {/* 1. DESKTOP RITUAL SECTION (hidden md:block)                           */}
+      {/* ====================================================================== */}
+      <div className="hidden md:block">
+        <div className="relative h-[300vh]" ref={containerRef} id="ritual">
+          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+            <div className="w-full max-w-7xl mx-auto px-6 text-left py-4">
+              {/* Section Header */}
+              <div className="mb-6 border-b border-stone-300/60 pb-4">
+                <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-1 block font-sans">
+                  Application Ritual
+                </span>
+                <h2 className="text-4xl font-serif text-stone-900 leading-snug tracking-tight">
+                  The Ritual Guide
+                </h2>
+                <p className="text-sm text-stone-600 mt-1 font-sans">
+                  Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
+                </p>
               </div>
 
-              {/* Desktop / Tablet Grid (>= sm) */}
-              <div className="hidden sm:block space-y-4">
-                {/* a & b: TOP Titles & MIDDLE Images Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* 4-Step Structured Grid */}
+              <div className="space-y-4">
+                <div className="grid grid-cols-4 gap-6">
                   {ritualSteps.map(([index, title], idx) => {
                     const isFullReveal = scrollProgress >= stepThresholds[idx];
                     const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
@@ -560,7 +553,6 @@ function RitualSection() {
                           isFutureHidden ? 'opacity-0 pointer-events-none invisible' : ''
                         }`}
                       >
-                        {/* a) TOP: Title */}
                         <motion.h3 
                           initial={false}
                           animate={{ 
@@ -568,16 +560,13 @@ function RitualSection() {
                             opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
                           }}
                           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                          className={`font-serif text-xl sm:text-2xl mb-2 text-center lg:text-left ${
-                            isFullReveal 
-                              ? 'text-stone-900' 
-                              : 'text-stone-400'
+                          className={`font-serif text-2xl mb-2 text-left ${
+                            isFullReveal ? 'text-stone-900' : 'text-stone-400'
                           }`}
                         >
                           {title}
                         </motion.h3>
 
-                        {/* b) MIDDLE: Image (Top directional entrance on reveal) */}
                         <motion.div
                           initial={false}
                           animate={{ 
@@ -605,24 +594,22 @@ function RitualSection() {
                   })}
                 </div>
 
-                {/* c) SUPERPOWER TIMELINE LINE & BADGE NODES */}
+                {/* Timeline Line & Badges */}
                 <div className="relative py-1 my-1">
-                  {/* ONLY Active Line (NO static background grey track line) */}
-                  <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-[2px] pointer-events-none -translate-y-1/2 z-0">
+                  <div className="absolute top-1/2 left-0 right-0 h-[2px] pointer-events-none -translate-y-1/2 z-0">
                     <motion.div
                       className="h-[2px] bg-stone-900 transition-all duration-75 ease-out"
                       style={{ width: lineScaleX }}
                     />
                   </div>
 
-                  {/* Numbered Badges (01, 02, 03, 04) aligned with 4 columns */}
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                  <div className="grid grid-cols-4 gap-6 relative z-10">
                     {ritualSteps.map(([index], idx) => {
                       const isFullReveal = scrollProgress >= stepThresholds[idx];
                       const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
 
                       return (
-                        <div key={index} className="flex items-center justify-center lg:justify-start">
+                        <div key={index} className="flex items-center justify-start">
                           <div
                             className={`w-8 h-8 rounded-md border text-xs font-semibold flex items-center justify-center z-10 relative transition-all duration-300 ${
                               isFullReveal
@@ -640,8 +627,8 @@ function RitualSection() {
                   </div>
                 </div>
 
-                {/* d) BOTTOM: Description Text Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Description Grid */}
+                <div className="grid grid-cols-4 gap-6">
                   {ritualSteps.map(([index, title, copy], idx) => {
                     const isFullReveal = scrollProgress >= stepThresholds[idx];
                     const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
@@ -655,7 +642,7 @@ function RitualSection() {
                           opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
                         }}
                         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className={`text-xs leading-relaxed text-center lg:text-left font-sans transition-all duration-700 ease-out ${
+                        className={`text-xs leading-relaxed text-left font-sans transition-all duration-700 ease-out ${
                           isFullReveal 
                             ? 'text-stone-600' 
                             : isGlossyPreview
@@ -670,6 +657,111 @@ function RitualSection() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ====================================================================== */}
+      {/* 2. MOBILE DEDICATED LAYOUT (block md:hidden)                           */}
+      {/* ====================================================================== */}
+      <div className="block md:hidden text-left" id="ritual-mobile">
+        {/* Mobile Section Header */}
+        <div className="px-4 pt-4 pb-3 border-b border-stone-200/60 mb-2 text-left">
+          <span className="text-[10px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-1 block font-sans">
+            Application Ritual
+          </span>
+          <h2 className="text-2xl font-serif text-stone-900 leading-snug tracking-tight">
+            The Ritual Guide
+          </h2>
+          <p className="text-xs text-stone-600 mt-1 font-sans leading-relaxed">
+            Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
+          </p>
+        </div>
+
+        {/* STICKY TOP STEP NAVIGATION BAR (MOBILE ONLY) */}
+        <div className="sticky top-16 z-30 bg-[#FAF8F5]/95 backdrop-blur-md py-3 border-b border-stone-200/60 px-4">
+          <div className="flex items-center justify-between gap-2">
+            {ritualSteps.map(([index, title], idx) => {
+              const isActive = activeMobileStep === idx;
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => scrollToMobileStep(idx)}
+                  className={`transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? 'flex items-center gap-1.5 text-xs font-semibold text-stone-900 border-b-2 border-stone-900 pb-1'
+                      : 'text-xs text-stone-400 font-medium hover:text-stone-600'
+                  }`}
+                >
+                  {isActive ? (
+                    <>
+                      <span className="text-stone-400 font-normal">|</span>
+                      <span>{index} {title}</span>
+                    </>
+                  ) : (
+                    <span>{index}</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* STICKY FULL-VIEWPORT STEP CARDS WITH SCROLL-DRIVEN TRANSITIONS */}
+        <div className="relative min-h-[400vh]" ref={mobileContainerRef}>
+          <div className="sticky top-28 h-[calc(100vh-140px)] flex flex-col justify-between px-4 py-3">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeMobileStep}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="h-full flex flex-col justify-between bg-white/80 backdrop-blur-xs border border-stone-200/80 rounded-3xl p-4 shadow-sm"
+              >
+                {/* Top Text Block */}
+                <div className="text-left">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[10px] tracking-widest text-[#954721] font-semibold uppercase font-sans">
+                      Step {ritualSteps[activeMobileStep][0]} of 04
+                    </span>
+                    <span className="w-6 h-6 rounded-md bg-stone-900 text-white text-[11px] font-bold flex items-center justify-center font-sans">
+                      {ritualSteps[activeMobileStep][0]}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-2xl text-stone-900 mb-1">
+                    {ritualSteps[activeMobileStep][1]}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+                    {ritualSteps[activeMobileStep][2]}
+                  </p>
+                </div>
+
+                {/* Center Media Frame */}
+                <div className="w-full aspect-[4/5] max-h-[340px] rounded-3xl overflow-hidden relative shadow-md bg-stone-100 my-2">
+                  <img
+                    src={`/assets/production/ritual-step-${activeMobileStep + 1}.webp`}
+                    alt={`${ritualSteps[activeMobileStep][1]} - Step ${ritualSteps[activeMobileStep][0]}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Bottom FAQ / Detail Drawer Accordion Pill */}
+                <div className="bg-[#f8f6f0] border border-stone-200/80 rounded-2xl p-3 shadow-xs text-left">
+                  <div className="flex items-center justify-between text-xs font-semibold text-stone-800">
+                    <span>Step {ritualSteps[activeMobileStep][0]} Guidance</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#954721] font-bold">Ayurveda Tip</span>
+                  </div>
+                  <p className="text-xs text-stone-600 mt-1 leading-snug font-sans">
+                    {activeMobileStep === 0 && "Warming the oil enhances scalp absorption and relaxes hair roots."}
+                    {activeMobileStep === 1 && "Part your hair in sections so the medicated oil contacts the scalp directly."}
+                    {activeMobileStep === 2 && "Massage gently using pad of fingertips in slow circular motions for 5 minutes."}
+                    {activeMobileStep === 3 && "Rinse thoroughly with lukewarm water and a gentle sulfate-free cleanser."}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -871,7 +963,7 @@ function ReviewsSection(){
 function FaqSection(){
   const [openItem,setOpenItem]=useState<number|null>(0);
   return (
-    <section className="faq section adapted-faq w-full bg-[#efe6dc] border-y border-stone-200/80 py-12 md:py-16 text-left" id="faq">
+    <section className="faq section adapted-faq w-full !bg-white border-y border-stone-200/80 py-12 md:py-16 text-left" id="faq">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         <header className="lg:col-span-4 lg:sticky lg:top-36">
           <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block font-sans">
@@ -884,11 +976,11 @@ function FaqSection(){
             Everything you need to know about formula, application, and results.
           </p>
         </header>
-        <div className="faq-list lg:col-span-8 space-y-4 w-full">
+        <div className="faq-list lg:col-span-8 w-full border-b border-stone-300/60">
           {faqItems.map(([question,answer],index)=>{
             const open=openItem===index;
             return (
-              <article className={open?'open':''} key={question}>
+              <article className={`border-t border-stone-300/80 rounded-none bg-transparent ${open?'open':''}`} key={question}>
                 <h3>
                   <button aria-expanded={open} aria-controls={`faq-answer-${index}`} onClick={()=>setOpenItem(open?null:index)}>
                     <b>{question}</b>
@@ -1366,55 +1458,23 @@ function SiteFooter() {
 }
 
 function ChatGPTRightNav({ activeSection }: { activeSection: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const activeIndex = Math.max(
-    0,
-    navItems.findIndex(([id]) => id === activeSection)
-  );
-
-  const totalItems = navItems.length;
-  const centerIndex = (totalItems - 1) / 2;
-  const stepHeight = 36; // 28px item height + 8px gap
-  const translateYOffset = (activeIndex - centerIndex) * stepHeight;
-
   return (
     <nav
-      className={`chatgpt-expanding-nav ${isOpen ? 'is-open' : ''}`}
-      style={{
-        transform: isOpen
-          ? `translateY(calc(-50% - ${translateYOffset}px))`
-          : 'translateY(-50%)',
-      }}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      className="chatgpt-expanding-nav hidden md:block"
       role="navigation"
       aria-label="Section navigation menu"
     >
       <div className="expanding-nav-list flex flex-col items-end gap-2 text-right">
         {navItems.map(([id, label]) => {
           const isActive = activeSection === id;
-          const isVisible = isOpen || isActive;
 
           return (
             <button
               key={id}
               type="button"
-              tabIndex={isVisible ? 0 : -1}
               className={`expanding-nav-item ${isActive ? 'active' : 'inactive'}`}
-              style={{
-                opacity: isVisible ? (isActive ? 1 : 0.55) : 0,
-                maxHeight: isVisible ? '28px' : '0px',
-                height: isVisible ? '28px' : '0px',
-                margin: 0,
-                padding: 0,
-                pointerEvents: isVisible ? 'auto' : 'none',
-                overflow: 'hidden',
-                transition: 'opacity 0.2s ease, height 0.2s ease, max-height 0.2s ease, color 0.2s ease',
-              }}
               onClick={() => {
                 document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-                setIsOpen(false);
               }}
             >
               <span>{label}</span>
@@ -1794,12 +1854,12 @@ function App(){
       <div className="sticky-dock-inner w-full flex items-center justify-between gap-4">
         {/* Left Side: M.R.P. & Taxes (Matching Images 1 & 2) */}
         <div className="flex flex-col text-left justify-center leading-tight">
-          <div className="flex items-baseline gap-1.5 text-white font-sans">
-            <span className="text-xs sm:text-sm font-bold tracking-wide">M.R.P.</span>
-            <span className="text-xs sm:text-sm line-through text-white/70 font-normal">₹{currentMrp}</span>
-            <span className="text-base sm:text-xl font-extrabold text-white">₹{currentPrice}</span>
+          <div className="flex items-baseline gap-1.5 font-sans">
+            <span className="dock-mrp-label text-xs sm:text-sm font-bold tracking-wide text-white">M.R.P.</span>
+            <span className="dock-old-price text-xs sm:text-sm line-through text-white/70 font-normal">₹{currentMrp}</span>
+            <span className="dock-new-price text-base sm:text-xl font-extrabold text-white">₹{currentPrice}</span>
           </div>
-          <div className="text-[10px] sm:text-xs text-white/80 font-medium tracking-tight mt-0.5">
+          <div className="dock-tax-note text-[10px] sm:text-xs text-white/85 font-medium tracking-tight mt-0.5">
             Inclusive of all taxes
           </div>
         </div>
@@ -1816,7 +1876,8 @@ function App(){
               <button 
                 type="button" 
                 onClick={() => openDrawer()} 
-                className="bg-white text-[#8C4A27] font-extrabold px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
+                className="dock-add-btn bg-white font-extrabold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
+                style={{ color: '#8C4A27', backgroundColor: '#ffffff' }}
               >
                 VIEW CART • ₹{currentPrice * cart}
               </button>
@@ -1826,7 +1887,8 @@ function App(){
               type="button" 
               disabled={buyState !== 'ready'} 
               onClick={() => add('dock')} 
-              className="dock-add-btn bg-white text-[#8C4A27] font-extrabold px-4 sm:px-8 py-2 sm:py-2.5 rounded-lg hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
+              className="dock-add-btn bg-white font-extrabold px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
+              style={{ color: '#8C4A27', backgroundColor: '#ffffff' }}
             >
               {buyState === 'ready' ? 'ADD TO CART' : buyState === 'adding' ? 'ADDING…' : 'ADDED TO CART'}
             </button>

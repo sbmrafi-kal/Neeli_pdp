@@ -4497,31 +4497,31 @@ body section.difference-section {
   }
 }
 
-/* Minimalist Borderless Right-Margin Section Navigation List */
+/* Minimalist Always-Open Right-Margin Section Navigation List */
 .chatgpt-expanding-nav {
   position: fixed !important;
-  right: 24px !important;
+  right: 20px !important;
   top: 50% !important;
+  transform: translateY(-50%) !important;
   z-index: 999 !important;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
-}
-
-.chatgpt-expanding-nav.is-open {
-  background: transparent !important;
-  border: none !important;
   box-shadow: none !important;
 }
 
 .expanding-nav-list {
   display: flex !important;
   flex-direction: column !important;
-  gap: 8px !important;
+  gap: 10px !important;
   align-items: flex-end !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 0.3px solid rgba(140, 74, 39, 0.35) !important;
+  padding: 14px 16px !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
 }
 
 .expanding-nav-item {
@@ -4533,8 +4533,8 @@ body section.difference-section {
   font-weight: 750 !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
-  padding: 4px 0 !important;
-  height: 28px !important;
+  padding: 2px 0 !important;
+  height: auto !important;
   line-height: 20px !important;
   border-radius: 0 !important;
   transition: all 0.2s ease !important;
@@ -5281,26 +5281,28 @@ html body .comparison-v3__header--compare,
   display: none !important;
 }
 
-/* 2. Open FAQ card background color matching section bg (#EFE6DC) & border line for question box */
+/* 2. Open FAQ card background color matching white section (#ffffff) */
 html body .faq-list article.open,
 html body .faq-list article.open .faq-answer,
 .faq-list article.open,
 .faq-list article.open .faq-answer {
-  background: #EFE6DC !important;
-  border-color: #B5967B !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 html body .faq-list article.open,
 .faq-list article.open {
-  border: 1px solid #B5967B !important;
-  border-radius: 16px !important;
-  overflow: hidden !important;
+  border: none !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
 }
 
 html body .faq-list article.open button,
 body .faq-list article.open button,
 .faq-list article.open button {
-  border-bottom: 1px solid #B5967B !important;
+  border-bottom: none !important;
 }
 
 /* 3. Remove extra empty space below hero image carousel */
@@ -6297,4 +6299,176 @@ html body .story-gallery img,
     font-size: 18px !important;
     color: #39461D !important;
   }
+}
+
+/* STICKY ADD TO CART DOCK - ULTIMATE SPECIFICITY OVERRIDES */
+html body aside.purchase.contextual-purchase,
+html body .purchase.contextual-purchase,
+html body .purchase,
+aside.purchase {
+  background-color: #8C4A27 !important;
+  background: #8C4A27 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
+  z-index: 999 !important;
+}
+
+/* Mobile floating card styling matching reference */
+@media (max-width: 767px) {
+  html body aside.purchase.contextual-purchase,
+  html body .purchase.contextual-purchase,
+  aside.purchase {
+    bottom: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: calc(100% - 24px) !important;
+    margin: 0 auto !important;
+    border-radius: 18px !important;
+    padding: 12px 18px !important;
+    min-height: 68px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+  }
+}
+
+/* Desktop bottom bar styling matching reference */
+@media (min-width: 768px) {
+  html body aside.purchase.contextual-purchase,
+  html body .purchase.contextual-purchase,
+  aside.purchase {
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    padding: 14px 48px !important;
+    min-height: 74px !important;
+  }
+}
+
+/* Force ADD TO CART Button Styling to White background + Terracotta Brown text */
+html body aside.purchase button.dock-add-btn,
+html body aside.purchase .dock-add-btn,
+html body aside.purchase button,
+button.dock-add-btn,
+.dock-add-btn {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #8C4A27 !important;
+  -webkit-text-fill-color: #8C4A27 !important;
+  font-weight: 800 !important;
+  font-family: Figtree, Avenir, sans-serif !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  transition: all 0.2s ease !important;
+}
+
+html body aside.purchase button.dock-add-btn:hover,
+html body aside.purchase .dock-add-btn:hover {
+  background-color: #f7f5f0 !important;
+  background: #f7f5f0 !important;
+  color: #723b1e !important;
+  -webkit-text-fill-color: #723b1e !important;
+}
+
+/* Force left-side text colors */
+html body aside.purchase *,
+html body .sticky-dock-inner * {
+  color: inherit;
+}
+
+html body aside.purchase .dock-mrp-label {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+html body aside.purchase .dock-old-price {
+  color: rgba(255, 255, 255, 0.7) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
+  text-decoration: line-through !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+}
+
+html body aside.purchase .dock-new-price {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+}
+
+html body aside.purchase .dock-tax-note {
+  color: rgba(255, 255, 255, 0.85) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+/* FAQ Section Full-Width White Background & Top Border Only Overrides */
+html body section#faq,
+html body section.adapted-faq,
+html body section.faq,
+body section.adapted-faq,
+body section.faq,
+section.adapted-faq,
+section.faq,
+.faq,
+#faq {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+html body section#faq .faq-list article,
+html body section#faq .faq-list article.open,
+html body section.adapted-faq .faq-list article,
+html body section.adapted-faq .faq-list article.open,
+html body .faq-list article,
+html body .faq-list article.open,
+body .faq-list article,
+body .faq-list article.open,
+.faq-list article,
+.faq-list article.open {
+  border: none !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  overflow: visible !important;
+}
+
+html body section#faq .faq-list article h3 button,
+html body section.adapted-faq .faq-list article h3 button,
+html body .faq-list article h3 button,
+html body .faq-list article.open button,
+body .faq-list article.open button,
+body .faq-list article h3 button,
+.faq-list article h3 button,
+.faq-list article.open button {
+  padding: 24px 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border: none !important;
+  border-bottom: none !important;
+  border-radius: 0 !important;
+}
+
+html body section#faq .faq-answer,
+html body section.adapted-faq .faq-answer,
+html body .faq-answer,
+body .faq-answer,
+.faq-answer,
+.faq-list article.open .faq-answer {
+  padding: 0 0 24px 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border: none !important;
 }

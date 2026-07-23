@@ -128,6 +128,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
                   ingredient={item}
                   onOpenDetails={onOpenDetails}
                   isActive={isItemActive}
+                  onMouseEnter={() => setCurrentIndex(index)}
                 />
               </div>
             );
@@ -157,8 +158,8 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
                 <div
                   className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                     isExactCurrent
-                      ? 'bg-[#39461d] scale-y-110 shadow-sm opacity-100'
-                      : 'bg-[#39461d]/30 group-hover:bg-[#39461d]/60'
+                      ? 'bg-[#FAF8F5] scale-y-110 shadow-sm opacity-100'
+                      : 'bg-[#FAF8F5]/30 group-hover:bg-[#FAF8F5]/60'
                   }`}
                 />
               </button>

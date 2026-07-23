@@ -741,7 +741,10 @@ html body section.difference-section {
 /* FAQs Section Reset */
 html body section#faq,
 html body section.adapted-faq {
-  background-color: #efe6dc !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  max-width: 100% !important;
+  width: 100% !important;
 }
 
 html body .faq-list,
