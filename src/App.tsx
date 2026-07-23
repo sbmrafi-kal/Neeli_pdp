@@ -116,7 +116,7 @@ function PurchaseAction({cart,buyState,onAdd,onDecrease,onIncrease,onViewCart,pr
 function ProductIdentity(){
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2 mb-1" aria-label="Category pills">
+      <div className="hidden sm:flex flex-wrap items-center gap-2 mb-1" aria-label="Category pills">
         <span className="bg-stone-200/60 text-stone-700 text-[11px] px-3 py-1 rounded-full font-medium font-sans">
           80-Year Ayurvedic Lineage
         </span>
@@ -343,8 +343,8 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
         </button>
       </div>
 
-      {/* Thumbnails Container */}
-      <div className="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-none" aria-label="Choose a gallery image">
+      {/* Thumbnails Container - Hidden on Mobile */}
+      <div className="hidden sm:flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-none" aria-label="Choose a gallery image">
         {slides.map((frame, index) => {
           const isThumbVideo = frame.src.endsWith('.mp4') || (frame as any).isVideo;
           return (
@@ -502,10 +502,10 @@ function RitualSection() {
 
   return (
     <>
-      {/* Sticky Pinning Wrapper: Creates 300vh scroll height */}
-      <div className="relative h-[250vh] sm:h-[300vh]" ref={containerRef} id="ritual">
-        {/* Sticky Inner Viewport: Pins during the 300vh scroll */}
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      {/* Sticky Pinning Wrapper: Creates 300vh scroll height on desktop, auto height on mobile */}
+      <div className="relative h-auto sm:h-[300vh] py-8 sm:py-0" ref={containerRef} id="ritual">
+        {/* Sticky Inner Viewport: Pins during scroll on desktop only */}
+        <div className="sm:sticky sm:top-0 sm:h-screen h-auto flex flex-col justify-center overflow-hidden">
           <div className="w-full max-w-7xl mx-auto px-0 text-left py-4">
             {/* Section Header */}
             <div className="mb-6 border-b border-stone-300/60 pb-4">
@@ -522,127 +522,165 @@ function RitualSection() {
 
             {/* 4-Step Structured Flow */}
             <div className="space-y-4">
-              {/* a & b: TOP Titles & MIDDLE Images Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {ritualSteps.map(([index, title], idx) => {
-                  const isFullReveal = scrollProgress >= stepThresholds[idx];
-                  const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
-                  const isFutureHidden = !isFullReveal && !isGlossyPreview;
+              {/* Mobile Swipable Carousel (< sm) */}
+              <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-4 -mx-4 no-scrollbar">
+                {ritualSteps.map(([index, title, copy], idx) => (
+                  <div 
+                    key={index}
+                    className="snap-center shrink-0 w-[78vw] max-w-[280px] bg-stone-100/90 border border-stone-200/80 rounded-2xl p-4 flex flex-col justify-between shadow-xs"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="w-7 h-7 rounded-md bg-stone-900 text-white text-xs font-semibold flex items-center justify-center font-sans">
+                          {index}
+                        </span>
+                        <span className="text-[10px] tracking-wider uppercase font-semibold text-stone-400 font-sans">
+                          Step {idx + 1} of 4
+                        </span>
+                      </div>
+                      <h3 className="font-serif text-xl text-stone-900 mb-3 text-left">
+                        {title}
+                      </h3>
+                      <div className="w-full aspect-[4/3] max-h-[200px] overflow-hidden rounded-xl border border-stone-200/80 mb-3 bg-stone-200">
+                        <img
+                          src={`/assets/production/ritual-step-${idx + 1}.webp`}
+                          alt={`${title} - Step ${index}`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-xs leading-relaxed text-stone-600 font-sans text-left">
+                      {copy}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-                  return (
-                    <div 
-                      key={index} 
-                      className={`flex flex-col transition-all duration-300 ${
-                        isFutureHidden ? 'opacity-0 pointer-events-none invisible' : ''
-                      }`}
-                    >
-                      {/* a) TOP: Title */}
-                      <motion.h3 
+              {/* Desktop / Tablet Grid (>= sm) */}
+              <div className="hidden sm:block space-y-4">
+                {/* a & b: TOP Titles & MIDDLE Images Grid */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                  {ritualSteps.map(([index, title], idx) => {
+                    const isFullReveal = scrollProgress >= stepThresholds[idx];
+                    const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
+                    const isFutureHidden = !isFullReveal && !isGlossyPreview;
+
+                    return (
+                      <div 
+                        key={index} 
+                        className={`flex flex-col transition-all duration-300 ${
+                          isFutureHidden ? 'opacity-0 pointer-events-none invisible' : ''
+                        }`}
+                      >
+                        {/* a) TOP: Title */}
+                        <motion.h3 
+                          initial={false}
+                          animate={{ 
+                            y: isFullReveal ? 0 : (isGlossyPreview ? 0 : 35),
+                            opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
+                          }}
+                          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                          className={`font-serif text-xl sm:text-2xl mb-2 text-center lg:text-left ${
+                            isFullReveal 
+                              ? 'text-stone-900' 
+                              : 'text-stone-400'
+                          }`}
+                        >
+                          {title}
+                        </motion.h3>
+
+                        {/* b) MIDDLE: Image (Top directional entrance on reveal) */}
+                        <motion.div
+                          initial={false}
+                          animate={{ 
+                            y: isFullReveal ? 0 : (isGlossyPreview ? 0 : -35),
+                            opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
+                          }}
+                          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                          className={`w-full max-h-[300px] aspect-[4/3] overflow-hidden rounded-2xl shadow-sm border border-stone-200/80 mb-1 bg-stone-100 transition-all duration-700 ease-out ${
+                            isFullReveal 
+                              ? 'blur-0 grayscale-0 opacity-100' 
+                              : isGlossyPreview
+                              ? 'blur-[3px] grayscale-[20%] opacity-30'
+                              : 'opacity-0'
+                          }`}
+                        >
+                          <img
+                            src={`/assets/production/ritual-step-${idx + 1}.webp`}
+                            alt={`${title} - Step ${index}`}
+                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                            loading="lazy"
+                          />
+                        </motion.div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* c) SUPERPOWER TIMELINE LINE & BADGE NODES */}
+                <div className="relative py-1 my-1">
+                  {/* ONLY Active Line (NO static background grey track line) */}
+                  <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-[2px] pointer-events-none -translate-y-1/2 z-0">
+                    <motion.div
+                      className="h-[2px] bg-stone-900 transition-all duration-75 ease-out"
+                      style={{ width: lineScaleX }}
+                    />
+                  </div>
+
+                  {/* Numbered Badges (01, 02, 03, 04) aligned with 4 columns */}
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                    {ritualSteps.map(([index], idx) => {
+                      const isFullReveal = scrollProgress >= stepThresholds[idx];
+                      const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
+
+                      return (
+                        <div key={index} className="flex items-center justify-center lg:justify-start">
+                          <div
+                            className={`w-8 h-8 rounded-md border text-xs font-semibold flex items-center justify-center z-10 relative transition-all duration-300 ${
+                              isFullReveal
+                                ? 'bg-stone-900 text-white border-stone-900 scale-100 opacity-100 shadow-xs'
+                                : isGlossyPreview
+                                ? 'bg-stone-200/60 text-stone-400 border-stone-300 opacity-50 scale-95'
+                                : 'opacity-0 scale-90 border-transparent invisible'
+                            }`}
+                          >
+                            {index}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* d) BOTTOM: Description Text Grid */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                  {ritualSteps.map(([index, title, copy], idx) => {
+                    const isFullReveal = scrollProgress >= stepThresholds[idx];
+                    const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
+
+                    return (
+                      <motion.p
+                        key={index}
                         initial={false}
                         animate={{ 
                           y: isFullReveal ? 0 : (isGlossyPreview ? 0 : 35),
                           opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
                         }}
                         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className={`font-serif text-xl sm:text-2xl mb-2 text-center lg:text-left ${
+                        className={`text-xs leading-relaxed text-center lg:text-left font-sans transition-all duration-700 ease-out ${
                           isFullReveal 
-                            ? 'text-stone-900' 
-                            : 'text-stone-400'
-                        }`}
-                      >
-                        {title}
-                      </motion.h3>
-
-                      {/* b) MIDDLE: Image (Top directional entrance on reveal) */}
-                      <motion.div
-                        initial={false}
-                        animate={{ 
-                          y: isFullReveal ? 0 : (isGlossyPreview ? 0 : -35),
-                          opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
-                        }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className={`w-full max-h-[300px] aspect-[4/3] overflow-hidden rounded-2xl shadow-sm border border-stone-200/80 mb-1 bg-stone-100 transition-all duration-700 ease-out ${
-                          isFullReveal 
-                            ? 'blur-0 grayscale-0 opacity-100' 
+                            ? 'text-stone-600' 
                             : isGlossyPreview
-                            ? 'blur-[3px] grayscale-[20%] opacity-30'
-                            : 'opacity-0'
+                            ? 'text-stone-400'
+                            : 'opacity-0 hidden'
                         }`}
                       >
-                        <img
-                          src={`/assets/production/ritual-step-${idx + 1}.webp`}
-                          alt={`${title} - Step ${index}`}
-                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                          loading="lazy"
-                        />
-                      </motion.div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* c) SUPERPOWER TIMELINE LINE & BADGE NODES */}
-              <div className="relative py-1 my-1">
-                {/* ONLY Active Line (NO static background grey track line) */}
-                <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-[2px] pointer-events-none -translate-y-1/2 z-0">
-                  <motion.div
-                    className="h-[2px] bg-stone-900 transition-all duration-75 ease-out"
-                    style={{ width: lineScaleX }}
-                  />
-                </div>
-
-                {/* Numbered Badges (01, 02, 03, 04) aligned with 4 columns */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-                  {ritualSteps.map(([index], idx) => {
-                    const isFullReveal = scrollProgress >= stepThresholds[idx];
-                    const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
-
-                    return (
-                      <div key={index} className="flex items-center justify-center lg:justify-start">
-                        <div
-                          className={`w-8 h-8 rounded-md border text-xs font-semibold flex items-center justify-center z-10 relative transition-all duration-300 ${
-                            isFullReveal
-                              ? 'bg-stone-900 text-white border-stone-900 scale-100 opacity-100 shadow-xs'
-                              : isGlossyPreview
-                              ? 'bg-stone-200/60 text-stone-400 border-stone-300 opacity-50 scale-95'
-                              : 'opacity-0 scale-90 border-transparent invisible'
-                          }`}
-                        >
-                          {index}
-                        </div>
-                      </div>
+                        {copy}
+                      </motion.p>
                     );
                   })}
                 </div>
-              </div>
-
-              {/* d) BOTTOM: Description Text Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {ritualSteps.map(([index, title, copy], idx) => {
-                  const isFullReveal = scrollProgress >= stepThresholds[idx];
-                  const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
-
-                  return (
-                    <motion.p
-                      key={index}
-                      initial={false}
-                      animate={{ 
-                        y: isFullReveal ? 0 : (isGlossyPreview ? 0 : 35),
-                        opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
-                      }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      className={`text-xs leading-relaxed text-center lg:text-left font-sans transition-all duration-700 ease-out ${
-                        isFullReveal 
-                          ? 'text-stone-600' 
-                          : isGlossyPreview
-                          ? 'text-stone-400'
-                          : 'opacity-0 hidden'
-                      }`}
-                    >
-                      {copy}
-                    </motion.p>
-                  );
-                })}
               </div>
             </div>
           </div>
@@ -1090,7 +1128,7 @@ function ProductDetailsSection(){
   const closeZoom=()=>dialogRef.current?.close();
 
   return (
-    <section className="w-full bg-[#faf8f5] py-12 text-left" id="details">
+    <section className="w-full bg-[#faf8f5] pt-8 pb-0 text-left mb-0" id="details">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
         {/* Header */}
         <div className="mb-10 border-b border-stone-300/60 pb-6">
@@ -1187,7 +1225,7 @@ function ProductDetailsSection(){
               onClick={() => dialogRef.current?.showModal()}
               className="px-6 py-2.5 text-xs font-semibold tracking-wider uppercase bg-stone-900 text-white rounded-full mt-5 hover:bg-stone-800 transition-all cursor-pointer shadow-sm flex items-center gap-2"
             >
-              <span>+ Zoom Pack Label</span>
+              <span className="text-white !text-white color-[#ffffff]">+ Zoom Pack Label</span>
             </button>
             <p className="text-[11px] text-stone-500 mt-2 font-sans">
               Select to inspect physical carton information
@@ -1280,7 +1318,6 @@ function SiteFooter() {
     <footer className="official-site-footer">
       <div className="official-footer-inner">
         <div className="official-footer-brand-col">
-          <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="140" height="54" className="official-footer-logo" />
           <p className="official-footer-tagline">Rooted in Authentic Ayurveda.</p>
           <p className="official-footer-copy">© 2026, Kerala Ayurveda India.</p>
         </div>
@@ -1534,6 +1571,9 @@ function App(){
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Left Column: Gallery & 3 Thumbnails (lg:col-span-7) */}
             <div className="lg:col-span-7">
+              <div className="sm:hidden text-[11px] font-semibold tracking-wider text-stone-500 uppercase mb-2 px-1 font-sans">
+                HOME &gt; NEELI BHRINGADI
+              </div>
               <StoryGallery slide={slide} setSlide={setSlide} experiment={motionExperiment} onTextureExposure={markTextureExposure}/>
             </div>
 
@@ -1592,7 +1632,7 @@ function App(){
                 </a>
               </div>
 
-              <div className="hero-reassurance-strip flex flex-wrap gap-4 text-xs font-medium text-stone-600 pt-2 border-t border-stone-200/80 font-sans">
+              <div className="hero-reassurance-strip grid grid-cols-2 gap-x-3 gap-y-1.5 sm:flex sm:flex-wrap sm:gap-4 text-xs font-medium text-stone-600 pt-2 border-t border-stone-200/80 font-sans">
                 <span>✓ Free shipping above ₹499</span>
                 <span>✓ COD available</span>
                 <span>✓ 100% Authentic Ayurveda</span>
@@ -1604,7 +1644,7 @@ function App(){
       </section>
       <ConfidenceStrip/>
 
-      <section className="statement w-full bg-[#efe6dc] border-b border-stone-200/80 py-10 md:py-14 text-left" id="purity-statement">
+      <section className="statement w-full bg-[#efe6dc] border-b border-stone-200/80 py-0 text-left" id="purity-statement">
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
           <div className="mb-8 border-b border-stone-300/60 pb-6">
             <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">

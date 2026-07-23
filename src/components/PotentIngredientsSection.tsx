@@ -135,43 +135,39 @@ export interface PotentIngredientsSectionProps {
 
 export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> = ({
   title = 'Our Potent Ingredients',
-  eyebrow = 'HERBAL EXCELLENCE & AYURVEDIC SCIENCE',
+  eyebrow = '',
   ingredients = DEFAULT_INGREDIENTS,
   className = '',
 }) => {
   const [selectedIngredient, setSelectedIngredient] = useState<IngredientItem | null>(null);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container my-8 sm:my-16">
-      <section
-        id="ingredients"
-        className={`potent-ingredients-section relative py-14 sm:py-20 bg-[#DCE4DA] rounded-[32px] sm:rounded-[40px] text-[#39461d] overflow-hidden shadow-sm ${className}`}
-      >
+    <section
+      id="ingredients"
+      className={`potent-ingredients-section w-full relative py-12 sm:py-16 bg-[#DCE4DA] text-[#39461d] overflow-hidden ${className}`}
+    >
       {/* Background Decorative Soft Blur Spheres */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto text-center">
-        {/* Section Header */}
-        <div className="mb-10 sm:mb-14 space-y-2">
-          {eyebrow && (
-            <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-[#39461d]/75">
-              {eyebrow}
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container relative z-10">
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
+          {/* Section Header */}
+          <div className="mb-0 sm:mb-0 space-y-2">
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#2A3517] leading-tight">
+              {title}
+            </h2>
+            <p className="text-sm sm:text-base text-[#39461d]/85 max-w-2xl mx-auto font-light leading-relaxed mt-3">
+              Hand-harvested botanicals and lipid carriers slow-cooked using classical Thaila Paaka Vidhi for targeted scalp and hair restoration.
             </p>
-          )}
-          <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#2A3517] leading-tight">
-            {title}
-          </h2>
-          <p className="text-sm sm:text-base text-[#39461d]/85 max-w-2xl mx-auto font-light leading-relaxed mt-3">
-            Hand-harvested botanicals and lipid carriers slow-cooked using classical Thaila Paaka Vidhi for targeted scalp and hair restoration.
-          </p>
-        </div>
+          </div>
 
-        {/* Carousel Component */}
-        <IngredientsCarousel
-          ingredients={ingredients}
-          onOpenDetails={(item) => setSelectedIngredient(item)}
-        />
+          {/* Carousel Component */}
+          <IngredientsCarousel
+            ingredients={ingredients}
+            onOpenDetails={(item) => setSelectedIngredient(item)}
+          />
+        </div>
       </div>
 
       {/* Ingredient Detail Modal */}
@@ -179,7 +175,6 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
         ingredient={selectedIngredient}
         onClose={() => setSelectedIngredient(null)}
       />
-      </section>
-    </div>
+    </section>
   );
 };

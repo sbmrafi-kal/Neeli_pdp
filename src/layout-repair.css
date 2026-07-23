@@ -697,6 +697,17 @@ html body section.difference-section {
   }
 }
 
+@media (min-width: 1440px) {
+  html body main > section > div.site-container,
+  html body section > div.site-container,
+  html body .site-container,
+  html body .difference-grid,
+  html body .difference-header {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 @media (max-width: 1023px) {
   html body main > section > div.site-container,
   html body section > div.site-container,
@@ -707,6 +718,18 @@ html body section.difference-section {
     max-width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html body main > section > div.site-container,
+  html body section > div.site-container,
+  html body .site-container,
+  html body .difference-grid,
+  html body .difference-header {
     padding-left: 24px !important;
     padding-right: 24px !important;
     box-sizing: border-box !important;

@@ -209,7 +209,7 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
       {/* ========================================== */}
       <section className="w-full bg-[#efe6dc] py-0 text-left">
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
-          <div className="bg-[#f0edeb] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center border border-stone-300/60 shadow-xs max-h-[320px]">
+          <div className="bg-[#f0edeb] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center border border-stone-300/60 shadow-xs md:max-h-[320px]">
           {/* Left Content Column */}
           <div className="p-6 md:p-8 flex flex-col justify-center space-y-3 text-left">
             <span className="text-[10px] tracking-widest text-stone-500 font-semibold uppercase block font-sans">
@@ -245,11 +245,11 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
           </div>
 
           {/* Right Image Column */}
-          <div className="h-full max-h-[320px] overflow-hidden">
+          <div className="w-full h-64 sm:h-72 md:h-full md:max-h-[320px] overflow-hidden">
             <img
               src="/assets/ayurveda-doctor-consultation.png"
               alt="Ayurveda Doctor Consultation"
-              className="w-full h-full max-h-[320px] object-cover object-top"
+              className="w-full h-full md:max-h-[320px] object-cover object-[center_15%] md:object-top"
             />
           </div>
         </div>

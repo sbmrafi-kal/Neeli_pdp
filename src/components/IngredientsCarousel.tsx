@@ -186,7 +186,7 @@ export const IngredientsCarousel: React.FC<IngredientsCarouselProps> = ({
       </div>
 
       {/* Segmented Progress Bar Indicator (Synced Modulo Index) */}
-      <div className="mt-6 sm:mt-8 flex justify-center">
+      <div className="mt-4 sm:mt-4 flex justify-center">
         <div
           className="flex items-center gap-2 max-w-xs sm:max-w-md w-full justify-center px-4"
           role="tablist"

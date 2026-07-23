@@ -9,7 +9,7 @@
   --calm-ink: #39461D !important;
 }
 
-body, main, section {
+body, main {
   background-color: #EFE6DC !important;
 }
 
@@ -30,18 +30,71 @@ button.checkout {
 }
 
 /* Official KeralaAyurveda.com Header Replica */
-.official-site-header {
+header.official-site-header,
+header.header,
+.official-site-header,
+.official-main-header,
+.header {
   position: sticky !important;
   top: 0 !important;
   z-index: 100 !important;
   width: 100% !important;
-  background: #f4f3ef !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  background-color: #2C3E24 !important;
+  background: #2C3E24 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+  color: #ffffff !important;
+}
+
+.official-site-header nav a,
+.header nav a {
+  color: #ffffff !important;
+}
+
+.official-site-header nav a:hover,
+.header nav a:hover {
+  color: #d4a373 !important;
+}
+
+.official-site-header .brand img,
+.header .brand img {
+  filter: brightness(0) invert(1) !important;
+}
+
+.header-icon-btn,
+.header-icon-btn svg,
+.header-col-right svg,
+.header-search-pill svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
+.header-icon-btn:hover svg,
+.header-col-right button:hover svg {
+  stroke: #d4a373 !important;
+}
+
+.header-search-pill {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.header-search-pill input {
+  color: #ffffff !important;
+}
+
+.header-search-pill input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.header-search-pill svg {
+  stroke: #ffffff !important;
 }
 
 .official-ticker-bar {
-  background: #194837 !important;
+  background: #2C3E24 !important;
   color: #ffffff !important;
   height: 36px !important;
   display: flex !important;
@@ -1820,9 +1873,11 @@ body .adapted-pack {
   display: block !important;
 }
 
-.pack-zoom-trigger > span {
+.pack-zoom-trigger > span,
+html body #details button span,
+html body #details .pack-zoom-trigger span {
   background: var(--calm-ink) !important;
-  color: var(--calm-paper) !important;
+  color: #ffffff !important;
 }
 
 /* Final brand block and footer */
@@ -4246,6 +4301,15 @@ html body .adapted-heritage {
   box-sizing: border-box !important;
 }
 /* Reset outer section layout so legacy CSS grids do not crush inner site-containers */
+body section#purity-statement,
+body section.statement,
+section#purity-statement,
+section.statement {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-block: 0 !important;
+}
+
 body main > section,
 body section.statement,
 body section.faq,
@@ -4287,6 +4351,18 @@ body section.difference-section {
   }
 }
 
+@media (min-width: 1440px) {
+  body main > section > div.site-container,
+  body section > div.site-container,
+  body .site-container,
+  body .difference-grid,
+  body .difference-header,
+  body .confidence-strip-wrapper > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 @media (max-width: 1023px) {
   body main > section > div.site-container,
   body section > div.site-container,
@@ -4299,6 +4375,59 @@ body section.difference-section {
     padding-left: 24px !important;
     padding-right: 24px !important;
     box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Enforce 100% End-to-End Full-Bleed Section Backgrounds on Mobile */
+  html body main > section,
+  html body section,
+  body main > section,
+  body section,
+  section#product,
+  section#science,
+  section#ingredients,
+  section#details,
+  section#heritage,
+  section#faq,
+  section#reviews,
+  section#ritual,
+  .science-story-v3,
+  .potent-ingredients-section,
+  .adapted-faq,
+  .adapted-reviews,
+  .adapted-heritage {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html body main > section > div.site-container,
+  html body section > div.site-container,
+  html body .site-container,
+  html body .difference-grid,
+  html body .difference-header,
+  body main > section > div.site-container,
+  body section > div.site-container,
+  body .site-container,
+  body .difference-grid,
+  body .difference-header,
+  body .confidence-strip-wrapper > div {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  html body [aria-label="Category pills"],
+  body [aria-label="Category pills"] {
+    display: none !important;
   }
 }
 
@@ -4480,10 +4609,16 @@ html body .story-arrows button:hover,
 }
 
 /* Authentic Ayurveda Banner Section (Matching Images 1 & 2) */
+html body section#heritage,
+html body .authentic-ayurveda-banner-section,
+section#heritage,
 .authentic-ayurveda-banner-section {
   width: 100% !important;
   display: block !important;
-  padding: 60px 24px 180px 24px !important;
+  padding-top: 0px !important;
+  padding-bottom: 120px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
   background: #EFE6DC !important;
   box-sizing: border-box !important;
 }
@@ -5075,13 +5210,26 @@ html body .comparison-v3__header--compare,
   display: none !important;
 }
 
-/* 2. Open FAQ card background color matching section bg (#EFE6DC) */
+/* 2. Open FAQ card background color matching section bg (#EFE6DC) & border line for question box */
 html body .faq-list article.open,
 html body .faq-list article.open .faq-answer,
 .faq-list article.open,
 .faq-list article.open .faq-answer {
   background: #EFE6DC !important;
   border-color: #B5967B !important;
+}
+
+html body .faq-list article.open,
+.faq-list article.open {
+  border: 1px solid #B5967B !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+html body .faq-list article.open button,
+body .faq-list article.open button,
+.faq-list article.open button {
+  border-bottom: 1px solid #B5967B !important;
 }
 
 /* 3. Remove extra empty space below hero image carousel */
@@ -5571,23 +5719,77 @@ html body .story-gallery img,
    ========================================================================== */
 
 @media (max-width: 768px) {
-  /* 1. Standard 20-24px Marginal Side Padding */
-  html body section,
-  html body .section,
-  html body main,
-  html body .confidence-strip,
-  html body .pack-facts,
+  /* 1. Mobile Trust Section Vertical Layout (Matching Image 1) */
   html body .authentic-ayurveda-banner-section,
-  html body .comparison-v3,
-  html body .ritual,
-  html body .formula,
-  html body .results,
-  html body .difference-section,
-  section,
-  .section {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+  .authentic-ayurveda-banner-section {
+    padding: 24px 16px !important;
+    background: #efe6dc !important;
+  }
+
+  html body .authentic-banner-container,
+  .authentic-banner-container {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #173e30 !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  html body .authentic-col-visual,
+  .authentic-col-visual {
+    width: 100% !important;
+    height: 220px !important;
+    max-height: 240px !important;
+  }
+
+  html body .authentic-col-visual img,
+  .authentic-col-visual img,
+  .authentic-bg-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  html body .authentic-col-content,
+  .authentic-col-content {
+    width: 100% !important;
+    padding: 24px 20px 32px 20px !important;
+    text-align: center !important;
     box-sizing: border-box !important;
+  }
+
+  html body .authentic-heading-serif,
+  .authentic-heading-serif {
+    font-size: 26px !important;
+    color: #ffffff !important;
+    text-align: center !important;
+  }
+
+  html body .authentic-desc,
+  .authentic-desc {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-align: center !important;
+  }
+
+  html body .authentic-col-brand,
+  .authentic-col-brand {
+    display: none !important;
+  }
+
+  /* 2. Ingredients Section Mobile Margin Fix (Image 3) */
+  html body section#ingredients,
+  body section#ingredients,
+  .potent-ingredients-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 32px !important;
   }
 
   /* 2. Heritage / Difference Section Mobile UI (Image 1) */
@@ -5843,11 +6045,13 @@ html body .story-gallery img,
   html body .difference-header h2,
   .difference-header h2,
   html body #heritage h2 {
-    font-size: 22px !important;
-    line-height: 1.25 !important;
+    font-size: clamp(24px, 6vw, 36px) !important;
+    line-height: 1.2 !important;
     text-align: center !important;
     white-space: normal !important;
-    word-break: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
   }
 
   html body .difference-visual,

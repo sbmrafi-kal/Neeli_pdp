@@ -630,7 +630,7 @@ h1, h2, h3, h4, h5, h6, .promise, .kicker, .comparison-v3__intro h2, .heritage h
   font-weight: 700 !important;
 }
 
-/* 2. Full-Bleed Section Container Padding Calculations (Images 1, 2, 3) */
+/* 2. Full-Bleed Section Containers */
 section.statement,
 section.comparison-v3,
 section.adapted-ritual,
@@ -646,11 +646,9 @@ section.confidence-strip {
   border: none !important;
   box-shadow: none !important;
   box-sizing: border-box !important;
-  
-  /* Centering padding calculations to enforce standard page width margins */
-  padding-left: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
-  padding-right: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
-  padding-inline: max(clamp(20px, 4vw, 58px), (100vw - 1380px) / 2) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-inline: 0 !important;
 }
 
 /* Background Color Assignments for Full-Bleed Sections */
