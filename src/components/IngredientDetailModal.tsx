@@ -83,21 +83,7 @@ export const IngredientDetailModal: React.FC<IngredientDetailModalProps> = ({
             </p>
           </div>
 
-          {/* 2. Inline Editorial Ayurvedic Role (Unboxed with subtle horizontal divider lines) */}
-          {details?.role && (
-            <div className="border-y border-stone-200/80 py-3 my-1">
-              <p className="font-serif italic text-base sm:text-lg text-stone-800 font-medium leading-snug">
-                "{details.role}"
-              </p>
-            </div>
-          )}
-
-          {/* 3. Short Description Paragraph */}
-          <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans font-normal">
-            {ingredient.description}
-          </p>
-
-          {/* 4. Key Benefits List with Deep Botanical Green Bullets */}
+          {/* Key Benefits List with Deep Botanical Green Bullets */}
           {details?.benefits && details.benefits.length > 0 && (
             <div className="space-y-3 pt-1">
               <h4 className="text-xs uppercase tracking-[0.18em] font-extrabold text-stone-800">
@@ -115,7 +101,7 @@ export const IngredientDetailModal: React.FC<IngredientDetailModalProps> = ({
           )}
 
           {/* 5. Two-Column Metadata Grid (Sourcing & Key Active Nutrients) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4 border-t border-stone-200/80">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 pt-4 border-t border-stone-200/80">
             {details?.sourcing && (
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-[#954721] shrink-0 mt-0.5" />

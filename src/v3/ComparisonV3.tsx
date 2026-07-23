@@ -203,58 +203,6 @@ export function ComparisonV3({ consultHref = '', onConsultClick }: ComparisonV3P
         </div>
       </div>
     </section>
-
-      {/* ========================================== */}
-      {/* 3. DOCTOR CONSULTATION CARD */}
-      {/* ========================================== */}
-      <section className="w-full bg-[#efe6dc] py-0 text-left">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
-          <div className="bg-[#f0edeb] rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 items-center border border-stone-300/60 shadow-xs md:max-h-[320px]">
-          {/* Left Content Column */}
-          <div className="p-6 md:p-8 flex flex-col justify-center space-y-3 text-left">
-            <span className="text-[10px] tracking-widest text-stone-500 font-semibold uppercase block font-sans">
-              1-ON-1 AYURVEDA DOCTOR CONSULTATION
-            </span>
-            <h3 className="font-serif text-2xl md:text-3xl text-stone-900 leading-snug tracking-tight">
-              Bring your hair-fall concern to an Ayurveda doctor.
-            </h3>
-            <p className="text-xs md:text-sm text-stone-600 leading-relaxed font-sans max-w-md">
-              Get customized Ayurvedic guidance tailored to your scalp type, hair density, and lifestyle from qualified Ayurveda physicians.
-            </p>
-            {hasConsultLink ? (
-              <a
-                href={consultHref}
-                onClick={onConsultClick}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Start a WhatsApp consultation with an Ayurveda doctor"
-                className="px-5 py-2.5 text-[11px] tracking-wider uppercase font-medium bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm w-fit"
-              >
-                <span>Start on WhatsApp ↗</span>
-              </a>
-            ) : (
-              <a
-                href="https://wa.me/919995559842"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 text-[11px] tracking-wider uppercase font-medium bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm w-fit"
-              >
-                <span>Start Doctor Consultation ↗</span>
-              </a>
-            )}
-          </div>
-
-          {/* Right Image Column */}
-          <div className="w-full h-64 sm:h-72 md:h-full md:max-h-[320px] overflow-hidden">
-            <img
-              src="/assets/ayurveda-doctor-consultation.png"
-              alt="Ayurveda Doctor Consultation"
-              className="w-full h-full md:max-h-[320px] object-cover object-[center_28%] md:object-[center_28%]"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
     </div>
   );
 }

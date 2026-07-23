@@ -1058,24 +1058,18 @@ section.adapted-formula {
   background: var(--calm-paper) !important;
 }
 
-/* Science keeps the cinematic media, but the UI around it is light and flat. */
+/* Science keeps the cinematic media, with dark luxury #191913 background & gold accents */
 section.science-story-v3 {
-  --sv3-ink: var(--calm-ink) !important;
-  --sv3-cocoa: var(--calm-sage) !important;
-  --sv3-olive: var(--calm-sage) !important;
-  --sv3-herb: var(--calm-ink-soft) !important;
-  --sv3-cream: var(--calm-cream) !important;
-  --sv3-paper: var(--calm-paper) !important;
-  --sv3-rust: var(--calm-clay) !important;
-  --sv3-gold: var(--calm-gold) !important;
-  --sv3-amla: #8a9c69 !important;
-  --sv3-neeli: #756c88 !important;
-  --sv3-karnasphota: #b96e4e !important;
-  --sv3-lauric: #71818b !important;
+  --sv3-ink: #191913 !important;
+  --sv3-cocoa: #191913 !important;
+  --sv3-olive: #191913 !important;
+  --sv3-cream: #efe6dc !important;
+  --sv3-paper: #191913 !important;
+  --sv3-gold: #cba135 !important;
   padding: 0 !important;
-  background: var(--calm-cream) !important;
-  border-bottom: 1px solid var(--calm-rule) !important;
-  color: var(--calm-ink) !important;
+  background: #191913 !important;
+  border-bottom: 1px solid rgba(203, 161, 53, 0.2) !important;
+  color: #efe6dc !important;
 }
 
 .sv3-intro,
@@ -1085,8 +1079,8 @@ body .sv3-intro {
   margin-left: 0 !important;
   margin-right: 0 !important;
   padding: clamp(54px, 6vw, 92px) 24px !important;
-  background: var(--calm-lilac, #eae5f2) !important;
-  border-bottom: 1px solid var(--calm-rule) !important;
+  background: #191913 !important;
+  border-bottom: 1px solid rgba(203, 161, 53, 0.2) !important;
   box-sizing: border-box !important;
 }
 
@@ -1096,17 +1090,16 @@ body .sv3-intro > div {
   margin-inline: auto !important;
 }
 
-.sv3-intro h2,
-.sv3-intro h2 span {
-  color: var(--calm-ink) !important;
+.sv3-intro h2 {
+  color: #faf8f5 !important;
 }
 
 .sv3-intro h2 span {
-  color: #756c88 !important;
+  color: #cba135 !important;
 }
 
 .sv3-intro > div p {
-  color: var(--calm-ink-soft) !important;
+  color: rgba(239, 230, 220, .85) !important;
 }
 
 .sv3-scroll,
@@ -1115,60 +1108,114 @@ body .sv3-intro > div {
 .sv3-static-sequence,
 .sv3-static-scene,
 .sv3-static-scene .sv3-copy {
-  background: var(--calm-cream) !important;
+  background: #191913 !important;
 }
 
 .sv3-stage {
-  color: var(--calm-ink) !important;
+  color: #efe6dc !important;
 }
 
 .sv3-scenes,
 .sv3-scene {
-  background: #d9ded2 !important;
+  background: #191913 !important;
 }
 
 .sv3-scene::after {
-  background: none !important;
+  background: linear-gradient(90deg, rgba(25, 25, 19, .07) 54%, rgba(25, 25, 19, .72) 100%) !important;
 }
 
 .sv3-copy-stack {
-  border-left: 1px solid var(--calm-rule) !important;
+  border-left: 1px solid rgba(255, 255, 255, .08) !important;
 }
 
 .sv3-copy {
-  color: var(--calm-ink) !important;
+  color: #efe6dc !important;
 }
 
 .sv3-copy h3 {
-  color: var(--calm-ink) !important;
+  color: #faf8f5 !important;
 }
 
 .sv3-copy__body,
 .sv3-qualifier {
-  color: var(--calm-ink-soft) !important;
+  color: rgba(239, 230, 220, .85) !important;
 }
 
-.sv3-copy__eyebrow,
+.sv3-copy__eyebrow-text,
+.sv3-copy__circle-num,
 .sv3-copy header > span,
 .sv3-evidence > span {
-  color: var(--calm-clay) !important;
+  color: #cba135 !important;
+}
+
+.sv3-copy__circle-num {
+  border: 1px solid rgba(203, 161, 53, 0.7) !important;
 }
 
 .sv3-evidence li {
-  background: var(--calm-paper) !important;
-  border: 1px solid var(--calm-rule) !important;
+  background: rgba(239, 230, 220, 0.05) !important;
+  border: 1px solid rgba(239, 230, 220, 0.15) !important;
   border-radius: 999px !important;
-  color: var(--calm-ink) !important;
+  color: #efe6dc !important;
 }
 
 .sv3-progress {
-  background: rgba(251, 250, 246, .94) !important;
-  border: 1px solid var(--calm-rule) !important;
-  color: var(--calm-ink-soft) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.sv3-progress li[aria-current='step'] {
-  color: var(--calm-clay) !important;
+.sv3-progress li[aria-current='step'] .sv3-progress-num {
+  color: #cba135 !important;
+}
+
+@media (max-width: 899px) {
+  section.science-story-v3,
+  .sv3-scroll,
+  .sv3-stage,
+  .sv3-scenes,
+  .sv3-scene,
+  .sv3-copy-stack,
+  .sv3-copy,
+  .sv3-static-sequence,
+  .sv3-static-scene,
+  .sv3-static-scene .sv3-copy {
+    background: #191913 !important;
+    color: #efe6dc !important;
+  }
+
+  .sv3-copy-stack {
+    background: #191913 !important;
+    border-top: 1px solid rgba(203, 161, 53, 0.2) !important;
+  }
+
+  .sv3-copy h3 {
+    color: #faf8f5 !important;
+  }
+
+  .sv3-copy__body,
+  .sv3-qualifier {
+    color: rgba(239, 230, 220, 0.85) !important;
+  }
+
+  .sv3-stage,
+  body .sv3-stage,
+  .science-story-v3 .sv3-stage {
+    top: 122px !important;
+    height: calc(100svh - 122px) !important;
+    min-height: 0 !important;
+  }
+
+  .sv3-progress {
+    position: absolute !important;
+    top: 20px !important;
+    margin-top: 10px !important;
+    left: 18px !important;
+    right: 18px !important;
+    bottom: auto !important;
+    width: auto !important;
+    z-index: 30 !important;
+  }
 }
 
 .sv3-stage-cue {
@@ -4457,7 +4504,6 @@ body section.difference-section {
   section#heritage,
   section#faq,
   section#reviews,
-  section#ritual,
   .science-story-v3,
   .potent-ingredients-section,
   .adapted-faq,
@@ -4472,6 +4518,26 @@ body section.difference-section {
     border-radius: 0 !important;
     box-sizing: border-box !important;
   }
+
+section#ingredients,
+.potent-ingredients-section,
+html body section#ingredients,
+html body .potent-ingredients-section {
+  margin-bottom: 0px !important;
+}
+
+section#ritual,
+html body section#ritual,
+body section#ritual {
+  width: 100% !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(1.5rem, 4vw, 3rem) !important;
+  padding-right: clamp(1.5rem, 4vw, 3rem) !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
 
   html body main > section > div.site-container,
   html body section > div.site-container,
@@ -5963,15 +6029,19 @@ html body .story-gallery img,
     width: 100% !important;
     max-width: 100% !important;
     height: 240px !important;
+    overflow: hidden !important;
+    position: relative !important;
   }
 
   html body .difference-visual video,
   html body .difference-visual img,
   .difference-visual video,
-  .difference-visual img {
+  .difference-visual img,
+  .difference-visual .diff-image {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    transform: scale(1.08) !important;
     border-radius: 16px !important;
   }
 
@@ -6471,4 +6541,132 @@ body .faq-answer,
   background-color: #ffffff !important;
   background: #ffffff !important;
   border: none !important;
+}
+
+/* HARD ENFORCE PAGE MARGINS & CONTAINER BOUNDS ON #RITUAL ACROSS ALL BREAKPOINTS */
+html body section#ritual,
+body section#ritual,
+section#ritual,
+#ritual {
+  width: 100% !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(1.5rem, 4vw, 3rem) !important;
+  padding-right: clamp(1.5rem, 4vw, 3rem) !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+section#reviews,
+html body section#reviews,
+body section#reviews,
+#reviews {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+/* HARD ENFORCE FULL-WIDTH CONTAINER ON CONSULTATION CARD (IMAGE 1 MATCH) */
+section#consultation,
+html body section#consultation,
+body section#consultation {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+section#consultation .site-container,
+html body section#consultation .site-container {
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(1.5rem, 4vw, 3rem) !important;
+  padding-right: clamp(1.5rem, 4vw, 3rem) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* SECTION-WISE UI/UX MICRO-ANIMATIONS SYSTEM */
+@keyframes sectionFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* HARD ENFORCE EXACT 32PX FONT SIZE ON CONSULTATION TITLE */
+#consultation h2,
+html body #consultation h2,
+#consultation-cta-title,
+html body #consultation-cta-title {
+  font-size: 32px !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.015em !important;
+}
+
+/* REMOVE ALL PADDING BELOW FOOTER */
+html,
+body,
+html body,
+body.v3-theme {
+  padding-bottom: 0px !important;
+}
+
+/* ADD RICH PADDING AFTER HERITAGE & ORIGINS SECTION */
+section#heritage,
+html body section#heritage,
+#heritage,
+.adapted-heritage {
+  padding-bottom: clamp(4rem, 8vw, 7rem) !important;
+}
+
+/* MOBILE FIXES: REMOVE MARGINS & DISABLE MOBILE VIDEO STICKY BUG */
+.confidence-strip-wrapper,
+html body .confidence-strip-wrapper {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+
+section#product,
+html body section#product,
+#product {
+  margin-bottom: 0px !important;
+}
+
+section#details,
+html body section#details,
+#details {
+  margin-bottom: 0px !important;
+}
+
+@media (max-width: 1023px) {
+  section#ritual,
+  html body section#ritual,
+  #ritual {
+    margin-bottom: 0px !important;
+  }
+
+  section#difference,
+  html body section#difference,
+  #difference,
+  .difference-section {
+    margin-bottom: 0px !important;
+  }
+
+  html body .difference-visual,
+  body .difference-visual,
+  .difference-visual {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: 240px !important;
+  }
 }

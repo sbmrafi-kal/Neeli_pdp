@@ -20,7 +20,7 @@ const slides = [
   {src:'/assets/production/ritual.webp',mobileSrc:'/assets/production/ritual-mobile.webp',alt:'Woman receiving a gentle fingertip scalp massage',label:'Fingertip scalp massage',eyebrow:'Ritual use',shortLabel:'Massage',frameClass:'frame-ritual'},
   {src:'/assets/production/ingredients.webp',mobileSrc:'/assets/production/ingredients-mobile.webp',alt:'Amla, Neeli, Bhringaraj and coconut used in the formula',label:'Four powerful ingredients',eyebrow:'Key ingredients',shortLabel:'Herbs',frameClass:'frame-ingredients'},
   {src:'/assets/production/triple-milk.webp',mobileSrc:'/assets/production/triple-milk-mobile.webp',alt:'Cow milk, goat milk and coconut milk in three bowls',label:'The triple-milk formula',eyebrow:'The special base',shortLabel:'Milks',frameClass:'frame-milks'},
-  {src:'/assets/production/Honest_Sequence.png',mobileSrc:'/assets/production/Honest_Sequence.png',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Result',frameClass:'frame-results'},
+  {src:'/assets/production/Honest_Sequence.mp4',mobileSrc:'/assets/production/Honest_Sequence.mp4',poster:'/assets/production/Honest_Sequence.png',alt:'Woman with long dark hair holding Neelibhringadi Keram',label:'The honest results sequence',eyebrow:'What to expect',shortLabel:'Result',frameClass:'frame-results',isVideo:true},
 ];
 
 const navItems = [['product','Overview'],['results','Results'],['formula','Formula'],['comparison','Compare'],['ritual','How to use'],['reviews','Reviews']];
@@ -375,7 +375,7 @@ function StoryGallery({slide,setSlide,experiment,onTextureExposure}:{slide:numbe
 
 function ConfidenceStrip(){
   return (
-    <div className="w-full bg-[#f2efe9] border-y border-stone-200/80 my-10 text-left confidence-strip-wrapper">
+    <div className="w-full bg-[#f2efe9] border-y border-stone-200/80 mb-10 text-left confidence-strip-wrapper">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 site-container">
         <div className="bg-[#f2efe9] rounded-2xl grid grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-4 md:gap-0 text-center divide-y-0 md:divide-x divide-stone-300/70">
           <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4 border-r md:border-r-0 border-stone-300/70">
@@ -427,12 +427,16 @@ function ResultsSection(){
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Left Side: Constrained Image Media (lg:col-span-5) */}
+        {/* Left Side: Constrained Video Media (lg:col-span-5) */}
         <figure className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-sm">
-          <img 
-            src="/assets/production/Honest_Sequence.png" 
-            alt="The honest sequence hair care progression" 
-            className="w-full max-h-[440px] aspect-[4/5] object-cover rounded-3xl shadow-sm" 
+          <video 
+            src="/assets/production/Honest_Sequence.mp4" 
+            poster="/assets/production/Honest_Sequence.png"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full max-h-[440px] aspect-[4/5] object-cover rounded-3xl shadow-sm pointer-events-none" 
           />
         </figure>
 
@@ -459,7 +463,7 @@ function ResultsSection(){
         </div>
       </div>
     </div>
-  </section>
+    </section>
   );
 }
 
@@ -468,339 +472,219 @@ function FormulaSection({v3=false}:{v3?:boolean}){
 }
 
 function RitualSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mobileContainerRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [mobileScrollProgress, setMobileScrollProgress] = useState(0);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Desktop Scroll Progress
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerTop = window.innerHeight * 0.45;
+      let currentActive = 0;
 
-  // Mobile Scroll Progress
-  const { scrollYProgress: mobileYProgress } = useScroll({
-    target: mobileContainerRef,
-    offset: ["start start", "end end"],
-  });
+      stepRefs.current.forEach((el, index) => {
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= triggerTop) {
+            currentActive = index;
+          }
+        }
+      });
 
-  const lineScaleX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+      setActiveStepIndex(currentActive);
+    };
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setScrollProgress(latest);
-  });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  useMotionValueEvent(mobileYProgress, "change", (latest) => {
-    setMobileScrollProgress(latest);
-  });
-
-  // Active mobile step index (0 -> 3)
-  const activeMobileStep = Math.min(
-    3,
-    Math.max(0, Math.floor(mobileScrollProgress * 4.05))
-  );
-
-  const scrollToMobileStep = (stepIdx: number) => {
-    if (!mobileContainerRef.current) return;
-    const rect = mobileContainerRef.current.getBoundingClientRect();
-    const scrollTop = window.scrollY + rect.top;
-    const stepHeight = mobileContainerRef.current.clientHeight / 4;
-    window.scrollTo({
-      top: scrollTop + stepIdx * stepHeight + 15,
-      behavior: 'smooth'
-    });
-  };
-
-  // Thresholds for Step Box Arrival (Desktop)
-  const stepThresholds = [0, 0.33, 0.66, 0.98];
-  const previewThresholds = [0, 0.165, 0.495, 0.82];
+  const stepsData = [
+    {
+      step: "01",
+      title: "Warm",
+      points: [
+        "Pour 10–15ml oil into a small bowl",
+        "Warm gently in warm water",
+        "Activates botanical lipid carriers"
+      ],
+      image: "/assets/production/ritual-step-1.webp",
+    },
+    {
+      step: "02",
+      title: "Apply",
+      points: [
+        "Part hair into small sections",
+        "Apply warm oil directly onto scalp",
+        "Ensure complete root-to-tip coverage"
+      ],
+      image: "/assets/production/ritual-step-2.webp",
+    },
+    {
+      step: "03",
+      title: "Massage",
+      points: [
+        "Massage scalp gently for 5–10 min",
+        "Stimulates micro-circulation at roots",
+        "Encourages deep herb absorption"
+      ],
+      image: "/assets/production/ritual-step-3.webp",
+    },
+    {
+      step: "04",
+      title: "Wash",
+      points: [
+        "Leave on for 30–60 min (or overnight)",
+        "Rinse with mild Ayurvedic shampoo",
+        "Restores lustre & hair strength"
+      ],
+      image: "/assets/production/ritual-step-4.webp",
+    },
+  ];
 
   return (
-    <>
-      {/* ====================================================================== */}
-      {/* 1. DESKTOP RITUAL SECTION (hidden md:block)                           */}
-      {/* ====================================================================== */}
-      <div className="hidden md:block">
-        <div className="relative h-[300vh]" ref={containerRef} id="ritual">
-          <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-            <div className="w-full max-w-7xl mx-auto px-6 text-left py-4">
-              {/* Section Header */}
-              <div className="mb-6 border-b border-stone-300/60 pb-4">
-                <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-1 block font-sans">
-                  Application Ritual
-                </span>
-                <h2 className="text-4xl font-serif text-stone-900 leading-snug tracking-tight">
-                  The Ritual Guide
-                </h2>
-                <p className="text-sm text-stone-600 mt-1 font-sans">
-                  Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
-                </p>
-              </div>
-
-              {/* 4-Step Structured Grid */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-4 gap-6">
-                  {ritualSteps.map(([index, title], idx) => {
-                    const isFullReveal = scrollProgress >= stepThresholds[idx];
-                    const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
-                    const isFutureHidden = !isFullReveal && !isGlossyPreview;
-
-                    return (
-                      <div 
-                        key={index} 
-                        className={`flex flex-col transition-all duration-300 ${
-                          isFutureHidden ? 'opacity-0 pointer-events-none invisible' : ''
-                        }`}
-                      >
-                        <motion.h3 
-                          initial={false}
-                          animate={{ 
-                            y: isFullReveal ? 0 : (isGlossyPreview ? 0 : 35),
-                            opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
-                          }}
-                          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                          className={`font-serif text-2xl mb-2 text-left ${
-                            isFullReveal ? 'text-stone-900' : 'text-stone-400'
-                          }`}
-                        >
-                          {title}
-                        </motion.h3>
-
-                        <motion.div
-                          initial={false}
-                          animate={{ 
-                            y: isFullReveal ? 0 : (isGlossyPreview ? 0 : -35),
-                            opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
-                          }}
-                          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                          className={`w-full max-h-[300px] aspect-[4/3] overflow-hidden rounded-2xl shadow-sm border border-stone-200/80 mb-1 bg-stone-100 transition-all duration-700 ease-out ${
-                            isFullReveal 
-                              ? 'blur-0 grayscale-0 opacity-100' 
-                              : isGlossyPreview
-                              ? 'blur-[3px] grayscale-[20%] opacity-30'
-                              : 'opacity-0'
-                          }`}
-                        >
-                          <img
-                            src={`/assets/production/ritual-step-${idx + 1}.webp`}
-                            alt={`${title} - Step ${index}`}
-                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                            loading="lazy"
-                          />
-                        </motion.div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Timeline Line & Badges */}
-                <div className="relative py-1 my-1">
-                  <div className="absolute top-1/2 left-0 right-0 h-[2px] pointer-events-none -translate-y-1/2 z-0">
-                    <motion.div
-                      className="h-[2px] bg-stone-900 transition-all duration-75 ease-out"
-                      style={{ width: lineScaleX }}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-4 gap-6 relative z-10">
-                    {ritualSteps.map(([index], idx) => {
-                      const isFullReveal = scrollProgress >= stepThresholds[idx];
-                      const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
-
-                      return (
-                        <div key={index} className="flex items-center justify-start">
-                          <div
-                            className={`w-8 h-8 rounded-md border text-xs font-semibold flex items-center justify-center z-10 relative transition-all duration-300 ${
-                              isFullReveal
-                                ? 'bg-stone-900 text-white border-stone-900 scale-100 opacity-100 shadow-xs'
-                                : isGlossyPreview
-                                ? 'bg-stone-200/60 text-stone-400 border-stone-300 opacity-50 scale-95'
-                                : 'opacity-0 scale-90 border-transparent invisible'
-                            }`}
-                          >
-                            {index}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Description Grid */}
-                <div className="grid grid-cols-4 gap-6">
-                  {ritualSteps.map(([index, title, copy], idx) => {
-                    const isFullReveal = scrollProgress >= stepThresholds[idx];
-                    const isGlossyPreview = !isFullReveal && scrollProgress >= previewThresholds[idx];
-
-                    return (
-                      <motion.p
-                        key={index}
-                        initial={false}
-                        animate={{ 
-                          y: isFullReveal ? 0 : (isGlossyPreview ? 0 : 35),
-                          opacity: isFullReveal ? 1 : (isGlossyPreview ? 0.3 : 0)
-                        }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className={`text-xs leading-relaxed text-left font-sans transition-all duration-700 ease-out ${
-                          isFullReveal 
-                            ? 'text-stone-600' 
-                            : isGlossyPreview
-                            ? 'text-stone-400'
-                            : 'opacity-0 hidden'
-                        }`}
-                      >
-                        {copy}
-                      </motion.p>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+    <section 
+      id="ritual"
+      style={{
+        maxWidth: '1280px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingLeft: '1.5rem',
+        paddingRight: '1.5rem',
+        width: '100%',
+        boxSizing: 'border-box',
+        overflow: 'visible'
+      }}
+      className="py-12 md:py-16 text-left relative"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full relative">
+        
+        {/* LEFT COLUMN: TEXT & TIMELINE STEPS (5 Cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          <div>
+            <span className="text-[10px] tracking-[0.25em] font-semibold text-stone-500 uppercase block font-sans mb-2">
+              APPLICATION RITUAL
+            </span>
+            <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-2">
+              The Ritual Guide
+            </h2>
+            <p className="text-xs md:text-sm text-stone-600 leading-relaxed max-w-sm font-sans">
+              Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
+            </p>
           </div>
-        </div>
-      </div>
 
-      {/* ====================================================================== */}
-      {/* 2. MOBILE DEDICATED LAYOUT (block md:hidden)                           */}
-      {/* ====================================================================== */}
-      <div className="block md:hidden text-left" id="ritual-mobile">
-        {/* Mobile Section Header */}
-        <div className="px-4 pt-4 pb-3 border-b border-stone-200/60 mb-2 text-left">
-          <span className="text-[10px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-1 block font-sans">
-            Application Ritual
-          </span>
-          <h2 className="text-2xl font-serif text-stone-900 leading-snug tracking-tight">
-            The Ritual Guide
-          </h2>
-          <p className="text-xs text-stone-600 mt-1 font-sans leading-relaxed">
-            Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
-          </p>
-        </div>
+          {/* VERTICAL TIMELINE STEPS STACK (Line runs strictly dot-center to dot-center) */}
+          <div className="relative pl-6 space-y-7">
+            {/* Timeline Connecting Line: Center of Dot #1 to Center of Dot #4 */}
+            <div className="absolute left-[7px] top-[14px] bottom-[28px] w-[2px] bg-stone-300/70 pointer-events-none" />
 
-        {/* STICKY TOP STEP NAVIGATION BAR (MOBILE ONLY) */}
-        <div className="sticky top-16 z-30 bg-[#FAF8F5]/95 backdrop-blur-md py-3 border-b border-stone-200/60 px-4">
-          <div className="flex items-center justify-between gap-2">
-            {ritualSteps.map(([index, title], idx) => {
-              const isActive = activeMobileStep === idx;
+            {stepsData.map((step, idx) => {
+              const isPassedOrActive = idx <= activeStepIndex;
               return (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => scrollToMobileStep(idx)}
-                  className={`transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? 'flex items-center gap-1.5 text-xs font-semibold text-stone-900 border-b-2 border-stone-900 pb-1'
-                      : 'text-xs text-stone-400 font-medium hover:text-stone-600'
+                <div
+                  key={idx}
+                  ref={(el) => {
+                    stepRefs.current[idx] = el;
+                  }}
+                  onClick={() => setActiveStepIndex(idx)}
+                  className={`relative transition-all duration-500 cursor-pointer ${
+                    isPassedOrActive ? 'opacity-100' : 'opacity-35 hover:opacity-75'
                   }`}
                 >
-                  {isActive ? (
-                    <>
-                      <span className="text-stone-400 font-normal">|</span>
-                      <span>{index} {title}</span>
-                    </>
-                  ) : (
-                    <span>{index}</span>
-                  )}
-                </button>
+                  {/* Timeline Dot Node */}
+                  <div
+                    className={`absolute -left-[24px] top-1 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+                      isPassedOrActive
+                        ? 'bg-stone-900 border-stone-900 ring-4 ring-stone-900/15'
+                        : 'bg-stone-300 border-stone-100'
+                    }`}
+                  />
+
+                  {/* Step Header Badge & Title */}
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold font-sans transition-colors ${
+                        isPassedOrActive
+                          ? 'bg-stone-900 text-white'
+                          : 'bg-stone-200/80 text-stone-500'
+                      }`}
+                    >
+                      {step.step}
+                    </span>
+                    <h3
+                      className={`font-serif text-lg md:text-xl font-medium transition-colors ${
+                        isPassedOrActive ? 'text-stone-900' : 'text-stone-500'
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  {/* 3 Bullet Points List */}
+                  <ul className="space-y-1.5 pl-1">
+                    {step.points.map((pt, pIdx) => (
+                      <li
+                        key={pIdx}
+                        className={`flex items-start gap-2 text-xs md:text-sm font-sans leading-relaxed transition-colors ${
+                          isPassedOrActive ? 'text-stone-700' : 'text-stone-500'
+                        }`}
+                      >
+                        <span className={`inline-block text-xs mt-0.5 ${isPassedOrActive ? 'text-stone-900' : 'text-stone-400'}`}>•</span>
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               );
             })}
           </div>
         </div>
 
-        {/* STICKY FULL-VIEWPORT STEP CARDS WITH SCROLL-DRIVEN TRANSITIONS */}
-        <div className="relative min-h-[400vh]" ref={mobileContainerRef}>
-          <div className="sticky top-28 h-[calc(100vh-140px)] flex flex-col justify-between px-4 py-3">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeMobileStep}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="h-full flex flex-col justify-between bg-white/80 backdrop-blur-xs border border-stone-200/80 rounded-3xl p-4 shadow-sm"
-              >
-                {/* Top Text Block */}
-                <div className="text-left">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] tracking-widest text-[#954721] font-semibold uppercase font-sans">
-                      Step {ritualSteps[activeMobileStep][0]} of 04
-                    </span>
-                    <span className="w-6 h-6 rounded-md bg-stone-900 text-white text-[11px] font-bold flex items-center justify-center font-sans">
-                      {ritualSteps[activeMobileStep][0]}
-                    </span>
-                  </div>
-                  <h3 className="font-serif text-2xl text-stone-900 mb-1">
-                    {ritualSteps[activeMobileStep][1]}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
-                    {ritualSteps[activeMobileStep][2]}
-                  </p>
-                </div>
-
-                {/* Center Media Frame */}
-                <div className="w-full aspect-[4/5] max-h-[340px] rounded-3xl overflow-hidden relative shadow-md bg-stone-100 my-2">
-                  <img
-                    src={`/assets/production/ritual-step-${activeMobileStep + 1}.webp`}
-                    alt={`${ritualSteps[activeMobileStep][1]} - Step ${ritualSteps[activeMobileStep][0]}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Bottom FAQ / Detail Drawer Accordion Pill */}
-                <div className="bg-[#f8f6f0] border border-stone-200/80 rounded-2xl p-3 shadow-xs text-left">
-                  <div className="flex items-center justify-between text-xs font-semibold text-stone-800">
-                    <span>Step {ritualSteps[activeMobileStep][0]} Guidance</span>
-                    <span className="text-[10px] uppercase tracking-wider text-[#954721] font-bold">Ayurveda Tip</span>
-                  </div>
-                  <p className="text-xs text-stone-600 mt-1 leading-snug font-sans">
-                    {activeMobileStep === 0 && "Warming the oil enhances scalp absorption and relaxes hair roots."}
-                    {activeMobileStep === 1 && "Part your hair in sections so the medicated oil contacts the scalp directly."}
-                    {activeMobileStep === 2 && "Massage gently using pad of fingertips in slow circular motions for 5 minutes."}
-                    {activeMobileStep === 3 && "Rinse thoroughly with lukewarm water and a gentle sulfate-free cleanser."}
-                  </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+        {/* RIGHT COLUMN: 2x2 MEDIA GRID (Sticky through ritual section bounds) */}
+        <div className="lg:col-span-7 grid grid-cols-2 gap-3 md:gap-4 w-full sticky top-28 h-fit lg:self-start">
+          {stepsData.map((step, idx) => (
+            <div
+              key={idx}
+              onClick={() => setActiveStepIndex(idx)}
+              style={{ height: '200px' }}
+              className="w-full rounded-2xl overflow-hidden relative border border-stone-200/80 opacity-100 shadow-xs cursor-pointer"
+            >
+              <img
+                src={step.image}
+                alt={step.title}
+                className="w-full h-full object-cover object-center"
+              />
+              <span className="absolute bottom-2 left-2 bg-stone-900/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded font-sans">
+                {step.step} {step.title}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Seasonal Care & Guidance Cards: Standardized max-w-7xl Site Container */}
+      {/* Seasonal Care & Guidance Cards */}
       <div className="w-full max-w-7xl mx-auto px-0 mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 text-left" aria-label="Ritual guidance & seasonal care">
         <aside className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-8 rounded-2xl shadow-xs" aria-label="Dosage & Application">
           <div className="inline-flex items-center gap-2 text-[10px] tracking-widest font-semibold uppercase text-stone-500 mb-3 bg-stone-200/70 px-3 py-1 rounded-full">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
             <span>Dosage &amp; Application</span>
           </div>
-          <h4 className="font-serif text-xl font-semibold text-stone-900 mb-2">Rich by design. Easier with the right amount.</h4>
-          <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans">
-            This is a pre-wash oil, so it will feel richer than a leave-in serum. Start small and adjust for your hair density. Consistency matters more than vigorous rubbing or leaving it on overnight.
+          <h3 className="font-serif text-xl sm:text-2xl text-stone-900 mb-2">Recommended Usage</h3>
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+            Apply 10–15ml onto the scalp twice or thrice weekly. Leave for 30–60 minutes before washing with a gentle, sulfate-free cleanser like Kerala Ayurveda Gentle Shampoo.
           </p>
-          <div className="flex flex-wrap gap-2 mt-4">
-            <span className="text-[11px] font-medium bg-stone-200/60 text-stone-700 px-2.5 py-1 rounded-md">Start with 5–10 ml</span>
-            <span className="text-[11px] font-medium bg-stone-200/60 text-stone-700 px-2.5 py-1 rounded-md">Focus on scalp roots</span>
-            <span className="text-[11px] font-medium bg-stone-200/60 text-stone-700 px-2.5 py-1 rounded-md">Consistency over intensity</span>
-          </div>
         </aside>
 
-        <div className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-8 rounded-2xl shadow-xs" aria-label="Seasonal care advice">
+        <aside className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-8 rounded-2xl shadow-xs" aria-label="Seasonal Care Guidance">
           <div className="inline-flex items-center gap-2 text-[10px] tracking-widest font-semibold uppercase text-stone-500 mb-3 bg-stone-200/70 px-3 py-1 rounded-full">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-            <span>Seasonal Care</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Seasonal Care Guidance</span>
           </div>
-          <h4 className="font-serif text-xl font-semibold text-stone-900 mb-2">In cooler weather, the coconut oil base may solidify.</h4>
-          <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans">
-            Because Neelibhringadi Keram uses pure, unrefined coconut oil as its base, it naturally solidifies below 24°C. Warm the bottle gently in a bowl of warm water before use to restore its smooth fluid flow.
+          <h3 className="font-serif text-xl sm:text-2xl text-stone-900 mb-2">Coconut Oil Base &amp; Winter Care</h3>
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+            In cooler weather, unrefined coconut oil may naturally solidify. Place the sealed bottle in warm water for 2–3 minutes before use. This does not alter potency or active absorption.
           </p>
-          <div className="flex flex-wrap gap-2 mt-4">
-            <span className="text-[11px] font-medium bg-stone-200/60 text-stone-700 px-2.5 py-1 rounded-md">100% Pure Coconut Base</span>
-            <span className="text-[11px] font-medium bg-stone-200/60 text-stone-700 px-2.5 py-1 rounded-md">Warm gently in water</span>
-            <span className="text-[11px] font-medium bg-stone-200/60 text-stone-700 px-2.5 py-1 rounded-md">Preserves herbal potency</span>
-          </div>
-        </div>
+        </aside>
       </div>
-    </>
+    </section>
   );
 }
 
@@ -885,7 +769,7 @@ function ReviewsSection(){
   return (
     <section 
       ref={sectionRef}
-      className="w-full max-w-7xl mx-auto px-0 bg-[#faf8f5] py-12 text-center my-12 border-y border-stone-200/80 relative"
+      className="w-full max-w-7xl mx-auto px-0 bg-[#faf8f5] py-12 text-center my-0 !mb-0 border-y border-stone-200/80 relative"
       id="reviews"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -960,37 +844,48 @@ function ReviewsSection(){
   );
 }
 
-function FaqSection(){
-  const [openItem,setOpenItem]=useState<number|null>(0);
+function FaqSection() {
+  const [openItem, setOpenItem] = useState<number | null>(0);
+
   return (
-    <section className="faq section adapted-faq w-full !bg-white border-y border-stone-200/80 py-12 md:py-16 text-left" id="faq">
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        <header className="lg:col-span-4 lg:sticky lg:top-36">
-          <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block font-sans">
-            FREQUENTLY ASKED QUESTIONS
-          </span>
-          <h2 className="text-3xl md:text-5xl font-serif text-stone-900 leading-none tracking-tight">
-            FAQs
+    <section className="w-full bg-[#faf8f5] py-16 md:py-24 text-left border-t border-stone-300/60" id="faq">
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+        <header className="lg:col-span-5 lg:sticky lg:top-32">
+          <h2 className="font-serif italic text-4xl md:text-5xl text-stone-900 mb-4 leading-tight">
+            FAQ's
           </h2>
-          <p className="text-sm text-stone-600 mt-3 font-sans max-w-xs">
+          <p className="text-base text-stone-600 font-serif italic max-w-md leading-relaxed">
             Everything you need to know about formula, application, and results.
           </p>
         </header>
-        <div className="faq-list lg:col-span-8 w-full border-b border-stone-300/60">
-          {faqItems.map(([question,answer],index)=>{
-            const open=openItem===index;
+
+        <div className="lg:col-span-7 w-full border-t border-stone-300/70">
+          {faqItems.map(([question, answer], index) => {
+            const open = openItem === index;
+
             return (
-              <article className={`border-t border-stone-300/80 rounded-none bg-transparent ${open?'open':''}`} key={question}>
-                <h3>
-                  <button aria-expanded={open} aria-controls={`faq-answer-${index}`} onClick={()=>setOpenItem(open?null:index)}>
-                    <b>{question}</b>
-                    <i aria-hidden="true">{open?'−':'+'}</i>
-                  </button>
-                </h3>
-                <div id={`faq-answer-${index}`} className="faq-answer" role="region" aria-label={question} hidden={!open}>
-                  <p>{answer}</p>
-                </div>
-              </article>
+              <div key={question} className="border-b border-stone-300/70 py-6 transition-all">
+                <button
+                  type="button"
+                  aria-expanded={open}
+                  aria-controls={`faq-answer-${index}`}
+                  onClick={() => setOpenItem(open ? null : index)}
+                  className="w-full flex items-center justify-between text-left group cursor-pointer"
+                >
+                  <span className="font-serif text-xl md:text-2xl text-stone-900 font-normal tracking-tight group-hover:text-stone-600 transition-colors">
+                    {question}
+                  </span>
+                  <span className="text-xl md:text-2xl font-light text-stone-500 group-hover:text-stone-900 ml-4 select-none shrink-0 font-mono transition-colors">
+                    {open ? '−' : '+'}
+                  </span>
+                </button>
+
+                {open && (
+                  <div id={`faq-answer-${index}`} className="mt-4 text-sm md:text-base text-stone-600 font-sans leading-relaxed max-w-2xl">
+                    <p>{answer}</p>
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
@@ -1028,7 +923,7 @@ function KeralaAyurvedaDifference() {
   return (
     <section className="difference-section" id="difference" data-section="approved-testimonial">
       <header className="difference-header pt-9">
-        <span className="diff-eyebrow">OUR HERITAGE</span>
+        <span className="diff-eyebrow font-mono tracking-[0.2em]">OUR HERITAGE</span>
         <h2>The Kerala Ayurveda Difference</h2>
         <div className="w-20 h-0.5 bg-[#B5967B]/50 mx-auto mt-3 mb-1 rounded-full" />
       </header>
@@ -1160,7 +1055,7 @@ function TestimonialsSlider() {
 
   return (
     <section
-      className="testimonials-section"
+      className="testimonials-section font-serif"
       onMouseEnter={() => setIsPlaying(false)}
       onMouseLeave={() => setIsPlaying(true)}
       onTouchStart={handleTouchStart}
@@ -1174,11 +1069,11 @@ function TestimonialsSlider() {
       <div className="testimonials-inner">
         <div className="testimonials-stars" aria-hidden="true">{reviews[currentSlide].rating}</div>
         <blockquote>
-          <p>“{reviews[currentSlide].quote}”</p>
+          <p className="font-serif italic font-normal text-2xl md:text-3xl text-stone-900 leading-relaxed">“{reviews[currentSlide].quote}”</p>
         </blockquote>
         <div className="testimonials-author">
-          <strong>{reviews[currentSlide].author}</strong>
-          <span>Verified Buyer • {reviews[currentSlide].variant} • {reviews[currentSlide].duration}</span>
+          <strong className="font-sans text-sm tracking-wide text-stone-900">{reviews[currentSlide].author}</strong>
+          <span className="font-mono text-xs uppercase text-stone-500 tracking-widest mt-1">Verified Buyer • {reviews[currentSlide].variant} • {reviews[currentSlide].duration}</span>
         </div>
         <div className="testimonials-controls">
           <button
@@ -1202,115 +1097,82 @@ function TestimonialsSlider() {
   );
 }
 
-function ProductDetailsSection(){
-  const dialogRef=useRef<HTMLDialogElement>(null);
-  const openerRef=useRef<HTMLButtonElement>(null);
-  const closeZoom=()=>dialogRef.current?.close();
+function ProductDetailsSection() {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const openerRef = useRef<HTMLButtonElement>(null);
+  const closeZoom = () => dialogRef.current?.close();
 
   return (
-    <section className="w-full bg-[#faf8f5] pt-8 pb-0 text-left mb-0" id="details">
+    <section className="w-full bg-[#faf8f5] py-16 md:py-24 text-left border-t border-stone-300/60" id="details">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
         {/* Header */}
-        <div className="mb-10 border-b border-stone-300/60 pb-6">
-          <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block font-sans">
-            Product Details
+        <div className="mb-10 pb-6 border-b border-stone-900/10">
+          <span className="text-[10px] tracking-[0.3em] font-mono text-stone-500 uppercase mb-3 block">
+            SPECIFICATIONS &amp; FORMULA DATA
           </span>
-          <h2 className="text-3xl md:text-4xl font-serif text-stone-900 leading-snug tracking-tight">
-            Neelibhringadi Keram
+          <h2 className="font-serif italic text-3xl md:text-4xl text-stone-900 leading-tight">
+            Neelibhringadi Keram Specifications.
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 mt-1 font-sans">
-            Official formulation &amp; back-of-pack specifications
+          <p className="text-sm text-stone-600 mt-2 font-serif italic">
+            Official formulation &amp; back-of-pack specifications sheet.
           </p>
         </div>
 
-        {/* 2-Column Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Specs & Pricing (lg:col-span-7) */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Card 1: Product Specifications */}
-            <div className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-7 rounded-2xl shadow-xs">
-              <h3 className="font-serif text-lg font-semibold text-stone-900 mb-4 border-b border-stone-200/80 pb-2.5 flex items-center justify-between">
-                <span>Product Specifications</span>
-                <span className="text-[10px] text-stone-400 font-mono uppercase tracking-wider">FORMULA DATA</span>
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
-                <div>
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Available Sizes</span>
-                  <p className="text-stone-800 font-medium mt-0.5 font-sans">200 ml &amp; 100 ml bottles</p>
-                </div>
-                <div>
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Administration</span>
-                  <p className="text-stone-800 font-medium mt-0.5 font-sans">External scalp &amp; hair application</p>
-                </div>
-                <div className="sm:col-span-2 pt-1 border-t border-stone-200/60">
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Formula Lineage</span>
-                  <p className="text-stone-800 font-medium mt-0.5 font-sans">Sahasrayogam classical Ayurvedic reference (Thaila Paaka Vidhi)</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: Pricing & Value */}
-            <div className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-7 rounded-2xl shadow-xs">
-              <h3 className="font-serif text-lg font-semibold text-stone-900 mb-4 border-b border-stone-200/80 pb-2.5 flex items-center justify-between">
-                <span>Pricing &amp; Value</span>
-                <span className="text-[10px] text-[#954721] font-bold uppercase tracking-wider font-sans">COMMERCE DETAILS</span>
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
-                <div>
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">200 ml Value Pack</span>
-                  <p className="text-stone-900 font-bold mt-0.5 font-sans">₹338 <del className="text-stone-400 font-normal ml-1">₹375</del> <span className="text-[#954721] text-xs font-semibold ml-1">(Save ₹37)</span></p>
-                </div>
-                <div>
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">100 ml Standard Pack</span>
-                  <p className="text-stone-900 font-bold mt-0.5 font-sans">₹195</p>
-                </div>
-                <div className="sm:col-span-2 pt-1 border-t border-stone-200/60">
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Taxes &amp; Shipping</span>
-                  <p className="text-stone-700 mt-0.5 font-sans">Inclusive of all taxes • Free delivery above ₹299</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: Usage & Cautions */}
-            <div className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-7 rounded-2xl shadow-xs">
-              <h3 className="font-serif text-lg font-semibold text-stone-900 mb-4 border-b border-stone-200/80 pb-2.5 flex items-center justify-between">
-                <span>Usage &amp; Care Cautions</span>
-                <span className="text-[10px] text-stone-400 font-mono uppercase tracking-wider">SAFETY INFO</span>
-              </h3>
-              <div className="space-y-3 text-xs sm:text-sm">
-                <div>
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Recommended Ritual</span>
-                  <p className="text-stone-800 font-medium mt-0.5 font-sans">2× weekly application. Leave for 30–60 minutes before rinsing with a mild shampoo.</p>
-                </div>
-                <div>
-                  <span className="text-[10px] tracking-widest text-stone-400 font-semibold uppercase block font-sans">Cool Weather Care</span>
-                  <p className="text-stone-700 mt-0.5 font-sans">Pure unrefined coconut oil base naturally solidifies below 24°C. Place bottle in warm water for 2-3 minutes to liquefy before use.</p>
-                </div>
-              </div>
-            </div>
+        {/* OPEN EDITORIAL SPEC SHEET GRID */}
+        <div className="border-y border-stone-900/10 py-4 my-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">Available Sizes</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">200 ml &amp; 100 ml bottles</span>
           </div>
 
-          {/* Right Column: Pack Label & Zoom (lg:col-span-5) */}
-          <div className="lg:col-span-5 bg-[#f5f2eb] p-6 rounded-3xl border border-stone-200/60 flex flex-col items-center justify-center text-center shadow-xs">
-            <div className="w-full flex items-center justify-center p-2">
-              <img 
-                src="/assets/gallery/neeli-back.webp" 
-                alt="Back of the Neelibhringadi Keram carton showing product information" 
-                className="max-h-[360px] w-auto object-contain rounded-lg shadow-sm"
-              />
-            </div>
-            <button
-              ref={openerRef}
-              type="button"
-              onClick={() => dialogRef.current?.showModal()}
-              className="px-6 py-2.5 text-xs font-semibold tracking-wider uppercase bg-stone-900 text-white rounded-full mt-5 hover:bg-stone-800 transition-all cursor-pointer shadow-sm flex items-center gap-2"
-            >
-              <span className="text-white !text-white color-[#ffffff]">+ Zoom Pack Label</span>
-            </button>
-            <p className="text-[11px] text-stone-500 mt-2 font-sans">
-              Select to inspect physical carton information
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">Administration</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">External scalp &amp; hair application</span>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">Formula Lineage</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">Sahasrayogam classical Ayurvedic reference (Thaila Paaka Vidhi)</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">200 ml Value Pack</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">
+              ₹338 <del className="text-stone-400 font-normal ml-2 text-sm font-sans">₹375</del> <span className="text-[#8c4a27] text-sm font-semibold ml-2 font-sans">(Save ₹37)</span>
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">100 ml Standard Pack</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">₹195</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">Taxes &amp; Shipping</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">Inclusive of all taxes • Free delivery above ₹299</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 border-b border-stone-200/60 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">Recommended Usage</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">Apply 10–15ml to scalp 2–3 times weekly, leave for 30–60 mins</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 py-4 items-baseline">
+            <span className="md:col-span-4 text-xs font-mono tracking-[0.2em] uppercase text-stone-500">Safety &amp; Cautions</span>
+            <span className="md:col-span-8 font-serif text-lg text-stone-900 font-medium">For external use only. In winter (&lt;24°C), warm bottle in warm water.</span>
+          </div>
+        </div>
+
+        {/* Pack Label Zoom CTA Button */}
+        <div className="mt-8 text-center">
+          <button
+            ref={openerRef}
+            type="button"
+            onClick={() => dialogRef.current?.showModal()}
+            className="px-6 py-2.5 text-xs font-mono tracking-[0.2em] uppercase bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all cursor-pointer shadow-xs inline-flex items-center gap-2"
+          >
+            <span>+ Zoom Pack Label</span>
+          </button>
         </div>
 
         {/* Enlarged Dialog Modal */}
@@ -1323,8 +1185,8 @@ function ProductDetailsSection(){
           <div className="p-6 bg-[#FAF8F5] text-stone-900 rounded-2xl flex flex-col">
             <div className="flex items-center justify-between border-b border-stone-200 pb-4 mb-4">
               <div>
-                <span className="text-[10px] tracking-widest text-[#954721] font-semibold uppercase">Pack Information</span>
-                <h3 className="font-serif text-xl font-semibold text-stone-900">Back-Label Detail</h3>
+                <span className="text-[10px] tracking-widest text-stone-500 font-mono uppercase">Pack Information</span>
+                <h3 className="font-serif italic text-xl text-stone-900">Back-Label Detail</h3>
               </div>
               <button 
                 type="button" 
@@ -1338,7 +1200,7 @@ function ProductDetailsSection(){
             <div className="max-h-[60vh] overflow-y-auto flex items-center justify-center p-2 bg-stone-900/5 rounded-xl border border-stone-200/60">
               <img src="/assets/gallery/neeli-back.webp" alt="Enlarged back of the Neelibhringadi Keram carton" className="max-h-[500px] w-auto object-contain" />
             </div>
-            <p className="text-xs text-stone-500 mt-4 text-center">
+            <p className="text-xs text-stone-500 mt-4 text-center font-sans">
               Use the current physical pack as the final authority for ingredients, directions and cautions.
             </p>
           </div>
@@ -1350,44 +1212,44 @@ function ProductDetailsSection(){
 
 function HeritageSection() {
   return (
-    <section className="authentic-ayurveda-banner-section" id="heritage">
-      <div className="authentic-banner-container">
-        {/* Column 1: Visual Image (Seals baked into asset) */}
-        <div className="authentic-col-visual">
-          <img 
-            src="/assets/production/Rooted in Authentic Ayurveda.webp" 
-            alt="Hand holding Bhringraj plant" 
-            className="authentic-bg-img"
-          />
-        </div>
+    <section className="w-full bg-[#faf8f5] py-20 md:py-28 text-center border-t border-stone-300/60" id="heritage">
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
+        
+        {/* Large Kinfolk Serif Statement */}
+        <span className="text-[10px] tracking-[0.3em] font-mono uppercase text-stone-500 block mb-4">
+          HERITAGE &amp; ORIGINS
+        </span>
+        <h2 className="font-serif italic text-3xl md:text-5xl text-stone-900 text-center max-w-3xl mx-auto mb-12 leading-tight">
+          80 Years of Uncompromised Ayurvedic Lineage.
+        </h2>
 
-        {/* Column 2: Content (Full Spectrum & Patented Formulations) */}
-        <div className="authentic-col-content">
-          <div className="authentic-block">
-            <h2 className="authentic-heading-serif">FULL SPECTRUM</h2>
-            <p className="authentic-desc">
-              Classical and Proprietary Ayurvedic Products (350+ Products) | Therapies and Ayurvedic Retreats | Academy and Education Initiatives | Pioneering Ayurvedic R&amp;D
+        {/* 3-Column Kinfolk Editorial Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14 text-left border-t border-stone-900/10 pt-12">
+          <div className="space-y-3">
+            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-stone-500">01 / FOUNDATION</span>
+            <h3 className="font-serif text-xl text-stone-900 font-medium">Established in 1945</h3>
+            <p className="text-xs md:text-sm text-stone-600 font-sans leading-relaxed">
+              Founded by Vaidyan K.G.K. Panicker, Kerala Ayurveda manages its own organic herbal farms, clinical research centers, and educational academy.
             </p>
           </div>
 
-          <div className="authentic-divider-line" />
+          <div className="space-y-3">
+            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-stone-500">02 / CRAFTSMANSHIP</span>
+            <h3 className="font-serif text-xl text-stone-900 font-medium">Thaila Paaka Vidhi</h3>
+            <p className="text-xs md:text-sm text-stone-600 font-sans leading-relaxed">
+              Herbal decoction (Kashaya) and paste (Kalka) slow-cooked in raw coconut oil for 48 hours to lock in full-spectrum phyto-actives.
+            </p>
+          </div>
 
-          <div className="authentic-block">
-            <span className="authentic-gold-eyebrow">Globally Recognized</span>
-            <h2 className="authentic-heading-serif">PATENTED FORMULATIONS</h2>
-            <p className="authentic-desc">
-              Patented products in the United States, Japan and Korea.
+          <div className="space-y-3">
+            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-stone-500">03 / GLOBAL RECOGNITION</span>
+            <h3 className="font-serif text-xl text-stone-900 font-medium">Patented Formulations</h3>
+            <p className="text-xs md:text-sm text-stone-600 font-sans leading-relaxed">
+              Proprietary Ayurvedic formulations patented in the United States, Japan, and Korea, backed by 350+ classical remedies.
             </p>
           </div>
         </div>
 
-        {/* Column 3: Brand Emblem & Tagline */}
-        <div className="authentic-col-brand">
-          <div className="authentic-brand-emblem">
-            <img src="/assets/ka-logo.avif" alt="Kerala Ayurveda" width="90" height="90" className="authentic-gold-logo" />
-          </div>
-          <p className="authentic-brand-tagline">Rooted in Authentic Ayurveda.</p>
-        </div>
       </div>
     </section>
   );
@@ -1395,63 +1257,89 @@ function HeritageSection() {
 
 function SiteFooter() {
   return (
-    <footer className="official-site-footer">
-      <div className="official-footer-inner">
-        <div className="official-footer-brand-col">
-          <p className="official-footer-tagline">Rooted in Authentic Ayurveda.</p>
-          <p className="official-footer-copy">© 2026, Kerala Ayurveda India.</p>
+    <footer className="w-full bg-[#2C3E24] text-[#faf8f5] text-left py-16 md:py-24 border-t border-[#3a5230] font-sans relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
+        
+        {/* Brand & Editorial Statement Header */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-14 border-b border-white/15 items-end">
+          <div className="md:col-span-7">
+            <span className="text-[10px] tracking-[0.3em] font-mono text-stone-300 uppercase block mb-3">
+              KERALA AYURVEDA INDIA
+            </span>
+            <h3 className="font-serif italic text-3xl md:text-4xl text-white leading-tight">
+              Rooted in Authentic Ayurveda.
+            </h3>
+          </div>
+          <div className="md:col-span-5 text-left md:text-right">
+            <p className="text-xs text-stone-300 font-mono tracking-widest uppercase">
+              EST. 1945 • KERALA, INDIA
+            </p>
+          </div>
         </div>
 
-        <div className="official-footer-nav-grid">
-          <div className="official-footer-col">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="https://keralaayurveda.com/pages/about-us-1" target="_blank" rel="noopener noreferrer">About Kerala Ayurveda</a></li>
-              <li><a href="https://keralaayurveda.com/pages/clinics" target="_blank" rel="noopener noreferrer">Clinics</a></li>
-              <li><a href="https://keralaayurveda.com/pages/academy" target="_blank" rel="noopener noreferrer">Ayurveda Academy</a></li>
-              <li><a href="https://keralaayurveda.com/pages/investors" target="_blank" rel="noopener noreferrer">Investors</a></li>
-              <li><a href="https://keralaayurveda.com/pages/research-and-development" target="_blank" rel="noopener noreferrer">Research &amp; Development</a></li>
-              <li><a href="https://keralaayurveda.com/pages/careers" target="_blank" rel="noopener noreferrer">Careers</a></li>
-              <li><a href="https://keralaayurveda.com/blogs/news" target="_blank" rel="noopener noreferrer">Blogs</a></li>
-              <li><a href="https://keralaayurveda.com/pages/our-editorial-team" target="_blank" rel="noopener noreferrer">Our Editorial Team</a></li>
-              <li><a href="https://keralaayurveda.com/pages/contact" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+        {/* Kinfolk Unboxed Links Grid with Thin Hairline Top Borders */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 pt-12">
+          <div>
+            <h4 className="text-xs tracking-widest uppercase font-mono text-[#CCA54E] font-bold mb-4">
+              Formulations
+            </h4>
+            <ul className="space-y-3 font-mono text-xs tracking-widest uppercase text-stone-300">
+              <li><a href="#product" className="hover:text-white transition-colors">Neelibhringadi</a></li>
+              <li><a href="#formula" className="hover:text-white transition-colors">Botanicals</a></li>
+              <li><a href="#ritual" className="hover:text-white transition-colors">Application Ritual</a></li>
+              <li><a href="#details" className="hover:text-white transition-colors">Specifications</a></li>
             </ul>
           </div>
 
-          <div className="official-footer-col">
-            <h4>Policies</h4>
-            <ul>
-              <li><a href="https://keralaayurveda.com/pages/terms-of-use" target="_blank" rel="noopener noreferrer">Terms of use</a></li>
-              <li><a href="https://keralaayurveda.com/pages/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-              <li><a href="https://keralaayurveda.com/pages/shipping-and-delivery-policy" target="_blank" rel="noopener noreferrer">Shipping and Delivery Policy</a></li>
-              <li><a href="https://keralaayurveda.com/pages/return-cancellation-policy" target="_blank" rel="noopener noreferrer">Return/Cancellation Policy</a></li>
-              <li><a href="https://keralaayurveda.com/pages/faq" target="_blank" rel="noopener noreferrer">FAQs</a></li>
+          <div>
+            <h4 className="text-xs tracking-widest uppercase font-mono text-[#CCA54E] font-bold mb-4">
+              Science
+            </h4>
+            <ul className="space-y-3 font-mono text-xs tracking-widest uppercase text-stone-300">
+              <li><a href="https://keralaayurveda.com/pages/about-us-1" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">80-Year Lineage</a></li>
+              <li><a href="https://keralaayurveda.com/pages/research-and-development" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Thaila Paaka Vidhi</a></li>
+              <li><a href="https://keralaayurveda.com/pages/our-editorial-team" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Sahasrayogam</a></li>
+              <li><a href="https://keralaayurveda.com/blogs/news" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Clinical Research</a></li>
             </ul>
           </div>
 
-          <div className="official-footer-col">
-            <h4>Our Network</h4>
-            <ul>
-              <li><a href="https://www.ayurvedagram.com/" target="_blank" rel="noopener noreferrer">Ayurvedagram Bengaluru</a></li>
-              <li><a href="https://www.ayurvedagrambali.com/" target="_blank" rel="noopener noreferrer">Ayurvedagram Bali</a></li>
-              <li><a href="https://www.thehealthvillage.biz/" target="_blank" rel="noopener noreferrer">The Health Village</a></li>
-              <li><a href="https://keralaayurvedaacademy.in/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda India - Academy</a></li>
-              <li><a href="https://keralaayurveda.store/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda USA - Store</a></li>
-              <li><a href="https://www.keralaayurveda.us/wellnesscenter/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda USA - Wellness</a></li>
-              <li><a href="https://www.keralaayurveda.us/courses/" target="_blank" rel="noopener noreferrer">Kerala Ayurveda USA - Academy</a></li>
+          <div>
+            <h4 className="text-xs tracking-widest uppercase font-mono text-[#CCA54E] font-bold mb-4">
+              Network
+            </h4>
+            <ul className="space-y-3 font-mono text-xs tracking-widest uppercase text-stone-300">
+              <li><a href="https://keralaayurveda.com/pages/clinics" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Ayurvedic Clinics</a></li>
+              <li><a href="https://www.ayurvedagram.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Ayurvedagram</a></li>
+              <li><a href="https://keralaayurvedaacademy.in/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Ayurveda Academy</a></li>
+              <li><a href="https://www.thehealthvillage.biz/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">The Health Village</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs tracking-widest uppercase font-mono text-[#CCA54E] font-bold mb-4">
+              Support
+            </h4>
+            <ul className="space-y-3 font-mono text-xs tracking-widest uppercase text-stone-300">
+              <li><a href="https://wa.me/919995559842" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Consultation</a></li>
+              <li><a href="#faq" className="hover:text-white transition-colors">Help &amp; FAQs</a></li>
+              <li><a href="https://keralaayurveda.com/pages/terms-of-use" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Terms of Use</a></li>
+              <li><a href="https://keralaayurveda.com/pages/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
-      </div>
 
-      <div className="official-footer-bottom-bar">
-        <span>© 2026, Kerala Ayurveda India.</span>
-        <div className="official-footer-social">
-          <a href="https://www.instagram.com/keralaayurvedaltd/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
-          <a href="https://www.youtube.com/@KeralaAyurvedalimited" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
-          <a href="https://www.facebook.com/keralaayurvedaltd/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
-          <a href="https://in.linkedin.com/company/kerala-ayurveda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        {/* Bottom Hairline Bar */}
+        <div className="mt-16 pt-8 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono tracking-widest uppercase text-stone-400">
+          <span>© 2026 Kerala Ayurveda Ltd. All rights reserved.</span>
+          <div className="flex items-center gap-4">
+            <a href="https://www.instagram.com/keralaayurvedaltd/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
+            <span>•</span>
+            <a href="https://www.youtube.com/@KeralaAyurvedalimited" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">YouTube</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/keralaayurvedaltd/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Facebook</a>
+          </div>
         </div>
+
       </div>
     </footer>
   );
@@ -1496,7 +1384,7 @@ function App(){
   const [searchTerm,setSearchTerm]=useState('');
   const [searchStatus,setSearchStatus]=useState('');
   const [activeSection,setActiveSection]=useState('product');
-  const [dockVisible,setDockVisible]=useState(false);
+  const [showFloatingCTA, setShowFloatingCTA] = useState(false);
   const [scienceDockHidden,setScienceDockHidden]=useState(false);
   const [selectedSize,setSelectedSize]=useState<'100ml'|'200ml'>('200ml');
   const currentPrice=selectedSize==='200ml'?338:195;
@@ -1516,7 +1404,18 @@ function App(){
   useEffect(()=>{if(!searchOpen)return;searchRef.current?.focus();const key=(event:KeyboardEvent)=>{if(event.key==='Escape')setSearchOpen(false)};addEventListener('keydown',key);return()=>removeEventListener('keydown',key)},[searchOpen]);
   useEffect(()=>observeWebVitals(motionExperiment),[motionExperiment]);
   useEffect(()=>{const sections=navItems.map(([id])=>document.getElementById(id)).filter(Boolean) as HTMLElement[];const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)setActiveSection(visible.target.id)},{rootMargin:'-28% 0px -58% 0px',threshold:[0,.2,.5]});sections.forEach(section=>observer.observe(section));return()=>observer.disconnect()},[]);
-  useEffect(()=>{const commerce=heroCommerceRef.current;if(!commerce)return;const observer=new IntersectionObserver(([entry])=>setDockVisible(!entry.isIntersecting&&entry.boundingClientRect.bottom<0),{threshold:[0,.15]});observer.observe(commerce);return()=>observer.disconnect()},[]);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowFloatingCTA(true);
+      } else {
+        setShowFloatingCTA(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   useEffect(()=>{const science=document.getElementById('science');if(!science)return;const observer=new IntersectionObserver(([entry])=>setScienceDockHidden(entry.isIntersecting),{threshold:0});observer.observe(science);return()=>observer.disconnect()},[]);
   useEffect(()=>{
     if(!isMotionEligible())return;
@@ -1750,80 +1649,112 @@ function App(){
       </section>
       <ConfidenceStrip/>
 
-      <section className="statement w-full bg-[#efe6dc] border-b border-stone-200/80 pt-10 pb-16 sm:pb-20 text-left" id="purity-statement">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container pb-8 sm:pb-12">
-          <div className="mb-8 border-b border-stone-300/60 pb-6">
-            <span className="text-[11px] tracking-[0.2em] text-stone-500 font-semibold uppercase mb-2 block">
-              Formulation Purity &amp; Sourcing
-            </span>
-            <h2 className="text-3xl md:text-4xl font-serif text-stone-900 leading-snug tracking-tight">
-              What’s in it. What is not in it.
-            </h2>
-            <p className="text-sm sm:text-base text-stone-600 mt-2 max-w-3xl leading-relaxed font-sans">
-              Herbs sourced from their natural habitats. Neeli from Kerala’s wetlands, Bhringraj from the Western Ghats, Amla from Chhattisgarh.
-            </p>
-          </div>
+      <section className="w-full bg-[#efe6dc] py-16 md:py-20 text-left border-b border-stone-200/80 box-border" id="purity-statement">
+        <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 site-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full">
+            
+            {/* LEFT COLUMN: HEADER & TEXT LISTS (7 COLS) */}
+            <div className="lg:col-span-7 space-y-8">
+              {/* HEADER STACK */}
+              <div>
+                <span className="text-[10px] tracking-[0.25em] font-mono text-stone-500 uppercase block mb-2">
+                  FORMULATION PURITY &amp; SOURCING
+                </span>
+                <h2 className="font-serif italic text-3xl md:text-4xl text-stone-900 mb-3 leading-tight">
+                  What’s in it. What is not in it.
+                </h2>
+                <p className="text-xs md:text-sm text-stone-600 font-serif italic max-w-lg leading-relaxed">
+                  Herbs sourced from their natural habitats. Neeli from Kerala's wetlands, Bhringraj from Western Ghats.
+                </p>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 pt-2">
-            {/* Left Column: WHAT'S IN IT */}
-            <div>
-              <h3 className="text-xs tracking-widest uppercase font-semibold text-stone-800 mb-5 border-b border-stone-300/60 pb-2.5 flex items-center justify-between">
-                <span>WHAT'S IN IT</span>
-                <span className="text-[10px] text-stone-400 font-mono">21 BOTANICALS</span>
-              </h3>
-              <ul className="space-y-3.5">
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-800 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#39461d] shrink-0 mt-2.5" />
-                  <span><strong className="font-semibold text-stone-900">21 Ayurvedic herbs</strong> — slow-cooked in unrefined coconut oil</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-800 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#39461d] shrink-0 mt-2.5" />
-                  <span><strong className="font-semibold text-stone-900">Bhringraj</strong> — supports hair follicle health &amp; growth cycle</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-800 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#39461d] shrink-0 mt-2.5" />
-                  <span><strong className="font-semibold text-stone-900">Amla</strong> — rich in natural Vitamin C &amp; antioxidant support</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-800 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#39461d] shrink-0 mt-2.5" />
-                  <span><strong className="font-semibold text-stone-900">Neeli &amp; Karnasphota</strong> — deep scalp cooling &amp; hair fibre protection</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-800 leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#39461d] shrink-0 mt-2.5" />
-                  <span><strong className="font-semibold text-stone-900">Three milks</strong> — Coconut, Cow &amp; Goat milk nourishment</span>
-                </li>
-              </ul>
+              {/* SIDE-BY-SIDE LISTS CONTAINER (2 COLUMNS) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                {/* COLUMN 1: WHAT'S IN IT */}
+                <div>
+                  <span className="text-[10px] font-mono tracking-widest text-emerald-800 uppercase font-semibold border-b border-stone-300 pb-2 block mb-3">
+                    ✦ INCLUDED (21 BOTANICALS)
+                  </span>
+                  <div className="space-y-2.5">
+                    <div className="text-xs md:text-sm font-medium text-stone-800 flex items-center gap-2">
+                      <span className="text-emerald-800 text-[10px]">✦</span>
+                      <span>21 Herbs in Coconut Oil</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-medium text-stone-800 flex items-center gap-2">
+                      <span className="text-emerald-800 text-[10px]">✦</span>
+                      <span>Bhringraj for Hair Growth</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-medium text-stone-800 flex items-center gap-2">
+                      <span className="text-emerald-800 text-[10px]">✦</span>
+                      <span>Amla for Natural Vitamin C</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-medium text-stone-800 flex items-center gap-2">
+                      <span className="text-emerald-800 text-[10px]">✦</span>
+                      <span>Neeli for Scalp Cooling</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-medium text-stone-800 flex items-center gap-2">
+                      <span className="text-emerald-800 text-[10px]">✦</span>
+                      <span>Coconut, Cow &amp; Goat Milks</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* COLUMN 2: FREE FROM */}
+                <div>
+                  <span className="text-[10px] font-mono tracking-widest text-stone-500 uppercase font-semibold border-b border-stone-300 pb-2 block mb-3">
+                    — EXCLUDED (0% SYNTHETICS)
+                  </span>
+                  <div className="space-y-2.5">
+                    <div className="text-xs md:text-sm font-normal text-stone-600 flex items-center gap-2">
+                      <span className="text-stone-400 font-mono text-[10px]">—</span>
+                      <span>No Mineral Oils or Paraffin</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-normal text-stone-600 flex items-center gap-2">
+                      <span className="text-stone-400 font-mono text-[10px]">—</span>
+                      <span>No Synthetic Perfumes</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-normal text-stone-600 flex items-center gap-2">
+                      <span className="text-stone-400 font-mono text-[10px]">—</span>
+                      <span>No Silicones or Parabens</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-normal text-stone-600 flex items-center gap-2">
+                      <span className="text-stone-400 font-mono text-[10px]">—</span>
+                      <span>No Artificial Colorants</span>
+                    </div>
+                    <div className="text-xs md:text-sm font-normal text-stone-600 flex items-center gap-2">
+                      <span className="text-stone-400 font-mono text-[10px]">—</span>
+                      <span>Cruelty-Free &amp; Vegetarian</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Right Column: FREE FROM */}
-            <div>
-              <h3 className="text-xs tracking-widest uppercase font-semibold text-stone-800 mb-5 border-b border-stone-300/60 pb-2.5 flex items-center justify-between">
-                <span>FREE FROM</span>
-                <span className="text-[10px] text-stone-400 font-mono">0% SYNTHETICS</span>
-              </h3>
-              <ul className="space-y-3.5">
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-700 leading-relaxed">
-                  <span className="text-stone-400 font-serif shrink-0 mt-0.5">—</span>
-                  <span>No mineral oils or liquid paraffin</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-700 leading-relaxed">
-                  <span className="text-stone-400 font-serif shrink-0 mt-0.5">—</span>
-                  <span>No synthetic fragrances or artificial perfumes</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-700 leading-relaxed">
-                  <span className="text-stone-400 font-serif shrink-0 mt-0.5">—</span>
-                  <span>No silicones, parabens, or phthalates</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-700 leading-relaxed">
-                  <span className="text-stone-400 font-serif shrink-0 mt-0.5">—</span>
-                  <span>No artificial dyes or chemical colorants</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm sm:text-base text-stone-700 leading-relaxed">
-                  <span className="text-stone-400 font-serif shrink-0 mt-0.5">—</span>
-                  <span>Cruelty-free &amp; 100% vegetarian formulation</span>
-                </li>
-              </ul>
+            {/* RIGHT COLUMN: STRICT 4:5 PORTRAIT VIDEO FRAME (5 COLS) */}
+            <div className="lg:col-span-5 w-full">
+              <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden relative shadow-md border border-stone-200/80 bg-stone-100">
+                <video
+                  src="/videos/purity-sourcing.mp4"
+                  poster="/images/purity-botanicals.png"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover object-center pointer-events-none"
+                />
+
+                {/* Translucent Editorial Badge Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 bg-stone-900/60 backdrop-blur-md px-4 py-2.5 rounded-2xl flex items-center justify-between text-white border border-white/10">
+                  <span className="text-[10px] font-mono tracking-widest uppercase opacity-90">
+                    Traditional Thaila Paaka Vidhi
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-300 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> 100% Pure
+                  </span>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -1836,67 +1767,106 @@ function App(){
 
       {useV3?<ComparisonV3 consultHref={`https://wa.me/919995559842?text=${encodeURIComponent("I am viewing Neelibhringadi Keram and would like guidance on whether my hair-fall concern needs an Ayurveda consultation.")}`} onConsultClick={()=>track('consultation_cta_clicked',{source:'v3_comparison',channel:'whatsapp',product_id:'neelibhringadi_keram_200ml'})}/>:<RecoveryComparison/>}
 
-      {!useV3&&<ConsultationCTA consultHref={`https://wa.me/919995559842?text=${encodeURIComponent("I am viewing Neelibhringadi Keram and would like guidance on whether my hair-fall concern needs an Ayurveda consultation.")}`} onConsultClick={()=>track('consultation_cta_clicked',{source:'post_comparison',channel:'whatsapp',product_id:'neelibhringadi_keram_200ml'})}/>}
-
       <RitualSection/>
 
-      <KeralaAyurvedaDifference />
-      <ReviewsSection/>
+      {/* PANORAMIC EDITORIAL BANNER SECTION */}
+      <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-12 md:py-16">
+        <div className="w-full h-[280px] sm:h-[340px] md:h-[400px] rounded-3xl overflow-hidden relative shadow-lg border border-stone-200/80 group">
+          <img
+            src="/images/purple-oil-massage-banner.png"
+            alt="Ayurvedic Scalp Massage Ritual"
+            className="w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
+
+          {/* Translucent Editorial Overlay (Kinfolk Style) */}
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-900/80 via-stone-900/40 to-transparent p-8 md:p-12 flex flex-col justify-end text-left">
+            <div className="max-w-lg text-white">
+              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-emerald-300 block mb-2">
+                HERITAGE RITUAL
+              </span>
+              <h3 className="font-serif italic text-2xl md:text-4xl text-white mb-2 leading-tight">
+                Deep Root Nourishment.
+              </h3>
+              <p className="text-xs md:text-sm text-stone-200 font-serif italic leading-relaxed opacity-90">
+                Infused with Indigo (Neeli) &amp; Bhringraj—slow-processed to cool the scalp and revive natural hair density.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <FaqSection/>
 
       <ProductDetailsSection/>
+
+      <ConsultationCTA consultHref={`https://wa.me/919995559842?text=${encodeURIComponent("I am viewing Neelibhringadi Keram and would like guidance on whether my hair-fall concern needs an Ayurveda consultation.")}`} onConsultClick={()=>track('consultation_cta_clicked',{source:'pre_heritage',channel:'whatsapp',product_id:'neelibhringadi_keram_200ml'})}/>
+
       <HeritageSection/>
     </main>
     <SiteFooter />
 
-    <aside className={`purchase contextual-purchase ${dockVisible&&!scienceDockHidden?'visible':''}`} aria-label="Purchase Neelibhringadi Keram" aria-hidden={!(dockVisible&&!scienceDockHidden)} inert={!(dockVisible&&!scienceDockHidden)}>
-      <div className="sticky-dock-inner w-full flex items-center justify-between gap-4">
-        {/* Left Side: M.R.P. & Taxes (Matching Images 1 & 2) */}
-        <div className="flex flex-col text-left justify-center leading-tight">
-          <div className="flex items-baseline gap-1.5 font-sans">
-            <span className="dock-mrp-label text-xs sm:text-sm font-bold tracking-wide text-white">M.R.P.</span>
-            <span className="dock-old-price text-xs sm:text-sm line-through text-white/70 font-normal">₹{currentMrp}</span>
-            <span className="dock-new-price text-base sm:text-xl font-extrabold text-white">₹{currentPrice}</span>
-          </div>
-          <div className="dock-tax-note text-[10px] sm:text-xs text-white/85 font-medium tracking-tight mt-0.5">
-            Inclusive of all taxes
-          </div>
+    {/* FLOATING PURCHASE DOCK */}
+    <div 
+      className={`fixed z-[9999] transition-all duration-300 ease-out pointer-events-auto ${
+        showFloatingCTA && !scienceDockHidden
+          ? 'opacity-100 translate-y-0 visible' 
+          : 'opacity-0 translate-y-8 invisible pointer-events-none'
+      }`}
+      aria-label="Floating Sticky Purchase Bar"
+      aria-hidden={!(showFloatingCTA && !scienceDockHidden)}
+    >
+      {/* DESKTOP DOCK (BOTTOM RIGHT) */}
+      <div className="fixed bottom-6 right-6 z-[9999] hidden md:flex items-center gap-3 p-2 pr-3 bg-[#FAF8F5]/95 backdrop-blur-md border border-stone-300/80 rounded-full shadow-2xl transition-all duration-300">
+        <img
+          src="/assets/gallery/neeli-front.webp"
+          alt="Neelibhringadi Keram bottle"
+          className="w-10 h-10 rounded-full bg-stone-100 object-cover overflow-hidden shrink-0 border border-stone-200/80"
+        />
+        <div className="flex flex-col text-left leading-tight pr-1">
+          <h4 className="text-xs font-serif font-bold text-stone-900 leading-tight">
+            Neelibhringadi Keram
+          </h4>
+          <p className="text-[11px] font-semibold text-stone-700 font-sans">
+            ₹{currentPrice} <span className="text-[9px] text-stone-500 font-normal ml-0.5 font-sans">incl. taxes</span>
+          </p>
         </div>
-
-        {/* Right Side: Add to Cart Button (Matching Images 1 & 2) */}
-        <div className="flex items-center gap-3 shrink-0">
-          {cart > 0 ? (
-            <div className="flex items-center gap-2">
-              <div className="flex items-center border border-white/40 rounded-lg overflow-hidden bg-white/10 text-white">
-                <button type="button" aria-label="Decrease quantity" onClick={() => setCart(Math.max(0, cart - 1))} className="px-2.5 sm:px-3 py-1.5 font-bold hover:bg-white/20 cursor-pointer">−</button>
-                <span className="px-2.5 sm:px-3 py-1.5 font-semibold text-xs sm:text-sm">{cart}</span>
-                <button type="button" aria-label="Increase quantity" onClick={() => setCart(cart + 1)} className="px-2.5 sm:px-3 py-1.5 font-bold hover:bg-white/20 cursor-pointer">+</button>
-              </div>
-              <button 
-                type="button" 
-                onClick={() => openDrawer()} 
-                className="dock-add-btn bg-white font-extrabold px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
-                style={{ color: '#8C4A27', backgroundColor: '#ffffff' }}
-              >
-                VIEW CART • ₹{currentPrice * cart}
-              </button>
-            </div>
-          ) : (
-            <button 
-              type="button" 
-              disabled={buyState !== 'ready'} 
-              onClick={() => add('dock')} 
-              className="dock-add-btn bg-white font-extrabold px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl hover:bg-stone-100 transition-colors uppercase tracking-wider text-xs sm:text-sm shadow-md cursor-pointer"
-              style={{ color: '#8C4A27', backgroundColor: '#ffffff' }}
-            >
-              {buyState === 'ready' ? 'ADD TO CART' : buyState === 'adding' ? 'ADDING…' : 'ADDED TO CART'}
-            </button>
-          )}
-        </div>
+        <button
+          type="button"
+          disabled={buyState !== 'ready'}
+          onClick={() => (cart > 0 ? openDrawer() : add('dock'))}
+          className="bg-[#2C3E2E] hover:bg-[#1f2d21] text-white text-xs font-medium px-5 py-2.5 rounded-full shadow-md transition-all active:scale-95 cursor-pointer shrink-0"
+        >
+          {cart > 0 ? `View Cart (${cart})` : 'Add to Cart'}
+        </button>
       </div>
-      <p className="live" aria-live="polite">{buyState === 'added' ? 'Product added to the cart' : ''}</p>
-    </aside>
+
+      {/* MOBILE BOTTOM BAR */}
+      <div className="fixed bottom-4 left-4 right-4 z-[9999] flex md:hidden items-center justify-between p-2.5 bg-[#FAF8F5]/95 backdrop-blur-md border border-stone-300/80 rounded-2xl shadow-xl transition-all duration-300">
+        <div className="flex items-center gap-2.5">
+          <img
+            src="/assets/gallery/neeli-front.webp"
+            alt="Neelibhringadi Keram bottle"
+            className="w-9 h-9 rounded-lg object-cover shrink-0 border border-stone-200/80"
+          />
+          <div className="flex flex-col text-left leading-tight">
+            <h4 className="text-xs font-serif font-bold text-stone-900 leading-tight">
+              Neelibhringadi Keram
+            </h4>
+            <p className="text-[11px] font-semibold text-stone-700 font-sans">
+              ₹{currentPrice} <span className="text-[9px] text-stone-500 font-normal ml-0.5 font-sans">incl. taxes</span>
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          disabled={buyState !== 'ready'}
+          onClick={() => (cart > 0 ? openDrawer() : add('dock'))}
+          className="bg-[#2C3E2E] hover:bg-[#1f2d21] text-white text-xs font-medium px-5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 cursor-pointer shrink-0"
+        >
+          {cart > 0 ? `View Cart (${cart})` : 'Add to Cart'}
+        </button>
+      </div>
+    </div>
 
     <div className={`scrim ${drawer?'open':''}`} inert={!drawer} onMouseDown={e=>{if(e.target===e.currentTarget)closeDrawer()}} aria-hidden={!drawer}><section ref={drawerRef} className="drawer" role="dialog" aria-modal="true" aria-label="Your cart"><header><div><p>Your cart</p><h2>{cart?`${cart} item${cart>1?'s':''}`:'Your cart is empty'}</h2></div><button ref={closeRef} onClick={closeDrawer} aria-label="Close cart">×</button></header>{cart?<><div className="cart-item"><div className="cart-thumb"><img src="/assets/production/official-product.webp" alt="" width="609" height="1800"/></div><div><h3>Neelibhringadi Keram</h3><p>{selectedSize === '200ml' ? '200 ml' : '100 ml'}</p><strong>₹{currentPrice}</strong> <del>₹{currentMrp}</del></div><div className="quantity small"><button aria-label="Decrease quantity" onClick={()=>setCart(Math.max(0,cart-1))}>−</button><span>{cart}</span><button aria-label="Increase quantity" onClick={()=>setCart(cart+1)}>+</button></div></div><div className="subtotal"><span>Subtotal</span><strong>₹{currentPrice*cart}</strong></div><button className="checkout" onClick={()=>track('checkout_clicked',{experiment_id:motionExperiment.id,experiment_variant:motionExperiment.variant,texture_exposed:textureExposed.current,cart_quantity:cart,value:currentPrice*cart,currency:'INR'})}>Checkout Now</button><small>Inclusive of all taxes</small></>:<p className="empty">Explore our range.</p>}</section></div>
   </>

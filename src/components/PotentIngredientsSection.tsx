@@ -124,7 +124,7 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
   return (
     <section
       id="ingredients"
-      className={`potent-ingredients-section w-full relative py-12 sm:py-16 !pb-8 sm:!pb-8 bg-[#5F6C3D] text-[#FAF8F5] overflow-hidden ${className}`}
+      className={`potent-ingredients-section w-full relative py-12 sm:py-16 !pb-8 sm:!pb-8 bg-[#1B3B2B] text-[#FAF8F5] overflow-hidden ${className}`}
     >
       {/* Background Decorative Soft Blur Spheres */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-900/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
@@ -137,7 +137,7 @@ export const PotentIngredientsSection: React.FC<PotentIngredientsSectionProps> =
             <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#FAF8F5] leading-tight">
               {title}
             </h2>
-            <p className="text-sm sm:text-base text-stone-200/90 max-w-2xl mx-auto font-light leading-relaxed mt-3">
+            <p className="text-sm sm:text-base !text-[#FAF8F5] max-w-2xl mx-auto font-normal leading-relaxed mt-3">
               Hand-harvested botanicals and lipid carriers slow-cooked using classical Thaila Paaka Vidhi for targeted scalp and hair restoration.
             </p>
           </div>

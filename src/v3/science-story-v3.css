@@ -1,18 +1,18 @@
 .science-story-v3 {
   --sv3-ink: #191913;
-  --sv3-cocoa: #241c18;
-  --sv3-olive: var(--ka-tulsi-700, #39461d);
+  --sv3-cocoa: #191913;
+  --sv3-olive: #191913;
   --sv3-herb: var(--ka-herb-600, #5f6c3d);
   --sv3-cream: var(--ka-ksheera-100, #efe6dc);
-  --sv3-paper: var(--ka-paper-050, #f8f3ed);
+  --sv3-paper: #191913;
   --sv3-rust: var(--ka-agni-600, #954721);
-  --sv3-gold: var(--ka-rasa-500, #cca54e);
+  --sv3-gold: #cba135;
   --sv3-amla: #91a667;
-  --sv3-neeli: #66548a;
-  --sv3-karnasphota: #b45f3c;
+  --sv3-neeli: #9184ad;
+  --sv3-karnasphota: #d17c59;
   --sv3-lauric: #e8ddc7;
   --sv3-purchase-height: 78px;
-  --sv3-stage-glow: .12;
+  --sv3-stage-glow: .08;
   position: relative;
   overflow: clip;
   background: var(--sv3-ink);
@@ -27,7 +27,8 @@
   align-items: end;
   gap: clamp(30px, 6vw, 96px);
   padding: clamp(90px, 11vw, 164px) max(24px, calc((100vw - 1440px) / 2 + 58px));
-  background: var(--sv3-olive);
+  background: #171a16;
+  border-bottom: 1px solid rgba(203, 161, 53, 0.2);
 }
 
 .sv3-intro > p,
@@ -214,19 +215,31 @@
 .sv3-copy header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.sv3-copy header > span {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  flex: 0 0 34px;
-  place-items: center;
-  border: 1px solid rgba(239, 230, 220, .32);
+.sv3-copy__circle-num {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(203, 161, 53, 0.7);
   border-radius: 50%;
-  color: var(--sv3-cream);
+  color: #cba135;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: monospace;
+  flex-shrink: 0;
+}
+
+.sv3-copy__eyebrow-text {
+  margin: 0;
+  color: #cba135;
   font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
 .sv3-copy h3 {
@@ -266,7 +279,9 @@
 
 .sv3-evidence li {
   position: relative;
-  padding: 5px 9px 5px 20px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px 5px 22px;
   border: 1px solid rgba(239, 230, 220, .13);
   border-radius: 999px;
   background: rgba(239, 230, 220, .035);
@@ -278,8 +293,9 @@
 .sv3-evidence li::before {
   content: '';
   position: absolute;
-  top: .54em;
-  left: 9px;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -312,6 +328,18 @@
   fill: none;
   overflow: visible;
   pointer-events: none;
+}
+
+@keyframes sv3TargetPulse {
+  0% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.95; }
+}
+
+.sv3-target-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sv3TargetPulse 2.2s infinite ease-in-out;
 }
 
 .sv3-trace path,
@@ -369,11 +397,11 @@
 .sv3-progress {
   position: absolute;
   z-index: 5;
-  bottom: clamp(22px, 3vw, 42px);
-  left: clamp(22px, 3vw, 48px);
-  width: min(340px, 30vw);
+  bottom: clamp(24px, 3.5vw, 48px);
+  left: clamp(24px, 3.5vw, 56px);
+  width: min(380px, 38vw);
   display: flex;
-  gap: 7px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -383,52 +411,51 @@
   --sv3-progress: 0;
   min-width: 0;
   flex: 1;
-  color: rgba(239, 230, 220, .42);
-  font-size: 9px;
+  color: rgba(239, 230, 220, .45);
+  font-size: 14px;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
-  transition: color 220ms cubic-bezier(.22, 1, .36, 1);
+  transition: color 220ms ease;
 }
 
-.sv3-progress li > span,
-.sv3-progress li > b {
-  display: inline-block;
-  vertical-align: baseline;
-}
-
-.sv3-progress li > b {
-  max-width: 0;
-  overflow: hidden;
-  margin-left: 0;
-  color: var(--sv3-cream);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .05em;
-  opacity: 0;
-  text-transform: uppercase;
-  transition: max-width 260ms ease, margin-left 260ms ease, opacity 220ms ease;
-  white-space: nowrap;
+.sv3-progress-num {
+  display: block;
+  font-family: Figtree, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+  color: rgba(239, 230, 220, .45);
+  transition: color 220ms ease;
 }
 
 .sv3-progress i {
   position: relative;
   display: block;
   height: 2px;
-  margin-top: 6px;
+  width: 100%;
   overflow: hidden;
-  background: rgba(239, 230, 220, .26);
+  background: rgba(239, 230, 220, .25);
+  border-radius: 1px;
 }
 
 .sv3-progress i em {
   position: absolute;
   inset: 0;
   display: block;
-  background: var(--sv3-gold);
+  background: #cba135;
   transform: scaleX(var(--sv3-progress));
   transform-origin: left center;
   will-change: transform;
 }
 
-.sv3-progress li[aria-current='step'] { color: var(--sv3-gold); }
+.sv3-progress li[aria-current='step'] .sv3-progress-num {
+  color: #cba135;
+}
+
+.sv3-progress li[aria-current='step'] i em {
+  background: #cba135;
+}
 .sv3-progress li[aria-current='step'] > b {
   max-width: 70px;
   margin-left: 5px;
@@ -521,9 +548,9 @@
   }
 
   .sv3-stage {
-    top: calc(var(--v3-header-height, 60px) + var(--v3-section-nav-height, 44px));
-    height: calc(100svh - var(--v3-header-height, 60px) - var(--v3-section-nav-height, 44px) - var(--sv3-purchase-height));
-    min-height: 550px;
+    top: var(--v3-section-nav-height, 44px) !important;
+    height: calc(100svh - var(--v3-section-nav-height, 44px)) !important;
+    min-height: 0 !important;
   }
 
   .sv3-scenes {
@@ -604,7 +631,7 @@
   }
 
   .sv3-progress {
-    top: 17px;
+    top: 72px;
     right: 20px;
     bottom: auto;
     left: 20px;
