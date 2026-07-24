@@ -127,7 +127,7 @@ function ProductIdentity(){
         Neelibhringadi Keram
       </h1>
       <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans max-w-md">
-        Traditional 48-hour slow-cooked Ayurvedic hair oil infused with Bhringraj, Neeli, and triple milks—formulated to strengthen roots, reduce hair fall, and nourish the scalp.
+        Traditional 48-hour slow-cooked Ayurvedic hair oil infused with Bhringraj, Neeli, and triple milks-formulated to strengthen roots, reduce hair fall, and nourish the scalp.
       </p>
     </div>
   );
@@ -700,19 +700,6 @@ function RitualSection() {
               );
             })}
           </div>
-
-          {/* SEED.COM DOSAGE CARD */}
-          <div className="bg-[#f5f1eb] border border-stone-200/80 rounded-2xl p-3 flex items-center gap-3 mt-3 text-left">
-            <div className="w-8 h-8 rounded-xl bg-[#2C3E2E]/10 text-[#2C3E2E] flex items-center justify-center shrink-0">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-            </div>
-            <div>
-              <h4 className="font-semibold text-stone-900 text-xs font-sans">How to Use:</h4>
-              <p className="text-[11px] text-stone-600 font-sans leading-tight mt-0.5 font-normal">
-                Apply 10–15ml 2–3x weekly. Leave 30–60 min before rinsing with gentle shampoo.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* BOTTOM MEDIA CARDS (Order 4 on mobile, Desktop right column bottom) */}
@@ -738,31 +725,6 @@ function RitualSection() {
           </div>
         </div>
 
-      </div>
-
-      {/* Seasonal Care & Guidance Cards */}
-      <div className="w-full max-w-7xl mx-auto px-0 mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 text-left" aria-label="Ritual guidance & seasonal care">
-        <aside className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-8 rounded-2xl shadow-xs" aria-label="Dosage & Application">
-          <div className="inline-flex items-center gap-2 text-[10px] tracking-widest font-semibold uppercase text-stone-500 mb-3 bg-stone-200/70 px-3 py-1 rounded-full">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-            <span>Dosage &amp; Application</span>
-          </div>
-          <h3 className="font-serif text-xl sm:text-2xl text-stone-900 mb-2">Recommended Usage</h3>
-          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
-            Apply 10–15ml onto the scalp twice or thrice weekly. Leave for 30–60 minutes before washing with a gentle, sulfate-free cleanser like Kerala Ayurveda Gentle Shampoo.
-          </p>
-        </aside>
-
-        <aside className="bg-[#f8f6f0] border border-stone-200/80 p-6 sm:p-8 rounded-2xl shadow-xs" aria-label="Seasonal Care Guidance">
-          <div className="inline-flex items-center gap-2 text-[10px] tracking-widest font-semibold uppercase text-stone-500 mb-3 bg-stone-200/70 px-3 py-1 rounded-full">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <span>Seasonal Care Guidance</span>
-          </div>
-          <h3 className="font-serif text-xl sm:text-2xl text-stone-900 mb-2">Coconut Oil Base &amp; Winter Care</h3>
-          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
-            In cooler weather, unrefined coconut oil may naturally solidify. Place the sealed bottle in warm water for 2–3 minutes before use. This does not alter potency or active absorption.
-          </p>
-        </aside>
       </div>
     </section>
   );
@@ -939,7 +901,7 @@ function FaqSection() {
           </p>
         </header>
 
-        <div className="lg:col-span-7 w-full border-t border-stone-300/70">
+        <div className="lg:col-span-7 w-full border-t border-stone-300/70 pr-14 sm:pr-20 lg:pr-28">
           {faqItems.map(([question, answer], index) => {
             const open = openItem === index;
 
@@ -954,9 +916,6 @@ function FaqSection() {
                 >
                   <span className="font-serif text-xl md:text-2xl text-stone-900 font-normal tracking-tight group-hover:text-stone-600 transition-colors">
                     {question}
-                  </span>
-                  <span className="w-8 h-8 rounded-full bg-stone-200/80 group-hover:bg-stone-900 group-hover:text-white text-stone-800 flex items-center justify-center text-lg font-mono font-medium ml-4 select-none shrink-0 transition-all">
-                    {open ? '−' : '+'}
                   </span>
                 </button>
 
@@ -1177,6 +1136,46 @@ function TestimonialsSlider() {
   );
 }
 
+function FlipkartLabelZoom({ src, alt }: { src: string; alt: string }) {
+  const [zoom, setZoom] = useState(false);
+  const [coords, setCoords] = useState({ x: 50, y: 50 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setCoords({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseEnter={() => setZoom(true)}
+      onMouseLeave={() => setZoom(false)}
+      onMouseMove={handleMouseMove}
+      onClick={() => setZoom(!zoom)}
+      className="relative overflow-hidden rounded-xl bg-stone-900/5 border border-stone-200/60 cursor-zoom-in max-h-[550px] w-full flex items-center justify-center p-2 select-none"
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="max-h-[500px] w-auto object-contain transition-transform duration-150 ease-out pointer-events-none"
+        style={{
+          transform: zoom ? 'scale(2.5)' : 'scale(1)',
+          transformOrigin: `${coords.x}% ${coords.y}%`
+        }}
+      />
+      {!zoom && (
+        <div className="absolute bottom-3 right-3 bg-stone-900/80 text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-md backdrop-blur-xs pointer-events-none">
+          Hover / Tap to Zoom
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ProductDetailsSection() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const openerRef = useRef<HTMLButtonElement>(null);
@@ -1277,9 +1276,12 @@ function ProductDetailsSection() {
                 ✕
               </button>
             </div>
-            <div className="max-h-[60vh] overflow-y-auto flex items-center justify-center p-2 bg-stone-900/5 rounded-xl border border-stone-200/60">
-              <img src="/assets/gallery/neeli-back.webp" alt="Enlarged back of the Neelibhringadi Keram carton" className="max-h-[500px] w-auto object-contain" />
-            </div>
+            
+            <FlipkartLabelZoom
+              src="/assets/gallery/neeli-back.webp"
+              alt="Enlarged back of the Neelibhringadi Keram carton"
+            />
+            
             <p className="text-xs text-stone-500 mt-4 text-center font-sans">
               Use the current physical pack as the final authority for ingredients, directions and cautions.
             </p>
