@@ -7,6 +7,7 @@ import ScienceRecoveryStory from './v2/ScienceRecoveryStory';
 import PdpSectionNavV3 from './v3/PdpSectionNavV3';
 import ComparisonV3 from './v3/ComparisonV3';
 import ScienceStoryV3 from './v3/ScienceStoryV3';
+import { Volume2, VolumeX, Play, Pause } from 'lucide-react';
 import { PotentIngredientsSection } from './components/PotentIngredientsSection';
 import './components/potent-ingredients.css';
 
@@ -473,11 +474,47 @@ function FormulaSection({v3=false}:{v3?:boolean}){
 
 function RitualSection() {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [activeLineHeight, setActiveLineHeight] = useState(0);
+  const [totalLineHeight, setTotalLineHeight] = useState(0);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const updateLineHeights = () => {
+      if (stepRefs.current[0] && stepRefs.current[3]) {
+        const total = stepRefs.current[3]!.offsetTop - stepRefs.current[0]!.offsetTop;
+        setTotalLineHeight(total);
+
+        if (activeStepIndex === 0) {
+          setActiveLineHeight(0);
+        } else if (stepRefs.current[activeStepIndex]) {
+          const activeDist = stepRefs.current[activeStepIndex]!.offsetTop - stepRefs.current[0]!.offsetTop;
+          setActiveLineHeight(activeDist);
+        }
+      }
+    };
+
+    updateLineHeights();
+    window.addEventListener('resize', updateLineHeights);
+    return () => window.removeEventListener('resize', updateLineHeights);
+  }, [activeStepIndex]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const triggerTop = window.innerHeight * 0.45;
+      const triggerTop = window.innerHeight * 0.60;
       let currentActive = 0;
 
       stepRefs.current.forEach((el, index) => {
@@ -489,7 +526,8 @@ function RitualSection() {
         }
       });
 
-      setActiveStepIndex(currentActive);
+      // Step 1 (index 0) is ALWAYS active
+      setActiveStepIndex(Math.max(0, currentActive));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -506,7 +544,6 @@ function RitualSection() {
         "Warm gently in warm water",
         "Activates botanical lipid carriers"
       ],
-      image: "/assets/production/ritual-step-1.webp",
     },
     {
       step: "02",
@@ -516,7 +553,6 @@ function RitualSection() {
         "Apply warm oil directly onto scalp",
         "Ensure complete root-to-tip coverage"
       ],
-      image: "/assets/production/ritual-step-2.webp",
     },
     {
       step: "03",
@@ -526,7 +562,6 @@ function RitualSection() {
         "Stimulates micro-circulation at roots",
         "Encourages deep herb absorption"
       ],
-      image: "/assets/production/ritual-step-3.webp",
     },
     {
       step: "04",
@@ -536,45 +571,83 @@ function RitualSection() {
         "Rinse with mild Ayurvedic shampoo",
         "Restores lustre & hair strength"
       ],
-      image: "/assets/production/ritual-step-4.webp",
     },
   ];
 
   return (
     <section 
       id="ritual"
-      style={{
-        maxWidth: '1280px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingLeft: '1.5rem',
-        paddingRight: '1.5rem',
-        width: '100%',
-        boxSizing: 'border-box',
-        overflow: 'visible'
-      }}
-      className="py-12 md:py-16 text-left relative"
+      className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-10 md:py-14 text-left relative box-border"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full relative">
+      {/* SEED.COM GRID CONTAINER WITH RESPONSIVE MOBILE ORDERING */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start w-full">
         
-        {/* LEFT COLUMN: TEXT & TIMELINE STEPS (5 Cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          <div>
-            <span className="text-[10px] tracking-[0.25em] font-semibold text-stone-500 uppercase block font-sans mb-2">
+        {/* MOBILE HEADER (Order 1 on mobile, hidden on desktop) */}
+        <div className="w-full lg:hidden">
+          <span className="text-[10px] tracking-[0.25em] font-semibold text-stone-500 uppercase block font-sans mb-1">
+            APPLICATION RITUAL
+          </span>
+          <h2 className="font-serif text-2xl md:text-3xl text-stone-900 mb-1">
+            The Ritual Guide
+          </h2>
+        </div>
+
+        {/* TOP FEATURED VIDEO (Order 2 on mobile, Desktop right column top) */}
+        <div className="w-full lg:col-span-7 lg:col-start-6 lg:row-start-1">
+          <div className="w-full aspect-[16/9] rounded-3xl overflow-hidden shadow-sm relative border border-stone-200/80 bg-stone-100 group">
+            <video
+              ref={videoRef}
+              src="/videos/ritual-combined-4step.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
+
+            {/* Video Controls Overlay (Single Play/Pause Pill positioned directly on top of Gemini Logo) */}
+            <div className="absolute bottom-[22px] right-[24px] sm:bottom-[48px] sm:right-[44px] z-20">
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? "Pause video" : "Play video"}
+                className="bg-[#1c2c20]/80 hover:bg-[#1c2c20]/95 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full flex items-center justify-center transition-all cursor-pointer border border-white/20 shadow-md"
+              >
+                {isPlaying ? (
+                  <Pause className="w-3.5 h-3.5 fill-white text-white" />
+                ) : (
+                  <Play className="w-3.5 h-3.5 fill-white text-white ml-0.5" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* LEFT COLUMN: VERTICAL TIMELINE STACK (Order 3 on mobile, Desktop left column) */}
+        <div className="w-full lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:row-span-2 space-y-4">
+          {/* DESKTOP HEADER (Hidden on mobile) */}
+          <div className="hidden lg:block">
+            <span className="text-[10px] tracking-[0.25em] font-semibold text-stone-500 uppercase block font-sans mb-1">
               APPLICATION RITUAL
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-2">
+            <h2 className="font-serif text-2xl md:text-3xl text-stone-900 mb-1">
               The Ritual Guide
             </h2>
-            <p className="text-xs md:text-sm text-stone-600 leading-relaxed max-w-sm font-sans">
-              Massage into the scalp and hair, leave for 30–60 minutes, then rinse with a mild shampoo.
-            </p>
           </div>
 
-          {/* VERTICAL TIMELINE STEPS STACK (Line runs strictly dot-center to dot-center) */}
-          <div className="relative pl-6 space-y-7">
-            {/* Timeline Connecting Line: Center of Dot #1 to Center of Dot #4 */}
-            <div className="absolute left-[7px] top-[14px] bottom-[28px] w-[2px] bg-stone-300/70 pointer-events-none" />
+          {/* VERTICAL CONNECTED NODE TIMELINE (Dynamic DOM-measured exact line) */}
+          <div className="relative pl-5 space-y-3.5">
+            {/* Background Line (Exact distance from Dot 1 center to Dot 4 center) */}
+            <div 
+              className="absolute left-[6px] top-[14px] w-[2px] bg-stone-300 pointer-events-none"
+              style={{ height: `${totalLineHeight}px` }}
+            />
+
+            {/* Active Progress Line (Exact distance from Dot 1 center to active Dot center) */}
+            <div 
+              className="absolute left-[6px] top-[14px] w-[2px] bg-stone-900 transition-all duration-300 pointer-events-none"
+              style={{ height: `${activeLineHeight}px` }}
+            />
 
             {stepsData.map((step, idx) => {
               const isPassedOrActive = idx <= activeStepIndex;
@@ -585,50 +658,41 @@ function RitualSection() {
                     stepRefs.current[idx] = el;
                   }}
                   onClick={() => setActiveStepIndex(idx)}
-                  className={`relative transition-all duration-500 cursor-pointer ${
-                    isPassedOrActive ? 'opacity-100' : 'opacity-35 hover:opacity-75'
+                  className={`relative transition-all duration-300 cursor-pointer ${
+                    isPassedOrActive ? 'opacity-100' : 'opacity-40 hover:opacity-80'
                   }`}
                 >
-                  {/* Timeline Dot Node */}
-                  <div
-                    className={`absolute -left-[24px] top-1 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                      isPassedOrActive
-                        ? 'bg-stone-900 border-stone-900 ring-4 ring-stone-900/15'
-                        : 'bg-stone-300 border-stone-100'
-                    }`}
-                  />
-
-                  {/* Step Header Badge & Title */}
-                  <div className="flex items-center gap-2.5 mb-2">
-                    <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold font-sans transition-colors ${
+                  {/* Step Header Line (Dot, Badge, Title aligned horizontally in center) */}
+                  <div className="flex items-center gap-2 mb-1 relative">
+                    {/* Timeline Dot Node */}
+                    <div
+                      className={`absolute -left-[19px] top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 transition-all duration-300 z-10 ${
                         isPassedOrActive
-                          ? 'bg-stone-900 text-white'
-                          : 'bg-stone-200/80 text-stone-500'
+                          ? 'bg-stone-900 border-stone-900 ring-2 ring-stone-900/15'
+                          : 'bg-stone-300 border-stone-100'
+                      }`}
+                    />
+
+                    <span
+                      className={`inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[10px] font-bold font-sans transition-colors shrink-0 ${
+                        isPassedOrActive
+                          ? 'bg-[#2C3E2E] text-[#EFE6DC]'
+                          : 'bg-stone-200/80 text-stone-600'
                       }`}
                     >
                       {step.step}
                     </span>
-                    <h3
-                      className={`font-serif text-lg md:text-xl font-medium transition-colors ${
-                        isPassedOrActive ? 'text-stone-900' : 'text-stone-500'
-                      }`}
-                    >
+                    <h3 className="font-serif text-[16px] font-medium text-stone-900 leading-none">
                       {step.title}
                     </h3>
                   </div>
 
-                  {/* 3 Bullet Points List */}
-                  <ul className="space-y-1.5 pl-1">
+                  {/* Sub-bullet Points (Unbold font-normal text-stone-600) */}
+                  <ul className="text-[11px] sm:text-xs font-normal text-stone-600 space-y-0.5 pl-1">
                     {step.points.map((pt, pIdx) => (
-                      <li
-                        key={pIdx}
-                        className={`flex items-start gap-2 text-xs md:text-sm font-sans leading-relaxed transition-colors ${
-                          isPassedOrActive ? 'text-stone-700' : 'text-stone-500'
-                        }`}
-                      >
-                        <span className={`inline-block text-xs mt-0.5 ${isPassedOrActive ? 'text-stone-900' : 'text-stone-400'}`}>•</span>
-                        <span>{pt}</span>
+                      <li key={pIdx} className="flex items-start gap-1.5 leading-snug font-normal">
+                        <span className="text-stone-400 text-[9px] mt-0.5">•</span>
+                        <span className="font-normal">{pt}</span>
                       </li>
                     ))}
                   </ul>
@@ -636,28 +700,44 @@ function RitualSection() {
               );
             })}
           </div>
+
+          {/* SEED.COM DOSAGE CARD */}
+          <div className="bg-[#f5f1eb] border border-stone-200/80 rounded-2xl p-3 flex items-center gap-3 mt-3 text-left">
+            <div className="w-8 h-8 rounded-xl bg-[#2C3E2E]/10 text-[#2C3E2E] flex items-center justify-center shrink-0">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <div>
+              <h4 className="font-semibold text-stone-900 text-xs font-sans">How to Use:</h4>
+              <p className="text-[11px] text-stone-600 font-sans leading-tight mt-0.5 font-normal">
+                Apply 10–15ml 2–3x weekly. Leave 30–60 min before rinsing with gentle shampoo.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* RIGHT COLUMN: 2x2 MEDIA GRID (Sticky through ritual section bounds) */}
-        <div className="lg:col-span-7 grid grid-cols-2 gap-3 md:gap-4 w-full sticky top-28 h-fit lg:self-start">
-          {stepsData.map((step, idx) => (
-            <div
-              key={idx}
-              onClick={() => setActiveStepIndex(idx)}
-              style={{ height: '200px' }}
-              className="w-full rounded-2xl overflow-hidden relative border border-stone-200/80 opacity-100 shadow-xs cursor-pointer"
-            >
+        {/* BOTTOM MEDIA CARDS (Order 4 on mobile, Desktop right column bottom) */}
+        <div className="w-full lg:col-span-7 lg:col-start-6 lg:row-start-2">
+          <div className="grid grid-cols-12 gap-4 items-center w-full">
+            {/* LEFT CARD: ROUNDED RECTANGLE (ROUNDED RECTANGLE.png) */}
+            <div className="col-span-8 w-full h-[135px] sm:h-[165px] md:h-[200px] rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-sm border border-stone-200/80 bg-stone-100">
               <img
-                src={step.image}
-                alt={step.title}
+                src="/images/rounded-rectangle.png"
+                alt="Ayurvedic Ritual Ingredients"
                 className="w-full h-full object-cover object-center"
               />
-              <span className="absolute bottom-2 left-2 bg-stone-900/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded font-sans">
-                {step.step} {step.title}
-              </span>
             </div>
-          ))}
+
+            {/* RIGHT CARD: CIRCULAR BADGE (CIRCULAR BADGE.png) */}
+            <div className="col-span-4 aspect-square w-full rounded-full overflow-hidden relative shadow-md border border-stone-200/80 bg-stone-100">
+              <img
+                src="/images/circular-badge.png"
+                alt="Handheld Oil Bottle"
+                className="w-full h-full object-cover object-center"
+              />
+            </div>
+          </div>
         </div>
+
       </div>
 
       {/* Seasonal Care & Guidance Cards */}
@@ -875,7 +955,7 @@ function FaqSection() {
                   <span className="font-serif text-xl md:text-2xl text-stone-900 font-normal tracking-tight group-hover:text-stone-600 transition-colors">
                     {question}
                   </span>
-                  <span className="text-xl md:text-2xl font-light text-stone-500 group-hover:text-stone-900 ml-4 select-none shrink-0 font-mono transition-colors">
+                  <span className="w-8 h-8 rounded-full bg-stone-200/80 group-hover:bg-stone-900 group-hover:text-white text-stone-800 flex items-center justify-center text-lg font-mono font-medium ml-4 select-none shrink-0 transition-all">
                     {open ? '−' : '+'}
                   </span>
                 </button>
@@ -1768,32 +1848,6 @@ function App(){
       {useV3?<ComparisonV3 consultHref={`https://wa.me/919995559842?text=${encodeURIComponent("I am viewing Neelibhringadi Keram and would like guidance on whether my hair-fall concern needs an Ayurveda consultation.")}`} onConsultClick={()=>track('consultation_cta_clicked',{source:'v3_comparison',channel:'whatsapp',product_id:'neelibhringadi_keram_200ml'})}/>:<RecoveryComparison/>}
 
       <RitualSection/>
-
-      {/* PANORAMIC EDITORIAL BANNER SECTION */}
-      <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-12 md:py-16">
-        <div className="w-full h-[280px] sm:h-[340px] md:h-[400px] rounded-3xl overflow-hidden relative shadow-lg border border-stone-200/80 group">
-          <img
-            src="/images/purple-oil-massage-banner.png"
-            alt="Ayurvedic Scalp Massage Ritual"
-            className="w-full h-full object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-
-          {/* Translucent Editorial Overlay (Kinfolk Style) */}
-          <div className="absolute inset-0 bg-gradient-to-r from-stone-900/80 via-stone-900/40 to-transparent p-8 md:p-12 flex flex-col justify-end text-left">
-            <div className="max-w-lg text-white">
-              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-emerald-300 block mb-2">
-                HERITAGE RITUAL
-              </span>
-              <h3 className="font-serif italic text-2xl md:text-4xl text-white mb-2 leading-tight">
-                Deep Root Nourishment.
-              </h3>
-              <p className="text-xs md:text-sm text-stone-200 font-serif italic leading-relaxed opacity-90">
-                Infused with Indigo (Neeli) &amp; Bhringraj—slow-processed to cool the scalp and revive natural hair density.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <FaqSection/>
 
